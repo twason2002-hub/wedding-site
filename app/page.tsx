@@ -57,8 +57,8 @@ export default function WeddingInvitation() {
     };
     
     // Create multiple fireworks with different delays
-    for (let i = 0; i < 8; i++) {
-      createFirework(i * 1200, i);
+    for (let i = 0; i < 5; i++) {
+      createFirework(i * 1500, i);
     }
     
     let musicStarted = false;
@@ -580,6 +580,10 @@ export default function WeddingInvitation() {
           .page-wrapper {
             max-width: 100vw;
             overflow-x: hidden;
+          }
+          .firework {
+            width: 150px;
+            height: 150px;
           }
         }
         .toast {
