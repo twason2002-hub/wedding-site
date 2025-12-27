@@ -438,6 +438,31 @@ export default function WeddingInvitation() {
         }
         @media(max-width: 768px) {
           .hero h1 { font-size: 2.2rem; }
+          .hero {
+            flex-direction: column;
+            height: auto;
+            padding: 40px 20px;
+            gap: 20px;
+          }
+          .hero-content, .hero-image {
+            width: 90%;
+          }
+          .hero-image {
+            height: 40vh;
+          }
+          .parallax-lamp {
+            display: none;
+          }
+          .lamp-1, .lamp-2, .lamp-3 {
+            display: block;
+          }
+          .lamp-small { width: 60px; }
+          .lamp-medium { width: 80px; }
+          .lamp-large { width: 100px; }
+          .info-grid {
+            grid-template-columns: 1fr;
+            gap: 15px;
+          }
           .countdown-grid {
             grid-template-columns: repeat(2, 1fr);
             gap: 15px;
