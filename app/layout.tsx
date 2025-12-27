@@ -15,8 +15,19 @@ const montserrat = Montserrat({
 });
 
 export const metadata: Metadata = {
-  title: "Abhishek & Kanika | Wedding Invitation",
-  description: "We invite you to celebrate our wedding in Mussoorie",
+  title: "Tushar & Babitta | Wedding Invitation",
+  description: "You're cordially invited to join us on a day of love and celebration as we tie the knot on 15th Feb! 🥳💕 It would mean the world to us if you could be there to share in the joy, laughter, and happily-ever-after vibes 😊. Looking forward to seeing you there! 🎉",
+  openGraph: {
+    title: "Tushar & Babitta | Wedding Invitation",
+    description: "You're cordially invited to join us on a day of love and celebration as we tie the knot on 15th Feb! 🥳💕 It would mean the world to us if you could be there to share in the joy, laughter, and happily-ever-after vibes 😊. Looking forward to seeing you there! 🎉",
+    images: ['/images/back-5.jpg'],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: "Tushar & Babitta | Wedding Invitation",
+    description: "You're cordially invited to join us on a day of love and celebration as we tie the knot on 15th Feb! 🥳💕 It would mean the world to us if you could be there to share in the joy, laughter, and happily-ever-after vibes 😊. Looking forward to seeing you there! 🎉",
+    images: ['/images/back-5.jpg'],
+  },
 };
 
 export default function RootLayout({
