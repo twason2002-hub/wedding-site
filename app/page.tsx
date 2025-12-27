@@ -209,7 +209,7 @@ export default function WeddingInvitation() {
         section {
           max-width: 900px;
           margin: auto;
-          padding: 70px 20px;
+          padding: 50px 20px;
           position: relative;
         }
         section::before {
@@ -376,7 +376,7 @@ export default function WeddingInvitation() {
         }
         .countdown {
           max-width: 900px;
-          margin: 60px auto;
+          margin: 0 auto;
           padding: 50px 20px;
           text-align: center;
           color: #2c1810;
@@ -658,6 +658,12 @@ export default function WeddingInvitation() {
             right: 10px;
             bottom: 10px;
           }
+          .toast h4 {
+            font-size: 0.9rem;
+          }
+          .toast p {
+            font-size: 0.75rem !important;
+          }
         }
       `}</style>
 
@@ -690,9 +696,9 @@ export default function WeddingInvitation() {
         {showToast && (
           <div className={`toast ${showToast ? 'show' : ''}`}>
             <button className="toast-close" onClick={() => setShowToast(false)}>×</button>
-            <h4><span className="toast-icon">👋</span>Thanks for Visiting!</h4>
+            <h4><span className="toast-icon">👋</span>Thanks for Visiting Our Website!</h4>
             <p>
-              We are both so delighted that you are able to join us in celebrating what we hope will be one of the happiest days of our lives. The affection shown to us by so many people since our roka has been incredibly moving, and has touched us both deeply. We would like to take this opportunity to thank everyone most sincerely for their kindness. We are looking forward to see you at the wedding.
+              We're so happy you're here and can't thank you enough for all the love and support since our roka. We're truly grateful and can't wait to celebrate with you on our big day! 💕
             </p>
           </div>
         )}
@@ -746,7 +752,7 @@ export default function WeddingInvitation() {
 
       <section className="about">
         <div className="title">
-          <h2>Meet the Bride & Groom</h2>
+          <h2>Message from Groom's Family</h2>
         </div>
         <p>
           With the blessings of Lord Ganesha, we joyfully invite you to bless and celebrate 
@@ -853,7 +859,7 @@ export default function WeddingInvitation() {
             <a href="#about" onClick={(e) => {e.preventDefault(); document.querySelector('.about')?.scrollIntoView({behavior: 'smooth'});}}>About</a>
             <a href="#countdown" onClick={(e) => {e.preventDefault(); document.querySelector('.countdown')?.scrollIntoView({behavior: 'smooth'});}}>Countdown</a>
           </div>
-          © 2025 Tushar & Babitta – Wedding Invitation
+          © 2026 Tushar & Babitta – Wedding Invitation
         </footer>
       </div>
     </>
