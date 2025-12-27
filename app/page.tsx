@@ -12,55 +12,6 @@ export default function WeddingInvitation() {
   useEffect(() => {
     setIsLoaded(true);
     
-    // Fireworks animation on page load
-    const fireworkImages = ['/images/fireworks/fire-1.png', '/images/fireworks/fire-2.png', '/images/fireworks/fire-3.png', '/images/fireworks/fire-4.png'];
-    
-    const createFirework = (delay: number, index: number) => {
-      setTimeout(() => {
-        const firework = document.createElement('div');
-        firework.className = 'firework';
-        
-        // Distribute between left, center, and right
-        let xPosition;
-        const section = index % 3;
-        if (section === 0) {
-          // Left side
-          xPosition = Math.random() * (window.innerWidth / 3);
-        } else if (section === 1) {
-          // Center
-          xPosition = window.innerWidth / 3 + Math.random() * (window.innerWidth / 3);
-        } else {
-          // Right side
-          xPosition = (2 * window.innerWidth / 3) + Math.random() * (window.innerWidth / 3 - 400);
-        }
-        
-        firework.style.left = xPosition + 'px';
-        firework.style.top = '50%';
-        firework.style.transform = 'translateY(-50%)';
-        
-        const img = document.createElement('img');
-        const randomImage = fireworkImages[Math.floor(Math.random() * fireworkImages.length)];
-        img.src = randomImage;
-        img.alt = 'firework';
-        img.style.width = '100%';
-        img.style.height = '100%';
-        
-        firework.appendChild(img);
-        document.body.appendChild(firework);
-        
-        setTimeout(() => {
-          if (document.body.contains(firework)) {
-            document.body.removeChild(firework);
-          }
-        }, 6000);
-      }, delay);
-    };
-    
-    // Create multiple fireworks with different delays
-    for (let i = 0; i < 5; i++) {
-      createFirework(i * 1500, i);
-    }
-    
     let musicStarted = false;
     
     // Enhanced Parallax effect
@@ -205,9 +156,9 @@ export default function WeddingInvitation() {
         .lamp-6 { top: 65%; right: 15%; animation-delay: 2.5s; }
         .lamp-7 { top: 75%; left: 18%; animation-delay: 0.3s; }
         .lamp-8 { top: 85%; right: 10%; animation-delay: 0.8s; }
-        .lamp-9 { top: 20%; left: 50%; transform: translateX(-50%); animation-delay: 1.2s; }
-        .lamp-10 { top: 15%; left: 70%; animation-delay: 1.8s; }
-        .lamp-11 { top: 45%; left: 3%; animation-delay: 2.2s; }
+        .lamp-9 { top: 90%; left: 50%; transform: translateX(-50%); animation-delay: 1.2s; }
+        .lamp-10 { top: 80%; left: 70%; animation-delay: 1.8s; }
+        .lamp-11 { top: 85%; left: 3%; animation-delay: 2.2s; }
         .lamp-12 { top: 60%; right: 25%; animation-delay: 0.7s; }
         .lamp-13 { top: 30%; right: 30%; animation-delay: 1.4s; }
         .lamp-14 { top: 80%; left: 35%; animation-delay: 2.8s; }
@@ -567,6 +518,20 @@ export default function WeddingInvitation() {
             grid-template-columns: 1fr;
             gap: 15px;
           }
+          .event-grid::before {
+            display: none;
+          }
+          .event {
+            width: 100%;
+            margin: 15px 0;
+          }
+          .event::before {
+            display: none;
+          }
+          .event:nth-child(odd),
+          .event:nth-child(even) {
+            margin-left: 0;
+          }
           .countdown-grid {
             grid-template-columns: repeat(2, 1fr);
             gap: 15px;
@@ -632,36 +597,10 @@ export default function WeddingInvitation() {
           margin-right: 8px;
           animation: wave 2s ease-in-out infinite;
         }
-        @keyframes fireworkUp {
-          0% {
-            transform: translateY(50vh) scale(0.3);
-            opacity: 0;
-          }
-          30% {
-            transform: translateY(-10vh) scale(0.8);
-            opacity: 1;
-          }
-          70% {
-            transform: translateY(-20vh) scale(1);
-            opacity: 1;
-          }
-          100% {
-            transform: translateY(-20vh) scale(1.2);
-            opacity: 0;
-          }
-        }
-        .firework {
-          position: fixed;
-          width: 300px;
-          height: 300px;
-          z-index: 1001;
-          pointer-events: none;
-          animation: fireworkUp 5s ease-out;
-        }
-        .firework img {
-          width: 100%;
-          height: 100%;
-          object-fit: contain;
+        @keyframes wave {
+          0%, 100% { transform: rotate(0deg); }
+          25% { transform: rotate(20deg); }
+          75% { transform: rotate(-10deg); }
         }
         .sticky-header {
           position: fixed;
@@ -758,18 +697,6 @@ export default function WeddingInvitation() {
           </div>
         )}
         <div className="hero">
-          <img src="/images/lamp.png" alt="" className="parallax-lamp lamp-1 lamp-medium" />
-          <img src="/images/lamp.png" alt="" className="parallax-lamp lamp-2 lamp-small" />
-          <img src="/images/lamp.png" alt="" className="parallax-lamp lamp-3 lamp-large" />
-          <img src="/images/lamp.png" alt="" className="parallax-lamp lamp-4 lamp-small" />
-          <img src="/images/lamp.png" alt="" className="parallax-lamp lamp-5 lamp-medium" />
-          <img src="/images/lamp.png" alt="" className="parallax-lamp lamp-6 lamp-large" />
-          <img src="/images/lamp.png" alt="" className="parallax-lamp lamp-7 lamp-small" />
-          <img src="/images/lamp.png" alt="" className="parallax-lamp lamp-8 lamp-medium" />
-          <img src="/images/lamp.png" alt="" className="parallax-lamp lamp-9 lamp-large" />
-          <img src="/images/lamp.png" alt="" className="parallax-lamp lamp-10 lamp-small" style={{top: '40%', left: '45%'}} />
-          <img src="/images/lamp.png" alt="" className="parallax-lamp lamp-11 lamp-medium" style={{top: '60%', left: '55%'}} />
-          
           <div className="hero-content">
             <p>ॐ श्री गणेशाय नम</p>
             <h1>Tushar & Babitta</h1>
@@ -805,8 +732,14 @@ export default function WeddingInvitation() {
             <h3>Wedding Ceremony</h3>
             <span>15 February 2026</span>
             <span>J9 Grand Banquet Hall, Jalandhar</span>
-            <span>4:00 PM Onwards</span>
+            <span>7:00 PM Onwards</span>
             <a href="https://maps.google.com/?q=J9+Grand+Banquet+Hall+Jalandhar" target="_blank" style={{color: '#d4af37', textDecoration: 'none', fontSize: '0.9rem', marginTop: '10px', display: 'block'}}>See the Route →</a>
+          </div>
+          <div className="event">
+            <h3>Happily Ever After</h3>
+            <span>16 February 2026 & Beyond</span>
+            <span>Beginning Our Journey Together</span>
+            <span>Forever & Always ✨</span>
           </div>
         </div>
       </section>
