@@ -7,9 +7,62 @@ export default function WeddingInvitation() {
   const [isLoaded, setIsLoaded] = useState(false);
   const [showToast, setShowToast] = useState(false);
   const [showStickyHeader, setShowStickyHeader] = useState(false);
+  const [isMusicPlaying, setIsMusicPlaying] = useState(false);
 
   useEffect(() => {
     setIsLoaded(true);
+    
+    // Fireworks animation on page load
+    const fireworkImages = ['/images/fireworks/fire-1.png', '/images/fireworks/fire-2.png', '/images/fireworks/fire-3.png', '/images/fireworks/fire-4.png'];
+    
+    const createFirework = (delay: number, index: number) => {
+      setTimeout(() => {
+        const firework = document.createElement('div');
+        firework.className = 'firework';
+        
+        // Distribute between left, center, and right
+        let xPosition;
+        const section = index % 3;
+        if (section === 0) {
+          // Left side
+          xPosition = Math.random() * (window.innerWidth / 3);
+        } else if (section === 1) {
+          // Center
+          xPosition = window.innerWidth / 3 + Math.random() * (window.innerWidth / 3);
+        } else {
+          // Right side
+          xPosition = (2 * window.innerWidth / 3) + Math.random() * (window.innerWidth / 3 - 400);
+        }
+        
+        firework.style.left = xPosition + 'px';
+        firework.style.top = '50%';
+        firework.style.transform = 'translateY(-50%)';
+        
+        const img = document.createElement('img');
+        const randomImage = fireworkImages[Math.floor(Math.random() * fireworkImages.length)];
+        img.src = randomImage;
+        img.alt = 'firework';
+        img.style.width = '100%';
+        img.style.height = '100%';
+        
+        firework.appendChild(img);
+        document.body.appendChild(firework);
+        
+        setTimeout(() => {
+          if (document.body.contains(firework)) {
+            document.body.removeChild(firework);
+          }
+        }, 6000);
+      }, delay);
+    };
+    
+    // Create multiple fireworks with different delays
+    for (let i = 0; i < 8; i++) {
+      createFirework(i * 1200, i);
+    }
+    
+    let musicStarted = false;
+    
     // Enhanced Parallax effect
     const handleScroll = () => {
       const scrollY = window.scrollY;
@@ -21,6 +74,28 @@ export default function WeddingInvitation() {
       
       // Show sticky header after scrolling past hero
       setShowStickyHeader(scrollY > 300);
+      
+      // Start music on scroll if not playing
+      if (!musicStarted && scrollY > 10) {
+        const audio = document.getElementById('backgroundMusic') as HTMLAudioElement;
+        if (audio && audio.paused) {
+          audio.volume = 0.2;
+          audio.play().then(() => {
+            setIsMusicPlaying(true);
+            musicStarted = true;
+          }).catch(() => {
+            // Still blocked, try on next user interaction
+            document.addEventListener('click', () => {
+              if (audio.paused) {
+                audio.play().then(() => {
+                  setIsMusicPlaying(true);
+                  musicStarted = true;
+                });
+              }
+            }, { once: true });
+          });
+        }
+      }
     };
 
     // Enhanced Intersection Observer for animations
@@ -66,6 +141,17 @@ export default function WeddingInvitation() {
       setTimeout(() => setShowToast(false), 15000);
     }, 3000);
 
+    // Auto-play background music immediately
+    setTimeout(() => {
+      const audio = document.getElementById('backgroundMusic') as HTMLAudioElement;
+      if (audio) {
+        audio.volume = 0.2;
+        audio.play().then(() => setIsMusicPlaying(true)).catch(() => {
+          console.log('Auto-play blocked - waiting for user interaction');
+        });
+      }
+    }, 1000);
+
     return () => {
       window.removeEventListener('scroll', handleScroll);
       clearInterval(interval);
@@ -81,13 +167,21 @@ export default function WeddingInvitation() {
           margin: 0;
           font-family: 'Montserrat', sans-serif;
           color: #2e2e2e;
-          background: #f8f8f6;
+          background: linear-gradient(135deg, #f5f5dc 0%, #e6ddd4 100%);
+          padding: 0 5px;
         }
         .page-wrapper {
           opacity: ${isLoaded ? 1 : 0};
           transition: opacity 0.3s ease;
           position: relative;
           z-index: 1;
+          width: 90%;
+          margin: 0 auto;
+          background: #ffffff;
+          box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+          border-left: 2px solid #d4af37;
+          border-right: 2px solid #d4af37;
+          overflow: hidden;
         }
         .parallax-lamp {
           position: absolute;
@@ -129,6 +223,7 @@ export default function WeddingInvitation() {
           color: #b8860b;
           overflow: hidden;
           z-index: 10;
+          margin: 0;
         }
         .hero-content {
           width: 45%;
@@ -441,24 +536,33 @@ export default function WeddingInvitation() {
           .hero {
             flex-direction: column;
             height: auto;
+            min-height: 80vh;
             padding: 40px 20px;
             gap: 20px;
+            overflow: hidden;
           }
           .hero-content, .hero-image {
             width: 90%;
+            z-index: 10;
+            position: relative;
           }
           .hero-image {
             height: 40vh;
+            width: 70%;
           }
           .parallax-lamp {
-            display: none;
+            display: none !important;
           }
-          .lamp-1, .lamp-2, .lamp-3 {
-            display: block;
+          .sticky-header {
+            padding: 10px 15px;
+            font-size: 0.8rem;
           }
-          .lamp-small { width: 60px; }
-          .lamp-medium { width: 80px; }
-          .lamp-large { width: 100px; }
+          .sticky-header h3 {
+            font-size: 1.2rem;
+          }
+          .sticky-header p {
+            font-size: 0.7rem !important;
+          }
           .info-grid {
             grid-template-columns: 1fr;
             gap: 15px;
@@ -469,6 +573,13 @@ export default function WeddingInvitation() {
           }
           .countdown-number {
             font-size: 2rem;
+          }
+          body {
+            overflow-x: hidden;
+          }
+          .page-wrapper {
+            max-width: 100vw;
+            overflow-x: hidden;
           }
         }
         .toast {
@@ -517,10 +628,36 @@ export default function WeddingInvitation() {
           margin-right: 8px;
           animation: wave 2s ease-in-out infinite;
         }
-        @keyframes wave {
-          0%, 100% { transform: rotate(0deg); }
-          25% { transform: rotate(20deg); }
-          75% { transform: rotate(-10deg); }
+        @keyframes fireworkUp {
+          0% {
+            transform: translateY(50vh) scale(0.3);
+            opacity: 0;
+          }
+          30% {
+            transform: translateY(-10vh) scale(0.8);
+            opacity: 1;
+          }
+          70% {
+            transform: translateY(-20vh) scale(1);
+            opacity: 1;
+          }
+          100% {
+            transform: translateY(-20vh) scale(1.2);
+            opacity: 0;
+          }
+        }
+        .firework {
+          position: fixed;
+          width: 300px;
+          height: 300px;
+          z-index: 1001;
+          pointer-events: none;
+          animation: fireworkUp 5s ease-out;
+        }
+        .firework img {
+          width: 100%;
+          height: 100%;
+          object-fit: contain;
         }
         .sticky-header {
           position: fixed;
@@ -544,6 +681,28 @@ export default function WeddingInvitation() {
           font-family: 'Playfair Display', serif;
           font-size: 1.5rem;
         }
+        .music-control {
+          position: fixed;
+          top: 20px;
+          right: 20px;
+          background: linear-gradient(135deg, #d4af37 0%, #b8860b 100%);
+          color: white;
+          border: none;
+          border-radius: 50%;
+          width: 60px;
+          height: 60px;
+          font-size: 24px;
+          cursor: pointer;
+          z-index: 1000;
+          box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+          transition: all 0.3s ease;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+        .music-control:hover {
+          transform: scale(1.1);
+        }
         @media(max-width: 480px) {
           .countdown-grid {
             grid-template-columns: repeat(2, 1fr);
@@ -560,6 +719,25 @@ export default function WeddingInvitation() {
       `}</style>
 
       <div className="page-wrapper">
+        <audio id="backgroundMusic" loop>
+          <source src="/music/bg-music.mp3" type="audio/mpeg" />
+        </audio>
+        
+        <button 
+          className="music-control"
+          onClick={() => {
+            const audio = document.getElementById('backgroundMusic') as HTMLAudioElement;
+            if (isMusicPlaying) {
+              audio.pause();
+              setIsMusicPlaying(false);
+            } else {
+              audio.volume = 0.2;
+              audio.play().then(() => setIsMusicPlaying(true));
+            }
+          }}
+        >
+          {isMusicPlaying ? '♪' : '♫'}
+        </button>
         <div className={`sticky-header ${showStickyHeader ? 'show' : ''}`}>
           <p style={{margin: '0 0 5px 0', fontSize: '0.9rem'}}>ॐ श्री गणेशाय नम</p>
           <h3>Tushar & Babitta</h3>
@@ -610,18 +788,21 @@ export default function WeddingInvitation() {
             <span>11 February 2026</span>
             <span>Mapple Gold Banquet, Hall No. 4</span>
             <span>7:00 PM Onwards</span>
+            <a href="https://maps.google.com/?q=Mapple+Gold+Banquet+Paschim+Vihar+Delhi" target="_blank" style={{color: '#d4af37', textDecoration: 'none', fontSize: '0.9rem', marginTop: '10px', display: 'block'}}>See the Route →</a>
           </div>
           <div className="event haldi-mehndi">
             <h3>Mehandi Night</h3>
             <span>12 February 2026</span>
             <span>Anubhav Banquet Hall, Vikaspuri</span>
             <span>7:00 PM Onwards</span>
+            <a href="https://maps.google.com/?q=Anubhav+Banquet+Hall+Vikaspuri+Delhi" target="_blank" style={{color: '#d4af37', textDecoration: 'none', fontSize: '0.9rem', marginTop: '10px', display: 'block'}}>See the Route →</a>
           </div>
           <div className="event">
             <h3>Wedding Ceremony</h3>
             <span>15 February 2026</span>
             <span>J9 Grand Banquet Hall, Jalandhar</span>
             <span>4:00 PM Onwards</span>
+            <a href="https://maps.google.com/?q=J9+Grand+Banquet+Hall+Jalandhar" target="_blank" style={{color: '#d4af37', textDecoration: 'none', fontSize: '0.9rem', marginTop: '10px', display: 'block'}}>See the Route →</a>
           </div>
         </div>
       </section>
