@@ -773,7 +773,7 @@ export default function WeddingInvitation() {
             <h3>Wedding Ceremony</h3>
             <span>15 February 2026</span>
             <span>J9 Grand Banquet Hall, Jalandhar</span>
-            <span>4:00 PM Onwards</span>
+            <span>7:00 PM Onwards</span>
             <button onClick={() => {
               const event = {
                 title: 'Wedding Ceremony - Tushar & Babitta',
