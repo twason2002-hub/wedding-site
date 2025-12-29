@@ -1,17 +1,18 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import weddingConfig from '../config/wedding.json';
 
 export default function WeddingInvitation() {
   const [countdown, setCountdown] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
-  const [isLoaded, setIsLoaded] = useState(false);
   const [showToast, setShowToast] = useState(false);
   const [showStickyHeader, setShowStickyHeader] = useState(false);
   const [isMusicPlaying, setIsMusicPlaying] = useState(false);
 
   useEffect(() => {
-    setIsLoaded(true);
-    document.body.classList.add('loaded');
+    setTimeout(() => {
+      document.body.classList.add('loaded');
+    }, 1000);
     
     let musicStarted = false;
     
@@ -64,7 +65,7 @@ export default function WeddingInvitation() {
     // document.querySelectorAll('.event').forEach(card => observer.observe(card));
 
     // Countdown timer
-    const weddingDate = new Date('February 15, 2026 00:00:00').getTime();
+    const weddingDate = new Date(weddingConfig.couple.countdownDate).getTime();
     const updateCountdown = () => {
       const now = new Date().getTime();
       const distance = weddingDate - now;
@@ -114,6 +115,13 @@ export default function WeddingInvitation() {
 
   return (
     <>
+      <div className="hydration-overlay">
+        <div className="loader-content">
+          <div className="loader-ring"></div>
+          <h3>{weddingConfig.couple.groom} & {weddingConfig.couple.bride}</h3>
+          <p>Wedding Invitation Loading...</p>
+        </div>
+      </div>
       <style jsx global>{`
         body {
           margin: 0;
@@ -126,7 +134,8 @@ export default function WeddingInvitation() {
           opacity: 1;
         }
         .page-wrapper {
-          opacity: ${isLoaded ? 1 : 0};
+          opacity: 1;
+          visibility: visible;
           transition: opacity 0.5s ease;
           position: relative;
           z-index: 1;
@@ -137,7 +146,6 @@ export default function WeddingInvitation() {
           border-left: 2px solid #d4af37;
           border-right: 2px solid #d4af37;
           overflow: hidden;
-          visibility: ${isLoaded ? 'visible' : 'hidden'};
         }
         .parallax-lamp {
           position: absolute;
@@ -602,6 +610,41 @@ export default function WeddingInvitation() {
           margin-right: 8px;
           animation: wave 2s ease-in-out infinite;
         }
+        .loader {
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background: linear-gradient(135deg, #f5f5dc 0%, #e6ddd4 100%);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          z-index: 9999;
+          transition: opacity 0.5s ease;
+        }
+        .loader.hide {
+          opacity: 0;
+          pointer-events: none;
+          display: none;
+        }
+        .loader-content {
+          text-align: center;
+          color: #b8860b;
+        }
+        .loader-ring {
+          width: 60px;
+          height: 60px;
+          border: 4px solid rgba(212, 175, 55, 0.3);
+          border-top: 4px solid #d4af37;
+          border-radius: 50%;
+          animation: spin 1s linear infinite;
+          margin: 0 auto 20px;
+        }
+        @keyframes spin {
+          0% { transform: rotate(0deg); }
+          100% { transform: rotate(360deg); }
+        }
         @keyframes wave {
           0%, 100% { transform: rotate(0deg); }
           25% { transform: rotate(20deg); }
@@ -693,27 +736,27 @@ export default function WeddingInvitation() {
           {isMusicPlaying ? '♪' : '♫'}
         </button>
         <div className={`sticky-header ${showStickyHeader ? 'show' : ''}`}>
-          <p style={{margin: '0 0 5px 0', fontSize: '0.9rem'}}>ॐ श्री गणेशाय नम</p>
-          <h3>Tushar & Babitta</h3>
-          <p style={{margin: '5px 0', fontSize: '0.8rem', letterSpacing: '1px'}}>WE INVITE YOU TO CELEBRATE OUR WEDDING</p>
-          <p style={{margin: '5px 0 0 0', fontSize: '0.9rem', fontWeight: 'bold'}}>15th February 2026</p>
+          <p style={{margin: '0 0 5px 0', fontSize: '0.9rem'}}>{weddingConfig.messages.blessing}</p>
+          <h3>{weddingConfig.couple.groom} & {weddingConfig.couple.bride}</h3>
+          <p style={{margin: '5px 0', fontSize: '0.8rem', letterSpacing: '1px'}}>{weddingConfig.messages.invitation}</p>
+          <p style={{margin: '5px 0 0 0', fontSize: '0.9rem', fontWeight: 'bold'}}>{weddingConfig.couple.weddingDate}</p>
         </div>
         {showToast && (
           <div className={`toast ${showToast ? 'show' : ''}`}>
             <button className="toast-close" onClick={() => setShowToast(false)}>×</button>
-            <h4><span className="toast-icon">👋</span>Thanks for Visiting Our Website!</h4>
+            <h4><span className="toast-icon">👋</span>{weddingConfig.messages.toast.title}</h4>
             <p>
-              We're so happy you're here and can't thank you enough for all the love and support since our roka. We're truly grateful and can't wait to celebrate with you on our big day! 💕
+              {weddingConfig.messages.toast.content}
             </p>
           </div>
         )}
         <div className="hero">
           <div className="hero-content">
-            <p>ॐ श्री गणेशाय नम</p>
-            <h1>Tushar & Babitta</h1>
-            <p>WE INVITE YOU TO CELEBRATE OUR WEDDING</p>
+            <p>{weddingConfig.messages.blessing}</p>
+            <h1>{weddingConfig.couple.groom} & {weddingConfig.couple.bride}</h1>
+            <p>{weddingConfig.messages.invitation}</p>
             <div className="wedding-date" style={{marginTop: '20px', fontSize: '1.2rem', fontWeight: 'bold', color: '#8b6914'}}>
-              15th February 2026
+              {weddingConfig.couple.weddingDate}
             </div>
           </div>
           
