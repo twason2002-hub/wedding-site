@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import weddingConfig from '../config/wedding.json';
+import weddingConfig from '../config/tushar-babitta.json';
 
 export default function WeddingInvitation() {
   const [countdown, setCountdown] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });

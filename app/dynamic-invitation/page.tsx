@@ -1,0 +1,528 @@
+'use client';
+
+import { useEffect, useState } from 'react';
+import { useSearchParams } from 'next/navigation';
+
+export default function InvitationPage() {
+  const [weddingConfig, setWeddingConfig] = useState<any>(null);
+  const [countdown, setCountdown] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+  
+  const searchParams = useSearchParams();
+  const configFile = searchParams.get('config') || 'tushar-babitta';
+
+  useEffect(() => {
+    import(`../../config/${configFile}.json`)
+      .then((config) => setWeddingConfig(config.default))
+      .catch(() => import('../../config/tushar-babitta.json').then((config) => setWeddingConfig(config.default)));
+  }, [configFile]);
+
+  useEffect(() => {
+    if (!weddingConfig) return;
+
+    setTimeout(() => document.body.classList.add('loaded'), 1000);
+    
+    const weddingDate = new Date(weddingConfig.couple.countdownDate).getTime();
+    const updateCountdown = () => {
+      const now = new Date().getTime();
+      const distance = weddingDate - now;
+
+      if (distance < 0) {
+        setCountdown({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+        return;
+      }
+
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      setCountdown({ days, hours, minutes, seconds });
+    };
+
+    updateCountdown();
+    const interval = setInterval(updateCountdown, 1000);
+    return () => clearInterval(interval);
+  }, [weddingConfig]);
+
+  const downloadCalendar = (event: any) => {
+    const icsContent = `BEGIN:VCALENDAR\\nVERSION:2.0\\nBEGIN:VEVENT\\nSUMMARY:${event.name} - ${weddingConfig.couple.groom} & ${weddingConfig.couple.bride}\\nDTSTART:${event.calendarStart}\\nDTEND:${event.calendarEnd}\\nLOCATION:${event.venue}, ${event.address}\\nDESCRIPTION:Join us for the ${event.name}\\nEND:VEVENT\\nEND:VCALENDAR`;
+    const blob = new Blob([icsContent], { type: 'text/calendar' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `${event.name.toLowerCase().replace(/\s+/g, '-')}.ics`;
+    a.click();
+  };
+
+  if (!weddingConfig) {
+    return (
+      <div className="hydration-overlay">
+        <div className="loader-content">
+          <div className="loader-ring"></div>
+          <p>Loading Wedding Invitation...</p>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <>
+      <style jsx global>{`
+        body {
+          margin: 0;
+          font-family: 'Montserrat', sans-serif;
+          color: #2e2e2e;
+          background: linear-gradient(135deg, #f5f5dc 0%, #e6ddd4 100%);
+          padding: 0 5px;
+        }
+        .page-wrapper {
+          opacity: 1;
+          visibility: visible;
+          transition: opacity 0.5s ease;
+          position: relative;
+          z-index: 1;
+          width: 90%;
+          margin: 0 auto;
+          background: #ffffff;
+          box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+          border-left: 2px solid #d4af37;
+          border-right: 2px solid #d4af37;
+          overflow: hidden;
+        }
+        .hero {
+          height: 70vh;
+          position: relative;
+          background: #ffffff;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 20px;
+          padding: 0 5%;
+          color: #b8860b;
+          overflow: hidden;
+          z-index: 10;
+          margin: 0;
+        }
+        .hero-content {
+          width: 45%;
+          animation: float 4s ease-in-out infinite;
+          z-index: 3;
+          position: relative;
+          text-align: center;
+        }
+        .hero-image {
+          width: 30%;
+          height: 50vh;
+          background-image: url('/images/back-5.jpg');
+          background-size: cover;
+          background-position: center;
+          animation: float 4s ease-in-out infinite;
+        }
+        .hero h1 {
+          font-family: 'Playfair Display', serif;
+          font-size: 3.5rem;
+          margin: 10px 0;
+          color: #8b6914;
+        }
+        .hero p {
+          letter-spacing: 3px;
+          font-size: 1rem;
+          color: #8b6914;
+        }
+        @keyframes float {
+          0%, 100% { transform: translateY(0px); }
+          50% { transform: translateY(-15px); }
+        }
+        section {
+          max-width: 900px;
+          margin: auto;
+          padding: 50px 20px;
+          position: relative;
+        }
+        section::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: -50vw;
+          width: 200vw;
+          height: 100%;
+          background: url('/images/floral.png') repeat;
+          background-size: 100px;
+          opacity: 0.1;
+          pointer-events: none;
+          z-index: -1;
+        }
+        .title {
+          text-align: center;
+          margin-bottom: 40px;
+        }
+        .title h2 {
+          font-family: 'Playfair Display', serif;
+          font-size: 2.3rem;
+          margin-bottom: 10px;
+          color: #b8860b;
+          font-weight: 700;
+          position: relative;
+          display: inline-block;
+        }
+        .title h2::before,
+        .title h2::after {
+          content: '';
+          position: absolute;
+          top: 50%;
+          width: 40px;
+          height: 25px;
+          background: url('/images/floral.png') no-repeat center;
+          background-size: contain;
+          transform: translateY(-50%);
+        }
+        .title h2::before {
+          left: -50px;
+        }
+        .title h2::after {
+          right: -50px;
+          transform: translateY(-50%) scaleX(-1);
+        }
+        .event-grid {
+          position: relative;
+          max-width: 1000px;
+          margin: 0 auto;
+        }
+        .event-grid::before {
+          content: '';
+          position: absolute;
+          left: 50%;
+          top: 0;
+          bottom: 0;
+          width: 4px;
+          background: linear-gradient(to bottom, #d4af37, #ffd700, #d4af37);
+          transform: translateX(-50%);
+        }
+        .event {
+          background: linear-gradient(135deg, #fff9e6 0%, #ffffff 100%);
+          padding: 25px;
+          border-radius: 15px;
+          box-shadow: 0 15px 35px rgba(0,0,0,.1);
+          border: 1px solid rgba(212,175,55,.2);
+          text-align: center;
+          position: relative;
+          width: 45%;
+          margin: 20px 0;
+        }
+        .event::before {
+          content: '✨';
+          position: absolute;
+          width: 30px;
+          height: 30px;
+          background: transparent;
+          border: none;
+          border-radius: 50%;
+          top: 30px;
+          font-size: 20px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+        .event:nth-child(odd) {
+          margin-left: 0;
+        }
+        .event:nth-child(odd)::before {
+          right: -41px;
+        }
+        .event:nth-child(even) {
+          margin-left: 55%;
+        }
+        .event:nth-child(even)::before {
+          left: -41px;
+        }
+        .event h3 {
+          font-family: 'Playfair Display', serif;
+          margin-bottom: 10px;
+          color: #b8860b;
+          font-size: 1.4rem;
+        }
+        .event span {
+          display: block;
+          font-size: .9rem;
+          color: #8b6914;
+          font-weight: 500;
+        }
+        button {
+          padding: 8px 16px;
+          border: none;
+          border-radius: 25px;
+          background: linear-gradient(135deg, #d4af37 0%, #b8860b 100%);
+          color: #fff;
+          cursor: pointer;
+          letter-spacing: 2px;
+          box-shadow: 0 8px 20px rgba(212,175,55,.3);
+          transition: all 0.3s ease;
+          margin-top: 10px;
+          font-size: 0.8rem;
+        }
+        button:hover {
+          background: linear-gradient(135deg, #b8860b 0%, #8b6914 100%);
+          box-shadow: 0 12px 25px rgba(212,175,55,.4);
+          transform: translateY(-2px);
+        }
+        .about {
+          text-align: center;
+          line-height: 1.8;
+        }
+        .info-grid {
+          display: grid;
+          grid-template-columns: repeat(4, 1fr);
+          gap: 20px;
+        }
+        .info {
+          background: linear-gradient(135deg, #fff9e6 0%, #ffffff 100%);
+          padding: 25px;
+          border-radius: 15px;
+          box-shadow: 0 15px 35px rgba(0,0,0,.1);
+          border: 1px solid rgba(212,175,55,.2);
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+          min-height: 180px;
+        }
+        .info h4 {
+          margin-bottom: 10px;
+          font-family: 'Playfair Display', serif;
+          color: #b8860b;
+          font-size: 1.2rem;
+        }
+        .countdown {
+          max-width: 900px;
+          margin: 0 auto;
+          padding: 50px 20px;
+          text-align: center;
+          color: #2c1810;
+        }
+        .countdown-grid {
+          display: grid;
+          grid-template-columns: repeat(4, 1fr);
+          gap: 20px;
+          max-width: 600px;
+          margin: 0 auto;
+        }
+        .countdown-item {
+          background: linear-gradient(135deg, #fff9e6 0%, #ffffff 100%);
+          border-radius: 15px;
+          padding: 20px 10px;
+          border: 1px solid rgba(212,175,55,.2);
+          box-shadow: 0 15px 35px rgba(0,0,0,.1);
+        }
+        .countdown-number {
+          font-size: 2.5rem;
+          font-weight: 700;
+          display: block;
+          margin-bottom: 5px;
+          color: #b8860b;
+        }
+        .countdown-label {
+          font-size: 0.9rem;
+          text-transform: uppercase;
+          letter-spacing: 1px;
+          color: #8b6914;
+          font-weight: 600;
+        }
+        footer {
+          background: linear-gradient(135deg, #2c1810 0%, #1a0f08 100%);
+          color: #e6c875;
+          text-align: center;
+          padding: 40px 20px;
+          font-size: .85rem;
+        }
+        .footer-nav {
+          display: flex;
+          justify-content: center;
+          gap: 30px;
+          margin-bottom: 20px;
+          flex-wrap: wrap;
+        }
+        .footer-nav a {
+          color: #d4af37;
+          text-decoration: none;
+          font-weight: 500;
+          transition: color 0.3s ease;
+        }
+        .footer-nav a:hover {
+          color: #ffd700;
+        }
+        @media(max-width: 768px) {
+          .hero {
+            flex-direction: column;
+            height: auto;
+            min-height: 80vh;
+            padding: 40px 20px;
+          }
+          .hero-content, .hero-image {
+            width: 90%;
+          }
+          .hero h1 { font-size: 2.2rem; }
+          .event-grid::before { display: none; }
+          .event {
+            width: 100%;
+            margin: 15px 0;
+          }
+          .event::before { display: none; }
+          .event:nth-child(odd), .event:nth-child(even) {
+            margin-left: 0;
+          }
+        }
+      `}</style>
+      <div className="hydration-overlay">
+        <div className="loader-content">
+          <div className="loader-ring"></div>
+          <h3>{weddingConfig.couple.groom} & {weddingConfig.couple.bride}</h3>
+          <p>Wedding Invitation Loading...</p>
+        </div>
+      </div>
+      
+      <div className="page-wrapper">
+        <div className="hero">
+          <div className="hero-content">
+            <p>{weddingConfig.messages.blessing}</p>
+            <h1>{weddingConfig.couple.groom} & {weddingConfig.couple.bride}</h1>
+            <p>{weddingConfig.messages.invitation}</p>
+            <div style={{marginTop: '20px', fontSize: '1.2rem', fontWeight: 'bold', color: '#8b6914'}}>
+              {weddingConfig.couple.weddingDate}
+            </div>
+          </div>
+          <div className="hero-image"></div>
+        </div>
+
+        <section>
+          <div className="title">
+            <h2>Wedding Events</h2>
+          </div>
+          <div className="event-grid">
+            {weddingConfig.events.map((event: any, index: number) => (
+              <div key={index} className="event">
+                <h3>{event.name}</h3>
+                <span>{event.date}</span>
+                <span>{event.venue}</span>
+                <span>{event.time}</span>
+                <button onClick={() => downloadCalendar(event)}>
+                  Save the Date
+                </button>
+              </div>
+            ))}
+            <div className="event">
+              <h3>{weddingConfig.messages.happilyEverAfter?.title || 'Happily Ever After'}</h3>
+              <span>{weddingConfig.messages.happilyEverAfter?.date || '16 February 2026 & Beyond'}</span>
+              <span>{weddingConfig.messages.happilyEverAfter?.message || 'Beginning Our Journey Together'}</span>
+              <span>{weddingConfig.messages.happilyEverAfter?.tagline || 'Forever & Always ✨'}</span>
+            </div>
+          </div>
+        </section>
+
+        <section className="about">
+          <div className="title">
+            <h2>Message from Groom's Family</h2>
+          </div>
+          <p>
+            {weddingConfig.messages.familyMessage
+              .replace('{groom}', weddingConfig.couple.groom)
+              .replace('{bride}', weddingConfig.couple.bride)}
+          </p>
+          <p style={{marginTop: '20px', fontStyle: 'italic'}}>
+            ✨ Compliments from the {weddingConfig.family.groomFamily} ✨
+          </p>
+          <button onClick={() => window.open(`https://wa.me/${weddingConfig.contacts.rsvp.number}?text=${encodeURIComponent(weddingConfig.contacts.rsvp.message)}`, '_blank')} style={{marginTop: '30px', padding: '12px 30px'}}>
+            RSVP
+          </button>
+        </section>
+
+        <section style={{maxWidth: '1600px', padding: '70px 40px'}}>
+          <div className="title">
+            <h2>Venue Details & Contacts</h2>
+          </div>
+          <div className="info-grid" style={{maxWidth: '1400px', gap: '30px'}}>
+            {weddingConfig.events.map((event: any, index: number) => (
+              <div key={index} className="info">
+                <h4>{event.name}</h4>
+                {event.venue}<br/>
+                {event.address}<br/>
+                <button onClick={() => window.open(`https://maps.google.com/?q=${event.mapQuery}`, '_blank')} style={{marginTop: '10px', fontSize: '0.8rem', padding: '8px 16px'}}>
+                  View Location
+                </button>
+              </div>
+            ))}
+            <div className="info">
+              <h4>Contact Numbers</h4>
+              {weddingConfig.contacts.numbers.map((number: string, index: number) => (
+                <span key={index}>{number}<br/></span>
+              ))}
+              <button onClick={() => window.open(`https://wa.me/${weddingConfig.contacts.whatsapp}`, '_blank')} style={{marginTop: '10px', fontSize: '0.8rem', padding: '8px 16px', backgroundColor: '#25D366', color: 'white'}}>
+                WhatsApp
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <div className="title">
+            <h2>Things To Know</h2>
+          </div>
+          <div style={{textAlign: 'center', maxWidth: '600px', margin: '0 auto'}}>
+            <div style={{background: 'linear-gradient(135deg, #fff9e6 0%, #ffffff 100%)', padding: '30px', borderRadius: '15px', boxShadow: '0 15px 35px rgba(0,0,0,.1)', border: '1px solid rgba(212,175,55,.2)', marginBottom: '20px'}}>
+              <h4 style={{color: '#b8860b', marginBottom: '15px', fontFamily: 'Playfair Display, serif'}}>Family Contact</h4>
+              <p style={{margin: '5px 0', color: '#8b6914'}}>{weddingConfig.family.parents}</p>
+            </div>
+            <div style={{background: 'linear-gradient(135deg, #fff9e6 0%, #ffffff 100%)', padding: '30px', borderRadius: '15px', boxShadow: '0 15px 35px rgba(0,0,0,.1)', border: '1px solid rgba(212,175,55,.2)', marginBottom: '20px'}}>
+              <h4 style={{color: '#b8860b', marginBottom: '15px', fontFamily: 'Playfair Display, serif'}}>Blessings From</h4>
+              <p style={{margin: '5px 0', color: '#8b6914'}}>{weddingConfig.family.blessingsFrom}</p>
+            </div>
+            <div style={{background: 'linear-gradient(135deg, #fff9e6 0%, #ffffff 100%)', padding: '30px', borderRadius: '15px', boxShadow: '0 15px 35px rgba(0,0,0,.1)', border: '1px solid rgba(212,175,55,.2)'}}>
+              <h4 style={{color: '#b8860b', marginBottom: '15px', fontFamily: 'Playfair Display, serif'}}>RSVP</h4>
+              <p style={{margin: '5px 0', color: '#8b6914'}}>Your presence is our blessing</p>
+            </div>
+          </div>
+        </section>
+
+        <section className="countdown">
+          <div className="title">
+            <h2>Countdown to Our Wedding</h2>
+          </div>
+          <div className="countdown-grid">
+            {countdown.days > 0 || countdown.hours > 0 || countdown.minutes > 0 || countdown.seconds > 0 ? (
+              <>
+                <div className="countdown-item">
+                  <span className="countdown-number">{countdown.days}</span>
+                  <span className="countdown-label">Days</span>
+                </div>
+                <div className="countdown-item">
+                  <span className="countdown-number">{countdown.hours}</span>
+                  <span className="countdown-label">Hours</span>
+                </div>
+                <div className="countdown-item">
+                  <span className="countdown-number">{countdown.minutes}</span>
+                  <span className="countdown-label">Minutes</span>
+                </div>
+                <div className="countdown-item">
+                  <span className="countdown-number">{countdown.seconds}</span>
+                  <span className="countdown-label">Seconds</span>
+                </div>
+              </>
+            ) : (
+              <div style={{gridColumn: '1 / -1', fontSize: '2rem', fontWeight: 'bold'}}>
+                Our Wedding Day is Here! 🎉
+              </div>
+            )}
+          </div>
+        </section>
+
+        <footer>
+          <div className="footer-nav">
+            <a href="#events" onClick={(e) => {e.preventDefault(); document.querySelector('.event-grid')?.scrollIntoView({behavior: 'smooth'});}}>Events</a>
+            <a href="#venues" onClick={(e) => {e.preventDefault(); document.querySelector('[style*="maxWidth: 1600px"]')?.scrollIntoView({behavior: 'smooth'});}}>Venues</a>
+            <a href="#about" onClick={(e) => {e.preventDefault(); document.querySelector('.about')?.scrollIntoView({behavior: 'smooth'});}}>About</a>
+            <a href="#countdown" onClick={(e) => {e.preventDefault(); document.querySelector('.countdown')?.scrollIntoView({behavior: 'smooth'});}}>Countdown</a>
+          </div>
+          © 2026 {weddingConfig.couple.groom} & {weddingConfig.couple.bride} – Wedding Invitation
+        </footer>
+      </div>
+    </>
+  );
+}
