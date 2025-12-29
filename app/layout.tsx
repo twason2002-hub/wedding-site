@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Playfair_Display, Montserrat } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 
 const playfairDisplay = Playfair_Display({
@@ -44,6 +45,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${playfairDisplay.variable} ${montserrat.variable}`}>
         {children}
+        <Analytics />
       </body>
     </html>
   );
