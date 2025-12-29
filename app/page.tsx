@@ -730,21 +730,66 @@ export default function WeddingInvitation() {
             <span>11 February 2026</span>
             <span>Mapple Gold Banquet, Hall No. 4</span>
             <span>7:00 PM Onwards</span>
-            <a href="https://maps.google.com/?q=Mapple+Gold+Banquet+Paschim+Vihar+Delhi" target="_blank" style={{color: '#d4af37', textDecoration: 'none', fontSize: '0.9rem', marginTop: '10px', display: 'block'}}>See the Route →</a>
+            <button onClick={() => {
+              const event = {
+                title: 'Sagan Ceremony - Tushar & Babitta',
+                start: '20260211T190000',
+                end: '20260211T220000',
+                location: 'Mapple Gold Banquet, Hall No. 4, Paschim Vihar, New Delhi',
+                description: 'Join us for the Sagan Ceremony of Tushar and Babitta'
+              };
+              const icsContent = `BEGIN:VCALENDAR\nVERSION:2.0\nBEGIN:VEVENT\nSUMMARY:${event.title}\nDTSTART:${event.start}\nDTEND:${event.end}\nLOCATION:${event.location}\nDESCRIPTION:${event.description}\nEND:VEVENT\nEND:VCALENDAR`;
+              const blob = new Blob([icsContent], { type: 'text/calendar' });
+              const url = URL.createObjectURL(blob);
+              const a = document.createElement('a');
+              a.href = url;
+              a.download = 'sagan-ceremony.ics';
+              a.click();
+            }} style={{marginTop: '10px', fontSize: '0.8rem', padding: '8px 16px', background: 'linear-gradient(135deg, #d4af37 0%, #b8860b 100%)', color: 'white', border: 'none', borderRadius: '25px', cursor: 'pointer'}}>Save the Date</button>
           </div>
           <div className="event haldi-mehndi">
             <h3>Mehandi Night</h3>
             <span>12 February 2026</span>
             <span>Anubhav Banquet Hall, Vikaspuri</span>
             <span>7:00 PM Onwards</span>
-            <a href="https://maps.google.com/?q=Anubhav+Banquet+Hall+Vikaspuri+Delhi" target="_blank" style={{color: '#d4af37', textDecoration: 'none', fontSize: '0.9rem', marginTop: '10px', display: 'block'}}>See the Route →</a>
+            <button onClick={() => {
+              const event = {
+                title: 'Mehandi Night - Tushar & Babitta',
+                start: '20260212T190000',
+                end: '20260212T220000',
+                location: 'Anubhav Banquet Hall, Vikaspuri, New Delhi',
+                description: 'Join us for the Mehandi Night of Tushar and Babitta'
+              };
+              const icsContent = `BEGIN:VCALENDAR\nVERSION:2.0\nBEGIN:VEVENT\nSUMMARY:${event.title}\nDTSTART:${event.start}\nDTEND:${event.end}\nLOCATION:${event.location}\nDESCRIPTION:${event.description}\nEND:VEVENT\nEND:VCALENDAR`;
+              const blob = new Blob([icsContent], { type: 'text/calendar' });
+              const url = URL.createObjectURL(blob);
+              const a = document.createElement('a');
+              a.href = url;
+              a.download = 'mehandi-night.ics';
+              a.click();
+            }} style={{marginTop: '10px', fontSize: '0.8rem', padding: '8px 16px', background: 'linear-gradient(135deg, #d4af37 0%, #b8860b 100%)', color: 'white', border: 'none', borderRadius: '25px', cursor: 'pointer'}}>Save the Date</button>
           </div>
           <div className="event">
             <h3>Wedding Ceremony</h3>
             <span>15 February 2026</span>
             <span>J9 Grand Banquet Hall, Jalandhar</span>
-            <span>7:00 PM Onwards</span>
-            <a href="https://maps.google.com/?q=J9+Grand+Banquet+Hall+Jalandhar" target="_blank" style={{color: '#d4af37', textDecoration: 'none', fontSize: '0.9rem', marginTop: '10px', display: 'block'}}>See the Route →</a>
+            <span>4:00 PM Onwards</span>
+            <button onClick={() => {
+              const event = {
+                title: 'Wedding Ceremony - Tushar & Babitta',
+                start: '20260215T160000',
+                end: '20260215T200000',
+                location: 'J9 Grand Banquet Hall, Jalandhar',
+                description: 'Join us for the Wedding Ceremony of Tushar and Babitta'
+              };
+              const icsContent = `BEGIN:VCALENDAR\nVERSION:2.0\nBEGIN:VEVENT\nSUMMARY:${event.title}\nDTSTART:${event.start}\nDTEND:${event.end}\nLOCATION:${event.location}\nDESCRIPTION:${event.description}\nEND:VEVENT\nEND:VCALENDAR`;
+              const blob = new Blob([icsContent], { type: 'text/calendar' });
+              const url = URL.createObjectURL(blob);
+              const a = document.createElement('a');
+              a.href = url;
+              a.download = 'wedding-ceremony.ics';
+              a.click();
+            }} style={{marginTop: '10px', fontSize: '0.8rem', padding: '8px 16px', background: 'linear-gradient(135deg, #d4af37 0%, #b8860b 100%)', color: 'white', border: 'none', borderRadius: '25px', cursor: 'pointer'}}>Save the Date</button>
           </div>
           <div className="event">
             <h3>Happily Ever After</h3>
