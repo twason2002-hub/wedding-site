@@ -11,6 +11,7 @@ export default function WeddingInvitation() {
 
   useEffect(() => {
     setIsLoaded(true);
+    document.body.classList.add('loaded');
     
     let musicStarted = false;
     
@@ -121,9 +122,12 @@ export default function WeddingInvitation() {
           background: linear-gradient(135deg, #f5f5dc 0%, #e6ddd4 100%);
           padding: 0 5px;
         }
+        body.loaded {
+          opacity: 1;
+        }
         .page-wrapper {
           opacity: ${isLoaded ? 1 : 0};
-          transition: opacity 0.3s ease;
+          transition: opacity 0.5s ease;
           position: relative;
           z-index: 1;
           width: 90%;
@@ -133,6 +137,7 @@ export default function WeddingInvitation() {
           border-left: 2px solid #d4af37;
           border-right: 2px solid #d4af37;
           overflow: hidden;
+          visibility: ${isLoaded ? 'visible' : 'hidden'};
         }
         .parallax-lamp {
           position: absolute;
@@ -761,7 +766,7 @@ export default function WeddingInvitation() {
         <p style={{marginTop: '20px', fontStyle: 'italic'}}>
           ✨ Compliments from the Wassan Family ✨
         </p>
-        <button onClick={() => alert('RSVP coming soon!')} style={{marginTop: '30px'}}>RSVP</button>
+        <button onClick={() => window.open('https://wa.me/919582915979?text=Hi%20Tushar%2C%20thank%20you%20so%20much%20for%20the%20invitation%21%20I%27m%20excited%20to%20celebrate%20with%20you%20and%20will%20be%20joining%20the%20wedding.%20Wishing%20you%20both%20lots%20of%20happiness%21%20%F0%9F%92%90', '_blank')} style={{marginTop: '30px'}}>RSVP</button>
       </section>
 
       <section style={{maxWidth: '1600px', padding: '70px 40px'}}>
