@@ -1,59 +1,85 @@
 {
   "couple": {
-    "groom": "Tushar",
-    "bride": "Babitta",
+    "person1": "Babitta",
+    "person2": "Tushar",
     "weddingDate": "15th February 2026",
     "countdownDate": "February 15, 2026 00:00:00"
   },
   "family": {
-    "groomFamily": "Wassan Family",
-    "parents": "Sh. Rajinder Kumar Wassan & Smt. Rekha Rani",
-    "blessingsFrom": "Late Sh. Krishan Lal Wassan & Late Smt. Soma Wanti Wassan"
+    "person1Family": "Sangu Family",
+    "parents": "Sh. Bhajan Sangu & Smt. Asha Sangu",
+    "blessingsFrom": "",
+    "invitationFrom": "bride"
   },
   "events": [
     {
-      "name": "Sagan Ceremony",
+      "name": "Mata Ki Chowki",
+      "date": "07 February 2026",
+      "time": "7:00 PM Onwards",
+      "venue": "Gurdev Nagar, Ram Nagar, Jalandhar, Punjab 144008, India",
+      "address": "11/21, Gurdev Nagar, Ram Nagar, Jalandhar, Punjab 144008, India",
+      "showInVenue": true,
+      "calendarStart": "20260207T190000",
+      "calendarEnd": "20260207T220000"
+    },
+    {
+      "name": "Shagan (Delhi)",
       "date": "11 February 2026",
       "time": "7:00 PM Onwards",
       "venue": "Mapple Gold Banquet, Hall No. 4",
       "address": "Near Radisson Blu Hotel, Paschim Vihar, New Delhi – 110085",
       "mapQuery": "Mapple+Gold+Banquet+Paschim+Vihar+Delhi",
       "calendarStart": "20260211T190000",
-      "calendarEnd": "20260211T220000"
+      "calendarEnd": "20260211T220000",
+      "showInVenue": true
     },
     {
-      "name": "Mehandi Night",
-      "date": "12 February 2026",
+      "name": "Haldi",
+      "date": "13 February 2026",
+      "showInVenue": false,
+      "calendarStart": "20260213T100000",
+      "calendarEnd": "20260213T130000"
+    },
+    {
+      "name": "Mehendi Night",
+      "date": "13 February 2026",
+      "showInVenue": false,
+      "calendarStart": "20260213T190000",
+      "calendarEnd": "20260213T220000"
+    },
+    {
+      "name": "Jaggo Night",
       "time": "7:00 PM Onwards",
-      "venue": "Anubhav Banquet Hall, Vikaspuri",
-      "address": "J3, J-Block Road, Vikaspuri, New Delhi – 110018",
-      "mapQuery": "Anubhav+Banquet+Hall+Vikaspuri+Delhi",
-      "calendarStart": "20260212T190000",
-      "calendarEnd": "20260212T220000"
+      "venue": "Gurdev Nagar, Ram Nagar, Jalandhar, Punjab 144008, India",
+      "address": "11/21, Gurdev Nagar, Ram Nagar, Jalandhar, Punjab 144008, India",
+      "showInVenue": false,
+      "calendarStart": "20260214T190000",
+      "calendarEnd": "20260214T220000"
     },
     {
-      "name": "Wedding Ceremony",
+      "name": "Wedding Night",
       "date": "15 February 2026",
-      "time": "4:00 PM Onwards",
+      "time": "7:00 PM Onwards",
       "venue": "J9 Grand Banquet Hall, Jalandhar",
       "address": "G.T. Road, Bypass, Opp. IOCT Terminal, Jalandhar",
       "mapQuery": "J9+Grand+Banquet+Hall+Jalandhar",
-      "calendarStart": "20260215T160000",
-      "calendarEnd": "20260215T200000"
+      "calendarStart": "20260215T190000",
+      "calendarEnd": "20260216T040000",
+      "showInVenue": true
     }
   ],
   "contacts": {
-    "numbers": ["9056314930", "9811899227", "9999250975"],
-    "whatsapp": "919056314930",
+    "numbers": ["123456789"],
+    "whatsapp": "123456789",
     "rsvp": {
-      "number": "919582915979",
-      "message": "Hi Tushar, thank you so much for the invitation! I'm excited to celebrate with you and will be joining the wedding. Wishing you both lots of happiness! 💐"
+      "number": "123456789",
+      "message": "Hi Babitta, thank you so much for the invitation! I'm excited to celebrate with you and will be joining the wedding. Wishing you both lots of happiness! 💐"
     }
   },
   "messages": {
     "blessing": "ॐ श्री गणेशाय नम",
     "invitation": "WE INVITE YOU TO CELEBRATE OUR WEDDING",
-    "familyMessage": "With the blessings of Lord Ganesha, we joyfully invite you to bless and celebrate the wedding of our beloved {groom} with {bride}. Your presence will make our happiness complete.",
+    "familyMessage": "With the blessings of Lord Ganesha, we joyfully invite you to bless and celebrate the wedding of our beloved Babitta with Tushar. Your presence will make our happiness complete.",
     "toast": {
       "title": "Thanks for Visiting Our Website!",
       "content": "We're so happy you're here and can't thank you enough for all the love and support since our roka. We're truly grateful and can't wait to celebrate with you on our big day! 💕"

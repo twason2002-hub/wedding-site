@@ -118,7 +118,7 @@ export default function WeddingInvitation() {
       <div className="hydration-overlay">
         <div className="loader-content">
           <div className="loader-ring"></div>
-          <h3>{weddingConfig.couple.groom} & {weddingConfig.couple.bride}</h3>
+          <h3>{weddingConfig.couple.person1} & {weddingConfig.couple.person2}</h3>
           <p>Wedding Invitation Loading...</p>
         </div>
       </div>
@@ -341,12 +341,19 @@ export default function WeddingInvitation() {
           flex-direction: column;
           justify-content: space-between;
           min-height: 180px;
+          text-align: center;
         }
         .info h4 {
           margin-bottom: 10px;
           font-family: 'Playfair Display', serif;
           color: #b8860b;
           font-size: 1.2rem;
+        }
+        .info span {
+          display: block;
+          font-size: .9rem;
+          color: #8b6914;
+          font-weight: 500;
         }
         footer {
           background: linear-gradient(135deg, #2c1810 0%, #1a0f08 100%);
@@ -737,7 +744,7 @@ export default function WeddingInvitation() {
         </button>
         <div className={`sticky-header ${showStickyHeader ? 'show' : ''}`}>
           <p style={{margin: '0 0 5px 0', fontSize: '0.9rem'}}>{weddingConfig.messages.blessing}</p>
-          <h3>{weddingConfig.couple.groom} & {weddingConfig.couple.bride}</h3>
+          <h3>{weddingConfig.couple.person1} & {weddingConfig.couple.person2}</h3>
           <p style={{margin: '5px 0', fontSize: '0.8rem', letterSpacing: '1px'}}>{weddingConfig.messages.invitation}</p>
           <p style={{margin: '5px 0 0 0', fontSize: '0.9rem', fontWeight: 'bold'}}>{weddingConfig.couple.weddingDate}</p>
         </div>
@@ -753,7 +760,7 @@ export default function WeddingInvitation() {
         <div className="hero">
           <div className="hero-content">
             <p>{weddingConfig.messages.blessing}</p>
-            <h1>{weddingConfig.couple.groom} & {weddingConfig.couple.bride}</h1>
+            <h1>{weddingConfig.couple.person1} & {weddingConfig.couple.person2}</h1>
             <p>{weddingConfig.messages.invitation}</p>
             <div className="wedding-date" style={{marginTop: '20px', fontSize: '1.2rem', fontWeight: 'bold', color: '#8b6914'}}>
               {weddingConfig.couple.weddingDate}
@@ -845,14 +852,14 @@ export default function WeddingInvitation() {
 
       <section className="about">
         <div className="title">
-          <h2>Message from Groom's Family</h2>
+          <h2>Message from {weddingConfig.family.invitationFrom === 'groom' ? 'Groom' : 'Bride'}'s Family</h2>
         </div>
         <p>
           With the blessings of Lord Ganesha, we joyfully invite you to bless and celebrate 
-          the wedding of our beloved Tushar with Babitta. Your presence will make our happiness complete.
+          the wedding of our beloved {weddingConfig.couple.person1} with {weddingConfig.couple.person2}. Your presence will make our happiness complete.
         </p>
         <p style={{marginTop: '20px', fontStyle: 'italic'}}>
-          ✨ Compliments from the Wassan Family ✨
+          ✨ Compliments from the {weddingConfig.family.person1Family} ✨
         </p>
         <button onClick={() => window.open('https://wa.me/919582915979?text=Hi%20Tushar%2C%20thank%20you%20so%20much%20for%20the%20invitation%21%20I%27m%20excited%20to%20celebrate%20with%20you%20and%20will%20be%20joining%20the%20wedding.%20Wishing%20you%20both%20lots%20of%20happiness%21%20%F0%9F%92%90', '_blank')} style={{marginTop: '30px'}}>RSVP</button>
       </section>
@@ -864,30 +871,30 @@ export default function WeddingInvitation() {
         <div className="info-grid" style={{maxWidth: '1400px', gap: '30px'}}>
           <div className="info">
             <h4>Sagan Ceremony</h4>
-            Mapple Gold Banquet, Hall No. 4<br/>
-            Near Radisson Blu Hotel, Paschim Vihar<br/>
-            New Delhi – 110085<br/>
+            <span>Mapple Gold Banquet, Hall No. 4</span>
+            <span>Near Radisson Blu Hotel, Paschim Vihar</span>
+            <span>New Delhi – 110085</span>
             <button onClick={() => window.open('https://maps.google.com/?q=Mapple+Gold+Banquet+Paschim+Vihar+Delhi', '_blank')} style={{marginTop: '10px', fontSize: '0.8rem', padding: '8px 16px'}}>View Location</button>
           </div>
           <div className="info">
             <h4>Mehandi Night</h4>
-            Anubhav Banquet Hall<br/>
-            J3, J-Block Road, Vikaspuri<br/>
-            New Delhi – 110018<br/>
+            <span>Anubhav Banquet Hall</span>
+            <span>J3, J-Block Road, Vikaspuri</span>
+            <span>New Delhi – 110018</span>
             <button onClick={() => window.open('https://maps.google.com/?q=Anubhav+Banquet+Hall+Vikaspuri+Delhi', '_blank')} style={{marginTop: '10px', fontSize: '0.8rem', padding: '8px 16px'}}>View Location</button>
           </div>
           <div className="info">
             <h4>Wedding Ceremony</h4>
-            J9 Grand Banquet Hall<br/>
-            G.T. Road, Bypass, Opp. IOCT Terminal<br/>
-            Jalandhar<br/>
+            <span>J9 Grand Banquet Hall</span>
+            <span>G.T. Road, Bypass, Opp. IOCT Terminal</span>
+            <span>Jalandhar</span>
             <button onClick={() => window.open('https://maps.google.com/?q=J9+Grand+Banquet+Hall+Jalandhar', '_blank')} style={{marginTop: '10px', fontSize: '0.8rem', padding: '8px 16px'}}>View Location</button>
           </div>
           <div className="info">
             <h4>Contact Numbers</h4>
-            9056314930<br/>
-            9811899227<br/>
-            9999250975<br/>
+            <span>9056314930</span>
+            <span>9811899227</span>
+            <span>9999250975</span>
             <button onClick={() => window.open('https://wa.me/919056314930', '_blank')} style={{marginTop: '10px', fontSize: '0.8rem', padding: '8px 16px', backgroundColor: '#25D366', color: 'white'}}>WhatsApp</button>
           </div>
         </div>
@@ -952,7 +959,7 @@ export default function WeddingInvitation() {
             <a href="#about" onClick={(e) => {e.preventDefault(); document.querySelector('.about')?.scrollIntoView({behavior: 'smooth'});}}>About</a>
             <a href="#countdown" onClick={(e) => {e.preventDefault(); document.querySelector('.countdown')?.scrollIntoView({behavior: 'smooth'});}}>Countdown</a>
           </div>
-          © 2026 Tushar & Babitta – Wedding Invitation
+          © 2026 {weddingConfig.couple.person1} & {weddingConfig.couple.person2} – Wedding Invitation
         </footer>
       </div>
     </>

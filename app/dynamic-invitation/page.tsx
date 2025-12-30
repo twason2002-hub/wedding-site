@@ -6,6 +6,9 @@ import { useSearchParams } from 'next/navigation';
 export default function InvitationPage() {
   const [weddingConfig, setWeddingConfig] = useState<any>(null);
   const [countdown, setCountdown] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+  const [showToast, setShowToast] = useState(false);
+  const [showStickyHeader, setShowStickyHeader] = useState(false);
+  const [isMusicPlaying, setIsMusicPlaying] = useState(false);
   
   const searchParams = useSearchParams();
   const configFile = searchParams.get('config') || 'tushar-babitta';
@@ -20,6 +23,12 @@ export default function InvitationPage() {
     if (!weddingConfig) return;
 
     setTimeout(() => document.body.classList.add('loaded'), 1000);
+    
+    // Toast message after 3 seconds
+    const toastTimer = setTimeout(() => {
+      setShowToast(true);
+      setTimeout(() => setShowToast(false), 15000);
+    }, 3000);
     
     const weddingDate = new Date(weddingConfig.couple.countdownDate).getTime();
     const updateCountdown = () => {
@@ -41,11 +50,14 @@ export default function InvitationPage() {
 
     updateCountdown();
     const interval = setInterval(updateCountdown, 1000);
-    return () => clearInterval(interval);
+    return () => {
+      clearInterval(interval);
+      clearTimeout(toastTimer);
+    };
   }, [weddingConfig]);
 
   const downloadCalendar = (event: any) => {
-    const icsContent = `BEGIN:VCALENDAR\\nVERSION:2.0\\nBEGIN:VEVENT\\nSUMMARY:${event.name} - ${weddingConfig.couple.groom} & ${weddingConfig.couple.bride}\\nDTSTART:${event.calendarStart}\\nDTEND:${event.calendarEnd}\\nLOCATION:${event.venue}, ${event.address}\\nDESCRIPTION:Join us for the ${event.name}\\nEND:VEVENT\\nEND:VCALENDAR`;
+    const icsContent = `BEGIN:VCALENDAR\\nVERSION:2.0\\nBEGIN:VEVENT\\nSUMMARY:${event.name} - ${weddingConfig.couple.person1} & ${weddingConfig.couple.person2}\\nDTSTART:${event.calendarStart}\\nDTEND:${event.calendarEnd}\\nLOCATION:${event.venue}, ${event.address}\\nDESCRIPTION:Join us for the ${event.name}\\nEND:VEVENT\\nEND:VCALENDAR`;
     const blob = new Blob([icsContent], { type: 'text/calendar' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
@@ -284,12 +296,19 @@ export default function InvitationPage() {
           flex-direction: column;
           justify-content: space-between;
           min-height: 180px;
+          text-align: center;
         }
         .info h4 {
           margin-bottom: 10px;
           font-family: 'Playfair Display', serif;
           color: #b8860b;
           font-size: 1.2rem;
+        }
+        .info span {
+          display: block;
+          font-size: .9rem;
+          color: #8b6914;
+          font-weight: 500;
         }
         .countdown {
           max-width: 900px;
@@ -349,6 +368,57 @@ export default function InvitationPage() {
         .footer-nav a:hover {
           color: #ffd700;
         }
+        .toast {
+          position: fixed;
+          bottom: 20px;
+          right: 20px;
+          max-width: 350px;
+          background: linear-gradient(135deg, #fff9e6 0%, #ffffff 100%);
+          border: 2px solid #d4af37;
+          border-radius: 15px;
+          padding: 20px;
+          box-shadow: 0 15px 35px rgba(0,0,0,.2);
+          z-index: 1000;
+          transform: translateX(400px);
+          opacity: 0;
+          transition: all 1.5s ease;
+        }
+        .toast.show {
+          transform: translateX(0);
+          opacity: 1;
+        }
+        .toast-close {
+          position: absolute;
+          top: 10px;
+          right: 15px;
+          background: none;
+          border: none;
+          font-size: 20px;
+          color: #b8860b;
+          cursor: pointer;
+        }
+        .toast h4 {
+          color: #b8860b;
+          margin: 0 0 10px 0;
+          font-family: 'Playfair Display', serif;
+        }
+        .toast p {
+          color: #8b6914;
+          font-size: 0.85rem;
+          line-height: 1.4;
+          margin: 0;
+        }
+        .toast-icon {
+          display: inline-block;
+          font-size: 1.2rem;
+          margin-right: 8px;
+          animation: wave 2s ease-in-out infinite;
+        }
+        @keyframes wave {
+          0%, 100% { transform: rotate(0deg); }
+          25% { transform: rotate(20deg); }
+          75% { transform: rotate(-10deg); }
+        }
         @media(max-width: 768px) {
           .hero {
             flex-direction: column;
@@ -369,21 +439,35 @@ export default function InvitationPage() {
           .event:nth-child(odd), .event:nth-child(even) {
             margin-left: 0;
           }
+          .info-grid {
+            grid-template-columns: 1fr;
+            gap: 15px;
+          }
         }
       `}</style>
       <div className="hydration-overlay">
         <div className="loader-content">
           <div className="loader-ring"></div>
-          <h3>{weddingConfig.couple.groom} & {weddingConfig.couple.bride}</h3>
+          <h3>{weddingConfig.couple.person1} & {weddingConfig.couple.person2}</h3>
           <p>Wedding Invitation Loading...</p>
         </div>
       </div>
+      
+      {showToast && (
+        <div className={`toast ${showToast ? 'show' : ''}`}>
+          <button className="toast-close" onClick={() => setShowToast(false)}>×</button>
+          <h4><span className="toast-icon">👋</span>{weddingConfig.messages.toast.title}</h4>
+          <p>
+            {weddingConfig.messages.toast.content}
+          </p>
+        </div>
+      )}
       
       <div className="page-wrapper">
         <div className="hero">
           <div className="hero-content">
             <p>{weddingConfig.messages.blessing}</p>
-            <h1>{weddingConfig.couple.groom} & {weddingConfig.couple.bride}</h1>
+            <h1>{weddingConfig.couple.person1} & {weddingConfig.couple.person2}</h1>
             <p>{weddingConfig.messages.invitation}</p>
             <div style={{marginTop: '20px', fontSize: '1.2rem', fontWeight: 'bold', color: '#8b6914'}}>
               {weddingConfig.couple.weddingDate}
@@ -419,15 +503,15 @@ export default function InvitationPage() {
 
         <section className="about">
           <div className="title">
-            <h2>Message from Groom's Family</h2>
+            <h2>Message from {weddingConfig.family.invitationFrom === 'groom' ? 'Groom' : 'Bride'}'s Family</h2>
           </div>
           <p>
             {weddingConfig.messages.familyMessage
-              .replace('{groom}', weddingConfig.couple.groom)
-              .replace('{bride}', weddingConfig.couple.bride)}
+              .replace('{person1}', weddingConfig.couple.person1)
+              .replace('{person2}', weddingConfig.couple.person2)}
           </p>
           <p style={{marginTop: '20px', fontStyle: 'italic'}}>
-            ✨ Compliments from the {weddingConfig.family.groomFamily} ✨
+            ✨ Compliments from the {weddingConfig.family.person1Family} ✨
           </p>
           <button onClick={() => window.open(`https://wa.me/${weddingConfig.contacts.rsvp.number}?text=${encodeURIComponent(weddingConfig.contacts.rsvp.message)}`, '_blank')} style={{marginTop: '30px', padding: '12px 30px'}}>
             RSVP
@@ -439,11 +523,11 @@ export default function InvitationPage() {
             <h2>Venue Details & Contacts</h2>
           </div>
           <div className="info-grid" style={{maxWidth: '1400px', gap: '30px'}}>
-            {weddingConfig.events.map((event: any, index: number) => (
+            {weddingConfig.events.filter((event: any) => event.showInVenue).map((event: any, index: number) => (
               <div key={index} className="info">
                 <h4>{event.name}</h4>
-                {event.venue}<br/>
-                {event.address}<br/>
+                <span>{event.venue}</span>
+                <span>{event.address}</span>
                 <button onClick={() => window.open(`https://maps.google.com/?q=${event.mapQuery}`, '_blank')} style={{marginTop: '10px', fontSize: '0.8rem', padding: '8px 16px'}}>
                   View Location
                 </button>
@@ -452,7 +536,7 @@ export default function InvitationPage() {
             <div className="info">
               <h4>Contact Numbers</h4>
               {weddingConfig.contacts.numbers.map((number: string, index: number) => (
-                <span key={index}>{number}<br/></span>
+                <span key={index}>{number}</span>
               ))}
               <button onClick={() => window.open(`https://wa.me/${weddingConfig.contacts.whatsapp}`, '_blank')} style={{marginTop: '10px', fontSize: '0.8rem', padding: '8px 16px', backgroundColor: '#25D366', color: 'white'}}>
                 WhatsApp
@@ -520,7 +604,7 @@ export default function InvitationPage() {
             <a href="#about" onClick={(e) => {e.preventDefault(); document.querySelector('.about')?.scrollIntoView({behavior: 'smooth'});}}>About</a>
             <a href="#countdown" onClick={(e) => {e.preventDefault(); document.querySelector('.countdown')?.scrollIntoView({behavior: 'smooth'});}}>Countdown</a>
           </div>
-          © 2026 {weddingConfig.couple.groom} & {weddingConfig.couple.bride} – Wedding Invitation
+          © 2026 {weddingConfig.couple.person1} & {weddingConfig.couple.person2} – Wedding Invitation
         </footer>
       </div>
     </>

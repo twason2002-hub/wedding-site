@@ -1,14 +1,15 @@
 {
   "couple": {
-    "groom": "Tushar",
-    "bride": "Babitta",
+    "person1": "Tushar",
+    "person2": "Babitta",
     "weddingDate": "15th February 2026",
     "countdownDate": "February 15, 2026 00:00:00"
   },
   "family": {
-    "groomFamily": "Wassan Family",
+    "person1Family": "Wassan Family",
     "parents": "Sh. Rajinder Kumar Wassan & Smt. Rekha Rani",
-    "blessingsFrom": "Late Sh. Krishan Lal Wassan & Late Smt. Soma Wanti Wassan"
+    "blessingsFrom": "Late Sh. Krishan Lal Wassan & Late Smt. Soma Wanti Wassan",
+    "invitationFrom": "groom"
   },
   "events": [
     {
@@ -19,7 +20,8 @@
       "address": "Near Radisson Blu Hotel, Paschim Vihar, New Delhi – 110085",
       "mapQuery": "Mapple+Gold+Banquet+Paschim+Vihar+Delhi",
       "calendarStart": "20260211T190000",
-      "calendarEnd": "20260211T220000"
+      "calendarEnd": "20260211T220000",
+      "showInVenue": true
     },
     {
       "name": "Mehandi Night",
@@ -29,17 +31,19 @@
       "address": "J3, J-Block Road, Vikaspuri, New Delhi – 110018",
       "mapQuery": "Anubhav+Banquet+Hall+Vikaspuri+Delhi",
       "calendarStart": "20260212T190000",
-      "calendarEnd": "20260212T220000"
+      "calendarEnd": "20260212T220000",
+      "showInVenue": true
     },
     {
       "name": "Wedding Ceremony",
       "date": "15 February 2026",
-      "time": "4:00 PM Onwards",
+      "time": "7:00 PM Onwards",
       "venue": "J9 Grand Banquet Hall, Jalandhar",
       "address": "G.T. Road, Bypass, Opp. IOCT Terminal, Jalandhar",
       "mapQuery": "J9+Grand+Banquet+Hall+Jalandhar",
-      "calendarStart": "20260215T160000",
-      "calendarEnd": "20260215T200000"
+      "calendarStart": "20260215T190000",
+      "calendarEnd": "20260216T040000",
+      "showInVenue": true
     }
   ],
   "contacts": {
@@ -53,7 +57,7 @@
   "messages": {
     "blessing": "ॐ श्री गणेशाय नम",
     "invitation": "WE INVITE YOU TO CELEBRATE OUR WEDDING",
-    "familyMessage": "With the blessings of Lord Ganesha, we joyfully invite you to bless and celebrate the wedding of our beloved {groom} with {bride}. Your presence will make our happiness complete.",
+    "familyMessage": "With the blessings of Lord Ganesha, we joyfully invite you to bless and celebrate the wedding of our beloved {person1} with {person2}. Your presence will make our happiness complete.",
     "toast": {
       "title": "Thanks for Visiting Our Website!",
       "content": "We're so happy you're here and can't thank you enough for all the love and support since our roka. We're truly grateful and can't wait to celebrate with you on our big day! 💕"
