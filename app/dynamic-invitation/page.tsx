@@ -1,9 +1,9 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 
-export default function InvitationPage() {
+function InvitationContent() {
   const [weddingConfig, setWeddingConfig] = useState<any>(null);
   const [countdown, setCountdown] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
   const [showToast, setShowToast] = useState(false);
@@ -607,6 +607,54 @@ export default function InvitationPage() {
           © 2026 {weddingConfig.couple.person1} & {weddingConfig.couple.person2} – Wedding Invitation
         </footer>
       </div>
+    </>
+  );
+}
+
+export default function InvitationPage() {
+  return (
+    <>
+      <style jsx global>{`
+        .hydration-overlay {
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background: linear-gradient(135deg, #f5f5dc 0%, #e6ddd4 100%);
+          z-index: 99999;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+        .loader-content {
+          text-align: center;
+          color: #b8860b;
+        }
+        .loader-ring {
+          width: 60px;
+          height: 60px;
+          border: 4px solid rgba(212, 175, 55, 0.3);
+          border-top: 4px solid #d4af37;
+          border-radius: 50%;
+          animation: spin 1s linear infinite;
+          margin: 0 auto 20px;
+        }
+        @keyframes spin {
+          0% { transform: rotate(0deg); }
+          100% { transform: rotate(360deg); }
+        }
+      `}</style>
+      <Suspense fallback={
+        <div className="hydration-overlay">
+          <div className="loader-content">
+            <div className="loader-ring"></div>
+            <p>Loading Wedding Invitation...</p>
+          </div>
+        </div>
+      }>
+        <InvitationContent />
+      </Suspense>
     </>
   );
 }
