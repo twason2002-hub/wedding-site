@@ -24,6 +24,54 @@ function InvitationContent() {
 
     setTimeout(() => document.body.classList.add('loaded'), 1000);
     
+    let musicStarted = false;
+    
+    const handleScroll = () => {
+      const scrollY = window.scrollY;
+      const hero = document.querySelector('.hero') as HTMLElement;
+      
+      if (hero && scrollY < window.innerHeight) {
+        hero.style.transform = `translate3d(0, ${scrollY * 0.2}px, 0)`;
+      }
+      
+      setShowStickyHeader(scrollY > 300);
+      
+      if (weddingConfig.messages.music?.enabled && !musicStarted && scrollY > 10) {
+        const audio = document.getElementById('backgroundMusic') as HTMLAudioElement;
+        if (audio && audio.paused) {
+          audio.volume = 0.2;
+          audio.play().then(() => {
+            setIsMusicPlaying(true);
+            musicStarted = true;
+          }).catch(() => {
+            document.addEventListener('click', () => {
+              if (audio.paused) {
+                audio.play().then(() => {
+                  setIsMusicPlaying(true);
+                  musicStarted = true;
+                });
+              }
+            }, { once: true });
+          });
+        }
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+
+    // Auto-play background music immediately
+    if (weddingConfig.messages.music?.enabled) {
+      setTimeout(() => {
+        const audio = document.getElementById('backgroundMusic') as HTMLAudioElement;
+        if (audio) {
+          audio.volume = 0.2;
+          audio.play().then(() => setIsMusicPlaying(true)).catch(() => {
+            console.log('Auto-play blocked - waiting for user interaction');
+          });
+        }
+      }, 1000);
+    }
+    
     // Toast message after 3 seconds
     const toastTimer = setTimeout(() => {
       setShowToast(true);
@@ -53,6 +101,7 @@ function InvitationContent() {
     return () => {
       clearInterval(interval);
       clearTimeout(toastTimer);
+      window.removeEventListener('scroll', handleScroll);
     };
   }, [weddingConfig]);
 
@@ -419,6 +468,50 @@ function InvitationContent() {
           25% { transform: rotate(20deg); }
           75% { transform: rotate(-10deg); }
         }
+        .music-control {
+          position: fixed;
+          top: 20px;
+          right: 20px;
+          background: linear-gradient(135deg, #d4af37 0%, #b8860b 100%);
+          color: white;
+          border: none;
+          border-radius: 50%;
+          width: 60px;
+          height: 60px;
+          font-size: 24px;
+          cursor: pointer;
+          z-index: 1000;
+          box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+          transition: all 0.3s ease;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+        .music-control:hover {
+          transform: scale(1.1);
+        }
+        .sticky-header {
+          position: fixed;
+          top: 0;
+          left: 0;
+          right: 0;
+          background: linear-gradient(135deg, #d4af37 0%, #ffd700 50%, #b8860b 100%);
+          color: white;
+          text-align: center;
+          padding: 15px 20px;
+          z-index: 1000;
+          transform: translateY(-100%);
+          transition: transform 0.3s ease;
+          box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+        .sticky-header.show {
+          transform: translateY(0);
+        }
+        .sticky-header h3 {
+          margin: 0;
+          font-family: 'Playfair Display', serif;
+          font-size: 1.5rem;
+        }
         @media(max-width: 768px) {
           .hero {
             flex-direction: column;
@@ -444,6 +537,15 @@ function InvitationContent() {
             gap: 15px;
           }
         }
+        @media(max-width: 480px) {
+          .countdown-grid {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+          }
+          .countdown-number {
+            font-size: 1.8rem;
+          }
+        }
       `}</style>
       <div className="hydration-overlay">
         <div className="loader-content">
@@ -452,6 +554,30 @@ function InvitationContent() {
           <p>Wedding Invitation Loading...</p>
         </div>
       </div>
+      
+      {weddingConfig.messages.music?.enabled && (
+        <>
+          <audio id="backgroundMusic" loop>
+            <source src={weddingConfig.messages.music.src} type="audio/mpeg" />
+          </audio>
+          
+          <button 
+            className="music-control"
+            onClick={() => {
+              const audio = document.getElementById('backgroundMusic') as HTMLAudioElement;
+              if (isMusicPlaying) {
+                audio.pause();
+                setIsMusicPlaying(false);
+              } else {
+                audio.volume = 0.2;
+                audio.play().then(() => setIsMusicPlaying(true));
+              }
+            }}
+          >
+            {isMusicPlaying ? '♪' : '♫'}
+          </button>
+        </>
+      )}
       
       {showToast && (
         <div className={`toast ${showToast ? 'show' : ''}`}>
@@ -464,6 +590,12 @@ function InvitationContent() {
       )}
       
       <div className="page-wrapper">
+        <div className={`sticky-header ${showStickyHeader ? 'show' : ''}`}>
+          <p style={{margin: '0 0 5px 0', fontSize: '0.9rem'}}>{weddingConfig.messages.blessing}</p>
+          <h3>{weddingConfig.couple.person1} & {weddingConfig.couple.person2}</h3>
+          <p style={{margin: '5px 0', fontSize: '0.8rem', letterSpacing: '1px'}}>{weddingConfig.messages.invitation}</p>
+          <p style={{margin: '5px 0 0 0', fontSize: '0.9rem', fontWeight: 'bold'}}>{weddingConfig.couple.weddingDate}</p>
+        </div>
         <div className="hero">
           <div className="hero-content">
             <p>{weddingConfig.messages.blessing}</p>
