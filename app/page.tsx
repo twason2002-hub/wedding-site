@@ -892,9 +892,9 @@ export default function WeddingInvitation() {
           </div>
           <div className="info">
             <h4>Contact Numbers</h4>
-            <span>9056314930</span>
-            <span>9811899227</span>
-            <span>9999250975</span>
+            <span>9056314930 (Ishpreet Singh)</span>
+            <span>9811899227  (Rajesh Wassan)</span>
+            <span>9999250975  (Tarun Wassan)</span>
             <button onClick={() => window.open('https://wa.me/919056314930', '_blank')} style={{marginTop: '10px', fontSize: '0.8rem', padding: '8px 16px', backgroundColor: '#25D366', color: 'white'}}>WhatsApp</button>
           </div>
         </div>
@@ -911,7 +911,7 @@ export default function WeddingInvitation() {
           </div>
           <div style={{background: 'linear-gradient(135deg, #fff9e6 0%, #ffffff 100%)', padding: '30px', borderRadius: '15px', boxShadow: '0 15px 35px rgba(0,0,0,.1)', border: '1px solid rgba(212,175,55,.2)', marginBottom: '20px'}}>
             <h4 style={{color: '#b8860b', marginBottom: '15px', fontFamily: 'Playfair Display, serif'}}>Blessings From</h4>
-            <p style={{margin: '5px 0', color: '#8b6914'}}>Late Sh. Krishan Lal Wassan & Late Smt. Soma Wanti Wassan</p>
+            <p style={{margin: '5px 0', color: '#8b6914'}}>Late Sh. Krishan Lal Wassan & Late Smt. Soma Wanti Wassan  <br/> Dadke & Nanke </p>
           </div>
           <div style={{background: 'linear-gradient(135deg, #fff9e6 0%, #ffffff 100%)', padding: '30px', borderRadius: '15px', boxShadow: '0 15px 35px rgba(0,0,0,.1)', border: '1px solid rgba(212,175,55,.2)'}}>
             <h4 style={{color: '#b8860b', marginBottom: '15px', fontFamily: 'Playfair Display, serif'}}>RSVP</h4>

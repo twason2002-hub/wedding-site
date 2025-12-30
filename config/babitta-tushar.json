@@ -8,7 +8,7 @@
   "family": {
     "person1Family": "Sangu Family",
     "parents": "Sh. Bhajan Sangu & Smt. Asha Sangu",
-    "blessingsFrom": "",
+    "blessingsFrom": "Dadke:\nLate S. Balkrishan Sangu & Late Smt. Swaran Kaur Sangu\nNanke:\nLate S. Rattan Chand Sohal & Late Smt. Durga Devi Sohal\n",
     "invitationFrom": "bride"
   },
   "events": [
@@ -36,25 +36,28 @@
     {
       "name": "Haldi",
       "date": "13 February 2026",
+      "time": "11:00 AM Onwards",
       "showInVenue": false,
-      "calendarStart": "20260213T100000",
-      "calendarEnd": "20260213T130000"
+      "calendarStart": "20260213T110000",
+      "calendarEnd": "20260213T140000"
     },
     {
       "name": "Mehendi Night",
       "date": "13 February 2026",
+      "time": "05:00 PM Onwards",
       "showInVenue": false,
-      "calendarStart": "20260213T190000",
-      "calendarEnd": "20260213T220000"
+      "calendarStart": "20260213T170000",
+      "calendarEnd": "20260213T200000"
     },
     {
       "name": "Jaggo Night",
       "time": "7:00 PM Onwards",
+      "date": "14 February 2026",
       "venue": "Gurdev Nagar, Ram Nagar, Jalandhar, Punjab 144008, India",
       "address": "11/21, Gurdev Nagar, Ram Nagar, Jalandhar, Punjab 144008, India",
       "showInVenue": false,
       "calendarStart": "20260214T190000",
-      "calendarEnd": "20260214T220000"
+      "calendarEnd": "20260214T110000"
     },
     {
       "name": "Wedding Night",
