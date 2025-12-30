@@ -11,12 +11,12 @@ function InvitationContent() {
   const [isMusicPlaying, setIsMusicPlaying] = useState(false);
   
   const searchParams = useSearchParams();
-  const configFile = searchParams.get('config') || 'tushar-babitta';
+  const configFile = searchParams.get('config') || 'babitta-tushar';
 
   useEffect(() => {
     import(`../../config/${configFile}.json`)
       .then((config) => setWeddingConfig(config.default))
-      .catch(() => import('../../config/tushar-babitta.json').then((config) => setWeddingConfig(config.default)));
+      .catch(() => import('../../config/babitta-tushar.json').then((config) => setWeddingConfig(config.default)));
   }, [configFile]);
 
   useEffect(() => {
