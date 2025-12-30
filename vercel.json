@@ -1,22 +1,4 @@
 {
-  "redirects": [
-    {
-      "source": "/invitation",
-      "destination": "/",
-      "has": [
-        {
-          "type": "query",
-          "key": "config",
-          "value": "babitta-tushar"
-        },
-        {
-          "type": "host",
-          "value": "babittawedstushar.inviteo.in"
-        }
-      ],
-      "statusCode": 301
-    }
-  ],
   "rewrites": [
     {
       "source": "/",
