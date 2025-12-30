@@ -2,13 +2,7 @@
   "rewrites": [
     {
       "source": "/",
-      "destination": "/invitation?config=babitta-tushar",
-      "has": [
-        {
-          "type": "host",
-          "value": "babittawedstushar.inviteo.in"
-        }
-      ]
+      "destination": "/invitation?config=babitta-tushar"
     }
   ]
 }
