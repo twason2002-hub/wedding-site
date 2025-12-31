@@ -106,13 +106,46 @@ function InvitationContent() {
   }, [weddingConfig]);
 
   const downloadCalendar = (event: any) => {
-    const icsContent = `BEGIN:VCALENDAR\\nVERSION:2.0\\nBEGIN:VEVENT\\nSUMMARY:${event.name} - ${weddingConfig.couple.person1} & ${weddingConfig.couple.person2}\\nDTSTART:${event.calendarStart}\\nDTEND:${event.calendarEnd}\\nLOCATION:${event.venue}, ${event.address}\\nDESCRIPTION:Join us for the ${event.name}\\nEND:VEVENT\\nEND:VCALENDAR`;
+    const uid = `${event.name.toLowerCase().replace(/\s+/g, '-')}-${Date.now()}@wedding.com`;
+    const dtStamp = new Date().toISOString().replace(/[-:.]/g, '').slice(0, 15) + 'Z';
+    
+    // Escape special characters for ICS format
+    const escapeICS = (text: string) => {
+      return text
+        .replace(/\\/g, '\\\\')
+        .replace(/;/g, '\\;')
+        .replace(/,/g, '\\,')
+        .replace(/\n/g, '\\n');
+    };
+    
+    const summary = escapeICS(`${event.name} - ${weddingConfig.couple.person1} and ${weddingConfig.couple.person2}`);
+    const location = escapeICS(`${event.venue}, ${event.address}`);
+    const description = escapeICS(`Join us for ${event.name}`);
+    
+    const icsLines = [
+      'BEGIN:VCALENDAR',
+      'VERSION:2.0',
+      'PRODID:-//Wedding//EN',
+      'BEGIN:VEVENT',
+      `UID:${uid}`,
+      `DTSTAMP:${dtStamp}`,
+      `DTSTART:${event.calendarStart}`,
+      `DTEND:${event.calendarEnd}`,
+      `SUMMARY:${summary}`,
+      `LOCATION:${location}`,
+      `DESCRIPTION:${description}`,
+      'END:VEVENT',
+      'END:VCALENDAR'
+    ];
+    
+    const icsContent = icsLines.join('\r\n') + '\r\n';
     const blob = new Blob([icsContent], { type: 'text/calendar' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
     a.download = `${event.name.toLowerCase().replace(/\s+/g, '-')}.ics`;
     a.click();
+    URL.revokeObjectURL(url);
   };
 
   if (!weddingConfig) {

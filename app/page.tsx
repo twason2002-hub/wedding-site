@@ -781,20 +781,38 @@ export default function WeddingInvitation() {
             <span>Mapple Gold Banquet, Hall No. 4</span>
             <span>7:00 PM Onwards</span>
             <button onClick={() => {
-              const event = {
-                title: 'Sagan Ceremony - Tushar & Babitta',
-                start: '20260211T190000',
-                end: '20260211T220000',
-                location: 'Mapple Gold Banquet, Hall No. 4, Paschim Vihar, New Delhi',
-                description: 'Join us for the Sagan Ceremony of Tushar and Babitta'
-              };
-              const icsContent = `BEGIN:VCALENDAR\nVERSION:2.0\nBEGIN:VEVENT\nSUMMARY:${event.title}\nDTSTART:${event.start}\nDTEND:${event.end}\nLOCATION:${event.location}\nDESCRIPTION:${event.description}\nEND:VEVENT\nEND:VCALENDAR`;
-              const blob = new Blob([icsContent], { type: 'text/calendar' });
+              const now = new Date();
+              const dtStamp = now.toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/, '');
+              
+              const icsContent = [
+                'BEGIN:VCALENDAR',
+                'VERSION:2.0',
+                'PRODID:-//Wedding//Wedding Invitation//EN',
+                'CALSCALE:GREGORIAN',
+                'METHOD:PUBLISH',
+                'BEGIN:VEVENT',
+                `UID:sagan-${Date.now()}@wedding.com`,
+                `DTSTAMP:${dtStamp}`,
+                'DTSTART:20260211T190000',
+                'DTEND:20260211T220000',
+                'SUMMARY:Sagan Ceremony - Tushar & Babitta',
+                'DESCRIPTION:Join us for the Sagan Ceremony of Tushar and Babitta',
+                'LOCATION:Mapple Gold Banquet\, Hall No. 4\, Paschim Vihar\, New Delhi',
+                'STATUS:CONFIRMED',
+                'SEQUENCE:0',
+                'END:VEVENT',
+                'END:VCALENDAR'
+              ].join('\r\n');
+              
+              const blob = new Blob([icsContent], { type: 'text/calendar;charset=utf-8' });
               const url = URL.createObjectURL(blob);
               const a = document.createElement('a');
               a.href = url;
               a.download = 'sagan-ceremony.ics';
+              document.body.appendChild(a);
               a.click();
+              document.body.removeChild(a);
+              URL.revokeObjectURL(url);
             }} style={{marginTop: '10px', fontSize: '0.8rem', padding: '8px 16px', background: 'linear-gradient(135deg, #d4af37 0%, #b8860b 100%)', color: 'white', border: 'none', borderRadius: '25px', cursor: 'pointer'}}>Save the Date</button>
           </div>
           <div className="event haldi-mehndi">
@@ -803,20 +821,38 @@ export default function WeddingInvitation() {
             <span>Anubhav Banquet Hall, Vikaspuri</span>
             <span>7:00 PM Onwards</span>
             <button onClick={() => {
-              const event = {
-                title: 'Mehandi Night - Tushar & Babitta',
-                start: '20260212T190000',
-                end: '20260212T220000',
-                location: 'Anubhav Banquet Hall, Vikaspuri, New Delhi',
-                description: 'Join us for the Mehandi Night of Tushar and Babitta'
-              };
-              const icsContent = `BEGIN:VCALENDAR\nVERSION:2.0\nBEGIN:VEVENT\nSUMMARY:${event.title}\nDTSTART:${event.start}\nDTEND:${event.end}\nLOCATION:${event.location}\nDESCRIPTION:${event.description}\nEND:VEVENT\nEND:VCALENDAR`;
-              const blob = new Blob([icsContent], { type: 'text/calendar' });
+              const now = new Date();
+              const dtStamp = now.toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/, '');
+              
+              const icsContent = [
+                'BEGIN:VCALENDAR',
+                'VERSION:2.0',
+                'PRODID:-//Wedding//Wedding Invitation//EN',
+                'CALSCALE:GREGORIAN',
+                'METHOD:PUBLISH',
+                'BEGIN:VEVENT',
+                `UID:mehandi-${Date.now()}@wedding.com`,
+                `DTSTAMP:${dtStamp}`,
+                'DTSTART:20260212T190000',
+                'DTEND:20260212T220000',
+                'SUMMARY:Mehandi Night - Tushar & Babitta',
+                'DESCRIPTION:Join us for the Mehandi Night of Tushar and Babitta',
+                'LOCATION:Anubhav Banquet Hall\, Vikaspuri\, New Delhi',
+                'STATUS:CONFIRMED',
+                'SEQUENCE:0',
+                'END:VEVENT',
+                'END:VCALENDAR'
+              ].join('\r\n');
+              
+              const blob = new Blob([icsContent], { type: 'text/calendar;charset=utf-8' });
               const url = URL.createObjectURL(blob);
               const a = document.createElement('a');
               a.href = url;
               a.download = 'mehandi-night.ics';
+              document.body.appendChild(a);
               a.click();
+              document.body.removeChild(a);
+              URL.revokeObjectURL(url);
             }} style={{marginTop: '10px', fontSize: '0.8rem', padding: '8px 16px', background: 'linear-gradient(135deg, #d4af37 0%, #b8860b 100%)', color: 'white', border: 'none', borderRadius: '25px', cursor: 'pointer'}}>Save the Date</button>
           </div>
           <div className="event">
@@ -825,20 +861,38 @@ export default function WeddingInvitation() {
             <span>J9 Grand Banquet Hall, Jalandhar</span>
             <span>7:00 PM Onwards</span>
             <button onClick={() => {
-              const event = {
-                title: 'Wedding Ceremony - Tushar & Babitta',
-                start: '20260215T160000',
-                end: '20260215T200000',
-                location: 'J9 Grand Banquet Hall, Jalandhar',
-                description: 'Join us for the Wedding Ceremony of Tushar and Babitta'
-              };
-              const icsContent = `BEGIN:VCALENDAR\nVERSION:2.0\nBEGIN:VEVENT\nSUMMARY:${event.title}\nDTSTART:${event.start}\nDTEND:${event.end}\nLOCATION:${event.location}\nDESCRIPTION:${event.description}\nEND:VEVENT\nEND:VCALENDAR`;
-              const blob = new Blob([icsContent], { type: 'text/calendar' });
+              const now = new Date();
+              const dtStamp = now.toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/, '');
+              
+              const icsContent = [
+                'BEGIN:VCALENDAR',
+                'VERSION:2.0',
+                'PRODID:-//Wedding//Wedding Invitation//EN',
+                'CALSCALE:GREGORIAN',
+                'METHOD:PUBLISH',
+                'BEGIN:VEVENT',
+                `UID:wedding-${Date.now()}@wedding.com`,
+                `DTSTAMP:${dtStamp}`,
+                'DTSTART:20260215T160000',
+                'DTEND:20260215T200000',
+                'SUMMARY:Wedding Ceremony - Tushar & Babitta',
+                'DESCRIPTION:Join us for the Wedding Ceremony of Tushar and Babitta',
+                'LOCATION:J9 Grand Banquet Hall\, Jalandhar',
+                'STATUS:CONFIRMED',
+                'SEQUENCE:0',
+                'END:VEVENT',
+                'END:VCALENDAR'
+              ].join('\r\n');
+              
+              const blob = new Blob([icsContent], { type: 'text/calendar;charset=utf-8' });
               const url = URL.createObjectURL(blob);
               const a = document.createElement('a');
               a.href = url;
               a.download = 'wedding-ceremony.ics';
+              document.body.appendChild(a);
               a.click();
+              document.body.removeChild(a);
+              URL.revokeObjectURL(url);
             }} style={{marginTop: '10px', fontSize: '0.8rem', padding: '8px 16px', background: 'linear-gradient(135deg, #d4af37 0%, #b8860b 100%)', color: 'white', border: 'none', borderRadius: '25px', cursor: 'pointer'}}>Save the Date</button>
           </div>
           <div className="event">
