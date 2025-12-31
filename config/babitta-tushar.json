@@ -15,9 +15,10 @@
     {
       "name": "Mata Ki Chowki",
       "date": "07 February 2026",
-      "time": "1 PM Onwards",
+      "time": "01:00 PM Onwards",
       "venue": "Bride's House",
       "address": "4-A,Gurdev Nagar, Ram Nagar, Jalandhar, Punjab 144008, India",
+      "mapQuery": "8HV9+5R5,+Jalandhar,+Punjab,+India",
       "showInVenue": true,
       "calendarStart": "20260207T130000",
       "calendarEnd": "20260207T170000"
@@ -25,7 +26,7 @@
     {
       "name": "Shagan (Delhi)",
       "date": "11 February 2026",
-      "time": "7:00 PM Onwards",
+      "time": "07:00 PM Onwards",
       "venue": "Mapple Gold Banquet, Hall No. 4",
       "address": "Near Radisson Blu Hotel, Paschim Vihar, New Delhi – 110085",
       "mapQuery": "Mapple+Gold+Banquet+Paschim+Vihar+Delhi",
@@ -39,6 +40,7 @@
       "time": "11:00 AM Onwards",
       "venue": "Bride's House",
       "address": "4-A,Gurdev Nagar, Ram Nagar, Jalandhar, Punjab 144008, India",
+      "mapQuery": "8HV9+5R5,+Jalandhar,+Punjab,+India",
       "showInVenue": false,
       "calendarStart": "20260213T110000",
       "calendarEnd": "20260213T130000"
@@ -46,18 +48,21 @@
     {
       "name": "Mehendi Night",
       "date": "13 February 2026",
-      "time": "5:00 PM Onwards",
+      "time": "05:00 PM Onwards",
       "venue": "Bride's House",
       "address": "4-A,Gurdev Nagar, Ram Nagar, Jalandhar, Punjab 144008, India",
+      "mapQuery": "8HV9+5R5,+Jalandhar,+Punjab,+India",
       "showInVenue": false,
       "calendarStart": "20260213T170000",
       "calendarEnd": "20260213T220000"
     },
     {
       "name": "Jaggo Night",
-      "time": "6:00 PM Onwards",
+      "date": "14 February 2026",
+      "time": "06:00 PM Onwards",
       "venue": "Bride's House",
       "address": "4-A,Gurdev Nagar, Ram Nagar, Jalandhar, Punjab 144008, India",
+      "mapQuery": "8HV9+5R5,+Jalandhar,+Punjab,+India",
       "showInVenue": false,
       "calendarStart": "20260214T180000",
       "calendarEnd": "20260214T220000"
@@ -65,7 +70,7 @@
     {
       "name": "Wedding Night",
       "date": "15 February 2026",
-      "time": "7:00 PM Onwards",
+      "time": "07:00 PM Onwards",
       "venue": "J9 Grand Banquet Hall, Jalandhar",
       "address": "G.T. Road, Bypass, Opp. IOCT Terminal, Jalandhar",
       "mapQuery": "J9+Grand+Banquet+Hall+Jalandhar",
