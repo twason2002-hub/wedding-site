@@ -922,7 +922,7 @@ export default function WeddingInvitation() {
 
       <section className="countdown">
         <div className="title">
-          <h2>Countdown to Our Wedding</h2>
+          <h2>{weddingConfig.messages.countdownTitle || "Countdown to Our Wedding"}</h2>
         </div>
         <div className="countdown-grid">
           {countdown.days > 0 || countdown.hours > 0 || countdown.minutes > 0 || countdown.seconds > 0 ? (

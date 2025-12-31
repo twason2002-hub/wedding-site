@@ -8,19 +8,19 @@
   "family": {
     "person1Family": "Sangu Family",
     "parents": "Sh. Bhajan Sangu & Smt. Asha Sangu",
-    "blessingsFrom": "Dadke:\nLate S. Balkrishan Sangu & Late Smt. Swaran Kaur Sangu\nNanke:\nLate S. Rattan Chand Sohal & Late Smt. Durga Devi Sohal\n",
+    "blessingsFrom": "Late Sh. Balkrishan Sangu & Late Smt. Swaran Kaur Sangu,\nLate Sh. Rattan Chand Sohal & Late Smt. Durga Devi Sohal",
     "invitationFrom": "bride"
   },
   "events": [
     {
       "name": "Mata Ki Chowki",
       "date": "07 February 2026",
-      "time": "7:00 PM Onwards",
-      "venue": "Gurdev Nagar, Ram Nagar, Jalandhar, Punjab 144008, India",
-      "address": "11/21, Gurdev Nagar, Ram Nagar, Jalandhar, Punjab 144008, India",
+      "time": "1 PM Onwards",
+      "venue": "Bride's House",
+      "address": "4-A,Gurdev Nagar, Ram Nagar, Jalandhar, Punjab 144008, India",
       "showInVenue": true,
-      "calendarStart": "20260207T190000",
-      "calendarEnd": "20260207T220000"
+      "calendarStart": "20260207T130000",
+      "calendarEnd": "20260207T170000"
     },
     {
       "name": "Shagan (Delhi)",
@@ -30,34 +30,37 @@
       "address": "Near Radisson Blu Hotel, Paschim Vihar, New Delhi – 110085",
       "mapQuery": "Mapple+Gold+Banquet+Paschim+Vihar+Delhi",
       "calendarStart": "20260211T190000",
-      "calendarEnd": "20260211T220000",
+      "calendarEnd": "20260211T230000",
       "showInVenue": true
     },
     {
       "name": "Haldi",
       "date": "13 February 2026",
       "time": "11:00 AM Onwards",
+      "venue": "Bride's House",
+      "address": "4-A,Gurdev Nagar, Ram Nagar, Jalandhar, Punjab 144008, India",
       "showInVenue": false,
       "calendarStart": "20260213T110000",
-      "calendarEnd": "20260213T140000"
+      "calendarEnd": "20260213T130000"
     },
     {
       "name": "Mehendi Night",
       "date": "13 February 2026",
-      "time": "05:00 PM Onwards",
+      "time": "5:00 PM Onwards",
+      "venue": "Bride's House",
+      "address": "4-A,Gurdev Nagar, Ram Nagar, Jalandhar, Punjab 144008, India",
       "showInVenue": false,
       "calendarStart": "20260213T170000",
-      "calendarEnd": "20260213T200000"
+      "calendarEnd": "20260213T220000"
     },
     {
       "name": "Jaggo Night",
-      "time": "7:00 PM Onwards",
-      "date": "14 February 2026",
-      "venue": "Gurdev Nagar, Ram Nagar, Jalandhar, Punjab 144008, India",
-      "address": "11/21, Gurdev Nagar, Ram Nagar, Jalandhar, Punjab 144008, India",
+      "time": "6:00 PM Onwards",
+      "venue": "Bride's House",
+      "address": "4-A,Gurdev Nagar, Ram Nagar, Jalandhar, Punjab 144008, India",
       "showInVenue": false,
-      "calendarStart": "20260214T190000",
-      "calendarEnd": "20260214T110000"
+      "calendarStart": "20260214T180000",
+      "calendarEnd": "20260214T220000"
     },
     {
       "name": "Wedding Night",
@@ -72,16 +75,17 @@
     }
   ],
   "contacts": {
-    "numbers": ["123456789"],
-    "whatsapp": "123456789",
+    "numbers": ["+4915779086396"],
+    "whatsapp": "+4915779086396",
     "rsvp": {
-      "number": "123456789",
+      "number": "+4915779086396",
       "message": "Hi Babitta, thank you so much for the invitation! I'm excited to celebrate with you and will be joining the wedding. Wishing you both lots of happiness! 💐"
     }
   },
   "messages": {
     "blessing": "ॐ श्री गणेशाय नम",
     "invitation": "WE INVITE YOU TO CELEBRATE OUR WEDDING",
+    "countdownTitle": "Our Forever Starts In",
     "familyMessage": "With the blessings of Lord Ganesha, we joyfully invite you to bless and celebrate the wedding of our beloved Babitta with Tushar. Your presence will make our happiness complete.",
     "toast": {
       "title": "Thanks for Visiting Our Website!",
@@ -92,10 +96,6 @@
       "date": "16 February 2026 & Beyond",
       "message": "Beginning Our Journey Together",
       "tagline": "Forever & Always ✨"
-    },
-    "music": {
-      "enabled": true,
-      "src": "/music/bg-music.mp3"
     }
   }
 }
