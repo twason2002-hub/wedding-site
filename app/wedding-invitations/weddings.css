@@ -542,12 +542,21 @@
 }
 /* Dealt-from-top entrance (chapter cards land like played cards). */
 .wi-reveal--top {
-  transform: translate3d(0, -28px, 0) rotate(-1.5deg);
+  transform: translate3d(0, -56px, 0);
+}
+.wi-reveal--left {
+  transform: translate3d(-42%, 18px, 0) rotate(-8deg);
+}
+.wi-reveal--right {
+  transform: translate3d(42%, 18px, 0) rotate(8deg);
 }
 .wi-reveal.is-visible {
   opacity: 1;
   transform: translate3d(0, 0, 0);
 }
+.wi-reveal--top.is-visible { transform: rotate(-1deg); }
+.wi-reveal--left.is-visible { transform: rotate(-3deg); }
+.wi-reveal--right.is-visible { transform: rotate(3deg); }
 
 /* ---------- FAQ ---------- */
 .wi-faq {
@@ -1065,6 +1074,16 @@ section[aria-label="RSVP"] {
   -webkit-background-clip: text;
   background-clip: text;
 }
+/* Keep the name rise. A later shimmer animation must not replace it. */
+.wi-line.wi-gold-shimmer-text {
+  animation-name: wi-rise, wi-gold-shimmer-slide;
+  animation-duration: 680ms, 7s;
+  animation-timing-function: var(--wi-enter), linear;
+  animation-iteration-count: 1, infinite;
+  animation-fill-mode: forwards, none;
+}
+.wi-line--1.wi-gold-shimmer-text { animation-delay: 40ms, 0s; }
+.wi-line--2.wi-gold-shimmer-text { animation-delay: 140ms, 0s; }
 @keyframes wi-gold-shimmer-slide {
   0% { background-position: 200% 0; }
   100% { background-position: -200% 0; }
