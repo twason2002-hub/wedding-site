@@ -10,7 +10,7 @@ import { prefersReducedMotion } from "./effects/gsap-setup";
  * Timeline — centered column with scroll-drawn spine and stacked chapters (sm+).
  */
 const STACK_TOP = 76;
-const STACK_PEEK = 14;
+const STACK_PEEK = 28;
 
 export default function Timeline({
   events,

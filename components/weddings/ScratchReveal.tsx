@@ -163,7 +163,7 @@ export default function ScratchReveal({ wedding }: { wedding: WeddingData }) {
         {!revealed && !reduced && (
           <button
             onClick={reveal}
-            className="wi-action-lift absolute bottom-3 right-3 rounded-full bg-black/55 px-4 py-2 text-[10px] font-semibold uppercase tracking-[0.2em] text-white backdrop-blur-sm"
+            className="wi-action-lift absolute bottom-3 left-1/2 min-h-11 -translate-x-1/2 rounded-full bg-black/70 px-5 py-2 text-xs font-semibold uppercase tracking-[0.16em] text-white backdrop-blur-sm"
             aria-label="Tap to reveal the wedding date"
           >
             Tap to reveal

@@ -173,10 +173,17 @@ export default function OpeningOverlay({
     } as React.CSSProperties,
   };
 
+  const enterHint = (
+    <p className="pointer-events-none absolute bottom-5 left-1/2 z-30 -translate-x-1/2 rounded-full bg-black/50 px-4 py-2 text-xs uppercase tracking-[0.18em] text-white">
+      Scroll or press Esc
+    </p>
+  );
+
   const gates = (
     <>
       <div className="wi-gate-panel wi-gate-l" aria-hidden="true" />
       <div className="wi-gate-panel wi-gate-r" aria-hidden="true" />
+      {enterHint}
     </>
   );
 
@@ -233,6 +240,7 @@ export default function OpeningOverlay({
         {variant === "postcard" && (
           <PostcardReveal names={names} blessing={blessing} subtitle={subtitle} timing={t} onDone={dismiss} />
         )}
+        {enterHint}
       </div>
     );
   }

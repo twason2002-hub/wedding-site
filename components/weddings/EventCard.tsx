@@ -35,17 +35,11 @@ export default function EventCard({
         <article className="wi-bezel-dark group relative overflow-hidden">
           <div className="wi-bezel-dark-inner relative bg-gradient-to-b from-[#200e09] to-[#150805] p-7 sm:p-10 text-left">
             <FiligreeCorners color="rgba(212,175,55,0.45)" />
-            <span
-              aria-hidden="true"
-              className="font-regal wi-text-outline-gold pointer-events-none absolute right-6 top-4 text-6xl sm:text-8xl leading-none opacity-30"
-            >
-              {numStr}
-            </span>
             <div className="relative z-10 grid gap-7 md:grid-cols-[1.25fr_1fr] md:items-center">
               <div>
                 <div className="flex items-center gap-3">
-                  <span className="font-regal text-[11px] tracking-[0.34em] text-[#d4af37]">
-                    ROYAL CHAPTER {numStr}
+                  <span className="font-regal text-xs tracking-[0.28em] text-[#d4af37]">
+                    Ceremony
                   </span>
                   <span className="h-[0.5px] flex-1 bg-gradient-to-r from-[#d4af37]/35 to-transparent" />
                 </div>
@@ -69,33 +63,17 @@ export default function EventCard({
                     <span className="font-medium">{event.dressCode}</span>
                   </div>
                 )}
-                <div className="mt-6 flex flex-col gap-2.5 sm:flex-row sm:flex-wrap">
-                  <button
-                    onClick={handleSave}
-                    className="wi-action-lift inline-flex min-h-[44px] w-full items-center justify-center gap-2 rounded-full bg-gradient-to-r from-[#d4af37] to-[#9b7318] px-5 py-2 text-[11px] font-semibold uppercase tracking-[0.22em] text-[#170906] sm:w-auto"
-                  >
-                    {saved ? <CheckIcon size={14} /> : <CalendarIcon size={14} />}
-                    <span>{saved ? "Saved to Calendar" : "Save the Date"}</span>
-                  </button>
-                  <a
-                    href={googleCalendarUrl(event, couple)}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="wi-action-lift inline-flex min-h-[44px] w-full items-center justify-center gap-2 rounded-full px-4 py-2 text-[11px] uppercase tracking-[0.18em] text-[#f3e5c3] shadow-[inset_0_0_0_0.75px_rgba(212,175,55,0.35)] sm:w-auto"
-                  >
-                    <CalendarIcon size={14} />
-                    <span>Google Calendar</span>
-                  </a>
-                  <a
-                    href={mapsUrl(event.mapQuery)}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="wi-action-lift inline-flex min-h-[44px] w-full items-center justify-center gap-2 rounded-full px-4 py-2 text-[11px] uppercase tracking-[0.18em] text-[#f3e5c3] shadow-[inset_0_0_0_0.75px_rgba(212,175,55,0.35)] sm:w-auto"
-                  >
-                    <MapPinIcon size={14} />
-                    <span>Location</span>
-                  </a>
-                </div>
+                <EventActions
+                  saved={saved}
+                  onSave={handleSave}
+                  saveLabel="Save the Date"
+                  calendarHref={googleCalendarUrl(event, couple)}
+                  mapHref={mapsUrl(event.mapQuery)}
+                  mapLabel="Location"
+                  primaryClass="bg-gradient-to-r from-[#d4af37] to-[#9b7318] text-[#170906]"
+                  secondaryClass="text-[#f3e5c3] shadow-[inset_0_0_0_0.75px_rgba(212,175,55,0.35)]"
+                  summaryClass="text-[#e8cf8f]"
+                />
               </div>
               {event.image && (
                 <div className="wi-zoom overflow-hidden rounded-2xl shadow-[inset_0_0_0_0.75px_rgba(212,175,55,0.35)]">
@@ -120,12 +98,6 @@ export default function EventCard({
       <InteractiveTiltCard intensity={3}>
         <article className="group relative overflow-hidden rounded-[2.25rem] bg-white/95 p-7 sm:p-10 shadow-[0_24px_60px_-24px_rgba(168,90,110,0.16),inset_0_0_0_0.75px_rgba(217,138,156,0.4)]">
           <FiligreeCorners color="rgba(200,125,138,0.45)" />
-          <span
-            aria-hidden="true"
-            className="font-display-luxury wi-text-outline-rose pointer-events-none absolute right-7 top-4 text-6xl sm:text-8xl italic leading-none opacity-45"
-          >
-            {numStr}
-          </span>
           <div className="relative z-10 grid gap-7 md:grid-cols-[1fr_1.35fr] md:items-center">
             {event.image && (
               <div className="wi-zoom overflow-hidden rounded-[1.5rem] shadow-[inset_0_0_0_0.75px_rgba(217,138,156,0.35)]">
@@ -157,35 +129,17 @@ export default function EventCard({
                   <span>Palette &amp; Attire: {event.dressCode}</span>
                 </p>
               )}
-              <div className="mt-5 flex flex-col gap-2 sm:flex-row sm:flex-wrap">
-                <button
-                  onClick={handleSave}
-                  className="wi-action-lift inline-flex min-h-[44px] w-full items-center justify-center gap-2 rounded-full bg-[#4a252a] px-5 py-2 text-[11px] font-medium uppercase tracking-[0.18em] text-white sm:w-auto"
-                >
-                  {saved ? <CheckIcon size={14} /> : <CalendarIcon size={14} />}
-                  <span>{saved ? "Saved" : "Save the Date"}</span>
-                </button>
-                <div className="flex gap-2">
-                  <a
-                    href={googleCalendarUrl(event, couple)}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="wi-action-lift inline-flex min-h-[44px] flex-1 items-center justify-center gap-2 rounded-full px-4 py-2 text-[11px] uppercase tracking-[0.18em] text-[#4a252a] shadow-[inset_0_0_0_0.75px_rgba(200,125,138,0.45)] sm:flex-none"
-                  >
-                    <CalendarIcon size={14} />
-                    <span>Calendar</span>
-                  </a>
-                  <a
-                    href={mapsUrl(event.mapQuery)}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="wi-action-lift inline-flex min-h-[44px] flex-1 items-center justify-center gap-2 rounded-full px-4 py-2 text-[11px] uppercase tracking-[0.18em] text-[#4a252a] shadow-[inset_0_0_0_0.75px_rgba(200,125,138,0.45)] sm:flex-none"
-                  >
-                    <MapPinIcon size={14} />
-                    <span>Map</span>
-                  </a>
-                </div>
-              </div>
+              <EventActions
+                saved={saved}
+                onSave={handleSave}
+                saveLabel="Save the Date"
+                calendarHref={googleCalendarUrl(event, couple)}
+                mapHref={mapsUrl(event.mapQuery)}
+                mapLabel="Map"
+                primaryClass="bg-[#4a252a] text-white"
+                secondaryClass="text-[#4a252a] shadow-[inset_0_0_0_0.75px_rgba(200,125,138,0.45)]"
+                summaryClass="text-[#a65c6b]"
+              />
             </div>
           </div>
         </article>
@@ -221,32 +175,18 @@ export default function EventCard({
               </p>
             )}
           </div>
-          <div className="flex flex-col gap-2.5 sm:col-span-2 sm:flex-row sm:flex-wrap">
-            <button
-              onClick={handleSave}
-              className="wi-action-lift inline-flex min-h-[44px] w-full items-center justify-center gap-2 bg-[#171513] px-5 py-2 text-[11px] uppercase tracking-[0.25em] text-white sm:w-auto"
-            >
-              {saved ? <CheckIcon size={13} /> : <CalendarIcon size={13} />}
-              <span>{saved ? "Saved" : "ICS"}</span>
-            </button>
-            <a
-              href={googleCalendarUrl(event, couple)}
-              target="_blank"
-              rel="noreferrer"
-              className="wi-action-lift inline-flex min-h-[44px] w-full items-center justify-center gap-2 px-4 py-2 text-[11px] uppercase tracking-[0.25em] text-[#171513] shadow-[inset_0_0_0_0.75px_rgba(23,21,19,0.28)] sm:w-auto"
-            >
-              <CalendarIcon size={13} />
-              <span>Google</span>
-            </a>
-            <a
-              href={mapsUrl(event.mapQuery)}
-              target="_blank"
-              rel="noreferrer"
-              className="wi-action-lift inline-flex min-h-[44px] w-full items-center justify-center gap-2 px-4 py-2 text-[11px] uppercase tracking-[0.25em] text-[#171513] shadow-[inset_0_0_0_0.75px_rgba(23,21,19,0.28)] sm:w-auto"
-            >
-              <MapPinIcon size={13} />
-              <span>Map</span>
-            </a>
+          <div className="sm:col-span-2">
+            <EventActions
+              saved={saved}
+              onSave={handleSave}
+              saveLabel="Save the Date"
+              calendarHref={googleCalendarUrl(event, couple)}
+              mapHref={mapsUrl(event.mapQuery)}
+              mapLabel="Map"
+              primaryClass="bg-[#171513] text-white rounded-none"
+              secondaryClass="text-[#171513] rounded-none shadow-[inset_0_0_0_0.75px_rgba(23,21,19,0.28)]"
+              summaryClass="text-[#7c7267]"
+            />
           </div>
         </div>
       </article>
@@ -277,33 +217,17 @@ export default function EventCard({
               <span>Attire: {event.dressCode}</span>
             </p>
           )}
-          <div className="mt-6 flex flex-col gap-2 sm:flex-row sm:flex-wrap">
-            <button
-              onClick={handleSave}
-              className="wi-action-lift inline-flex min-h-[44px] w-full items-center justify-center gap-2 rounded-full bg-[#fbbf24] px-5 py-2 text-[11px] font-bold uppercase tracking-[0.18em] text-[#380709] sm:w-auto"
-            >
-              {saved ? <CheckIcon size={14} /> : <CalendarIcon size={14} />}
-              <span>{saved ? "Saved" : "Save Muhurtham"}</span>
-            </button>
-            <a
-              href={googleCalendarUrl(event, couple)}
-              target="_blank"
-              rel="noreferrer"
-              className="wi-action-lift inline-flex min-h-[44px] w-full items-center justify-center gap-2 rounded-full px-4 py-2 text-[11px] uppercase tracking-[0.18em] text-[#fef3c7] shadow-[inset_0_0_0_0.75px_rgba(251,191,36,0.45)] sm:w-auto"
-            >
-              <CalendarIcon size={14} />
-              <span>Calendar</span>
-            </a>
-            <a
-              href={mapsUrl(event.mapQuery)}
-              target="_blank"
-              rel="noreferrer"
-              className="wi-action-lift inline-flex min-h-[44px] w-full items-center justify-center gap-2 rounded-full px-4 py-2 text-[11px] uppercase tracking-[0.18em] text-[#fef3c7] shadow-[inset_0_0_0_0.75px_rgba(251,191,36,0.45)] sm:w-auto"
-            >
-              <MapPinIcon size={14} />
-              <span>Mandapam Map</span>
-            </a>
-          </div>
+          <EventActions
+            saved={saved}
+            onSave={handleSave}
+            saveLabel="Save Muhurtham"
+            calendarHref={googleCalendarUrl(event, couple)}
+            mapHref={mapsUrl(event.mapQuery)}
+            mapLabel="Mandapam Map"
+            primaryClass="bg-[#fbbf24] text-[#380709]"
+            secondaryClass="text-[#fef3c7] shadow-[inset_0_0_0_0.75px_rgba(251,191,36,0.45)]"
+            summaryClass="text-[#fde68a]"
+          />
         </article>
       </InteractiveTiltCard>
     );
@@ -315,12 +239,6 @@ export default function EventCard({
       <article className="wi-bezel">
         <div className="wi-bezel-inner relative p-7 sm:p-9 text-left">
           <FiligreeCorners color="rgba(184,107,67,0.4)" />
-          <span
-            aria-hidden="true"
-            className="font-display-luxury wi-text-outline-ink pointer-events-none absolute right-6 top-4 text-6xl sm:text-7xl italic leading-none opacity-40"
-          >
-            {numStr}
-          </span>
           <div className="relative z-10 grid gap-6 md:grid-cols-[1.3fr_1fr] md:items-center">
             <div>
               <div className="inline-flex items-center gap-2 rounded-full bg-[#0f353e]/[0.06] px-3.5 py-1 text-[11px] font-semibold uppercase tracking-[0.25em] text-[#0f353e]">
@@ -345,33 +263,17 @@ export default function EventCard({
                   <span>Resort Dress Code: {event.dressCode}</span>
                 </p>
               )}
-              <div className="mt-5 flex flex-col gap-2 sm:flex-row sm:flex-wrap">
-                <button
-                  onClick={handleSave}
-                  className="wi-action-lift inline-flex min-h-[44px] w-full items-center justify-center gap-2 rounded-full bg-[#0f353e] px-5 py-2 text-[11px] font-medium uppercase tracking-[0.18em] text-white sm:w-auto"
-                >
-                  {saved ? <CheckIcon size={14} /> : <CalendarIcon size={14} />}
-                  <span>{saved ? "Saved" : "Add to Itinerary"}</span>
-                </button>
-                <a
-                  href={googleCalendarUrl(event, couple)}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="wi-action-lift inline-flex min-h-[44px] w-full items-center justify-center gap-2 rounded-full px-4 py-2 text-[11px] uppercase tracking-[0.18em] text-[#0f353e] shadow-[inset_0_0_0_0.75px_rgba(15,53,62,0.28)] sm:w-auto"
-                >
-                  <CalendarIcon size={14} />
-                  <span>Google</span>
-                </a>
-                <a
-                  href={mapsUrl(event.mapQuery)}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="wi-action-lift inline-flex min-h-[44px] w-full items-center justify-center gap-2 rounded-full px-4 py-2 text-[11px] uppercase tracking-[0.18em] text-[#0f353e] shadow-[inset_0_0_0_0.75px_rgba(15,53,62,0.28)] sm:w-auto"
-                >
-                  <MapPinIcon size={14} />
-                  <span>Location</span>
-                </a>
-              </div>
+              <EventActions
+                saved={saved}
+                onSave={handleSave}
+                saveLabel="Add to Itinerary"
+                calendarHref={googleCalendarUrl(event, couple)}
+                mapHref={mapsUrl(event.mapQuery)}
+                mapLabel="Location"
+                primaryClass="bg-[#0f353e] text-white"
+                secondaryClass="text-[#0f353e] shadow-[inset_0_0_0_0.75px_rgba(15,53,62,0.28)]"
+                summaryClass="text-[#0f353e]/70"
+              />
             </div>
             {event.image && (
               <div className="wi-zoom overflow-hidden rounded-2xl">
@@ -388,5 +290,69 @@ export default function EventCard({
         </div>
       </article>
     </InteractiveTiltCard>
+  );
+}
+
+function EventActions({
+  saved,
+  onSave,
+  saveLabel,
+  calendarHref,
+  mapHref,
+  mapLabel,
+  primaryClass,
+  secondaryClass,
+  summaryClass,
+}: {
+  saved: boolean;
+  onSave: () => void;
+  saveLabel: string;
+  calendarHref: string;
+  mapHref: string;
+  mapLabel: string;
+  primaryClass: string;
+  secondaryClass: string;
+  summaryClass: string;
+}) {
+  const extras = () => (
+    <>
+      <a
+        href={calendarHref}
+        target="_blank"
+        rel="noreferrer"
+        className={`wi-action-lift inline-flex min-h-11 items-center justify-center gap-2 rounded-full px-4 py-2 text-xs uppercase tracking-[0.16em] ${secondaryClass}`}
+      >
+        <CalendarIcon size={14} />
+        <span>Google Calendar</span>
+      </a>
+      <a
+        href={mapHref}
+        target="_blank"
+        rel="noreferrer"
+        className={`wi-action-lift inline-flex min-h-11 items-center justify-center gap-2 rounded-full px-4 py-2 text-xs uppercase tracking-[0.16em] ${secondaryClass}`}
+      >
+        <MapPinIcon size={14} />
+        <span>{mapLabel}</span>
+      </a>
+    </>
+  );
+
+  return (
+    <div className="mt-5">
+      <button
+        onClick={onSave}
+        className={`wi-action-lift inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-full px-5 py-2 text-xs font-semibold uppercase tracking-[0.18em] sm:w-auto ${primaryClass}`}
+      >
+        {saved ? <CheckIcon size={14} /> : <CalendarIcon size={14} />}
+        <span>{saved ? "Saved" : saveLabel}</span>
+      </button>
+      <div className="mt-2 hidden flex-wrap gap-2 sm:flex">{extras()}</div>
+      <details className="mt-2 sm:hidden">
+        <summary className={`cursor-pointer py-2 text-xs uppercase tracking-[0.2em] ${summaryClass}`}>
+          Calendar and map
+        </summary>
+        <div className="mt-2 flex flex-col gap-2">{extras()}</div>
+      </details>
+    </div>
   );
 }
