@@ -15,6 +15,7 @@ import { ScrollReveal } from "../HomeMoments";
 import Timeline from "../Timeline";
 import ScratchReveal from "../ScratchReveal";
 import HeroKenBurns from "../HeroKenBurns";
+import SignatureMotif from "../effects/SignatureMotif";
 import GuestSections from "../GuestSections";
 import { AnimatedCalligraphy, FiligreeCorners, OutlinedEditorialWord } from "../LuxuryOrnaments";
 
@@ -42,6 +43,7 @@ export default function FloralRomance({ wedding }: { wedding: WeddingData }) {
               "radial-gradient(circle at 18% 15%, rgba(232,160,180,0.22), transparent 45%), radial-gradient(circle at 82% 20%, rgba(212,175,55,0.12), transparent 45%), radial-gradient(circle at 50% 80%, rgba(232,160,180,0.18), transparent 55%)",
           }}
         />
+        <SignatureMotif motif="butterfly" className="pointer-events-none absolute right-10 top-28 hidden h-14 w-20 text-[#c87d8a]/55 md:block" />
         <svg
           className="wi-sway pointer-events-none absolute left-6 top-6 hidden h-28 w-28 text-[#c87d8a]/35 md:block"
           viewBox="0 0 100 100"

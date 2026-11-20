@@ -17,6 +17,7 @@ import Timeline from "../Timeline";
 import ScratchReveal from "../ScratchReveal";
 import GoldShimmer from "../effects/GoldShimmer";
 import HeroKenBurns from "../HeroKenBurns";
+import SignatureMotif from "../effects/SignatureMotif";
 import GuestSections from "../GuestSections";
 import { AnimatedCalligraphy, FiligreeCorners, OutlinedEditorialWord } from "../LuxuryOrnaments";
 
@@ -45,6 +46,7 @@ export default function RoyalHeritage({ wedding }: { wedding: WeddingData }) {
           }}
         />
         {/* Royal paisley ornaments drifting in the hero corners */}
+        <SignatureMotif motif="elephant" className="pointer-events-none absolute right-8 top-28 hidden h-16 w-24 text-[#d4af37]/35 md:block" />
         <FloatingOrnaments duration={7} drift={12} className="pointer-events-none absolute left-6 top-24 hidden text-[#d4af37]/50 md:block">
           <Paisley className="h-20 w-20" />
         </FloatingOrnaments>

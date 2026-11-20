@@ -259,27 +259,75 @@ export default function WeddingInvitationsHome() {
           </div>
         </ScrollReveal>
 
-        <div className="mt-8 -mx-6 flex snap-x snap-mandatory gap-4 overflow-x-auto px-6 pb-4 sm:mx-0 sm:px-0">
-          {templates.map((t, i) => (
-            <Link
-              key={t.slug}
-              href={`/wedding-invitations/templates/${t.slug}`}
-              className="group relative w-[78vw] max-w-[300px] shrink-0 snap-start overflow-hidden rounded-[1.6rem]"
-            >
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={t.thumbnail} alt="" className="aspect-[3/4] w-full object-cover transition duration-500 group-hover:scale-[1.03]" />
-              <span className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/10 to-transparent" />
-              <span className="absolute bottom-0 left-0 right-0 p-5 text-white">
-                <span className="text-[11px] uppercase tracking-[0.22em] text-white/75">0{i + 1}</span>
-                <span className="mt-1 block font-display-luxury text-3xl italic leading-tight">{t.name}</span>
-              </span>
-            </Link>
-          ))}
-        </div>
-
-        <ScrollReveal delay={100}>
+        <ScrollReveal delay={80}>
           <PhoneCarousel templates={templates} />
         </ScrollReveal>
+      </section>
+
+      <section id="signatures" aria-label="Signature moments" className="border-y border-[#0b192c]/8 bg-[#f7f3eb]">
+        <div className="wi-wrap wi-section">
+          <ScrollReveal>
+            <OutlinedEditorialWord
+              watermark="MOMENTS"
+              eyebrow="What makes each design feel different"
+              title="Signature moments guests remember"
+              subtitle="Small cinematic details — not another grid of the same five cards."
+              tone="ink"
+              align="left"
+            />
+          </ScrollReveal>
+          <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {[
+              {
+                title: "Sealed envelope opening",
+                body: "Palace Heritage begins with a wax seal and a card that rises out of the pocket.",
+                href: "/wedding-invitations/templates/royal-heritage",
+                mark: "✉",
+              },
+              {
+                title: "Blooming petal reveal",
+                body: "Floral Anand Karaj opens like a bud — soft, romantic, and slow.",
+                href: "/wedding-invitations/templates/floral-romance",
+                mark: "❀",
+              },
+              {
+                title: "Temple scroll & diya",
+                body: "Shubh Vivah lights a lamp and unrolls the invitation like a sacred scroll.",
+                href: "/wedding-invitations/templates/traditional-vivah",
+                mark: "ॐ",
+              },
+              {
+                title: "Plane that reveals the date",
+                body: "Destination invites fly a plane across the page; the wedding date appears behind it.",
+                href: "/wedding-invitations/templates/destination-wedding",
+                mark: "✈",
+              },
+              {
+                title: "Scratch-to-reveal foil",
+                body: "Guests brush gold foil aside to uncover the date — playful for friends, clear for elders.",
+                href: "/wedding-invitations/templates",
+                mark: "✦",
+              },
+              {
+                title: "Chapter cards like a deck",
+                body: "Events deal in from the top, then left and right — no timeline line, just a hand of cards.",
+                href: "/wedding-invitations/templates",
+                mark: "♠",
+              },
+            ].map((item, i) => (
+              <ScrollReveal key={item.title} delay={i * 60}>
+                <Link
+                  href={item.href}
+                  className="block h-full rounded-[1.5rem] bg-white p-7 shadow-[0_18px_40px_-28px_rgba(11,25,44,0.35)] ring-1 ring-black/5 transition hover:-translate-y-0.5"
+                >
+                  <span className="font-display-luxury text-3xl text-[#0b192c]">{item.mark}</span>
+                  <h3 className="font-display-luxury mt-3 text-2xl italic text-[#0b192c]">{item.title}</h3>
+                  <p className="mt-2 text-sm leading-relaxed text-[#5b708c]">{item.body}</p>
+                </Link>
+              </ScrollReveal>
+            ))}
+          </div>
+        </div>
       </section>
 
       {/* 4 — What We Offer (Royal Blue & Gold Cards) */}

@@ -14,8 +14,9 @@ import ShareBar from "../ShareBar";
 import Parallax from "../Parallax";
 import { ScrollReveal } from "../HomeMoments";
 import Timeline from "../Timeline";
-import ScratchReveal from "../ScratchReveal";
 import HeroKenBurns from "../HeroKenBurns";
+import JourneyReveal from "../effects/JourneyReveal";
+import SignatureMotif from "../effects/SignatureMotif";
 import GuestSections from "../GuestSections";
 import { AnimatedCalligraphy, FiligreeCorners, OutlinedEditorialWord } from "../LuxuryOrnaments";
 
@@ -54,6 +55,7 @@ export default function DestinationWedding({ wedding }: { wedding: WeddingData }
               "linear-gradient(to top, rgba(9,32,38,0.88) 0%, rgba(9,32,38,0.35) 55%, rgba(9,32,38,0.2) 100%)",
           }}
         />
+        <SignatureMotif motif="palm" className="pointer-events-none absolute left-6 top-24 hidden h-20 w-16 text-white/30 md:block" />
         {/* Swaying palm silhouettes */}
         <FloatingOrnaments duration={6} drift={14} className="pointer-events-none absolute right-8 top-24 hidden text-white/25 sm:block">
           <Palm className="h-28 w-24" />
@@ -110,7 +112,12 @@ export default function DestinationWedding({ wedding }: { wedding: WeddingData }
 
         <ScrollReveal>
           <div className="mb-10">
-            <ScratchReveal wedding={wedding} />
+            <JourneyReveal
+              date={wedding.couple.weddingDateDisplay}
+              kind="plane"
+              accent="#0f353e"
+              surface="#ffffff"
+            />
           </div>
           <section aria-label="Countdown" className="text-center">
             <OutlinedEditorialWord

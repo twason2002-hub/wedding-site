@@ -17,6 +17,8 @@ import ScratchReveal from "../ScratchReveal";
 import DiyaEffect from "../effects/DiyaEffect";
 import GoldShimmer from "../effects/GoldShimmer";
 import HeroKenBurns from "../HeroKenBurns";
+import SignatureMotif from "../effects/SignatureMotif";
+import JourneyReveal from "../effects/JourneyReveal";
 import GuestSections from "../GuestSections";
 import { AnimatedCalligraphy, FiligreeCorners, OutlinedEditorialWord } from "../LuxuryOrnaments";
 
@@ -55,6 +57,7 @@ export default function TraditionalVivah({ wedding }: { wedding: WeddingData }) 
           }}
         />
         <DiyaEffect size={72} className="pointer-events-none fixed right-5 top-24 z-20 hidden sm:block" />
+        <SignatureMotif motif="peacock" className="pointer-events-none absolute left-6 top-28 hidden h-24 w-20 text-[#fbbf24]/40 md:block" />
 
         <div className="wi-hero-exit relative mx-auto max-w-4xl">
           {/* Sacred Ganesha / Kalash Emblem */}
@@ -156,6 +159,14 @@ export default function TraditionalVivah({ wedding }: { wedding: WeddingData }) 
         </ScrollReveal>
 
         <ScrollReveal>
+          <div className="mb-10">
+            <JourneyReveal
+              date={wedding.couple.weddingDateDisplay}
+              kind="car"
+              accent="#fbbf24"
+              surface="#360608"
+            />
+          </div>
           <div className="mb-10">
             <ScratchReveal wedding={wedding} />
           </div>

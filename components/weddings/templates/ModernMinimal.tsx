@@ -16,6 +16,7 @@ import Timeline from "../Timeline";
 import ScratchReveal from "../ScratchReveal";
 import GoldShimmer from "../effects/GoldShimmer";
 import HeroKenBurns from "../HeroKenBurns";
+import SignatureMotif from "../effects/SignatureMotif";
 import GuestSections from "../GuestSections";
 import { AnimatedCalligraphy, FiligreeCorners, OutlinedEditorialWord } from "../LuxuryOrnaments";
 
@@ -48,6 +49,7 @@ export default function ModernMinimal({ wedding }: { wedding: WeddingData }) {
               "radial-gradient(circle at 75% 30%, rgba(212,175,55,0.18), transparent 50%), radial-gradient(circle at 20% 80%, rgba(30,64,175,0.28), transparent 55%)",
           }}
         />
+        <SignatureMotif motif="star" className="pointer-events-none absolute left-8 top-20 hidden h-14 w-14 text-[#d4af37]/40 md:block" />
         <svg
           className="pointer-events-none absolute -right-24 -top-24 h-[520px] w-[520px] text-[#d4af37]/12"
           viewBox="0 0 200 200"
