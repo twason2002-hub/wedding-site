@@ -11,7 +11,7 @@ export default function GoldShimmer({
   from = "#8a6d2b",
   via = "#f3df9d",
   to = "#8a6d2b",
-  duration = 5,
+  duration = 7,
   className = "",
 }: {
   children: ReactNode;

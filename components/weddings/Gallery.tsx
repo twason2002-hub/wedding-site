@@ -1,13 +1,9 @@
 "use client";
 
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
-import gsap from "gsap";
-import { Flip } from "gsap/Flip";
+import { useEffect, useRef, useState } from "react";
 import type { GalleryImage } from "@/lib/weddings/types";
 import { ChevronLeftIcon, ChevronRightIcon, CloseIcon } from "./WeddingIcons";
-import Parallax from "./Parallax";
-import PhotoReveal from "./effects/PhotoReveal";
-import { prefersReducedMotion, registerWeddingPlugins } from "./effects/gsap-setup";
+import { prefersReducedMotion } from "./effects/gsap-setup";
 
 export default function Gallery({
   images,
@@ -23,50 +19,6 @@ export default function Gallery({
   const touchX = useRef<number | null>(null);
   const galleryRef = useRef<HTMLDivElement>(null);
   const layout = layoutProp ?? (variant === "floral" ? "polaroid" : variant === "coastal" ? "masonry" : "grid");
-
-  useLayoutEffect(() => {
-    const gallery = galleryRef.current;
-    if (!gallery || images.length < 2 || prefersReducedMotion()) return;
-    registerWeddingPlugins();
-
-    const items = Array.from(gallery.querySelectorAll<HTMLElement>("[data-gallery-item]"));
-    if (items.length < 2) return;
-
-    const maxOffset = Math.min(26, window.innerWidth * 0.035);
-    gallery.dataset.flipActive = "true";
-    gsap.set(items, {
-      x: (index) => ((index / (items.length - 1)) * 2 - 1) * maxOffset,
-      y: (index) => (index % 2 === 0 ? 10 : -10),
-      scale: 0.98,
-    });
-    const state = Flip.getState(items);
-    gsap.set(items, { clearProps: "transform" });
-
-    const ctx = gsap.context(() => {
-      Flip.from(state, {
-        duration: 1,
-        ease: "none",
-        scale: true,
-        stagger: { each: 0.035, from: "center" },
-        scrollTrigger: {
-          trigger: gallery,
-          start: "top 84%",
-          end: "top 36%",
-          scrub: 0.8,
-          onUpdate: (self) => {
-            const active = self.progress < 0.999 ? "true" : "false";
-            if (gallery.dataset.flipActive !== active) gallery.dataset.flipActive = active;
-          },
-        },
-      });
-    }, gallery);
-
-    return () => {
-      ctx.revert();
-      gsap.set(items, { clearProps: "transform" });
-      gallery.dataset.flipActive = "false";
-    };
-  }, [images.length, layout, variant]);
 
   useEffect(() => {
     if (open === null) return;
@@ -87,10 +39,8 @@ export default function Gallery({
     return () => {
       document.body.style.overflow = previous;
     };
-  }, [open ]);
+  }, [open]);
 
-  // Auto slideshow (4s), paused on interact / hidden tab / reduced motion.
-  // Reduced-motion users never start it: the play button no-ops for them.
   useEffect(() => {
     if (open === null || !playing) return;
     const id = window.setInterval(() => {
@@ -101,11 +51,8 @@ export default function Gallery({
   }, [open, playing, images.length]);
 
   const toggleSlideshow = () => {
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    setPlaying((p) => {
-      if (p) return false;
-      return true;
-    });
+    if (prefersReducedMotion()) return;
+    setPlaying((p) => !p);
   };
 
   if (!images.length) return null;
@@ -116,7 +63,6 @@ export default function Gallery({
     <>
       <div
         ref={galleryRef}
-        data-flip-active="false"
         className={`wi-gallery ${
           layout === "masonry"
             ? "columns-2 gap-5 lg:columns-3"
@@ -124,7 +70,6 @@ export default function Gallery({
         }`}
       >
         {images.map((img, i) => {
-          // Wide lead tile only when it keeps both the 2- and 3-col grids full (odd counts, 5+).
           const featured = layout === "grid" && i === 0 && images.length >= 5 && images.length % 2 === 1;
           const tilt = layout === "polaroid" ? (i % 2 ? "sm:rotate-[1.4deg]" : "sm:-rotate-[1.4deg]") : "";
           return (
@@ -154,15 +99,13 @@ export default function Gallery({
                     : "rounded-xl"
                 }`}
               >
-                <Parallax depth={i % 2 ? 8 : -8}>
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={img.src}
-                    alt={img.alt}
-                    loading="lazy"
-                    className={`${featured ? "aspect-[16/10]" : layout === "masonry" ? "h-auto" : "aspect-[4/3]"} w-full object-cover`}
-                  />
-                </Parallax>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={img.src}
+                  alt={img.alt}
+                  loading="lazy"
+                  className={`${featured ? "aspect-[16/10]" : layout === "masonry" ? "h-auto" : "aspect-[4/3]"} w-full object-cover`}
+                />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/10 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100 flex items-end p-5">
                   <div>
                     <p className="font-display-luxury text-lg italic text-white">
@@ -249,12 +192,11 @@ export default function Gallery({
               className="wi-lightbox-img flex items-center justify-center"
               onClick={(e) => e.stopPropagation()}
             >
-              <PhotoReveal
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
                 src={images[open].src}
                 alt={images[open].alt}
-                duration={0.7}
-                className="max-h-[78vh] w-auto max-w-full"
-                imgClassName="max-h-[78vh] w-auto max-w-full rounded-xl object-contain shadow-2xl"
+                className="max-h-[78vh] w-auto max-w-full rounded-xl object-contain shadow-2xl"
               />
             </div>
             <button

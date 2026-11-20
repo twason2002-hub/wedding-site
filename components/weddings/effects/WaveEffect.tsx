@@ -6,15 +6,12 @@ import { registerWeddingPlugins, prefersReducedMotion } from "./gsap-setup";
 
 /**
  * WaveEffect — layered waves drifting at different speeds (parallax water).
- * transform-only loops, IO-gated, still under reduced-motion.
  */
 export default function WaveEffect({
   colors = ["#144652", "#0f353e", "#082026"],
-  boat = false,
   className = "",
 }: {
   colors?: [string, string, string] | string[];
-  boat?: boolean;
   className?: string;
 }) {
   const ref = useRef<HTMLDivElement>(null);
@@ -37,26 +34,6 @@ export default function WaveEffect({
           })
         );
       });
-      const boat = el.querySelector(".wi-wave-boat");
-      if (boat) {
-        // Sail across the full strip, bobbing on the swell.
-        tweens.push(
-          gsap.fromTo(
-            boat,
-            { x: -90 },
-            {
-              x: () => (el.clientWidth || 400) + 60,
-              duration: 18,
-              repeat: -1,
-              ease: "none",
-              invalidateOnRefresh: true,
-            }
-          )
-        );
-        tweens.push(
-          gsap.to(boat, { y: -8, duration: 1.6, repeat: -1, yoyo: true, ease: "sine.inOut" })
-        );
-      }
     }, el);
     const io = new IntersectionObserver(([e]) => {
       tweens.forEach((t) => t.paused(!e.isIntersecting));
@@ -80,16 +57,6 @@ export default function WaveEffect({
       {wave(a, "M0 70 Q60 40 120 62 T240 58 T360 70 T460 62 L460 140 L0 140 Z", 0.55)}
       {wave(b, "M0 95 Q70 75 150 92 T300 88 T460 94 L460 140 L0 140 Z", 0.75)}
       {wave(c, "M0 115 Q80 100 180 112 T360 110 T460 114 L460 140 L0 140 Z", 1)}
-      {boat && (
-        <svg className="wi-wave-boat absolute bottom-[46%] left-0 h-10 w-16" viewBox="0 0 64 40" aria-hidden="true">
-          <g>
-            <path d="M18 26 L46 26 L40 34 L24 34 Z" fill="#f7f3eb" opacity="0.95" />
-            <path d="M32 26 L32 10 L44 26 Z" fill="#f7f3eb" />
-            <path d="M30 26 L30 14 L20 26 Z" fill="#e6b89c" />
-            <rect x="31" y="6" width="1.6" height="21" fill="#8a5a3b" />
-          </g>
-        </svg>
-      )}
     </div>
   );
 }

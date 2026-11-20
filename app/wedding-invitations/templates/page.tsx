@@ -3,6 +3,7 @@ import SiteNav from "@/components/weddings/SiteNav";
 import { ScrollReveal } from "@/components/weddings/HomeMoments";
 import { OutlinedEditorialWord } from "@/components/weddings/LuxuryOrnaments";
 import { listTemplates } from "@/lib/weddings/templates";
+import { TEMPLATE_PRICE_LABEL, TEMPLATE_PRICE_NOTE, whatsappLink } from "@/lib/weddings/site-config";
 import { demoWeddingFor } from "@/lib/weddings/sample-data";
 
 export const metadata = {
@@ -33,7 +34,7 @@ export default function TemplateGallery() {
               Design
             </>
           }
-          subtitle="Five simple cards — open a live preview or a complete sample wedding. Ready to be customised with your own photos and family details."
+          subtitle={`${TEMPLATE_PRICE_NOTE}. Open a live preview or message us on WhatsApp to start.`}
           tone="ink"
           align="left"
         />
@@ -90,6 +91,7 @@ export default function TemplateGallery() {
                     <h2 className="font-display-luxury mt-2 text-[1.7rem] font-normal italic leading-tight text-[#0b192c]">
                       {t.name}
                     </h2>
+                    <p className="mt-1 font-display-luxury text-3xl text-[#0b192c]">{TEMPLATE_PRICE_LABEL} <span className="font-body-luxury text-sm not-italic text-[#5b708c]">one-time</span></p>
                     <p className="mt-2 line-clamp-2 text-[13px] leading-relaxed text-[#3b4f6b]">
                       {t.description}
                     </p>
@@ -111,12 +113,12 @@ export default function TemplateGallery() {
                         <span>Open Live Preview</span>
                         <span aria-hidden="true">→</span>
                       </Link>
-                      <Link
-                        href={`/wedding-invitations/${sample.slug}`}
-                        className="inline-flex min-h-[44px] items-center justify-center rounded-full px-6 py-2.5 text-xs font-medium uppercase tracking-[0.2em] text-[#0b192c] ring-1 ring-inset ring-[#0b192c]/15 transition hover:ring-[#0b192c]/40"
+                      <a
+                        href={whatsappLink(`Hi Inviteo! I want the ${t.name} template (${TEMPLATE_PRICE_LABEL}).`)}
+                        className="inline-flex min-h-[44px] items-center justify-center rounded-full bg-[#1faa53] px-6 py-2.5 text-xs font-semibold uppercase tracking-[0.16em] text-white"
                       >
-                        See Full Wedding ↗
-                      </Link>
+                        WhatsApp · {TEMPLATE_PRICE_LABEL}
+                      </a>
                     </div>
                   </div>
                 </article>

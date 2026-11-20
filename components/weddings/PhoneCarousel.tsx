@@ -8,10 +8,6 @@ import { whatsappLink } from "@/lib/weddings/site-config";
 import MiniInvite from "./MiniInvite";
 
 const AUTOPLAY_MS = 10000;
-const SHOWCASE_DOWN_MS = 16000;
-const SHOWCASE_HOLD_MS = 1200;
-const SHOWCASE_UP_MS = 2600;
-const SHOWCASE_REST_MS = 1000;
 const IDLE_RESUME_MS = 8000;
 const LOOP_PADDING = 2;
 // Middle template (Neelam Blue) is the default focus.
@@ -132,37 +128,7 @@ export default function PhoneCarousel({ templates }: { templates: TemplateDefini
     return () => window.clearInterval(t);
   }, [reduced, inView, hidden, hover, idle, step]);
 
-  // Vertical showcase tour inside the ACTIVE phone only.
-  useEffect(() => {
-    if (reduced || !inView || hidden || !idle) return;
-    let raf = 0;
-    const run = () => {
-      const el = scrolls.current[position];
-      if (!el) return;
-      const max = el.scrollHeight - el.clientHeight;
-      if (max <= 40) return;
-      const t0 = performance.now();
-      const total = SHOWCASE_DOWN_MS + SHOWCASE_HOLD_MS + SHOWCASE_UP_MS + SHOWCASE_REST_MS;
-      const step = (now: number) => {
-        const t = (now - t0) % total;
-        let y: number;
-        if (t < SHOWCASE_DOWN_MS) y = (max * t) / SHOWCASE_DOWN_MS;
-        else if (t < SHOWCASE_DOWN_MS + SHOWCASE_HOLD_MS) y = max;
-        else if (t < SHOWCASE_DOWN_MS + SHOWCASE_HOLD_MS + SHOWCASE_UP_MS) {
-          const u = (t - SHOWCASE_DOWN_MS - SHOWCASE_HOLD_MS) / SHOWCASE_UP_MS;
-          const e = u < 0.5 ? 2 * u * u : 1 - Math.pow(-2 * u + 2, 2) / 2;
-          y = max * (1 - e);
-        } else y = 0;
-        el.scrollTop = y;
-        raf = requestAnimationFrame(step);
-      };
-      raf = requestAnimationFrame(step);
-    };
-    run();
-    return () => cancelAnimationFrame(raf);
-  }, [position, inView, hidden, idle, reduced]);
-
-  // Horizontal drag with axis lock (vertical pans stay native → preview).
+  // Horizontal drag. Vertical pans pass through so the page can scroll.
   const onTouchStart = (e: React.TouchEvent) => {
     touch.current = { x: e.touches[0].clientX, y: e.touches[0].clientY, locked: null };
   };
@@ -268,7 +234,7 @@ export default function PhoneCarousel({ templates }: { templates: TemplateDefini
                       ref={(el) => {
                         scrolls.current[physicalIndex] = el;
                       }}
-                      className="absolute inset-0 overscroll-contain overflow-y-auto"
+                      className="absolute inset-0 overflow-hidden"
                       style={{ touchAction: "pan-y", scrollbarWidth: "none" }}
                       onTouchStart={onTouchStart}
                       onTouchMove={(e) => onTouchMove(e, physicalIndex)}
@@ -316,11 +282,9 @@ export default function PhoneCarousel({ templates }: { templates: TemplateDefini
           </Link>
           <a
             href={whatsappLink(`Hi Inviteo! I like the ${active.name} design. My wedding date is…`)}
-            target="_blank"
-            rel="noreferrer"
-            className="inline-flex min-h-[48px] w-full items-center justify-center rounded-full border border-[#1c1917]/15 bg-white px-8 text-[12px] font-semibold uppercase tracking-[0.18em] text-[#1c1917] transition hover:border-[#1c1917]/40 sm:w-auto"
+            className="inline-flex min-h-[48px] w-full items-center justify-center rounded-full bg-[#1faa53] px-8 text-[12px] font-semibold uppercase tracking-[0.18em] text-white sm:w-auto"
           >
-            Choose This Template
+            Chat on WhatsApp
           </a>
         </div>
       </div>

@@ -60,7 +60,7 @@ export default function PhotoReveal({
 
   const rounded = shape === "arch" ? "rounded-t-full rounded-b-3xl" : shape === "circle" ? "rounded-full aspect-square" : "rounded-3xl";
   return (
-    <div ref={ref} className={`overflow-hidden ${rounded} ${className}`} style={{ willChange: "clip-path" }}>
+    <div ref={ref} className={`overflow-hidden ${rounded} ${className}`}>
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img src={src} alt={alt} loading="lazy" decoding="async" className={`h-full w-full object-cover ${imgClassName}`} />
     </div>

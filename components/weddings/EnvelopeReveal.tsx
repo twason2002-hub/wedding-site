@@ -55,7 +55,7 @@ export default function EnvelopeReveal({
 
   return (
     <div
-      className={`wi-env-tap relative z-10 mx-6 flex w-full max-w-[340px] cursor-pointer flex-col items-center outline-none sm:max-w-[420px] ${phaseClass}`}
+      className={`wi-env-tap relative z-10 mx-6 flex w-full max-w-[min(92vw,28rem)] cursor-pointer flex-col items-center outline-none ${phaseClass}`}
       onClick={start}
       role="button"
       aria-label="Open the wedding envelope"
@@ -68,10 +68,10 @@ export default function EnvelopeReveal({
       }}
     >
       <p
-        className="font-regal mb-5 text-[11px] uppercase tracking-[0.34em] sm:text-xs"
+        className="font-regal mb-5 text-xs uppercase tracking-[0.28em] sm:text-sm"
         style={{ color: "#e8cf8f" }}
       >
-        {phase === "sealed" ? "Sealed with love — tap to open" : "॥ शुभ विवाह ॥"}
+        {phase === "sealed" ? "Tap the envelope to open" : "॥ शुभ विवाह ॥"}
       </p>
 
       <div className="wi-env-scene relative w-full" style={{ aspectRatio: "5 / 6.4" }}>
@@ -95,19 +95,22 @@ export default function EnvelopeReveal({
           }}
         >
           <p
-            className="font-regal text-[9px] uppercase tracking-[0.3em]"
+            className="font-regal text-[11px] uppercase tracking-[0.28em] sm:text-xs"
             style={{ color: theme.cardAccent }}
           >
             {blessing ?? "॥ श्री गणेशाय नमः ॥"}
           </p>
           <p
-            className="mt-3 font-script-luxury text-2xl leading-tight sm:mt-4 sm:text-3xl"
-            style={{ color: theme.cardInk }}
+            className="mt-3 font-script-luxury leading-tight sm:mt-4"
+            style={{ color: theme.cardInk, fontSize: "clamp(1.5rem, 5vw, 1.875rem)" }}
           >
             {names}
           </p>
           {subtitle && (
-            <p className="mt-2 text-[11px] uppercase tracking-[0.24em] text-[#57534e]">
+            <p
+              className="mt-2 font-regal text-xs uppercase tracking-[0.22em]"
+              style={{ color: theme.cardAccent }}
+            >
               {subtitle}
             </p>
           )}
@@ -123,17 +126,11 @@ export default function EnvelopeReveal({
             </svg>
           </div>
           <p
-            className="font-regal text-[9px] uppercase tracking-[0.3em]"
+            className="font-regal text-xs uppercase tracking-[0.28em]"
             style={{ color: theme.cardAccent }}
           >
             You are cordially invited
           </p>
-          <span
-            className="wi-seal-cta mt-4 inline-flex items-center gap-2 rounded-full px-5 py-2 text-[10px] font-semibold uppercase tracking-[0.24em]"
-            style={{ background: theme.cardInk, color: theme.cardHi }}
-          >
-            Tap to enter ✦
-          </span>
         </div>
 
         {/* Front pocket */}
@@ -205,7 +202,7 @@ export default function EnvelopeReveal({
           ].map((p, i) => (
             <svg
               key={i}
-              className="wi-petal pointer-events-none absolute top-0 h-5 w-5"
+              className="wi-petal wi-petal-once pointer-events-none absolute top-0 h-5 w-5"
               style={{ left: p.left, color: petalColor, ["--delay" as string]: p.delay, ["--dur" as string]: p.dur }}
               viewBox="0 0 32 32"
               fill="currentColor"
@@ -216,8 +213,8 @@ export default function EnvelopeReveal({
           ))}
       </div>
 
-      <p className="mt-5 text-[11px] uppercase tracking-[0.28em] text-[#f3e5c3]/60 sm:text-xs">
-        {phase === "sealed" ? "Tap the seal" : "Opening…"}
+      <p className="mt-5 text-xs uppercase tracking-[0.22em] text-[#f3e5c3]/85">
+        {phase === "sealed" ? "Or scroll · Esc to enter" : "Opening…"}
       </p>
     </div>
   );
