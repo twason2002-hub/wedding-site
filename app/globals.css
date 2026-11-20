@@ -3,6 +3,15 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  /* Self-hosted fonts (@fontsource) — replaces next/font variables. */
+  --font-playfair-display: "Playfair Display", Georgia, serif;
+  --font-montserrat: "Montserrat", system-ui, sans-serif;
+  --font-cormorant: "Cormorant Garamond", Georgia, serif;
+  --font-cinzel: "Cinzel", Georgia, serif;
+  --font-jakarta: "Plus Jakarta Sans", system-ui, sans-serif;
+  --font-script: "Great Vibes", cursive;
+  --font-devanagari: "Noto Serif Devanagari", Georgia, serif;
+  --font-gurmukhi: "Noto Serif Gurmukhi", Georgia, serif;
 }
 
 @theme inline {
@@ -83,3 +92,13 @@ body.loaded .hydration-overlay {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+

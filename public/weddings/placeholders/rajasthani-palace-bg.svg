@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#2b0d12"/>
+      <stop offset="0.62" stop-color="#7a1228"/>
+      <stop offset="1" stop-color="#d9a441"/>
+    </linearGradient>
+  </defs>
+  <rect width="1600" height="900" fill="url(#sky)"/>
+  <g fill="none" stroke="#f6ead4" stroke-width="4">
+    <rect x="620" y="380" width="360" height="340"/>
+    <path d="M620 380 Q800 200 980 380"/>
+    <rect x="300" y="480" width="200" height="240"/>
+    <path d="M300 480 Q400 380 500 480"/>
+    <rect x="1100" y="480" width="200" height="240"/>
+    <path d="M1100 480 Q1200 380 1300 480"/>
+  </g>
+  <circle cx="800" cy="240" r="70" fill="#f6ead4" opacity="0.85"/>
+  <text x="800" y="800" text-anchor="middle" font-family="Georgia, serif" font-size="40" fill="#f6ead4">PALACE BG 16:9 — AI courtyard dusk</text>
+</svg>

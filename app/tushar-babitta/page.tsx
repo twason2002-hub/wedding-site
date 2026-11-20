@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import weddingConfig from '../config/tushar-babitta.json';
+import weddingConfig from '../../config/tushar-babitta.json';
 
 export default function WeddingInvitation() {
   const [countdown, setCountdown] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
@@ -51,18 +51,17 @@ export default function WeddingInvitation() {
       }
     };
 
-    // Enhanced Intersection Observer for animations
+    // Enhanced Intersection Observer for scroll reveal animations
     const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
+      entries.forEach((entry, idx) => {
         if (entry.isIntersecting) {
-          // Animation code removed for simplicity
+          entry.target.classList.add(idx % 2 === 0 ? 'show-left' : 'show-right');
           observer.unobserve(entry.target);
         }
       });
-    }, { threshold: 0.5 });
+    }, { threshold: 0.2 });
 
-    // Remove event observation for no animations
-    // document.querySelectorAll('.event').forEach(card => observer.observe(card));
+    document.querySelectorAll('.event, .info').forEach((card) => observer.observe(card));
 
     // Countdown timer
     const weddingDate = new Date(weddingConfig.couple.countdownDate).getTime();
@@ -1012,6 +1011,7 @@ export default function WeddingInvitation() {
             <a href="#venues" onClick={(e) => {e.preventDefault(); document.querySelector('[style*="maxWidth: 1600px"]')?.scrollIntoView({behavior: 'smooth'});}}>Venues</a>
             <a href="#about" onClick={(e) => {e.preventDefault(); document.querySelector('.about')?.scrollIntoView({behavior: 'smooth'});}}>About</a>
             <a href="#countdown" onClick={(e) => {e.preventDefault(); document.querySelector('.countdown')?.scrollIntoView({behavior: 'smooth'});}}>Countdown</a>
+            <a href="/wedding-invitations">Luxury Invitation Collection</a>
           </div>
           © 2026 {weddingConfig.couple.person1} & {weddingConfig.couple.person2} – Wedding Invitation
         </footer>

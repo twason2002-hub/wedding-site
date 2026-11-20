@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="1200" viewBox="0 0 900 1200">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#f6ead4"/>
+      <stop offset="1" stop-color="#e7d3ac"/>
+    </linearGradient>
+  </defs>
+  <rect width="900" height="1200" fill="url(#bg)"/>
+  <path d="M60 1140 L60 420 Q60 90 450 90 Q840 90 840 420 L840 1140" fill="none" stroke="#7a1228" stroke-width="6"/>
+  <path d="M84 1140 L84 428 Q84 118 450 118 Q816 118 816 428 L816 1140" fill="none" stroke="#b98a2f" stroke-width="2"/>
+  <circle cx="450" cy="540" r="150" fill="none" stroke="#7a1228" stroke-width="3" stroke-dasharray="10 8"/>
+  <text x="450" y="520" text-anchor="middle" font-family="Georgia, serif" font-size="44" fill="#7a1228">HERO</text>
+  <text x="450" y="575" text-anchor="middle" font-family="Georgia, serif" font-size="28" fill="#7a1228">3 : 4 arch portrait</text>
+  <text x="450" y="1080" text-anchor="middle" font-family="Georgia, serif" font-size="24" fill="#8a6d2b">AI couple portrait — replace me</text>
+</svg>

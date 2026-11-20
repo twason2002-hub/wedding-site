@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="400" viewBox="0 0 100 100">
+  <g fill="none" stroke="#b98a2f" stroke-width="1.4">
+    <path d="M50 12 C70 22, 78 42, 68 60 C60 74, 42 78, 32 66 C24 56, 28 42, 40 38 C48 35, 56 40, 55 48 C54 54, 47 57, 42 54"/>
+    <circle cx="48" cy="47" r="1.6" fill="#b98a2f"/>
+    <path d="M30 78 Q50 86 70 78" stroke-dasharray="3 2"/>
+  </g>
+  <text x="50" y="94" text-anchor="middle" font-family="Georgia, serif" font-size="7" fill="#7a1228">paisley motif — generate gold line-art</text>
+</svg>

@@ -1,0 +1,1178 @@
+/* ============================================================
+   Inviteo — Luxury Wedding Platform & Bespoke Templates
+   Design & 60fps Compositor Motion System (Scoped to /wedding-invitations)
+   ============================================================ */
+
+:root {
+  --wi-bg: #f4f7fb;
+  --wi-surface: #ffffff;
+  --wi-ink: #0b192c;
+  --wi-muted: #3b4f6b;
+  --wi-faint: #5b708c;
+  --wi-line: rgba(11, 25, 44, 0.1);
+  --wi-accent: #1d4ed8;
+  --wi-accent-soft: #d4af37;
+  --wi-royal-blue: #0b192c;
+  --wi-sapphire: #132a4a;
+  --wi-peacock: #1e3a8a;
+  --wi-maroon: #0b192c;
+  --wi-maroon-deep: #06101e;
+  --wi-blush: #eef3fa;
+  --wi-ring: #1e40af;
+  --wi-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --wi-enter: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ---------- Luxury Typography & Outlined Display Text ---------- */
+.font-display-luxury {
+  font-family: var(--font-cormorant), "Playfair Display", var(--font-devanagari), var(--font-gurmukhi), Georgia, serif;
+}
+.font-regal {
+  font-family: var(--font-cinzel), "Playfair Display", var(--font-devanagari), var(--font-gurmukhi), Georgia, serif;
+}
+.font-serif-luxury {
+  font-family: var(--font-playfair-display), var(--font-devanagari), var(--font-gurmukhi), Georgia, serif;
+}
+.font-body-luxury {
+  font-family: var(--font-jakarta), var(--font-montserrat), var(--font-devanagari), var(--font-gurmukhi), system-ui, sans-serif;
+}
+.font-script-luxury {
+  font-family: var(--font-script), cursive;
+}
+.font-hindi {
+  font-family: var(--font-devanagari), "Noto Serif Devanagari", serif;
+}
+.font-gurmukhi {
+  font-family: var(--font-gurmukhi), "Noto Serif Gurmukhi", serif;
+}
+
+/* Delicate hollow outlined display typography (Cartier / Vogue style) */
+.wi-text-outline-gold {
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(212, 175, 55, 0.52);
+  letter-spacing: 0.04em;
+  user-select: none;
+}
+.wi-text-outline-ink {
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(19, 42, 74, 0.25);
+  letter-spacing: 0.03em;
+  user-select: none;
+}
+.wi-text-outline-rose {
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(200, 125, 138, 0.42);
+  letter-spacing: 0.03em;
+  user-select: none;
+}
+.wi-text-outline-light {
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.38);
+  letter-spacing: 0.04em;
+  user-select: none;
+}
+
+.wi-wrap {
+  max-width: 76rem;
+  margin-inline: auto;
+  padding-inline: 1.5rem;
+}
+
+.wi-eyebrow {
+  font-family: var(--font-jakarta), sans-serif;
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--wi-accent);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+.wi-eyebrow::before {
+  content: "";
+  width: 2rem;
+  height: 0.5px;
+  background: var(--wi-accent-soft);
+}
+
+.wi-h2 {
+  font-family: var(--font-cormorant), "Playfair Display", Georgia, serif;
+  font-size: clamp(2.35rem, 4.8vw, 3.85rem);
+  font-weight: 400;
+  line-height: 1.06;
+  letter-spacing: -0.015em;
+  color: var(--wi-ink);
+  margin-top: 0.9rem;
+}
+
+.wi-lead {
+  font-family: var(--font-jakarta), sans-serif;
+  margin-top: 1.15rem;
+  color: var(--wi-muted);
+  font-size: 1.05rem;
+  line-height: 1.75;
+  max-width: 40rem;
+}
+
+.wi-section {
+  padding-block: clamp(5rem, 9vw, 8rem);
+}
+
+.wi-rule {
+  width: 5rem;
+  height: 1px;
+  background: linear-gradient(90deg, var(--wi-accent-soft), transparent);
+  margin-top: 1.5rem;
+}
+
+/* ---------- Luxury Gold Foil Typography ---------- */
+.wi-gold-shimmer {
+  background: linear-gradient(
+    115deg,
+    #b68d2c 0%,
+    #f7e7ad 26%,
+    #d4af37 48%,
+    #fff6d1 66%,
+    #a87e1b 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.wi-rose-shimmer {
+  background: linear-gradient(
+    115deg,
+    #84404e 0%,
+    #a95768 26%,
+    #9a4b5b 48%,
+    #b26978 66%,
+    #7c3947 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* ---------- Ultra-Fine Filigree & Double-Hairline Frames (No Bulky Borders) ---------- */
+.wi-bezel {
+  position: relative;
+  padding: 5px;
+  border-radius: 1.75rem;
+  background: linear-gradient(135deg, rgba(212, 175, 55, 0.32), rgba(19, 42, 74, 0.08) 50%, rgba(212, 175, 55, 0.24));
+  transition: transform 320ms var(--wi-ease);
+}
+.wi-bezel::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: 0 28px 60px -22px rgba(11, 25, 44, 0.22);
+  opacity: 0;
+  transition: opacity 320ms var(--wi-ease);
+  pointer-events: none;
+}
+.wi-bezel-inner {
+  border-radius: calc(1.75rem - 4px);
+  background: var(--wi-surface);
+  box-shadow: inset 0 0 0 0.5px rgba(212, 175, 55, 0.28);
+  overflow: hidden;
+  height: 100%;
+}
+
+.wi-bezel-dark {
+  position: relative;
+  padding: 5px;
+  border-radius: 1.75rem;
+  background: linear-gradient(135deg, rgba(212, 175, 55, 0.42), rgba(212, 175, 55, 0.06) 50%, rgba(212, 175, 55, 0.32));
+  transition: transform 320ms var(--wi-ease);
+}
+.wi-bezel-dark::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: 0 30px 64px -20px rgba(0, 0, 0, 0.65);
+  opacity: 0;
+  transition: opacity 320ms var(--wi-ease);
+  pointer-events: none;
+}
+.wi-bezel-dark-inner {
+  border-radius: calc(1.75rem - 4px);
+  background: rgba(24, 10, 7, 0.94);
+  box-shadow: inset 0 0 0 0.5px rgba(212, 175, 55, 0.28);
+  overflow: hidden;
+  height: 100%;
+}
+
+/* One hairline frame; corner filigree supplies the secondary detail. */
+.wi-frame-fine {
+  position: relative;
+  box-shadow: inset 0 0 0 0.75px rgba(212, 175, 55, 0.32);
+}
+
+/* ---------- Buttons + Links (Compositor-Only Sheen & Lift) ---------- */
+.wi-btn {
+  position: relative;
+  overflow: hidden;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  border-radius: 999px;
+  padding: 0.85rem 1.75rem;
+  min-height: 50px;
+  font-family: var(--font-jakarta), sans-serif;
+  font-weight: 500;
+  font-size: 0.88rem;
+  letter-spacing: 0.06em;
+  line-height: 1;
+  background: var(--wi-ink);
+  color: #fdfaf3;
+  transition: transform 240ms var(--wi-ease);
+}
+.wi-btn::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(110deg, transparent 25%, rgba(255, 255, 255, 0.22) 50%, transparent 75%);
+  transform: translateX(-120%);
+  transition: transform 550ms var(--wi-ease);
+  pointer-events: none;
+}
+.wi-btn:active {
+  transform: scale(0.97);
+}
+.wi-btn--gold {
+  background: linear-gradient(135deg, #c99e32 0%, #9b7318 100%);
+  color: #fff;
+  box-shadow: 0 12px 28px -10px rgba(180, 136, 34, 0.45);
+}
+.wi-btn--ghost {
+  background: rgba(255, 255, 255, 0.06);
+  color: inherit;
+  box-shadow: inset 0 0 0 0.75px rgba(255, 255, 255, 0.32);
+}
+.wi-btn .wi-arrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.14);
+  transition: transform 240ms var(--wi-ease);
+}
+
+.wi-link {
+  position: relative;
+  color: inherit;
+  text-decoration: none;
+  padding-bottom: 2px;
+}
+.wi-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 0.75px;
+  background: currentColor;
+  transform: scaleX(1);
+  transform-origin: right;
+  transition: transform 280ms var(--wi-ease);
+}
+
+:focus-visible {
+  outline: 1.5px solid var(--wi-ring);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* ---------- Navigation ---------- */
+.wi-navlink {
+  position: relative;
+  color: var(--wi-muted);
+  padding-block: 0.25rem;
+  font-family: var(--font-jakarta), sans-serif;
+  font-size: 0.85rem;
+  letter-spacing: 0.06em;
+  transition: opacity 220ms var(--wi-ease);
+}
+.wi-navlink::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -2px;
+  height: 0.75px;
+  background: var(--wi-accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 280ms var(--wi-ease);
+}
+.wi-menu {
+  animation: wi-menu-in 260ms var(--wi-ease) both;
+  transform-origin: top center;
+}
+@keyframes wi-menu-in {
+  from { opacity: 0; transform: translateY(-8px); }
+  to { opacity: 1; transform: none; }
+}
+
+/* ---------- Hover States Scoped to Pointer Devices (@media (hover: hover)) ---------- */
+@media (hover: hover) {
+  .wi-bezel:hover {
+    transform: translateY(-4px);
+  }
+  .wi-bezel:hover::after {
+    opacity: 1;
+  }
+  .wi-bezel-dark:hover {
+    transform: translateY(-4px);
+  }
+  .wi-bezel-dark:hover::after {
+    opacity: 1;
+  }
+  .wi-btn:hover {
+    transform: translateY(-2px);
+  }
+  .wi-btn:hover::before {
+    transform: translateX(120%);
+  }
+  .wi-btn:hover .wi-arrow {
+    transform: translateX(3px);
+  }
+  .wi-link:hover::after {
+    transform: scaleX(0);
+  }
+  .wi-navlink:hover {
+    opacity: 0.95;
+  }
+  .wi-navlink:hover::after {
+    transform: scaleX(1);
+  }
+  a.wi-card:hover, .wi-card:has(a:hover), .wi-card-hover:hover {
+    transform: translateY(-4px);
+  }
+  a:hover .wi-zoom img, .wi-zoom:hover img, .group:hover .wi-zoom img {
+    transform: scale(1.03);
+  }
+  .wi-action-lift:hover {
+    transform: translateY(-2px);
+  }
+  .wi-action-lift:hover::before {
+    transform: translateX(120%);
+  }
+}
+
+/* ---------- Hero Entrance & Self-Drawing SVG Stroke ---------- */
+.wi-mask {
+  display: block;
+  overflow: hidden;
+  padding-bottom: 0.1em;
+  margin-bottom: -0.1em;
+}
+.wi-name-mask {
+  padding-top: 0.12em;
+  margin-top: -0.12em;
+}
+.wi-couple-heading {
+  max-width: 100%;
+  overflow-wrap: anywhere;
+  text-wrap: balance;
+}
+.wi-line {
+  display: block;
+  transform: translateY(108%);
+  animation: wi-rise 680ms var(--wi-enter) forwards;
+}
+.wi-line--1 { animation-delay: 40ms; }
+.wi-line--2 { animation-delay: 140ms; }
+.wi-line--3 { animation-delay: 240ms; }
+@keyframes wi-rise {
+  to { transform: none; }
+}
+
+.wi-fadeup {
+  opacity: 0;
+  animation: wi-fadeup 600ms var(--wi-enter) forwards;
+}
+.wi-fadeup--1 { animation-delay: 220ms; }
+.wi-fadeup--2 { animation-delay: 320ms; }
+.wi-fadeup--3 { animation-delay: 420ms; }
+.wi-fadeup--4 { animation-delay: 520ms; }
+@keyframes wi-fadeup {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: none; }
+}
+
+.wi-hero-img {
+  transform: scale(1.05);
+  animation: wi-settle 1400ms var(--wi-enter) forwards;
+}
+@keyframes wi-settle {
+  to { transform: scale(1); }
+}
+
+.wi-float-slow {
+  animation: wi-float 6s ease-in-out infinite;
+}
+@keyframes wi-float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+}
+
+.wi-spin-slow {
+  animation: wi-spin-slow 42s linear infinite;
+}
+@keyframes wi-spin-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.wi-pulse-glow {
+  animation: wi-pulse-glow 3.5s ease-in-out infinite;
+}
+@keyframes wi-pulse-glow {
+  0%, 100% { opacity: 0.65; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.05); }
+}
+
+/* Self-drawing SVG path utility (uses pathLength="1") */
+.wi-svg-draw {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  transition: stroke-dashoffset 1400ms var(--wi-ease);
+}
+.is-drawn .wi-svg-draw,
+.wi-svg-draw.is-drawn {
+  stroke-dashoffset: 0;
+}
+
+/* ---------- Drift Petals / Sparkles ---------- */
+@keyframes wi-petal-drift {
+  0% {
+    transform: translate3d(0, -10%, 0) rotate(0deg);
+    opacity: 0;
+  }
+  15% {
+    opacity: 0.85;
+  }
+  85% {
+    opacity: 0.85;
+  }
+  100% {
+    transform: translate3d(36px, 105vh, 0) rotate(300deg);
+    opacity: 0;
+  }
+}
+.wi-petal {
+  animation: wi-petal-drift var(--dur, 9s) linear infinite;
+  animation-delay: var(--delay, 0s);
+}
+
+/* ---------- Hover Layer: Cards + Photos (Compositor Only) ---------- */
+.wi-card,
+.wi-action-lift {
+  transition: transform 240ms var(--wi-ease), opacity 240ms var(--wi-ease);
+}
+.wi-zoom {
+  overflow: hidden;
+}
+.wi-zoom img {
+  transition: transform 550ms var(--wi-ease);
+}
+
+/* ---------- Word Highlight & Developing Photo ---------- */
+.wi-hl .wi-w {
+  opacity: 0.28;
+  transition: opacity 280ms var(--wi-ease);
+}
+.wi-hl .wi-w.on {
+  opacity: 1;
+}
+
+.wi-dev {
+  position: relative;
+  overflow: hidden;
+  border-radius: 1.5rem;
+  background: #e8e2d4;
+}
+.wi-dev-print {
+  position: absolute;
+  inset: 0;
+  background: #e8e2d4;
+  z-index: 1;
+  transition: opacity 550ms var(--wi-ease);
+}
+.wi-dev-img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1.04);
+  transition: transform 950ms var(--wi-ease);
+}
+.wi-dev.is-in .wi-dev-print {
+  opacity: 0;
+}
+.wi-dev.is-in .wi-dev-img {
+  transform: scale(1);
+}
+
+/* ---------- Scroll Reveal Interpolation ---------- */
+.wi-reveal {
+  opacity: 0;
+  transform: translate3d(0, 28px, 0);
+  transition: opacity 650ms var(--wi-enter), transform 650ms var(--wi-enter);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+/* Dealt-from-top entrance (chapter cards land like played cards). */
+.wi-reveal--top {
+  transform: translate3d(0, -28px, 0) rotate(-1.5deg);
+}
+.wi-reveal.is-visible {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
+/* ---------- FAQ ---------- */
+.wi-faq {
+  border-top: 0.75px solid var(--wi-line);
+}
+.wi-faq details {
+  border-bottom: 0.75px solid var(--wi-line);
+}
+.wi-faq summary {
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.5rem 0.5rem;
+  font-family: var(--font-cormorant), "Playfair Display", Georgia, serif;
+  font-size: 1.45rem;
+  font-weight: 500;
+  min-height: 52px;
+  align-items: center;
+}
+.wi-faq summary::-webkit-details-marker {
+  display: none;
+}
+.wi-faq summary .wi-plus {
+  color: var(--wi-accent);
+  font-size: 1.5rem;
+  line-height: 1;
+  flex: none;
+  transition: transform 260ms var(--wi-ease);
+}
+.wi-faq details[open] summary .wi-plus {
+  transform: rotate(45deg);
+}
+.wi-faq .wi-a {
+  padding: 0 0.5rem 1.65rem;
+  color: var(--wi-muted);
+  line-height: 1.75;
+  max-width: 46rem;
+}
+
+/* ---------- Fine Gold Divider ---------- */
+.wi-divider {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  color: var(--wi-accent-soft);
+}
+.wi-divider::before,
+.wi-divider::after {
+  content: "";
+  height: 0.75px;
+  flex: 1;
+  background: linear-gradient(90deg, transparent, currentColor, transparent);
+  opacity: 0.42;
+}
+
+/* ---------- Design Carousel ---------- */
+.wi-track {
+  transition: transform 520ms var(--wi-enter);
+}
+.wi-slide {
+  flex: 0 0 min(82%, 620px);
+  margin-inline: 12px;
+}
+@media (max-width: 640px) {
+  .wi-slide {
+    flex-basis: 88%;
+    margin-inline: 6px;
+  }
+}
+
+/* ---------- Opening Overlay ---------- */
+.wi-enter-stage {
+  transition: opacity 650ms var(--wi-ease), transform 650ms var(--wi-enter);
+}
+.wi-enter-stage.wi-leaving {
+  background-color: transparent !important;
+  pointer-events: none;
+  transition: background-color 420ms var(--wi-ease);
+}
+.wi-enter-stage.wi-leaving > :not(.wi-gate-panel) {
+  opacity: 0;
+  transition: opacity 380ms var(--wi-ease);
+}
+
+/* Velvet gate curtains — palette comes from --gate-* vars set per template. */
+.wi-gate-panel {
+  position: absolute;
+  inset-block: 0;
+  width: 50%;
+  z-index: 1;
+  will-change: transform;
+  transition: transform 900ms var(--wi-enter);
+}
+.wi-gate-l {
+  left: 0;
+  background: linear-gradient(90deg, var(--gate-a, #150804) 0%, var(--gate-b, #2c1009) 55%, var(--gate-c, #451708) 100%);
+  box-shadow: inset -22px 0 46px -22px var(--gate-shade, rgba(0, 0, 0, 0.85));
+}
+.wi-gate-r {
+  right: 0;
+  background: linear-gradient(270deg, var(--gate-a, #150804) 0%, var(--gate-b, #2c1009) 55%, var(--gate-c, #451708) 100%);
+  box-shadow: inset 22px 0 46px -22px var(--gate-shade, rgba(0, 0, 0, 0.85));
+}
+.wi-gate-panel::before {
+  content: "";
+  position: absolute;
+  inset: 12px;
+  border: 0.75px solid var(--gate-line, rgba(212, 175, 55, 0.18));
+  pointer-events: none;
+}
+.wi-gate-l::after,
+.wi-gate-r::after {
+  content: "";
+  position: absolute;
+  inset-block: 0;
+  width: 5px;
+  background: linear-gradient(180deg, var(--gate-seam-a, #b68d2c), var(--gate-seam-b, #f7e7ad), var(--gate-seam-a, #9b7318));
+  opacity: 0.7;
+}
+.wi-gate-l::after { right: 0; }
+.wi-gate-r::after { left: 0; }
+/* Doors swing outward on hinges rather than sliding flat. */
+.wi-gate-l { transform-origin: left center; }
+.wi-gate-r { transform-origin: right center; }
+.wi-leaving .wi-gate-l { transform: perspective(1600px) translateX(-101%) rotateY(32deg); }
+.wi-leaving .wi-gate-r { transform: perspective(1600px) translateX(101%) rotateY(-32deg); }
+
+/* Invitation card: tilts in on load, lifts toward the guest on open. */
+.wi-invite-card {
+  animation: wi-card-in 1100ms var(--wi-enter) 150ms backwards;
+  transition: transform 820ms var(--wi-enter), opacity 520ms var(--wi-ease);
+}
+@keyframes wi-card-in {
+  from { opacity: 0; transform: perspective(1200px) rotateX(16deg) translateY(48px) scale(0.94); }
+}
+.wi-enter-stage.wi-leaving .wi-invite-card {
+  opacity: 0;
+  transform: perspective(1200px) rotateX(-10deg) translateY(-10vh) scale(1.08);
+}
+
+/* Breathing ring on the open CTA so guests know to tap. */
+.wi-seal-cta { position: relative; }
+.wi-seal-cta::after {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  border: 1px solid currentColor;
+  opacity: 0;
+  animation: wi-cta-ring 2.4s var(--wi-ease) 1.4s infinite;
+  pointer-events: none;
+}
+@keyframes wi-cta-ring {
+  0% { opacity: 0.55; transform: scale(1); }
+  70%, 100% { opacity: 0; transform: scale(1.18, 1.5); }
+}
+
+/* Hero entrance waits behind the sealed invitation, then plays as it opens. */
+html[data-invite="sealed"] :is(.wi-line, .wi-fadeup, .wi-arch-draw, .wi-hero-img) {
+  animation-play-state: paused;
+}
+
+/* Hero content drifts up, shrinks and fades as it scrolls away (native scroll-driven). */
+@supports (animation-timeline: view()) {
+  .wi-hero-exit {
+    animation: wi-hero-exit linear both;
+    animation-timeline: view();
+    animation-range: exit 0% exit 100%;
+  }
+  @keyframes wi-hero-exit {
+    to { opacity: 0.1; transform: translate3d(0, -12%, 0) scale(0.94); }
+  }
+}
+
+/* One-by-one event reveal when the list container enters view. */
+.wi-stagger > * {
+  opacity: 0;
+  transform: translate3d(0, 28px, 0);
+  transition: opacity 700ms var(--wi-ease), transform 820ms var(--wi-enter);
+  transition-delay: calc(var(--i, 0) * var(--step, 110ms));
+}
+.wi-stagger.is-visible > * {
+  opacity: 1;
+  transform: none;
+}
+
+/* ---------- Countdown Tick ---------- */
+.wi-tick { animation: wi-tick 820ms var(--wi-ease); }
+@keyframes wi-tick {
+  0% { opacity: 0.3; transform: translateY(7px); }
+  100% { opacity: 1; transform: none; }
+}
+
+/* ---------- Gallery Lightbox ---------- */
+.wi-lightbox { animation: wi-lightbox-in 320ms var(--wi-ease) both; }
+@keyframes wi-lightbox-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.wi-lightbox-img { animation: wi-lightbox-img-in 460ms var(--wi-enter) both; }
+@keyframes wi-lightbox-img-in {
+  from { opacity: 0; transform: scale(0.965) translateY(10px); }
+  to { opacity: 1; transform: none; }
+}
+.wi-gallery[data-flip-active="true"] [data-gallery-item] {
+  transition: none !important;
+}
+
+/* Quick-action anchor lands clear of floating controls. */
+section[aria-label="RSVP"] {
+  scroll-margin-top: 12px;
+}
+
+/* Chapter deck — each chapter sticks below the previous while scrolling. */
+.chap-stack {
+  position: sticky;
+}
+.chap-stack article {
+  transform-origin: center top;
+}
+@media (prefers-reduced-motion: reduce) {
+  .chap-stack {
+    position: static;
+  }
+  .chap-stack article {
+    transform: none !important;
+  }
+}
+
+/* Scratch-to-reveal: lift the foil away, then settle the date into focus. */
+.wi-scratch-date {
+  opacity: 0.78;
+  transform: translate3d(0, 5px, 0) scale(0.98);
+}
+.wi-scratch-date.is-revealed {
+  animation: wi-scratch-date-in 620ms var(--wi-enter) both;
+}
+.wi-scratch-foil--revealing {
+  pointer-events: none;
+  animation: wi-scratch-foil-away 620ms var(--wi-enter) forwards;
+}
+@keyframes wi-scratch-date-in {
+  0% { opacity: 0.78; transform: translate3d(0, 5px, 0) scale(0.98); }
+  65% { opacity: 1; transform: translate3d(0, -2px, 0) scale(1.025); }
+  100% { opacity: 1; transform: none; }
+}
+@keyframes wi-scratch-foil-away {
+  to { opacity: 0; transform: translate3d(0, -18px, 0) scale(1.025); }
+}
+
+/* ---------- Music Equalizer ---------- */
+.wi-eq { display: inline-flex; align-items: flex-end; gap: 3px; height: 18px; }
+.wi-eq span {
+  width: 3px;
+  height: 100%;
+  border-radius: 2px;
+  background: currentColor;
+  transform-origin: bottom center;
+  transform: scaleY(0.32);
+}
+.wi-eq[data-playing="true"] span { animation: wi-eq 1s ease-in-out infinite; }
+.wi-eq[data-playing="true"] span:nth-child(2) { animation-delay: 120ms; }
+.wi-eq[data-playing="true"] span:nth-child(3) { animation-delay: 240ms; }
+.wi-eq[data-playing="true"] span:nth-child(4) { animation-delay: 360ms; }
+@keyframes wi-eq {
+  0%, 100% { transform: scaleY(0.3); }
+  50% { transform: scaleY(1); }
+}
+
+/* ---------- Scroll Progress ---------- */
+.wi-progress {
+  position: fixed;
+  inset-inline: 0;
+  top: 0;
+  height: 3px;
+  z-index: 80;
+  pointer-events: none;
+}
+.wi-progress-bar {
+  height: 100%;
+  transform: scaleX(0);
+  transform-origin: left center;
+  background: linear-gradient(90deg, #9b7318, #f7e7ad 50%, #d4af37);
+  box-shadow: 0 0 12px rgba(212, 175, 55, 0.45);
+  will-change: transform;
+}
+
+/* ---------- Self-Drawing Arch + SVG Draw-In ---------- */
+.wi-arch-draw {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: wi-draw 1700ms var(--wi-ease) 500ms forwards;
+}
+@keyframes wi-draw {
+  to { stroke-dashoffset: 0; }
+}
+
+/* ---------- Botanical Sway ---------- */
+.wi-sway {
+  transform-origin: top left;
+  animation: wi-sway 7.5s ease-in-out infinite alternate;
+}
+.wi-sway--right { transform-origin: top right; animation-name: wi-sway-right; animation-delay: 1.4s; }
+@keyframes wi-sway {
+  from { transform: rotate(-1.6deg); }
+  to { transform: rotate(1.6deg); }
+}
+@keyframes wi-sway-right {
+  from { transform: scaleX(-1) rotate(-1.6deg); }
+  to { transform: scaleX(-1) rotate(1.6deg); }
+}
+
+/* ---------- Diya / Ember Flicker ---------- */
+.wi-ember { animation: wi-ember 3.4s ease-in-out infinite; }
+@keyframes wi-ember {
+  0%, 100% { box-shadow: 0 0 32px rgba(245, 158, 11, 0.28), inset 0 0 0 0.75px rgba(251, 191, 36, 0.55); }
+  35% { box-shadow: 0 0 46px rgba(245, 158, 11, 0.45), inset 0 0 0 0.75px rgba(251, 191, 36, 0.8); }
+  62% { box-shadow: 0 0 26px rgba(245, 158, 11, 0.24), inset 0 0 0 0.75px rgba(251, 191, 36, 0.5); }
+}
+
+/* ---------- Coastal Wave Drift ---------- */
+.wi-wave-drift { animation: wi-wave-drift 11s ease-in-out infinite alternate; }
+.wi-wave-drift--slow { animation-duration: 15s; animation-direction: alternate-reverse; }
+@keyframes wi-wave-drift {
+  from { transform: translateX(0); }
+  to { transform: translateX(-38px); }
+}
+
+/* ---------- Gold Sheen ---------- */
+.wi-sheen { position: absolute; inset: 0; border-radius: inherit; overflow: hidden; pointer-events: none; }
+.wi-sheen::after {
+  content: "";
+  position: absolute;
+  top: -25%;
+  bottom: -25%;
+  left: -60%;
+  width: 36%;
+  transform: rotate(14deg);
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.32), transparent);
+  animation: wi-sheen 7.5s ease-in-out 2.4s infinite;
+}
+@keyframes wi-sheen {
+  0%, 55% { left: -60%; }
+  82%, 100% { left: 132%; }
+}
+
+/* ---------- RSVP Success ---------- */
+.wi-success-check { animation: wi-success-pop 520ms var(--wi-enter) both; }
+.wi-success-check .wi-success-tick {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: wi-draw 700ms var(--wi-ease) 260ms forwards;
+}
+@keyframes wi-success-pop {
+  from { opacity: 0; transform: scale(0.86); }
+  to { opacity: 1; transform: none; }
+}
+
+/* ---------- Action buttons: press, sheen sweep, glow (compositor-only) ---------- */
+/* :not(.fixed) keeps floating buttons (MusicToggle) out of document flow. */
+.wi-action-lift:not(.fixed) {
+  position: relative;
+}
+.wi-action-lift {
+  isolation: isolate;
+  overflow: hidden;
+  -webkit-tap-highlight-color: transparent;
+}
+.wi-action-lift::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(110deg, transparent 30%, rgba(255, 255, 255, 0.28) 50%, transparent 70%);
+  transform: translateX(-120%);
+  transition: transform 650ms var(--wi-ease);
+  pointer-events: none;
+}
+.wi-action-lift:active { transform: scale(0.97); transition-duration: 90ms; }
+.wi-action-lift:focus-visible { outline: 2px solid #d4af37; outline-offset: 3px; border-radius: 999px; }
+.wi-action-lift:disabled { cursor: progress; }
+
+/* ---------- Action icons ---------- */
+.wi-action-lift svg { transition: transform 240ms var(--wi-ease); }
+@media (hover: hover) {
+  .wi-action-lift:hover svg { transform: translateY(-1px); }
+}
+
+/* ---------- Reduced Motion ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .wi-track { transition: none; }
+  .wi-line, .wi-fadeup, .wi-hero-img, .wi-menu, .wi-float-slow, .wi-spin-slow, .wi-pulse-glow, .wi-petal, .wi-phone-info, .wi-gold-shimmer-text {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .wi-gate-panel, .wi-tick, .wi-pop, .wi-lightbox, .wi-lightbox-img, .wi-arch-draw, .wi-sway, .wi-ember,
+  .wi-wave-drift, .wi-sheen::after, .wi-success-check, .wi-success-check .wi-success-tick,
+  .wi-eq[data-playing="true"] span, .wi-arch-wave, .wi-bl-ring, .wi-bl-card, .wi-uf-cover,
+  .wi-uf-line, .wi-sc-paper, .wi-sc-flame, .wi-pc-flip, .wi-pc-sun, .wi-env-flap,
+  .wi-env-card, .wi-env-seal, .wi-env-glow, .wi-fx-bit, .wi-side-rail,
+  .wi-bless-reveal, .wi-react-pop, .wi-eq-live[data-playing="true"] > i {
+    animation: none !important;
+    transition: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+    clip-path: none !important;
+  }
+  .wi-arch-draw, .wi-success-check .wi-success-tick { stroke-dashoffset: 0 !important; }
+  .wi-invite-card, .wi-seal-cta::after, .wi-hero-exit { animation: none !important; }
+  .wi-action-lift::before { display: none; }
+  .wi-wave-drift, .wi-sway { transform: none !important; }
+  .wi-sway--right { transform: scaleX(-1) !important; }
+  .wi-sheen::after { display: none; }
+  .wi-stagger > * {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+  .wi-reveal {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+  .wi-scratch-date,
+  .wi-scratch-date.is-revealed {
+    opacity: 1 !important;
+    transform: none !important;
+    animation: none !important;
+  }
+  .wi-scratch-foil--revealing { animation: none !important; opacity: 0 !important; }
+  .wi-svg-draw {
+    stroke-dashoffset: 0 !important;
+    transition: none !important;
+  }
+  .wi-dev.is-in .wi-dev-img, .wi-dev-img { transition: none; transform: none; }
+  .wi-dev-print { display: none; }
+  .wi-hl .wi-w { opacity: 1; }
+  html { scroll-behavior: auto; }
+}
+
+/* Envelope reveal (Animate UI path C, subtle — token curves as CSS) */
+.wi-env-scene { perspective: 1400px; }
+.wi-env-back {
+  background: linear-gradient(160deg, #2c1009 0%, #451708 55%, #1c0a05 100%);
+  box-shadow: inset 0 0 0 0.75px rgba(212, 175, 55, 0.4), 0 35px 90px rgba(0, 0, 0, 0.8);
+}
+.wi-env-card {
+  z-index: 10;
+  background: linear-gradient(175deg, #fffdf6 0%, #f6ead4 70%, #eedaBB 100%);
+  box-shadow: inset 0 0 0 0.75px rgba(185, 138, 47, 0.65), 0 18px 50px rgba(0, 0, 0, 0.45);
+  transform: translateY(10%) scale(0.94);
+  transition: transform 800ms cubic-bezier(0.23, 1, 0.32, 1) 200ms;
+  will-change: transform;
+}
+.wi-env-open .wi-env-card { transform: translateY(-4%) scale(0.97); }
+.wi-env-revealed .wi-env-card { transform: translateY(-30%) scale(1.05); }
+.wi-env-pocket {
+  z-index: 20;
+  top: 32%;
+  border-radius: 0 0 1rem 1rem;
+  background:
+    linear-gradient(to bottom right, transparent 49.4%, rgba(122, 18, 40, 0.22) 49.8%, transparent 50.4%),
+    linear-gradient(to bottom left, transparent 49.4%, rgba(122, 18, 40, 0.22) 49.8%, transparent 50.4%),
+    linear-gradient(170deg, #fbf3df 0%, #efdcB6 60%, #e3cb9c 100%);
+  box-shadow: inset 0 0 0 0.75px rgba(185, 138, 47, 0.55), 0 -8px 24px rgba(60, 20, 5, 0.25);
+}
+.wi-env-flap {
+  z-index: 30;
+  height: 34%;
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
+  background: linear-gradient(180deg, #e9d3a3 0%, #d9b878 55%, #c49a52 100%);
+  box-shadow: inset 0 -1px 0 rgba(122, 18, 40, 0.25);
+  transform-origin: 50% 0%;
+  transform: rotateX(0deg);
+  transition: transform 700ms cubic-bezier(0.77, 0, 0.175, 1), z-index 0s linear 350ms;
+  will-change: transform;
+}
+.wi-env-open .wi-env-flap, .wi-env-revealed .wi-env-flap {
+  transform: rotateX(-180deg);
+  z-index: 0;
+}
+.wi-env-sealwrap { z-index: 40; pointer-events: none; }
+.wi-env-glow {
+  z-index: 5;
+  background: radial-gradient(circle at 50% 38%, rgba(212, 175, 55, 0.4) 0%, transparent 62%);
+  opacity: 0;
+  transition: opacity 900ms cubic-bezier(0.23, 1, 0.32, 1) 300ms;
+}
+.wi-env-open .wi-env-glow, .wi-env-revealed .wi-env-glow { opacity: 1; }
+.wi-env-seal {
+  background: radial-gradient(circle at 35% 30%, #a9243d 0%, #7a1228 55%, #540a1b 100%);
+  box-shadow: inset 0 0 0 2px rgba(246, 234, 212, 0.5), inset 0 2px 6px rgba(255, 255, 255, 0.25), 0 10px 24px rgba(0, 0, 0, 0.5);
+  transition: transform 180ms cubic-bezier(0.23, 1, 0.32, 1), opacity 300ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+.wi-env-tap:active .wi-env-seal { transform: scale(0.97); }
+.wi-env-open .wi-env-seal, .wi-env-revealed .wi-env-seal { transform: scale(1.5); opacity: 0; }
+.wi-env-tap:focus-visible { outline: 2px solid #d4af37; outline-offset: 8px; border-radius: 1rem; }
+
+@media (max-width: 640px) {
+  .wi-wrap { padding-inline: 1.25rem; }
+}
+
+/* Inviteque-study: arch wave float + countdown digit pop */
+.wi-phone-info { animation: wi-phone-in 480ms cubic-bezier(0.23, 1, 0.32, 1); }
+@keyframes wi-phone-in {
+  from { opacity: 0; transform: translateY(10px); }
+}
+
+/* Reusable effects library: shimmer text + reactive press */
+.wi-gold-shimmer-text {
+  animation: wi-gold-shimmer-slide 5s linear infinite;
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+@keyframes wi-gold-shimmer-slide {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* Floating ambient effects (CSS-only loops, capped counts) */
+.wi-fx-bit {
+  position: absolute;
+  top: -8%;
+  animation: wi-fx-fall var(--fx-dur, 8.5s) linear infinite;
+  animation-delay: var(--fx-delay, 0s);
+  opacity: 0.75;
+}
+.wi-react-pop {
+  animation: wi-react-pop 1300ms cubic-bezier(0.23, 1, 0.32, 1) forwards;
+  will-change: transform, opacity;
+}
+@keyframes wi-react-pop {
+  0% { transform: translateY(0) scale(0.5); opacity: 0; }
+  15% { opacity: 1; }
+  100% { transform: translateY(-56px) scale(1.15); opacity: 0; }
+}
+
+/* Blessing reveal pop + music visualizer bars */
+.wi-bless-reveal { animation: wi-bless-in 480ms cubic-bezier(0.23, 1, 0.32, 1); }
+@keyframes wi-bless-in {
+  from { opacity: 0; transform: translateY(10px) scale(0.98); }
+}
+.wi-eq-live { display: inline-flex; align-items: flex-end; gap: 2.5px; height: 18px; }
+.wi-eq-live > i { width: 3px; border-radius: 2px; background: currentColor; height: 30%; }
+.wi-eq-live[data-playing="true"] > i { animation: wi-eq-bounce 0.9s ease-in-out infinite; }
+.wi-eq-live[data-playing="true"] > i:nth-child(2) { animation-delay: 0.15s; }
+.wi-eq-live[data-playing="true"] > i:nth-child(3) { animation-delay: 0.3s; }
+.wi-eq-live[data-playing="true"] > i:nth-child(4) { animation-delay: 0.45s; }
+@keyframes wi-eq-bounce {
+  0%, 100% { height: 25%; }
+  50% { height: 100%; }
+}
+@keyframes wi-react-pop {
+  0% { transform: translateY(0) scale(0.5); opacity: 0; }
+  15% { opacity: 1; }
+  100% { transform: translateY(-56px) scale(1.15); opacity: 0; }
+}
+.wi-fx-petal, .wi-fx-leaf { border-radius: 62% 4% 62% 4%; background: currentColor; }
+.wi-fx-dot { border-radius: 9999px; background: currentColor; box-shadow: 0 0 8px 1px currentColor; }
+.wi-fx-ember { border-radius: 50% 50% 50% 4%; background: currentColor; box-shadow: 0 0 10px 2px currentColor; }
+.wi-fx-confetti { border-radius: 1px; background: currentColor; }
+@keyframes wi-fx-fall {
+  0% { transform: translate3d(0, -6vh, 0) rotate(0deg); opacity: 0; }
+  8% { opacity: 0.8; }
+  50% { transform: translate3d(2.5vw, 52vh, 0) rotate(180deg); }
+  92% { opacity: 0.7; }
+  100% { transform: translate3d(-2vw, 112vh, 0) rotate(360deg); opacity: 0; }
+}
+.wi-arch-wave { animation: wi-arch-wave 5s ease-in-out infinite; }
+@keyframes wi-arch-wave {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+.wi-pop { animation: wi-pop 480ms var(--wi-ease); }
+@keyframes wi-pop {
+  0% { transform: scale(0.82); opacity: 0.4; }
+  60% { transform: scale(1.08); opacity: 1; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+/* Bloom / Unfold / Scroll / Postcard reveals (Animate UI path C, subtle) */
+.wi-bl-ring-a { animation: wi-spin-slow 30s linear infinite; }
+.wi-bl-ring-b { animation: wi-bl-rev 22s linear infinite; }
+@keyframes wi-bl-rev { to { transform: rotate(-360deg); } }
+.wi-bl-ring { transition: opacity 600ms cubic-bezier(0.23, 1, 0.32, 1); }
+.wi-bl-open .wi-bl-ring, .wi-bl-revealed .wi-bl-ring { opacity: 0.45; }
+.wi-bl-card {
+  opacity: 0;
+  transform: scale(0.92) translateY(4%);
+  transition: opacity 600ms cubic-bezier(0.23, 1, 0.32, 1) 150ms, transform 700ms cubic-bezier(0.23, 1, 0.32, 1) 150ms;
+  will-change: transform, opacity;
+}
+.wi-bl-open .wi-bl-card, .wi-bl-revealed .wi-bl-card { opacity: 1; transform: none; }
+
+.wi-uf-scene { perspective: 1400px; }
+.wi-uf-cover {
+  z-index: 20;
+  transform-origin: 50% 0%;
+  transition: transform 700ms cubic-bezier(0.77, 0, 0.175, 1);
+  will-change: transform;
+}
+.wi-uf-open .wi-uf-cover, .wi-uf-revealed .wi-uf-cover { transform: rotateX(-175deg); }
+.wi-uf-line {
+  transform: scaleX(0);
+  transform-origin: 0 50%;
+  transition: transform 500ms cubic-bezier(0.23, 1, 0.32, 1) 350ms;
+}
+.wi-uf-revealed .wi-uf-line { transform: scaleX(1); }
+
+.wi-sc-paper {
+  clip-path: inset(0 0 100% 0);
+  transition: clip-path 900ms cubic-bezier(0.77, 0, 0.175, 1) 250ms;
+  will-change: clip-path;
+}
+.wi-sc-open .wi-sc-paper, .wi-sc-revealed .wi-sc-paper { clip-path: inset(0 0 0% 0); }
+.wi-sc-flame {
+  transform-origin: 50% 90%;
+  transform-box: fill-box;
+  transform: scale(0.65);
+  opacity: 0.75;
+  transition: transform 500ms cubic-bezier(0.23, 1, 0.32, 1), opacity 500ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+.wi-sc-open .wi-sc-flame, .wi-sc-revealed .wi-sc-flame { transform: scale(1.15); opacity: 1; }
+
+.wi-pc-scene { perspective: 1400px; }
+.wi-pc-flip {
+  transform-style: preserve-3d;
+  transition: transform 800ms cubic-bezier(0.77, 0, 0.175, 1);
+  will-change: transform;
+}
+.wi-pc-open .wi-pc-flip, .wi-pc-revealed .wi-pc-flip { transform: rotateY(180deg); }
+.wi-pc-front, .wi-pc-back { backface-visibility: hidden; -webkit-backface-visibility: hidden; }
+.wi-pc-back { transform: rotateY(180deg); }
+.wi-pc-sun {
+  translate: -50% 0;
+  transition: translate 900ms cubic-bezier(0.23, 1, 0.32, 1), opacity 900ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+.wi-pc-open .wi-pc-sun, .wi-pc-revealed .wi-pc-sun { translate: -50% 26px; opacity: 0.85; }
