@@ -10,7 +10,8 @@ const LINKS = [
   { href: "/wedding-invitations#offer", label: "Features" },
   { href: "/wedding-invitations#how", label: "How It Works" },
   { href: "/wedding-invitations#about", label: "About Us" },
-  { href: "/wedding-invitations#contact", label: "Contact" },
+  { href: "/wedding-invitations#pricing", label: "Price" },
+  { href: "/wedding-invitations#contact", label: "WhatsApp" },
 ];
 
 /** Inviteo Navigation: Royal Sapphire Blue & Gold with clean Indian wedding feel. */

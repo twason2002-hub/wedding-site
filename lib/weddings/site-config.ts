@@ -16,9 +16,13 @@ export const SITE_CONFIG = {
   instagramUrl: "PLACEHOLDER_INSTAGRAM_URL",
   email: "PLACEHOLDER_EMAIL",
   phoneDisplay: "PLACEHOLDER_PHONE",
-  // TODO(owner): confirm pricing model before publishing any numbers.
-  pricingNote: "PLACEHOLDER_PRICING",
+  /** Published one-time price for any of the five templates. */
+  templatePriceInr: 499,
 } as const;
+
+export const TEMPLATE_PRICE_LABEL = `₹${SITE_CONFIG.templatePriceInr.toLocaleString("en-IN")}`;
+
+export const TEMPLATE_PRICE_NOTE = `${TEMPLATE_PRICE_LABEL} one-time · same price for every design`;
 
 /** True only when the owner has replaced the WhatsApp placeholder. */
 export function isContactConfigured(): boolean {
@@ -26,6 +30,6 @@ export function isContactConfigured(): boolean {
 }
 
 export function whatsappLink(message: string): string {
-  if (!isContactConfigured()) return "#contact";
+  if (!isContactConfigured()) return "/wedding-invitations#contact";
   return `https://wa.me/${SITE_CONFIG.whatsappNumber}?text=${encodeURIComponent(message)}`;
 }

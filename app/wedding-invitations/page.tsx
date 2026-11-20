@@ -12,7 +12,7 @@ import PhoneCarousel from "@/components/weddings/PhoneCarousel";
 import { Check } from "@/components/animate-ui/icons/check";
 import { Shine } from "@animate-ui/react/primitives/effects/shine";
 import { listTemplates } from "@/lib/weddings/templates";
-import { SITE_CONFIG, whatsappLink } from "@/lib/weddings/site-config";
+import { SITE_CONFIG, TEMPLATE_PRICE_LABEL, TEMPLATE_PRICE_NOTE, isContactConfigured, whatsappLink } from "@/lib/weddings/site-config";
 
 export const metadata = {
   title: "Inviteo — Beautiful Indian Wedding Invitation Websites",
@@ -94,6 +94,14 @@ export default function WeddingInvitationsHome() {
     >
       {/* 1 — Inviteo Royal Blue Navigation */}
       <SiteNav />
+      <a
+        href={whatsappLink("Hi Inviteo! I want a wedding invitation website.")}
+        className="fixed bottom-4 right-4 z-[70] inline-flex min-h-12 items-center gap-2 rounded-full bg-[#1faa53] px-4 text-sm font-semibold text-white shadow-lg"
+      >
+        <WhatsAppGlyph />
+        <span className="hidden sm:inline">WhatsApp · {TEMPLATE_PRICE_LABEL}</span>
+        <span className="sm:hidden">{TEMPLATE_PRICE_LABEL}</span>
+      </a>
 
       {/* 2 — Inviteque-style hero: copy + WhatsApp chat mock */}
       <header className="relative overflow-hidden bg-[#fbf9f5] text-[#1c1917]">
@@ -165,7 +173,7 @@ export default function WeddingInvitationsHome() {
                 <span aria-hidden="true" className="hidden h-4 w-px bg-black/10 sm:block" />
                 <span>Live in minutes · No printing delays</span>
                 <span aria-hidden="true" className="hidden h-4 w-px bg-black/10 sm:block" />
-                <span className="font-semibold text-[#1c1917]">₹499 one-time · cheapest</span>
+                <span className="font-semibold text-[#1c1917]">{TEMPLATE_PRICE_NOTE}</span>
               </div>
             </div>
 
@@ -254,9 +262,65 @@ export default function WeddingInvitationsHome() {
           </div>
         </ScrollReveal>
 
+        <div className="mt-8 -mx-6 flex snap-x snap-mandatory gap-4 overflow-x-auto px-6 pb-2 sm:mx-0 sm:px-0">
+          {templates.map((t, i) => (
+            <article
+              key={t.slug}
+              className="flex w-[78vw] max-w-[280px] shrink-0 snap-start flex-col overflow-hidden rounded-3xl bg-white shadow-[0_18px_40px_-24px_rgba(11,25,44,0.35)] ring-1 ring-black/5"
+            >
+              <Link href={`/wedding-invitations/templates/${t.slug}`} className="block">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={t.thumbnail} alt="" className="aspect-[16/10] w-full object-cover" />
+              </Link>
+              <div className="flex flex-1 flex-col p-4">
+                <p className="text-[11px] uppercase tracking-[0.22em] text-[#8a6d2b]">0{i + 1} · {t.name}</p>
+                <p className="mt-1 font-display-luxury text-3xl text-[#0b192c]">{TEMPLATE_PRICE_LABEL}</p>
+                <p className="text-xs text-[#6b6259]">one-time · Haldi to Reception</p>
+                <div className="mt-4 flex flex-col gap-2">
+                  <Link href={`/wedding-invitations/templates/${t.slug}`} className="inline-flex min-h-11 items-center justify-center rounded-full bg-[#0b192c] px-4 text-xs font-semibold uppercase tracking-[0.14em] text-white">
+                    Preview
+                  </Link>
+                  <a href={whatsappLink(`Hi Inviteo! I want the ${t.name} template (${TEMPLATE_PRICE_LABEL}).`)} className="inline-flex min-h-11 items-center justify-center rounded-full bg-[#1faa53] px-4 text-xs font-semibold uppercase tracking-[0.14em] text-white">
+                    WhatsApp
+                  </a>
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
+
         <ScrollReveal delay={100}>
           <PhoneCarousel templates={templates} />
         </ScrollReveal>
+      </section>
+
+      <section id="pricing" aria-label="Template price" className="scroll-mt-24 border-y border-[#d4af37]/30 bg-[#0b192c] text-white">
+        <div className="wi-wrap wi-section grid items-center gap-10 md:grid-cols-[1fr_1.1fr]">
+          <div>
+            <p className="text-xs uppercase tracking-[0.28em] text-[#f3df9d]">Template pricing</p>
+            <p className="mt-3 font-display-luxury text-6xl sm:text-7xl">{TEMPLATE_PRICE_LABEL}</p>
+            <p className="mt-2 text-lg text-white/80">One-time flat fee for any design. No monthly fee.</p>
+          </div>
+          <ul className="space-y-3 text-sm leading-relaxed text-white/85">
+            {[
+              "All wedding events in one scrolling page",
+              "Google Maps, RSVP, gallery, and countdown",
+              "Opening animation for the design you pick",
+              "Share the same link on WhatsApp",
+            ].map((item) => (
+              <li key={item} className="flex gap-3">
+                <span aria-hidden="true" className="text-[#1faa53]">✓</span>
+                <span>{item}</span>
+              </li>
+            ))}
+            <li className="pt-2">
+              <a href={whatsappLink(`Hi Inviteo! I want a wedding website at ${TEMPLATE_PRICE_LABEL}.`)} className="inline-flex min-h-12 items-center gap-2 rounded-full bg-[#1faa53] px-6 text-sm font-semibold text-white">
+                <WhatsAppGlyph />
+                Order on WhatsApp · {TEMPLATE_PRICE_LABEL}
+              </a>
+            </li>
+          </ul>
+        </div>
       </section>
 
       {/* 4 — What We Offer (Royal Blue & Gold Cards) */}
@@ -513,7 +577,7 @@ export default function WeddingInvitationsHome() {
                   ["Cinematic opening", "—", "—", "✓ curtains · petals · diya"],
                   ["Instant live updates", "✕ reprint", "✕ resend", "✓ same link"],
                   ["RSVP tracking", "—", "—", "✓ per-event"],
-                  ["Cost & eco", "₹₹₹ · waste", "Free · flat", "✓ ₹499 one-time · zero waste"],
+                  ["Cost", "Reprint each change", "Free image", `${TEMPLATE_PRICE_LABEL} one-time`],
                 ].map(([f, a, b, c]) => (
                   <tr key={f} className="border-b border-black/5 last:border-0">
                     <td className="px-6 py-3.5 font-medium">{f}</td>
@@ -572,8 +636,8 @@ export default function WeddingInvitationsHome() {
               subtitle="Send us your wedding date and favourite design on WhatsApp — we will reply personally and get started."
               tone="dark"
             />
-            <p className="mt-6 font-display-luxury text-2xl italic text-[#f3df9d]">
-              Just ₹499 one-time — the cheapest way to invite everyone
+            <p className="mt-6 font-display-luxury text-3xl italic text-[#f3df9d]">
+              {TEMPLATE_PRICE_NOTE}
             </p>
             <div className="mt-6 flex flex-wrap justify-center gap-3.5">
               <a
@@ -588,10 +652,11 @@ export default function WeddingInvitationsHome() {
                 See All 5 Designs First
               </Link>
             </div>
-            <p className="mt-8 text-xs uppercase tracking-[0.25em] text-white/55 break-all">
-              Instagram: {SITE_CONFIG.instagramUrl} &nbsp;·&nbsp; Email: {SITE_CONFIG.email} &nbsp;·&nbsp; Phone:{" "}
-              {SITE_CONFIG.phoneDisplay}
-            </p>
+            {!isContactConfigured() && (
+              <p className="mt-6 text-sm text-white/70">
+                The green button jumps to this section until the WhatsApp number is connected.
+              </p>
+            )}
           </ScrollReveal>
         </div>
       </section>
@@ -667,19 +732,7 @@ export default function WeddingInvitationsHome() {
                   WhatsApp Us
                 </a>
               </li>
-              <li>
-                <a
-                  className="wi-link inline-flex min-h-[38px] items-center"
-                  href={SITE_CONFIG.instagramUrl}
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  Instagram
-                </a>
-              </li>
-              <li className="break-all text-white/60">
-                <span>Email: {SITE_CONFIG.email}</span>
-              </li>
+              <li className="text-white/80">{TEMPLATE_PRICE_NOTE}</li>
             </ul>
           </div>
         </div>

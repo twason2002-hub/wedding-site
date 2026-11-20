@@ -765,12 +765,7 @@ section[aria-label="RSVP"] {
 
 /* Chapter deck — each chapter sticks below the previous while scrolling. */
 .chap-stack {
-  position: relative;
-}
-@media (min-width: 640px) {
-  .chap-stack {
-    position: sticky;
-  }
+  position: static;
 }
 .chap-stack article {
   transform-origin: center top;
