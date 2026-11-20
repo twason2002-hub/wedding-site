@@ -14,15 +14,11 @@ import ShareBar from "../ShareBar";
 import Parallax from "../Parallax";
 import { ScrollReveal } from "../HomeMoments";
 import Timeline from "../Timeline";
-import CinematicTransition from "../effects/CinematicTransition";
 import ScratchReveal from "../ScratchReveal";
+import GoldShimmer from "../effects/GoldShimmer";
+import HeroKenBurns from "../HeroKenBurns";
 import GuestSections from "../GuestSections";
-import {
-  AnimatedCalligraphy,
-  AmbientFloatingParticles,
-  FiligreeCorners,
-  OutlinedEditorialWord,
-} from "../LuxuryOrnaments";
+import { AnimatedCalligraphy, FiligreeCorners, OutlinedEditorialWord } from "../LuxuryOrnaments";
 
 /**
  * TEMPLATE 1 — ROYAL HERITAGE (Imperial Rajputana Palace Edition).
@@ -48,8 +44,6 @@ export default function RoyalHeritage({ wedding }: { wedding: WeddingData }) {
               "radial-gradient(circle at 50% 18%, rgba(212,175,55,0.22) 0%, rgba(120,28,28,0.16) 38%, transparent 72%)",
           }}
         />
-        <AmbientFloatingParticles variant="gold" />
-
         {/* Royal paisley ornaments drifting in the hero corners */}
         <FloatingOrnaments duration={7} drift={12} className="pointer-events-none absolute left-6 top-24 hidden text-[#d4af37]/50 md:block">
           <Paisley className="h-20 w-20" />
@@ -60,24 +54,21 @@ export default function RoyalHeritage({ wedding }: { wedding: WeddingData }) {
           </span>
         </FloatingOrnaments>
 
-        {/* Rotating Geometric Surya Mandala */}
-        <Parallax depth={14} className="pointer-events-none absolute inset-0">
-          <svg
-            className="wi-spin-slow pointer-events-none absolute left-1/2 top-24 -translate-x-1/2 h-[640px] w-[640px] text-[#d4af37]/[0.07]"
-            viewBox="0 0 200 200"
-            fill="none"
-            aria-hidden="true"
-          >
-            <circle cx="100" cy="100" r="95" stroke="currentColor" strokeWidth="0.4" strokeDasharray="2 3" />
-            <circle cx="100" cy="100" r="80" stroke="currentColor" strokeWidth="0.5" />
-            <circle cx="100" cy="100" r="64" stroke="currentColor" strokeWidth="0.4" strokeDasharray="5 3" />
-            <polygon
-              points="100,8 122,72 188,72 134,112 154,178 100,138 46,178 66,112 12,72 78,72"
-              stroke="currentColor"
-              strokeWidth="0.35"
-            />
-          </svg>
-        </Parallax>
+        <svg
+          className="pointer-events-none absolute left-1/2 top-24 -translate-x-1/2 h-[640px] w-[640px] text-[#d4af37]/[0.07]"
+          viewBox="0 0 200 200"
+          fill="none"
+          aria-hidden="true"
+        >
+          <circle cx="100" cy="100" r="95" stroke="currentColor" strokeWidth="0.4" strokeDasharray="2 3" />
+          <circle cx="100" cy="100" r="80" stroke="currentColor" strokeWidth="0.5" />
+          <circle cx="100" cy="100" r="64" stroke="currentColor" strokeWidth="0.4" strokeDasharray="5 3" />
+          <polygon
+            points="100,8 122,72 188,72 134,112 154,178 100,138 46,178 66,112 12,72 78,72"
+            stroke="currentColor"
+            strokeWidth="0.35"
+          />
+        </svg>
 
         <div className="wi-hero-exit relative mx-auto max-w-4xl">
           <p className="wi-fadeup wi-fadeup--1 font-regal text-xs uppercase tracking-[0.34em] text-[#e8cf8f]">
@@ -107,8 +98,8 @@ export default function RoyalHeritage({ wedding }: { wedding: WeddingData }) {
               />
             </svg>
             <div className="relative overflow-hidden rounded-t-full rounded-b-[calc(1.5rem-3px)] bg-[#140806] p-1.5 shadow-[inset_0_0_0_0.5px_rgba(212,175,55,0.4)]">
-              <div className="relative overflow-hidden rounded-t-full rounded-b-2xl">
-                <Parallax depth={12}>
+              <HeroKenBurns className="relative overflow-hidden rounded-t-full rounded-b-2xl">
+                <Parallax depth={10}>
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     src={wedding.couple.photo}
@@ -116,8 +107,7 @@ export default function RoyalHeritage({ wedding }: { wedding: WeddingData }) {
                     className="aspect-[3/4] w-full object-cover"
                   />
                 </Parallax>
-                <span className="wi-sheen" aria-hidden="true" />
-              </div>
+              </HeroKenBurns>
             </div>
           </div>
 
@@ -127,13 +117,17 @@ export default function RoyalHeritage({ wedding }: { wedding: WeddingData }) {
 
           <h1 className="mt-4 font-regal leading-[1.05]" style={{ fontSize: "clamp(2.5rem, 6.5vw, 5.25rem)" }}>
             <span className="wi-mask wi-name-mask">
-              <span className="wi-line wi-line--1 wi-gold-shimmer wi-couple-heading">{wedding.couple.bride}</span>
+              <GoldShimmer duration={7} from="#c9a227" via="#fff0c8" to="#c9a227" className="wi-line wi-line--1 wi-couple-heading block text-[#f6ead4]">
+                {wedding.couple.bride}
+              </GoldShimmer>
             </span>
             <span className="my-1 block font-script-luxury text-3xl sm:text-4xl text-[#d4af37]/85">
               &amp;
             </span>
             <span className="wi-mask wi-name-mask">
-              <span className="wi-line wi-line--2 wi-gold-shimmer wi-couple-heading">{wedding.couple.groom}</span>
+              <GoldShimmer duration={7} from="#c9a227" via="#fff0c8" to="#c9a227" className="wi-line wi-line--2 wi-couple-heading block text-[#f6ead4]">
+                {wedding.couple.groom}
+              </GoldShimmer>
             </span>
           </h1>
 
@@ -165,11 +159,9 @@ export default function RoyalHeritage({ wedding }: { wedding: WeddingData }) {
         </ScrollReveal>
 
         <ScrollReveal>
-          <ScrollReveal>
-            <div className="mb-10">
-              <ScratchReveal wedding={wedding} />
-            </div>
-          </ScrollReveal>
+          <div className="mb-10">
+            <ScratchReveal wedding={wedding} />
+          </div>
           <section aria-label="Countdown" className="relative rounded-3xl p-6 text-center sm:p-10">
             <AnimatedBorder color="#d4af37" />
             <OutlinedEditorialWord
@@ -201,7 +193,7 @@ export default function RoyalHeritage({ wedding }: { wedding: WeddingData }) {
         </section>
 
         {wedding.sections?.gallery !== false && (
-          <CinematicTransition kind="curtain" veil="#140806">
+          <ScrollReveal>
             <section aria-label="Gallery">
               <div className="mb-12">
                 <OutlinedEditorialWord
@@ -213,7 +205,7 @@ export default function RoyalHeritage({ wedding }: { wedding: WeddingData }) {
               </div>
               <Gallery images={wedding.gallery} variant="royal" />
             </section>
-          </CinematicTransition>
+          </ScrollReveal>
         )}
 
         {wedding.venue && wedding.sections?.venue !== false && (

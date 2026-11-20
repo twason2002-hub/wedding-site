@@ -14,15 +14,10 @@ import ShareBar from "../ShareBar";
 import Parallax from "../Parallax";
 import { ScrollReveal } from "../HomeMoments";
 import Timeline from "../Timeline";
-import CinematicTransition from "../effects/CinematicTransition";
 import ScratchReveal from "../ScratchReveal";
+import HeroKenBurns from "../HeroKenBurns";
 import GuestSections from "../GuestSections";
-import {
-  AnimatedCalligraphy,
-  AmbientFloatingParticles,
-  FiligreeCorners,
-  OutlinedEditorialWord,
-} from "../LuxuryOrnaments";
+import { AnimatedCalligraphy, FiligreeCorners, OutlinedEditorialWord } from "../LuxuryOrnaments";
 
 /**
  * TEMPLATE 5 — DESTINATION WEDDING (Mediterranean-meets-Goa Coastal Resort Edition).
@@ -42,14 +37,16 @@ export default function DestinationWedding({ wedding }: { wedding: WeddingData }
 
       {/* Full-Bleed Coastal Horizon Hero */}
       <header className="relative flex min-h-[92dvh] items-end overflow-hidden bg-[#0a252c]">
-        <Parallax depth={14} className="absolute inset-0">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src={wedding.couple.photo}
-            alt={names}
-            className="h-full w-full object-cover"
-          />
-        </Parallax>
+        <HeroKenBurns className="absolute inset-0">
+          <Parallax depth={12} className="h-full w-full">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={wedding.couple.photo}
+              alt={names}
+              className="h-full w-full object-cover"
+            />
+          </Parallax>
+        </HeroKenBurns>
         <div
           className="absolute inset-0"
           style={{
@@ -57,8 +54,6 @@ export default function DestinationWedding({ wedding }: { wedding: WeddingData }
               "linear-gradient(to top, rgba(9,32,38,0.88) 0%, rgba(9,32,38,0.35) 55%, rgba(9,32,38,0.2) 100%)",
           }}
         />
-        <AmbientFloatingParticles variant="sea" />
-
         {/* Swaying palm silhouettes */}
         <FloatingOrnaments duration={6} drift={14} className="pointer-events-none absolute right-8 top-24 hidden text-white/25 sm:block">
           <Palm className="h-28 w-24" />
@@ -102,11 +97,9 @@ export default function DestinationWedding({ wedding }: { wedding: WeddingData }
           </div>
         </div>
 
-        {/* Layered Coastal Wave Divider with sailing boat */}
         <WaveEffect
-          boat
-          colors={["#f7f3eb", "#f7f3eb", "#f7f3eb"]}
-          className="absolute bottom-0 left-0 h-24 w-full text-[#f7f3eb]"
+          colors={["#c8dce8", "#8eb6c9", "#5a8fa6"]}
+          className="absolute bottom-0 left-0 h-24 w-full"
         />
       </header>
 
@@ -116,11 +109,9 @@ export default function DestinationWedding({ wedding }: { wedding: WeddingData }
         </ScrollReveal>
 
         <ScrollReveal>
-          <ScrollReveal>
-            <div className="mb-10">
-              <ScratchReveal wedding={wedding} />
-            </div>
-          </ScrollReveal>
+          <div className="mb-10">
+            <ScratchReveal wedding={wedding} />
+          </div>
           <section aria-label="Countdown" className="text-center">
             <OutlinedEditorialWord
               watermark="HORIZON"
@@ -226,7 +217,7 @@ export default function DestinationWedding({ wedding }: { wedding: WeddingData }
         )}
 
         {wedding.sections?.gallery !== false && (
-          <CinematicTransition kind="wipe" veil="#f4f7fb">
+          <ScrollReveal>
             <section aria-label="Gallery">
               <div className="mb-10">
                 <OutlinedEditorialWord
@@ -238,7 +229,7 @@ export default function DestinationWedding({ wedding }: { wedding: WeddingData }
               </div>
               <Gallery images={wedding.gallery} variant="coastal" />
             </section>
-          </CinematicTransition>
+          </ScrollReveal>
         )}
 
         <AnimatedCalligraphy color="#b86b43" variant="waves" />

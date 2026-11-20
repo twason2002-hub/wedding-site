@@ -59,15 +59,15 @@ export default function LotusReveal({
     <div ref={ref} className={className} style={{ width: size, height: size * 0.72 }} aria-hidden="true">
       <svg viewBox="0 0 200 150" fill="none" style={{ width: "100%", height: "100%", overflow: "visible" }}>
         {petals.map((r) => (
-          <path
-            key={r}
-            className="wi-lotus-petal"
-            d="M100 132 C82 100, 84 62, 100 30 C116 62, 118 100, 100 132 Z"
-            transform={`rotate(${r} 100 132)`}
-            stroke={color}
-            strokeWidth="1.6"
-            fill={`${color}22`}
-          />
+          <g key={r} transform={`rotate(${r} 100 132)`}>
+            <path
+              className="wi-lotus-petal"
+              d="M100 132 C82 100, 84 62, 100 30 C116 62, 118 100, 100 132 Z"
+              stroke={color}
+              strokeWidth="1.6"
+              fill={`${color}22`}
+            />
+          </g>
         ))}
         <circle className="wi-lotus-core" cx="100" cy="118" r="10" fill={center} opacity="0.9" />
         <ellipse className="wi-lotus-core" cx="100" cy="118" rx="20" ry="6" fill={center} opacity="0.25" />

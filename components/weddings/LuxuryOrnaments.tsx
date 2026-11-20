@@ -229,8 +229,16 @@ export function InteractiveTiltCard({
 }) {
   const ref = useRef<HTMLDivElement>(null);
 
+  function tiltDisabled() {
+    if (typeof window === "undefined") return true;
+    return (
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches ||
+      window.matchMedia("(pointer: coarse)").matches
+    );
+  }
+
   function handleMove(e: React.PointerEvent<HTMLDivElement>) {
-    if (e.pointerType !== "mouse") return;
+    if (tiltDisabled() || e.pointerType !== "mouse") return;
     const el = ref.current;
     if (!el) return;
     const rect = el.getBoundingClientRect();
@@ -242,6 +250,7 @@ export function InteractiveTiltCard({
   }
 
   function handleLeave() {
+    if (tiltDisabled()) return;
     const el = ref.current;
     if (!el) return;
     el.style.transform = "perspective(1100px) rotateX(0deg) rotateY(0deg) translate3d(0, 0, 0)";

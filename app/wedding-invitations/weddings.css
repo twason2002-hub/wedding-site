@@ -470,6 +470,11 @@
   animation: wi-petal-drift var(--dur, 9s) linear infinite;
   animation-delay: var(--delay, 0s);
 }
+.wi-petal-once,
+.wi-env-open .wi-petal-once,
+.wi-bl-open .wi-petal-once {
+  animation-iteration-count: 1;
+}
 
 /* ---------- Hover Layer: Cards + Photos (Compositor Only) ---------- */
 .wi-card,
@@ -752,7 +757,12 @@ section[aria-label="RSVP"] {
 
 /* Chapter deck — each chapter sticks below the previous while scrolling. */
 .chap-stack {
-  position: sticky;
+  position: relative;
+}
+@media (min-width: 640px) {
+  .chap-stack {
+    position: sticky;
+  }
 }
 .chap-stack article {
   transform-origin: center top;
@@ -933,7 +943,7 @@ section[aria-label="RSVP"] {
     opacity: 1 !important;
     transform: none !important;
   }
-  .wi-gate-panel, .wi-tick, .wi-pop, .wi-lightbox, .wi-lightbox-img, .wi-arch-draw, .wi-sway, .wi-ember,
+  .wi-gate-panel, .wi-tick, .wi-countdown-flip, .wi-lightbox, .wi-lightbox-img, .wi-arch-draw, .wi-sway, .wi-ember,
   .wi-wave-drift, .wi-sheen::after, .wi-success-check, .wi-success-check .wi-success-tick,
   .wi-eq[data-playing="true"] span, .wi-arch-wave, .wi-bl-ring, .wi-bl-card, .wi-uf-cover,
   .wi-uf-line, .wi-sc-paper, .wi-sc-flame, .wi-pc-flip, .wi-pc-sun, .wi-env-flap,
@@ -1048,7 +1058,7 @@ section[aria-label="RSVP"] {
 
 /* Reusable effects library: shimmer text + reactive press */
 .wi-gold-shimmer-text {
-  animation: wi-gold-shimmer-slide 5s linear infinite;
+  animation: wi-gold-shimmer-slide 7s linear infinite;
   -webkit-background-clip: text;
   background-clip: text;
 }
@@ -1111,11 +1121,15 @@ section[aria-label="RSVP"] {
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(-10px); }
 }
-.wi-pop { animation: wi-pop 480ms var(--wi-ease); }
-@keyframes wi-pop {
-  0% { transform: scale(0.82); opacity: 0.4; }
-  60% { transform: scale(1.08); opacity: 1; }
-  100% { transform: scale(1); opacity: 1; }
+.wi-countdown-flip {
+  display: inline-block;
+  transform-origin: center bottom;
+  animation: wi-countdown-flip 420ms var(--wi-ease);
+}
+@keyframes wi-countdown-flip {
+  0% { transform: perspective(400px) rotateX(88deg); opacity: 0.35; }
+  70% { transform: perspective(400px) rotateX(-6deg); opacity: 1; }
+  100% { transform: perspective(400px) rotateX(0deg); opacity: 1; }
 }
 
 /* Bloom / Unfold / Scroll / Postcard reveals (Animate UI path C, subtle) */

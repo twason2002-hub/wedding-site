@@ -102,7 +102,7 @@ export default function BloomReveal({
           ].map((p, i) => (
             <svg
               key={i}
-              className="wi-petal pointer-events-none absolute top-0 h-6 w-6 text-[#d98a9c]/60"
+              className="wi-petal wi-petal-once pointer-events-none absolute top-0 h-6 w-6 text-[#d98a9c]/60"
               style={{ left: p.left, ["--delay" as string]: p.delay, ["--dur" as string]: p.dur }}
               viewBox="0 0 32 32"
               fill="currentColor"

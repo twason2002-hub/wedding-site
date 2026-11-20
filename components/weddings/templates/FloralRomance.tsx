@@ -13,15 +13,10 @@ import ShareBar from "../ShareBar";
 import Parallax from "../Parallax";
 import { ScrollReveal } from "../HomeMoments";
 import Timeline from "../Timeline";
-import CinematicTransition from "../effects/CinematicTransition";
 import ScratchReveal from "../ScratchReveal";
+import HeroKenBurns from "../HeroKenBurns";
 import GuestSections from "../GuestSections";
-import {
-  AnimatedCalligraphy,
-  AmbientFloatingParticles,
-  FiligreeCorners,
-  OutlinedEditorialWord,
-} from "../LuxuryOrnaments";
+import { AnimatedCalligraphy, FiligreeCorners, OutlinedEditorialWord } from "../LuxuryOrnaments";
 
 /**
  * TEMPLATE 2 — FLORAL ROMANCE (Couture Botanical Conservatory Edition).
@@ -47,41 +42,34 @@ export default function FloralRomance({ wedding }: { wedding: WeddingData }) {
               "radial-gradient(circle at 18% 15%, rgba(232,160,180,0.22), transparent 45%), radial-gradient(circle at 82% 20%, rgba(212,175,55,0.12), transparent 45%), radial-gradient(circle at 50% 80%, rgba(232,160,180,0.18), transparent 55%)",
           }}
         />
-        <AmbientFloatingParticles variant="petals" />
-
-        {/* Delicate Botanical Corner Filigree */}
-        <Parallax depth={10} className="pointer-events-none absolute left-6 top-6 hidden md:block">
-          <svg
-            className="wi-sway h-28 w-28 text-[#c87d8a]/35"
-            viewBox="0 0 100 100"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="0.85"
-            aria-hidden="true"
-          >
-            <path d="M5 95 C5 45, 45 5, 95 5" />
-            <path d="M25 60 C15 45, 25 25, 45 25 C45 45, 35 55, 25 60 Z" />
-            <path d="M60 25 C45 15, 25 25, 25 45" />
-            <circle cx="52" cy="18" r="2" fill="currentColor" />
-            <circle cx="18" cy="52" r="2" fill="currentColor" />
-          </svg>
-        </Parallax>
-        <Parallax depth={-10} className="pointer-events-none absolute right-6 top-6 hidden md:block">
-          <svg
-            className="wi-sway wi-sway--right h-28 w-28 text-[#c87d8a]/35"
-            viewBox="0 0 100 100"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="0.85"
-            aria-hidden="true"
-          >
-            <path d="M5 95 C5 45, 45 5, 95 5" />
-            <path d="M25 60 C15 45, 25 25, 45 25 C45 45, 35 55, 25 60 Z" />
-            <path d="M60 25 C45 15, 25 25, 25 45" />
-            <circle cx="52" cy="18" r="2" fill="currentColor" />
-            <circle cx="18" cy="52" r="2" fill="currentColor" />
-          </svg>
-        </Parallax>
+        <svg
+          className="wi-sway pointer-events-none absolute left-6 top-6 hidden h-28 w-28 text-[#c87d8a]/35 md:block"
+          viewBox="0 0 100 100"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="0.85"
+          aria-hidden="true"
+        >
+          <path d="M5 95 C5 45, 45 5, 95 5" />
+          <path d="M25 60 C15 45, 25 25, 45 25 C45 45, 35 55, 25 60 Z" />
+          <path d="M60 25 C45 15, 25 25, 25 45" />
+          <circle cx="52" cy="18" r="2" fill="currentColor" />
+          <circle cx="18" cy="52" r="2" fill="currentColor" />
+        </svg>
+        <svg
+          className="wi-sway wi-sway--right pointer-events-none absolute right-6 top-6 hidden h-28 w-28 text-[#c87d8a]/35 md:block"
+          viewBox="0 0 100 100"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="0.85"
+          aria-hidden="true"
+        >
+          <path d="M5 95 C5 45, 45 5, 95 5" />
+          <path d="M25 60 C15 45, 25 25, 45 25 C45 45, 35 55, 25 60 Z" />
+          <path d="M60 25 C45 15, 25 25, 25 45" />
+          <circle cx="52" cy="18" r="2" fill="currentColor" />
+          <circle cx="18" cy="52" r="2" fill="currentColor" />
+        </svg>
 
         <div className="wi-hero-exit relative mx-auto max-w-4xl">
           <p className="wi-fadeup wi-fadeup--1 text-[11px] uppercase tracking-[0.34em] text-[#a65c6b]">
@@ -95,8 +83,8 @@ export default function FloralRomance({ wedding }: { wedding: WeddingData }) {
           {/* Oval Cameo Botanical Portrait with Delicate Hairline Frame */}
           <div className="wi-fadeup wi-fadeup--2 relative mx-auto mt-8 max-w-md rounded-[3.5rem] bg-white p-2.5 shadow-[0_32px_80px_-24px_rgba(180,95,115,0.24),inset_0_0_0_0.75px_rgba(217,138,156,0.45)]">
             <FloralFrame color="#c87d8a" leaf="#7ba05b" />
-            <div className="relative overflow-hidden rounded-[3rem] shadow-[inset_0_0_0_0.5px_rgba(217,138,156,0.35)]">
-              <Parallax depth={-8}>
+            <HeroKenBurns className="relative overflow-hidden rounded-[3rem] shadow-[inset_0_0_0_0.5px_rgba(217,138,156,0.35)]">
+              <Parallax depth={10}>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src={wedding.couple.photo}
@@ -104,8 +92,7 @@ export default function FloralRomance({ wedding }: { wedding: WeddingData }) {
                   className="aspect-[4/5] w-full object-cover"
                 />
               </Parallax>
-              <span className="wi-sheen" aria-hidden="true" />
-            </div>
+            </HeroKenBurns>
           </div>
 
           <div className="relative mt-6 sm:mt-9">
@@ -163,11 +150,9 @@ export default function FloralRomance({ wedding }: { wedding: WeddingData }) {
         )}
 
         <ScrollReveal>
-          <ScrollReveal>
-            <div className="mb-10">
-              <ScratchReveal wedding={wedding} />
-            </div>
-          </ScrollReveal>
+          <div className="mb-10">
+            <ScratchReveal wedding={wedding} />
+          </div>
           <section aria-label="Countdown" className="text-center">
             <OutlinedEditorialWord
               watermark="FOREVER"
@@ -194,7 +179,7 @@ export default function FloralRomance({ wedding }: { wedding: WeddingData }) {
         </section>
 
         {wedding.sections?.gallery !== false && (
-          <CinematicTransition kind="fade" veil="#fdf5f2">
+          <ScrollReveal>
             <section aria-label="Gallery">
               <div className="mb-10">
                 <OutlinedEditorialWord
@@ -206,7 +191,7 @@ export default function FloralRomance({ wedding }: { wedding: WeddingData }) {
               </div>
               <Gallery images={wedding.gallery} variant="floral" />
             </section>
-          </CinematicTransition>
+          </ScrollReveal>
         )}
 
         {wedding.venue && wedding.sections?.venue !== false && (

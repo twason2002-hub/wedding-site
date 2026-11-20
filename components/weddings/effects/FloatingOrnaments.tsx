@@ -60,7 +60,7 @@ export default function FloatingOrnaments({
   }, [duration, drift]);
 
   return (
-    <div ref={ref} className={className} aria-hidden="true" style={{ willChange: "transform" }}>
+    <div ref={ref} className={className} aria-hidden="true">
       {children}
     </div>
   );

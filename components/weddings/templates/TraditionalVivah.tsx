@@ -13,15 +13,12 @@ import ShareBar from "../ShareBar";
 import Parallax from "../Parallax";
 import { ScrollReveal } from "../HomeMoments";
 import Timeline from "../Timeline";
-import CinematicTransition from "../effects/CinematicTransition";
 import ScratchReveal from "../ScratchReveal";
+import DiyaEffect from "../effects/DiyaEffect";
+import GoldShimmer from "../effects/GoldShimmer";
+import HeroKenBurns from "../HeroKenBurns";
 import GuestSections from "../GuestSections";
-import {
-  AnimatedCalligraphy,
-  AmbientFloatingParticles,
-  FiligreeCorners,
-  OutlinedEditorialWord,
-} from "../LuxuryOrnaments";
+import { AnimatedCalligraphy, FiligreeCorners, OutlinedEditorialWord } from "../LuxuryOrnaments";
 
 /**
  * TEMPLATE 4 — TRADITIONAL VIVAH (Sacred Kanjeevaram & Temple Gold Edition).
@@ -57,7 +54,7 @@ export default function TraditionalVivah({ wedding }: { wedding: WeddingData }) 
               "radial-gradient(circle at 50% 25%, rgba(245,158,11,0.22) 0%, rgba(153,27,27,0.25) 45%, transparent 75%)",
           }}
         />
-        <AmbientFloatingParticles variant="sparks" />
+        <DiyaEffect size={72} className="pointer-events-none fixed right-5 top-24 z-20 hidden sm:block" />
 
         <div className="wi-hero-exit relative mx-auto max-w-4xl">
           {/* Sacred Ganesha / Kalash Emblem */}
@@ -83,20 +80,27 @@ export default function TraditionalVivah({ wedding }: { wedding: WeddingData }) 
 
           {/* Lotus Medallion Portrait Frame with Ultra-Fine Double Ring */}
           <div className="wi-fadeup wi-fadeup--2 relative mx-auto mt-10 h-72 w-72 sm:h-88 sm:w-88">
-            <Parallax depth={-6} className="pointer-events-none absolute -inset-5">
-              <svg
-                className="wi-spin-slow h-full w-full text-[#fbbf24]/45"
-                viewBox="0 0 200 200"
-                fill="none"
-                aria-hidden="true"
-              >
-                <circle cx="100" cy="100" r="96" stroke="currentColor" strokeWidth="0.6" strokeDasharray="3 3" />
-                <circle cx="100" cy="100" r="90" stroke="currentColor" strokeWidth="0.8" />
-              </svg>
-            </Parallax>
-            <div className="h-full w-full overflow-hidden rounded-full p-2 bg-[#2d0507] shadow-[0_25px_70px_rgba(0,0,0,0.65),inset_0_0_0_1px_rgba(251,191,36,0.65)]">
-              <div className="relative h-full w-full overflow-hidden rounded-full">
-                <Parallax depth={-10}>
+            <svg
+              className="pointer-events-none absolute -inset-5 z-0 h-[calc(100%+2.5rem)] w-[calc(100%+2.5rem)] text-[#fbbf24]/40"
+              viewBox="0 0 100 100"
+              fill="none"
+              aria-hidden="true"
+            >
+              <circle cx="50" cy="50" r="48" className="wi-arch-draw" stroke="currentColor" strokeWidth="0.6" pathLength={1} />
+              <circle cx="50" cy="50" r="44" stroke="currentColor" strokeWidth="0.35" strokeDasharray="2 2" />
+            </svg>
+            <svg
+              className="pointer-events-none absolute -inset-5 h-full w-full text-[#fbbf24]/35"
+              viewBox="0 0 200 200"
+              fill="none"
+              aria-hidden="true"
+            >
+              <circle cx="100" cy="100" r="96" stroke="currentColor" strokeWidth="0.6" strokeDasharray="3 3" />
+              <circle cx="100" cy="100" r="90" stroke="currentColor" strokeWidth="0.8" />
+            </svg>
+            <div className="relative h-full w-full overflow-hidden rounded-full p-2 bg-[#2d0507] shadow-[0_25px_70px_rgba(0,0,0,0.65),inset_0_0_0_1px_rgba(251,191,36,0.65)]">
+              <HeroKenBurns className="relative h-full w-full overflow-hidden rounded-full">
+                <Parallax depth={10}>
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     src={wedding.couple.photo}
@@ -104,8 +108,7 @@ export default function TraditionalVivah({ wedding }: { wedding: WeddingData }) 
                     className="h-full w-full object-cover"
                   />
                 </Parallax>
-                <span className="wi-sheen" aria-hidden="true" />
-              </div>
+              </HeroKenBurns>
             </div>
           </div>
 
@@ -120,13 +123,17 @@ export default function TraditionalVivah({ wedding }: { wedding: WeddingData }) 
             style={{ fontSize: "clamp(2.4rem, 6vw, 4.8rem)" }}
           >
             <span className="wi-mask wi-name-mask">
-              <span className="wi-line wi-line--1 wi-gold-shimmer wi-couple-heading">{wedding.couple.bride}</span>
+              <GoldShimmer duration={7} from="#d97706" via="#fef3c7" to="#d97706" className="wi-line wi-line--1 wi-couple-heading block text-[#fef3c7]">
+                {wedding.couple.bride}
+              </GoldShimmer>
             </span>
             <span className="my-1 block font-display-luxury italic text-2xl text-[#fde68a]">
               weds
             </span>
             <span className="wi-mask wi-name-mask">
-              <span className="wi-line wi-line--2 wi-gold-shimmer wi-couple-heading">{wedding.couple.groom}</span>
+              <GoldShimmer duration={7} from="#d97706" via="#fef3c7" to="#d97706" className="wi-line wi-line--2 wi-couple-heading block text-[#fef3c7]">
+                {wedding.couple.groom}
+              </GoldShimmer>
             </span>
           </h1>
 
@@ -149,11 +156,9 @@ export default function TraditionalVivah({ wedding }: { wedding: WeddingData }) 
         </ScrollReveal>
 
         <ScrollReveal>
-          <ScrollReveal>
-            <div className="mb-10">
-              <ScratchReveal wedding={wedding} />
-            </div>
-          </ScrollReveal>
+          <div className="mb-10">
+            <ScratchReveal wedding={wedding} />
+          </div>
           <section
             aria-label="Countdown"
             className="wi-frame-fine relative rounded-3xl bg-[#360608]/90 p-8 sm:p-12 text-center shadow-2xl"
@@ -186,7 +191,7 @@ export default function TraditionalVivah({ wedding }: { wedding: WeddingData }) 
         </section>
 
         {wedding.sections?.gallery !== false && (
-          <CinematicTransition kind="curtain" veil="#4a0b0d">
+          <ScrollReveal>
             <section aria-label="Gallery">
               <div className="mb-10">
                 <OutlinedEditorialWord
@@ -198,7 +203,7 @@ export default function TraditionalVivah({ wedding }: { wedding: WeddingData }) 
               </div>
               <Gallery images={wedding.gallery} variant="vivah" />
             </section>
-          </CinematicTransition>
+          </ScrollReveal>
         )}
 
         {wedding.venue && wedding.sections?.venue !== false && (

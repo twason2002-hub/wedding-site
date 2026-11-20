@@ -205,7 +205,7 @@ export default function EnvelopeReveal({
           ].map((p, i) => (
             <svg
               key={i}
-              className="wi-petal pointer-events-none absolute top-0 h-5 w-5"
+              className="wi-petal wi-petal-once pointer-events-none absolute top-0 h-5 w-5"
               style={{ left: p.left, color: petalColor, ["--delay" as string]: p.delay, ["--dur" as string]: p.dur }}
               viewBox="0 0 32 32"
               fill="currentColor"

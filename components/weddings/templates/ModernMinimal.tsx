@@ -13,15 +13,11 @@ import ShareBar from "../ShareBar";
 import Parallax from "../Parallax";
 import { ScrollReveal } from "../HomeMoments";
 import Timeline from "../Timeline";
-import CinematicTransition from "../effects/CinematicTransition";
 import ScratchReveal from "../ScratchReveal";
+import GoldShimmer from "../effects/GoldShimmer";
+import HeroKenBurns from "../HeroKenBurns";
 import GuestSections from "../GuestSections";
-import {
-  AnimatedCalligraphy,
-  AmbientFloatingParticles,
-  FiligreeCorners,
-  OutlinedEditorialWord,
-} from "../LuxuryOrnaments";
+import { AnimatedCalligraphy, FiligreeCorners, OutlinedEditorialWord } from "../LuxuryOrnaments";
 
 /**
  * TEMPLATE 3 — ROYAL NEELAM BLUE (Midnight Peacock Blue & Gold Indian Wedding Card).
@@ -52,21 +48,16 @@ export default function ModernMinimal({ wedding }: { wedding: WeddingData }) {
               "radial-gradient(circle at 75% 30%, rgba(212,175,55,0.18), transparent 50%), radial-gradient(circle at 20% 80%, rgba(30,64,175,0.28), transparent 55%)",
           }}
         />
-        <AmbientFloatingParticles variant="gold" />
-
-        {/* Rotating Gold Mandala in Background */}
-        <Parallax depth={16} className="pointer-events-none absolute inset-0">
-          <svg
-            className="wi-spin-slow pointer-events-none absolute -right-24 -top-24 h-[520px] w-[520px] text-[#d4af37]/12"
-            viewBox="0 0 200 200"
-            fill="none"
-            aria-hidden="true"
-          >
-            <circle cx="100" cy="100" r="94" stroke="currentColor" strokeWidth="0.5" strokeDasharray="3 3" />
-            <circle cx="100" cy="100" r="76" stroke="currentColor" strokeWidth="0.6" />
-            <circle cx="100" cy="100" r="58" stroke="currentColor" strokeWidth="0.4" strokeDasharray="6 4" />
-          </svg>
-        </Parallax>
+        <svg
+          className="pointer-events-none absolute -right-24 -top-24 h-[520px] w-[520px] text-[#d4af37]/12"
+          viewBox="0 0 200 200"
+          fill="none"
+          aria-hidden="true"
+        >
+          <circle cx="100" cy="100" r="94" stroke="currentColor" strokeWidth="0.5" strokeDasharray="3 3" />
+          <circle cx="100" cy="100" r="76" stroke="currentColor" strokeWidth="0.6" />
+          <circle cx="100" cy="100" r="58" stroke="currentColor" strokeWidth="0.4" strokeDasharray="6 4" />
+        </svg>
 
         <div className="wi-hero-exit relative z-10 grid gap-12 lg:grid-cols-[1.15fr_0.95fr] lg:items-center">
           <div className="text-center lg:text-left">
@@ -83,14 +74,18 @@ export default function ModernMinimal({ wedding }: { wedding: WeddingData }) {
               style={{ fontSize: "clamp(3rem, 7.5vw, 6.2rem)" }}
             >
               <span className="wi-mask wi-name-mask">
-                <span className="wi-line wi-line--1 wi-gold-shimmer wi-couple-heading">{wedding.couple.bride}</span>
-              </span>
-              <span className="my-1 block font-script-luxury text-3xl sm:text-4xl text-[#e8cf8f]">
-                weds
-              </span>
-              <span className="wi-mask wi-name-mask">
-                <span className="wi-line wi-line--2 wi-gold-shimmer wi-couple-heading">{wedding.couple.groom}</span>
-              </span>
+              <GoldShimmer duration={7} from="#9b7318" via="#f7e7ad" to="#9b7318" className="wi-line wi-line--1 wi-couple-heading block text-[#f4efe6]">
+                {wedding.couple.bride}
+              </GoldShimmer>
+            </span>
+            <span className="my-1 block font-script-luxury text-3xl sm:text-4xl text-[#e8cf8f]">
+              weds
+            </span>
+            <span className="wi-mask wi-name-mask">
+              <GoldShimmer duration={7} from="#9b7318" via="#f7e7ad" to="#9b7318" className="wi-line wi-line--2 wi-couple-heading block text-[#f4efe6]">
+                {wedding.couple.groom}
+              </GoldShimmer>
+            </span>
             </h1>
 
             <p className="wi-fadeup wi-fadeup--2 mt-6 max-w-lg mx-auto lg:mx-0 text-base sm:text-lg leading-relaxed text-[#f4efe6]/85">
@@ -111,7 +106,7 @@ export default function ModernMinimal({ wedding }: { wedding: WeddingData }) {
           </div>
 
           <div className="wi-fadeup wi-fadeup--2 mx-auto w-full max-w-md rounded-t-full rounded-b-3xl bg-[#10233f] p-2.5 shadow-[0_30px_80px_rgba(0,0,0,0.6),inset_0_0_0_0.75px_rgba(212,175,55,0.45)]">
-            <div className="relative overflow-hidden rounded-t-full rounded-b-2xl shadow-[inset_0_0_0_0.5px_rgba(212,175,55,0.3)]">
+            <HeroKenBurns className="relative overflow-hidden rounded-t-full rounded-b-2xl shadow-[inset_0_0_0_0.5px_rgba(212,175,55,0.3)]">
               <Parallax depth={10}>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
@@ -120,8 +115,7 @@ export default function ModernMinimal({ wedding }: { wedding: WeddingData }) {
                   className="aspect-[4/5] w-full object-cover"
                 />
               </Parallax>
-              <span className="wi-sheen" aria-hidden="true" />
-            </div>
+            </HeroKenBurns>
           </div>
         </div>
       </header>
@@ -132,11 +126,9 @@ export default function ModernMinimal({ wedding }: { wedding: WeddingData }) {
         </ScrollReveal>
 
         <ScrollReveal>
-          <ScrollReveal>
-            <div className="mb-10">
-              <ScratchReveal wedding={wedding} />
-            </div>
-          </ScrollReveal>
+          <div className="mb-10">
+            <ScratchReveal wedding={wedding} />
+          </div>
           <section aria-label="Countdown" className="text-center">
             <OutlinedEditorialWord
               watermark="CELEBRATE"
@@ -167,7 +159,7 @@ export default function ModernMinimal({ wedding }: { wedding: WeddingData }) {
         </section>
 
         {wedding.sections?.gallery !== false && (
-          <CinematicTransition kind="fade" veil="#091526">
+          <ScrollReveal>
             <section aria-label="Gallery">
               <div className="mb-10">
                 <OutlinedEditorialWord
@@ -179,7 +171,7 @@ export default function ModernMinimal({ wedding }: { wedding: WeddingData }) {
               </div>
               <Gallery images={wedding.gallery} variant="royal" />
             </section>
-          </CinematicTransition>
+          </ScrollReveal>
         )}
 
         {wedding.venue && wedding.sections?.venue !== false && (
