@@ -4,7 +4,7 @@ import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react
 import Link from "next/link";
 import type { TemplateDefinition } from "@/lib/weddings/types";
 import { demoWeddingFor } from "@/lib/weddings/sample-data";
-import { TEMPLATE_PRICE_LABEL, whatsappLink } from "@/lib/weddings/site-config";
+import { whatsappLink } from "@/lib/weddings/site-config";
 import MiniInvite from "./MiniInvite";
 
 const AUTOPLAY_MS = 10000;
@@ -271,8 +271,6 @@ export default function PhoneCarousel({ templates }: { templates: TemplateDefini
         <p className="text-[11px] font-medium uppercase tracking-[0.32em] text-[#8a6d2b]">
           0{index + 1} · {active.category}
         </p>
-        <p className="mt-3 font-display-luxury text-3xl text-[#0b192c]">{TEMPLATE_PRICE_LABEL}</p>
-        <p className="text-xs uppercase tracking-[0.2em] text-[#6b6259]">one-time · all events included</p>
         <h3 className="font-display-luxury mt-2 text-4xl font-normal italic text-[#1c1917]">{active.name}</h3>
         <p className="mx-auto mt-2 max-w-md text-sm leading-relaxed text-[#6b6259]">{active.description}</p>
         <div className="mt-5 flex flex-col items-center justify-center gap-3 sm:flex-row">
@@ -286,7 +284,7 @@ export default function PhoneCarousel({ templates }: { templates: TemplateDefini
             href={whatsappLink(`Hi Inviteo! I like the ${active.name} design. My wedding date is…`)}
             className="inline-flex min-h-[48px] w-full items-center justify-center rounded-full bg-[#1faa53] px-8 text-[12px] font-semibold uppercase tracking-[0.18em] text-white sm:w-auto"
           >
-            WhatsApp · {TEMPLATE_PRICE_LABEL}
+            Chat on WhatsApp
           </a>
         </div>
       </div>
