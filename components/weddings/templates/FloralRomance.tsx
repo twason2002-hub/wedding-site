@@ -13,9 +13,9 @@ import ShareBar from "../ShareBar";
 import Parallax from "../Parallax";
 import { ScrollReveal } from "../HomeMoments";
 import Timeline from "../Timeline";
-import ScratchReveal from "../ScratchReveal";
 import HeroKenBurns from "../HeroKenBurns";
 import SignatureMotif from "../effects/SignatureMotif";
+import JourneyReveal from "../effects/JourneyReveal";
 import GuestSections from "../GuestSections";
 import { AnimatedCalligraphy, FiligreeCorners, OutlinedEditorialWord } from "../LuxuryOrnaments";
 
@@ -153,7 +153,12 @@ export default function FloralRomance({ wedding }: { wedding: WeddingData }) {
 
         <ScrollReveal>
           <div className="mb-10">
-            <ScratchReveal wedding={wedding} />
+            <JourneyReveal
+              date={wedding.couple.weddingDateDisplay}
+              kind="butterfly"
+              accent="#c87d8a"
+              surface="#fff9fa"
+            />
           </div>
           <section aria-label="Countdown" className="text-center">
             <OutlinedEditorialWord

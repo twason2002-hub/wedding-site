@@ -14,10 +14,10 @@ import ShareBar from "../ShareBar";
 import Parallax from "../Parallax";
 import { ScrollReveal } from "../HomeMoments";
 import Timeline from "../Timeline";
-import ScratchReveal from "../ScratchReveal";
 import GoldShimmer from "../effects/GoldShimmer";
 import HeroKenBurns from "../HeroKenBurns";
 import SignatureMotif from "../effects/SignatureMotif";
+import JourneyReveal from "../effects/JourneyReveal";
 import GuestSections from "../GuestSections";
 import { AnimatedCalligraphy, FiligreeCorners, OutlinedEditorialWord } from "../LuxuryOrnaments";
 
@@ -162,7 +162,12 @@ export default function RoyalHeritage({ wedding }: { wedding: WeddingData }) {
 
         <ScrollReveal>
           <div className="mb-10">
-            <ScratchReveal wedding={wedding} />
+            <JourneyReveal
+              date={wedding.couple.weddingDateDisplay}
+              kind="elephant"
+              accent="#d4af37"
+              surface="#1a0a0c"
+            />
           </div>
           <section aria-label="Countdown" className="relative rounded-3xl p-6 text-center sm:p-10">
             <AnimatedBorder color="#d4af37" />

@@ -13,7 +13,6 @@ import ShareBar from "../ShareBar";
 import Parallax from "../Parallax";
 import { ScrollReveal } from "../HomeMoments";
 import Timeline from "../Timeline";
-import ScratchReveal from "../ScratchReveal";
 import DiyaEffect from "../effects/DiyaEffect";
 import GoldShimmer from "../effects/GoldShimmer";
 import HeroKenBurns from "../HeroKenBurns";
@@ -166,9 +165,6 @@ export default function TraditionalVivah({ wedding }: { wedding: WeddingData }) 
               accent="#fbbf24"
               surface="#360608"
             />
-          </div>
-          <div className="mb-10">
-            <ScratchReveal wedding={wedding} />
           </div>
           <section
             aria-label="Countdown"
