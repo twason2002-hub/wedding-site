@@ -1,14 +1,20 @@
 "use client";
 
-import { useRef, useState, type PointerEvent } from "react";
+import { useEffect, useRef, useState } from "react";
+import OpeningImage, { coverPoint } from "./OpeningImage";
+import { usePullReveal } from "./usePullReveal";
 
-const MAX_PULL = 120;
-const OPEN_AT = 72;
+const LEFT = "/weddings/openings/royal-door-left.webp";
+const RIGHT = "/weddings/openings/royal-door-right.webp";
+const IMG_W = 360;
+const IMG_H = 1280;
+/** Brass ring centres, measured on the generated door art. */
+const LEFT_RING = { x: 200, y: 669 };
+const RIGHT_RING = { x: 162, y: 667 };
 
 /**
- * Royal signature — palace doors swing open in 3D when the ring is pulled or tapped.
- * Transforms only. Reduced motion opens without the swing.
- * Config: motion.signature.palaceDoors
+ * Royal signature — full-height palace doors swing open from the outer hinges.
+ * The hit target sits on the brass ring. Config: motion.signature.palaceDoors
  */
 export default function PalaceDoors({
   names,
@@ -21,87 +27,164 @@ export default function PalaceDoors({
   subtitle?: string;
   onDone: () => void;
 }) {
-  const [pull, setPull] = useState(0);
-  const [opened, setOpened] = useState(false);
-  const [dragging, setDragging] = useState(false);
-  const pullRef = useRef(0);
-  const drag = useRef<{ y: number; base: number } | null>(null);
-
-  const setPullPx = (next: number) => {
-    const clamped = Math.max(0, Math.min(MAX_PULL, next));
-    pullRef.current = clamped;
-    setPull(clamped);
-  };
-
-  const open = () => {
-    if (opened) return;
-    setOpened(true);
-    setDragging(false);
-    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    window.setTimeout(onDone, reduce ? 0 : 560);
-  };
-
-  const onPointerDown = (event: PointerEvent<HTMLButtonElement>) => {
-    if (opened) return;
-    event.currentTarget.setPointerCapture(event.pointerId);
-    drag.current = { y: event.clientY, base: pullRef.current };
-    setDragging(true);
-  };
-
-  const onPointerMove = (event: PointerEvent<HTMLButtonElement>) => {
-    if (!drag.current || opened) return;
-    setPullPx(drag.current.base + (event.clientY - drag.current.y));
-  };
-
-  const onPointerUp = () => {
-    if (!drag.current || opened) return;
-    drag.current = null;
-    setDragging(false);
-    if (pullRef.current >= OPEN_AT) open();
-    else setPullPx(0);
-  };
-
-  const angle = opened ? 76 : (pull / MAX_PULL) * 28;
-  const ease = dragging ? "none" : "transform 0.55s cubic-bezier(0.22, 1, 0.36, 1)";
+  const pull = usePullReveal(72, 120, onDone);
+  const angle = pull.opened ? 104 : (pull.pull / 120) * 34;
+  const ease = pull.dragging ? "none" : "transform 0.8s cubic-bezier(0.22, 1, 0.36, 1)";
+  const reveal = pull.opened;
 
   return (
-    <div className="relative z-10 mx-6 w-full max-w-[420px] text-center text-[#f6ead4]">
-      <p className="mb-4 text-[11px] font-medium uppercase tracking-[0.28em] text-[#e8cf8f]">
-        {opened ? "Welcome" : "Pull the ring to open the doors"}
-      </p>
-      <div className="relative mx-auto h-[340px] w-full max-w-[320px]" style={{ perspective: "1200px" }}>
-        <div className="absolute inset-4 flex flex-col items-center justify-center rounded-t-[140px] bg-[#2a100c] px-6 text-[#f6ead4]">
-          <p className="text-[10px] uppercase tracking-[0.32em] text-[#d4af37]">{blessing ?? "You are invited"}</p>
-          <h2 className="wi-couple-heading mt-3 font-display-luxury text-[1.7rem] italic leading-tight">{names}</h2>
+    <div className="wi-opening-hold absolute inset-0 text-[#f6ead4]">
+      <div className="absolute inset-0 bg-[#140806]" aria-hidden="true" />
+      <div
+        className="absolute inset-0 flex items-center justify-center px-8 text-center transition-opacity duration-500"
+        style={{ opacity: reveal ? 1 : 0 }}
+        aria-hidden={reveal ? undefined : true}
+      >
+        <div className="max-w-sm">
+          <p className="text-[10px] font-semibold uppercase tracking-[0.32em] text-[#e8cf8f]">
+            {blessing ?? "You are invited"}
+          </p>
+          <h2 className="wi-couple-heading mt-3 font-display-luxury text-[1.85rem] italic leading-tight text-[#f6ead4]">
+            {names}
+          </h2>
           {subtitle && <p className="mt-2 text-sm text-[#f3e5c3]">{subtitle}</p>}
         </div>
-        <div
-          className="absolute inset-y-0 left-0 w-1/2 origin-left rounded-tl-[140px] border border-[#d4af37]/50 bg-gradient-to-br from-[#6e1a2c] to-[#2b070e]"
-          style={{ transform: `rotateY(${-angle}deg)`, transition: ease }}
-          aria-hidden="true"
+      </div>
+
+      <div className="absolute inset-0" style={{ perspective: "1800px" }}>
+        <DoorLeaf
+          side="left"
+          src={LEFT}
+          ring={LEFT_RING}
+          angle={-angle}
+          ease={ease}
+          pull={pull}
         />
+        <DoorLeaf
+          side="right"
+          src={RIGHT}
+          ring={RIGHT_RING}
+          angle={angle}
+          ease={ease}
+          pull={pull}
+        />
+      </div>
+
+      <p className="pointer-events-none absolute left-1/2 top-[max(0.75rem,env(safe-area-inset-top))] z-30 -translate-x-1/2 rounded-full bg-[#1a0c08] px-4 py-2 text-[11px] font-medium uppercase tracking-[0.22em] text-[#f6ead4]">
+        {pull.opened ? "Welcome" : "Pull a ring to open the doors"}
+      </p>
+      <button
+        type="button"
+        onClick={pull.finish}
+        className="absolute bottom-[max(1rem,env(safe-area-inset-bottom))] left-1/2 z-30 min-h-11 -translate-x-1/2 rounded-full bg-[#1a0c08] px-5 text-xs uppercase tracking-[0.2em] text-[#f6ead4]"
+      >
+        Open the invitation
+      </button>
+    </div>
+  );
+}
+
+function DoorLeaf({
+  side,
+  src,
+  ring,
+  angle,
+  ease,
+  pull,
+}: {
+  side: "left" | "right";
+  src: string;
+  ring: { x: number; y: number };
+  angle: number;
+  ease: string;
+  pull: ReturnType<typeof usePullReveal>;
+}) {
+  const panel = useRef<HTMLDivElement>(null);
+  const [point, setPoint] = useState<{ x: number; y: number } | null>(null);
+
+  useEffect(() => {
+    const el = panel.current;
+    if (!el) return;
+    const measure = () => {
+      const next = coverPoint(el.clientWidth, el.clientHeight, IMG_W, IMG_H, ring.x, ring.y);
+      if (next) setPoint(next);
+    };
+    measure();
+    const observer = new ResizeObserver(measure);
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [ring.x, ring.y]);
+
+  const progress = Math.round((pull.pull / 120) * 100);
+
+  return (
+    <div
+      ref={panel}
+      className={`absolute inset-y-0 w-[calc(50%+2px)] ${side === "left" ? "left-0" : "right-0"}`}
+    >
+      <div
+        className="absolute inset-0"
+        style={{
+          transformStyle: "preserve-3d",
+          transformOrigin: side === "left" ? "left center" : "right center",
+          transform: `rotateY(${angle}deg)`,
+          transition: ease,
+        }}
+      >
+        <div className="absolute inset-0 overflow-hidden" style={{ backfaceVisibility: "hidden" }}>
+          <OpeningImage
+            src={src}
+            width={IMG_W}
+            height={IMG_H}
+            priority
+            className="h-full w-full object-cover"
+            fallback={<DoorFallback side={side} />}
+          />
+        </div>
         <div
-          className="absolute inset-y-0 right-0 w-1/2 origin-right rounded-tr-[140px] border border-[#d4af37]/50 bg-gradient-to-bl from-[#6e1a2c] to-[#2b070e]"
-          style={{ transform: `rotateY(${angle}deg)`, transition: ease }}
+          className="pointer-events-none absolute inset-0 bg-[#4a1018]"
+          style={{ transform: "rotateY(180deg)", backfaceVisibility: "hidden" }}
           aria-hidden="true"
         />
         <button
           type="button"
-          aria-label="Pull the palace door ring"
-          onPointerDown={onPointerDown}
-          onPointerMove={onPointerMove}
-          onPointerUp={onPointerUp}
-          onPointerCancel={onPointerUp}
-          onClick={open}
-          className="absolute left-1/2 top-1/2 z-10 flex min-h-14 min-w-14 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-[#f6ead4]/40 bg-[#d4af37] text-[#140806] shadow-lg"
-          style={{ transform: `translate(-50%, calc(-50% + ${opened ? 18 : pull * 0.35}px))`, transition: ease }}
-        >
-          <span className="h-6 w-6 rounded-full border-2 border-[#140806]/70" />
-        </button>
+          data-pull=""
+          aria-label={side === "left" ? "Pull the left palace door ring" : "Pull the right palace door ring"}
+          role="slider"
+          aria-valuemin={0}
+          aria-valuemax={100}
+          aria-valuenow={progress}
+          aria-valuetext={pull.opened ? "Open" : `${progress} percent open`}
+          className="absolute z-10 h-14 w-14 rounded-full focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#f6ead4]"
+          style={{
+            left: point?.x ?? "50%",
+            top: point?.y ?? "52%",
+            touchAction: "none",
+            background: "transparent",
+            transform: "translate(-50%, -50%) translateZ(8px)",
+            opacity: pull.opened ? 0 : 1,
+            pointerEvents: pull.opened ? "none" : "auto",
+          }}
+          {...pull.bind}
+        />
       </div>
-      <button type="button" onClick={open} className="mt-4 min-h-11 text-xs uppercase tracking-[0.22em] text-[#e8cf8f]">
-        Open the invitation
-      </button>
     </div>
+  );
+}
+
+function DoorFallback({ side }: { side: "left" | "right" }) {
+  return (
+    <svg viewBox="0 0 180 640" className="h-full w-full" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+      <defs>
+        <linearGradient id={`door-${side}`} x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stopColor="#6e1a2c" />
+          <stop offset="1" stopColor="#2b070e" />
+        </linearGradient>
+      </defs>
+      <rect width="180" height="640" fill={`url(#door-${side})`} />
+      <rect x="14" y="18" width="152" height="604" fill="none" stroke="#d4af37" strokeWidth="2" />
+      <path d="M40 70h100v120H40z" fill="none" stroke="#d4af37" strokeWidth="2" />
+      <circle cx={side === "left" ? 128 : 52} cy="250" r="16" fill="none" stroke="#e8cf8f" strokeWidth="4" />
+    </svg>
   );
 }

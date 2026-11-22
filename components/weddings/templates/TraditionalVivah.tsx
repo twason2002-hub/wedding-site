@@ -7,7 +7,6 @@ import RsvpForm from "../RsvpForm";
 import TemplateOpening from "../TemplateOpening";
 import LotusReveal from "../effects/LotusReveal";
 import MandalaEffect from "../effects/MandalaEffect";
-import MusicToggle from "../MusicToggle";
 import FamilyBlock from "../FamilyBlock";
 import ShareBar from "../ShareBar";
 import Parallax from "../Parallax";
@@ -33,9 +32,6 @@ export default function TraditionalVivah({ wedding }: { wedding: WeddingData }) 
   return (
     <div className="font-body-luxury min-h-screen bg-[#4a0b0d] text-[#fef3c7] selection:bg-[#f59e0b] selection:text-[#4a0b0d]">
       <TemplateOpening wedding={wedding} />
-      {wedding.music?.enabled && wedding.sections?.music !== false && (
-        <MusicToggle src={wedding.music.src} dark />
-      )}
 
       {/* Sacred Marigold & Mango-Leaf SVG Toran Frieze */}
       <div className="overflow-hidden border-b border-[#f59e0b]/25 bg-[#2d0507] py-2.5">

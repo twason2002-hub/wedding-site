@@ -7,7 +7,6 @@ import RsvpForm from "../RsvpForm";
 import TemplateOpening from "../TemplateOpening";
 import FloralFrame from "../effects/FloralFrame";
 import BloomEffect from "../effects/BloomEffect";
-import MusicToggle from "../MusicToggle";
 import FamilyBlock from "../FamilyBlock";
 import ShareBar from "../ShareBar";
 import Parallax from "../Parallax";
@@ -31,9 +30,6 @@ export default function FloralRomance({ wedding }: { wedding: WeddingData }) {
   return (
     <div className="font-body-luxury min-h-screen bg-[#fdf7f5] text-[#4a252a] selection:bg-[#e8a0b4] selection:text-[#4a252a]">
       <TemplateOpening wedding={wedding} />
-      {wedding.music?.enabled && wedding.sections?.music !== false && (
-        <MusicToggle src={wedding.music.src} />
-      )}
 
       {/* Botanical Conservatory Hero */}
       <header className="relative overflow-hidden px-6 pt-20 pb-20 text-center md:pt-28 md:pb-28">

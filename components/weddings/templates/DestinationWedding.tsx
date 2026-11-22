@@ -8,7 +8,6 @@ import TemplateOpening from "../TemplateOpening";
 import WaveEffect from "../effects/WaveEffect";
 import FloatingOrnaments from "../effects/FloatingOrnaments";
 import { Palm } from "../svg/destination";
-import MusicToggle from "../MusicToggle";
 import FamilyBlock from "../FamilyBlock";
 import ShareBar from "../ShareBar";
 import Parallax from "../Parallax";
@@ -33,9 +32,6 @@ export default function DestinationWedding({ wedding }: { wedding: WeddingData }
   return (
     <div className="font-body-luxury min-h-screen bg-[#f7f3eb] text-[#0f353e] selection:bg-[#0f353e] selection:text-[#f7f3eb]">
       <TemplateOpening wedding={wedding} />
-      {wedding.music?.enabled && wedding.sections?.music !== false && (
-        <MusicToggle src={wedding.music.src} />
-      )}
 
       {/* Full-Bleed Coastal Horizon Hero */}
       <header className="relative flex min-h-[92dvh] items-end overflow-hidden bg-[#0a252c]">

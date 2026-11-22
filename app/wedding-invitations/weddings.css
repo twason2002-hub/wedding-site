@@ -659,6 +659,10 @@ a.wi-wa {
 }
 
 /* ---------- Opening Overlay ---------- */
+.wi-enter-stage,
+.wi-enter-stage * {
+  touch-action: none;
+}
 .wi-enter-stage {
   transition: opacity 650ms var(--wi-ease), transform 650ms var(--wi-enter);
 }
@@ -667,9 +671,18 @@ a.wi-wa {
   pointer-events: none;
   transition: background-color 420ms var(--wi-ease);
 }
-.wi-enter-stage.wi-leaving > :not(.wi-gate-panel) {
+.wi-enter-stage.wi-leaving > :not(.wi-gate-panel):not(.wi-opening-hold) {
   opacity: 0;
   transition: opacity 380ms var(--wi-ease);
+}
+.wi-enter-stage.wi-leaving .wi-opening-hold {
+  opacity: 0;
+  transition: opacity 480ms var(--wi-ease) 60ms;
+}
+html[data-invite="sealed"],
+html[data-invite="sealed"] body {
+  overflow: hidden !important;
+  overscroll-behavior: none;
 }
 
 /* Velvet gate curtains — palette comes from --gate-* vars set per template. */
@@ -773,13 +786,15 @@ html[data-invite="sealed"] :is(.wi-line, .wi-fadeup, .wi-arch-draw, .wi-hero-img
   transform: none;
 }
 .wi-bell-swing {
-  animation: wi-bell-swing 0.55s ease-in-out;
+  animation: wi-bell-swing 0.7s ease-in-out;
+  transform-origin: top center;
 }
 @keyframes wi-bell-swing {
-  0% { transform: translateX(-50%) rotate(0deg); }
-  35% { transform: translateX(-50%) rotate(16deg); }
-  70% { transform: translateX(-50%) rotate(-10deg); }
-  100% { transform: translateX(-50%) rotate(0deg); }
+  0% { transform: rotate(0deg); }
+  22% { transform: rotate(9deg); }
+  48% { transform: rotate(-7deg); }
+  72% { transform: rotate(3deg); }
+  100% { transform: rotate(0deg); }
 }
 
 /* One-by-one event reveal when the list container enters view. */
@@ -998,6 +1013,7 @@ section[aria-label="RSVP"] {
 
 /* ---------- Reduced Motion ---------- */
 @media (prefers-reduced-motion: reduce) {
+  .wi-enter-stage { display: none !important; }
   .wi-track { transition: none; }
   .wi-line, .wi-fadeup, .wi-hero-img, .wi-menu, .wi-float-slow, .wi-spin-slow, .wi-pulse-glow, .wi-petal, .wi-phone-info, .wi-gold-shimmer-text {
     animation: none !important;
@@ -1057,7 +1073,7 @@ section[aria-label="RSVP"] {
 }
 
 /* Envelope reveal (Animate UI path C, subtle — token curves as CSS) */
-.wi-env-scene { perspective: 1400px; }
+.wi-env-scene { perspective: 1400px; transform-style: preserve-3d; }
 .wi-env-back {
   background: linear-gradient(160deg, #2c1009 0%, #451708 55%, #1c0a05 100%);
   box-shadow: inset 0 0 0 0.75px rgba(212, 175, 55, 0.4), 0 35px 90px rgba(0, 0, 0, 0.8);
@@ -1066,7 +1082,7 @@ section[aria-label="RSVP"] {
   z-index: 10;
   background: linear-gradient(175deg, #fffdf6 0%, #f6ead4 70%, #eedaBB 100%);
   box-shadow: inset 0 0 0 0.75px rgba(185, 138, 47, 0.65), 0 18px 50px rgba(0, 0, 0, 0.45);
-  transform: translateY(10%) scale(0.94);
+  transform: translateY(24%) scale(0.94);
   transition: transform 800ms cubic-bezier(0.23, 1, 0.32, 1) 200ms;
   will-change: transform;
 }
@@ -1084,12 +1100,13 @@ section[aria-label="RSVP"] {
 }
 .wi-env-flap {
   z-index: 30;
-  height: 34%;
+  height: 38%;
   clip-path: polygon(0 0, 100% 0, 50% 100%);
   background: linear-gradient(180deg, #e9d3a3 0%, #d9b878 55%, #c49a52 100%);
   box-shadow: inset 0 -1px 0 rgba(122, 18, 40, 0.25);
   transform-origin: 50% 0%;
   transform: rotateX(0deg);
+  backface-visibility: hidden;
   transition: transform 700ms cubic-bezier(0.77, 0, 0.175, 1), z-index 0s linear 350ms;
   will-change: transform;
 }
@@ -1224,10 +1241,11 @@ section[aria-label="RSVP"] {
 }
 .wi-bl-open .wi-bl-card, .wi-bl-revealed .wi-bl-card { opacity: 1; transform: none; }
 
-.wi-uf-scene { perspective: 1400px; }
+.wi-uf-scene { perspective: 1400px; transform-style: preserve-3d; }
 .wi-uf-cover {
   z-index: 20;
   transform-origin: 50% 0%;
+  backface-visibility: hidden;
   transition: transform 700ms cubic-bezier(0.77, 0, 0.175, 1);
   will-change: transform;
 }
@@ -1271,12 +1289,20 @@ section[aria-label="RSVP"] {
 
 .wi-ribbon-handle {
   touch-action: none;
-  min-width: 48px;
-  min-height: 48px;
-  padding: 0 12px 8px;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0;
   background: transparent;
   border: 0;
   cursor: grab;
+}
+html.wi-has-dock .wi-wa {
+  bottom: calc(5.35rem + env(safe-area-inset-bottom));
+}
+@media (max-width: 1023px) {
+  .wi-invite {
+    padding-bottom: calc(5.5rem + env(safe-area-inset-bottom));
+  }
 }
 .wi-ribbon-handle:active { cursor: grabbing; }
 .wi-ribbon-handle:focus-visible { outline: 2px solid #f0d48a; outline-offset: 4px; border-radius: 999px; }

@@ -8,7 +8,6 @@ import TemplateOpening from "../TemplateOpening";
 import FloatingOrnaments from "../effects/FloatingOrnaments";
 import AnimatedBorder from "../effects/AnimatedBorder";
 import { Paisley } from "../svg/royal";
-import MusicToggle from "../MusicToggle";
 import FamilyBlock from "../FamilyBlock";
 import ShareBar from "../ShareBar";
 import Parallax from "../Parallax";
@@ -33,9 +32,6 @@ export default function RoyalHeritage({ wedding }: { wedding: WeddingData }) {
   return (
     <div className="font-body-luxury min-h-screen bg-[#140806] text-[#f6ead4] selection:bg-[#d4af37] selection:text-[#140806]">
       <TemplateOpening wedding={wedding} />
-      {wedding.music?.enabled && wedding.sections?.music !== false && (
-        <MusicToggle src={wedding.music.src} dark />
-      )}
 
       {/* Ornate Imperial Frame Hero */}
       <header className="relative overflow-hidden px-6 pt-20 pb-24 text-center md:pt-28 md:pb-32">

@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { FiligreeCorners } from "./LuxuryOrnaments";
 import { OpeningDiyas, OpeningStars } from "./OpeningDecor";
 import EnvelopeReveal from "./EnvelopeReveal";
@@ -12,6 +12,7 @@ import RibbonPull from "./RibbonPull";
 import PalaceDoors from "./effects/PalaceDoors";
 import DiyaBell from "./effects/DiyaBell";
 import PetalUnfold from "./effects/PetalUnfold";
+import CardFlip from "./effects/CardFlip";
 import type { EnvelopeTheme } from "@/lib/weddings/template-experience";
 import { experienceFor } from "@/lib/weddings/template-experience";
 
@@ -29,7 +30,7 @@ export default function OpeningOverlay({
   theme,
   timing,
 }: {
-  variant: "curtain" | "petals" | "fade" | "diya" | "waves" | "envelope" | "bloom" | "unfold" | "scroll" | "postcard" | "ribbon" | "doors" | "bell" | "petal";
+  variant: "curtain" | "petals" | "fade" | "diya" | "waves" | "envelope" | "bloom" | "unfold" | "scroll" | "postcard" | "ribbon" | "doors" | "bell" | "petal" | "flip";
   names: string;
   blessing?: string;
   subtitle?: string;
@@ -38,14 +39,15 @@ export default function OpeningOverlay({
 }) {
   const [open, setOpen] = useState(true);
   const [leaving, setLeaving] = useState(false);
+  const dismissTimer = useRef<number | undefined>(undefined);
 
   const dismiss = useCallback(() => {
     setLeaving((prev) => {
       if (prev) return prev;
       // Releases the paused hero entrance so it plays as the gates part.
       delete document.documentElement.dataset.invite;
-      document.documentElement.style.overflow = "";
-      setTimeout(() => setOpen(false), 980);
+      if (dismissTimer.current) window.clearTimeout(dismissTimer.current);
+      dismissTimer.current = window.setTimeout(() => setOpen(false), 820);
       return true;
     });
   }, []);
@@ -58,7 +60,6 @@ export default function OpeningOverlay({
     }
     const root = document.documentElement;
     root.dataset.invite = "sealed";
-    root.style.overflow = "hidden";
 
     // Isolated iframe previews (?preview=auto) auto-open after the entrance.
     let auto: number | undefined;
@@ -92,7 +93,6 @@ export default function OpeningOverlay({
     }
     return () => {
       delete root.dataset.invite;
-      root.style.overflow = "";
       if (auto) window.clearTimeout(auto);
       window.removeEventListener("keydown", onKey);
       window.removeEventListener("wheel", onWheel);
@@ -101,9 +101,13 @@ export default function OpeningOverlay({
     };
   }, [dismiss, variant]);
 
+  useEffect(() => () => {
+    if (dismissTimer.current) window.clearTimeout(dismissTimer.current);
+  }, []);
+
   if (!open) return null;
 
-  const wrap = `fixed inset-0 z-[90] flex items-center justify-center cursor-pointer overflow-hidden wi-enter-stage${
+  const wrap = `fixed inset-0 z-[90] flex items-center justify-center cursor-pointer overflow-hidden wi-enter-stage touch-none${
     leaving ? " wi-leaving" : ""
   }`;
 
@@ -214,6 +218,14 @@ export default function OpeningOverlay({
     return (
       <div className={`${wrap} bg-[#fdf5f2]`} style={{ background: "#fdf5f2", cursor: "default" }}>
         <PetalUnfold names={names} blessing={blessing} subtitle={subtitle} onDone={dismiss} />
+      </div>
+    );
+  }
+
+  if (variant === "flip") {
+    return (
+      <div className={`${wrap} bg-[#d9d3cb]`} style={{ background: "#d9d3cb", cursor: "default" }}>
+        <CardFlip names={names} blessing={blessing} subtitle={subtitle} onDone={dismiss} />
       </div>
     );
   }

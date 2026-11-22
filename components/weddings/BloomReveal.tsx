@@ -22,14 +22,16 @@ export default function BloomReveal({
 }) {
   const [phase, setPhase] = useState<"sealed" | "opening" | "revealed">("sealed");
   const timers = useRef<number[]>([]);
+  const started = useRef(false);
 
   useEffect(() => () => timers.current.forEach((t) => window.clearTimeout(t)), []);
 
   const start = () => {
-    if (phase !== "sealed") {
+    if (started.current) {
       onDone();
       return;
     }
+    started.current = true;
     setPhase("opening");
     timers.current.push(window.setTimeout(() => setPhase("revealed"), timing.open));
     timers.current.push(window.setTimeout(onDone, timing.reveal));

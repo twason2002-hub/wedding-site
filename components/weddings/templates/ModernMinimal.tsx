@@ -7,7 +7,6 @@ import RsvpForm from "../RsvpForm";
 import TemplateOpening from "../TemplateOpening";
 import SvgDraw from "../effects/SvgDraw";
 import { ThinArc } from "../svg/minimal";
-import MusicToggle from "../MusicToggle";
 import FamilyBlock from "../FamilyBlock";
 import ShareBar from "../ShareBar";
 import Parallax from "../Parallax";
@@ -33,9 +32,6 @@ export default function ModernMinimal({ wedding }: { wedding: WeddingData }) {
   return (
     <div className="font-body-luxury min-h-screen bg-[#091526] text-[#f4efe6] antialiased selection:bg-[#d4af37] selection:text-[#091526]">
       <TemplateOpening wedding={wedding} />
-      {wedding.music?.enabled && wedding.sections?.music !== false && (
-        <MusicToggle src={wedding.music.src} dark />
-      )}
 
       {/* Top Auspicious Strip */}
       <div className="border-b border-[#d4af37]/20 bg-[#060e1a] px-6 py-3 text-center text-xs tracking-[0.32em] text-[#e8cf8f]">

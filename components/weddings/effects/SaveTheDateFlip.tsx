@@ -2,10 +2,13 @@
 
 import { useState, type ReactNode } from "react";
 import { useSignature } from "../motion";
+import OpeningImage from "./OpeningImage";
+
+const PAPER = "/weddings/openings/minimal-paper.webp";
 
 /**
  * Minimal signature — save-the-date face flips to the celebration details.
- * Config: motion.signature.cardFlip
+ * Both faces use the ivory paper. Config: motion.signature.cardFlip
  */
 export default function SaveTheDateFlip({
   date,
@@ -37,28 +40,38 @@ export default function SaveTheDateFlip({
           transition: "transform 0.55s cubic-bezier(0.22, 1, 0.36, 1)",
         }}
       >
-        <span
-          className="absolute inset-0 flex items-center justify-center rounded-3xl bg-[#10233f] px-6 text-[#f4efe6] shadow-[inset_0_0_0_0.75px_rgba(212,175,55,0.45)]"
-          style={{ backfaceVisibility: "hidden" }}
-        >
-          <span>
-            <span className="block text-[11px] uppercase tracking-[0.28em] text-[#d4af37]">Save the date</span>
-            <span className="mt-2 block font-display-luxury text-2xl italic">{date}</span>
-            <span className="mt-3 block text-[11px] uppercase tracking-[0.18em] text-[#e8cf8f]/80">Tap for details</span>
-          </span>
-        </span>
-        <span
-          className="absolute inset-0 flex flex-col justify-center rounded-3xl bg-[#f4efe6] px-6 text-[#10233f] shadow-[inset_0_0_0_0.75px_rgba(212,175,55,0.45)]"
-          style={{ backfaceVisibility: "hidden", transform: "rotateY(180deg)" }}
-        >
-          <span className="text-[11px] uppercase tracking-[0.28em] text-[#8a6d2b]">The celebrations</span>
+        <PaperFace>
+          <span className="block text-[11px] font-semibold uppercase tracking-[0.28em] text-[#4a3724]">Save the date</span>
+          <span className="mt-2 block font-display-luxury text-2xl italic text-[#24180f]">{date}</span>
+          <span className="mt-3 block text-[11px] uppercase tracking-[0.18em] text-[#4a3724]">Tap for details</span>
+        </PaperFace>
+        <PaperFace turned>
+          <span className="text-[11px] font-semibold uppercase tracking-[0.28em] text-[#4a3724]">The celebrations</span>
           {details.slice(0, 3).map((line) => (
-            <span key={line} className="mt-1 block text-sm">
+            <span key={line} className="mt-1 block text-sm text-[#24180f]">
               {line}
             </span>
           ))}
-        </span>
+        </PaperFace>
       </span>
     </button>
+  );
+}
+
+function PaperFace({ children, turned = false }: { children: ReactNode; turned?: boolean }) {
+  return (
+    <span
+      className="absolute inset-0 overflow-hidden rounded-3xl shadow-[inset_0_0_0_0.75px_rgba(196,161,90,0.55)]"
+      style={{ backfaceVisibility: "hidden", transform: turned ? "rotateY(180deg)" : undefined }}
+    >
+      <OpeningImage
+        src={PAPER}
+        width={720}
+        height={1280}
+        className="absolute inset-0 h-full w-full object-cover"
+        fallback={<span className="absolute inset-0 bg-[#f4efe6]" />}
+      />
+      <span className="absolute inset-0 flex flex-col justify-center px-6">{children}</span>
+    </span>
   );
 }
