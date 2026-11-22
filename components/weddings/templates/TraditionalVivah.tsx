@@ -18,7 +18,7 @@ import HeroKenBurns from "../HeroKenBurns";
 import SignatureMotif from "../effects/SignatureMotif";
 import JourneyReveal from "../effects/JourneyReveal";
 import GuestSections from "../GuestSections";
-import { HeroDepthLayers } from "../effects/DepthLayers";
+import LayeredParallax, { EnvelopeRsvp, GaneshCrest, GoldFrame } from "../effects/LayeredParallax";
 import { AnimatedCalligraphy, FiligreeCorners, OutlinedEditorialWord } from "../LuxuryOrnaments";
 
 /**
@@ -44,8 +44,8 @@ export default function TraditionalVivah({ wedding }: { wedding: WeddingData }) 
       </div>
 
       {/* Temple Mandapam Hero */}
-      <header className="relative overflow-hidden px-6 pt-16 pb-20 text-center md:pt-24 md:pb-28">
-        <HeroDepthLayers tone="vivah" />
+      <header className="relative overflow-hidden px-6 pt-16 pb-36 text-center md:pt-24 md:pb-44">
+        <LayeredParallax />
         <div
           className="pointer-events-none absolute inset-0"
           style={{
@@ -56,7 +56,7 @@ export default function TraditionalVivah({ wedding }: { wedding: WeddingData }) 
         <DiyaEffect size={72} className="pointer-events-none fixed right-5 top-24 z-20 hidden sm:block" />
         <SignatureMotif motif="peacock" className="pointer-events-none absolute left-6 top-28 hidden h-24 w-20 text-[#fbbf24]/40 md:block" />
 
-        <div className="wi-hero-exit relative mx-auto max-w-4xl">
+        <div className="wi-hero-exit relative z-10 mx-auto max-w-4xl">
           {/* Sacred Ganesha / Kalash Emblem */}
           <div className="wi-fadeup wi-fadeup--1 relative mx-auto h-40 w-40">
             <MandalaEffect color="#f0b429" size={160} spinSeconds={50} className="absolute inset-0 opacity-40" />
@@ -118,8 +118,9 @@ export default function TraditionalVivah({ wedding }: { wedding: WeddingData }) 
             Sacred Vedic Kalyana Muhurtham
           </p>
 
+          <GaneshCrest />
           <h1
-            className="mt-3 font-regal leading-[1.08]"
+            className="wi-name-on-dark mt-3 font-regal leading-[1.08]"
             style={{ fontSize: "clamp(2.4rem, 6vw, 4.8rem)" }}
           >
             <span className="wi-mask wi-name-mask">
@@ -139,7 +140,7 @@ export default function TraditionalVivah({ wedding }: { wedding: WeddingData }) 
 
           <AnimatedCalligraphy color="#fbbf24" variant="vivah" className="mt-4" />
 
-          <p className="wi-fadeup wi-fadeup--4 mt-3 font-display-luxury text-2xl italic text-[#fde68a]">
+          <p className="wi-fadeup wi-fadeup--4 mt-3 inline-flex rounded-full bg-[#2d0507]/88 px-5 py-2 font-display-luxury text-2xl italic text-[#fde68a]">
             {wedding.couple.weddingDateDisplay}
           </p>
           {wedding.hashtag && (
@@ -164,6 +165,7 @@ export default function TraditionalVivah({ wedding }: { wedding: WeddingData }) 
               surface="#360608"
             />
           </div>
+          <GoldFrame>
           <section
             aria-label="Countdown"
             className="wi-frame-fine relative rounded-3xl bg-[#360608]/90 p-8 sm:p-12 text-center shadow-2xl"
@@ -179,6 +181,7 @@ export default function TraditionalVivah({ wedding }: { wedding: WeddingData }) 
               <Countdown target={wedding.couple.countdownDate} variant="vivah" dark />
             </div>
           </section>
+          </GoldFrame>
         </ScrollReveal>
 
         <AnimatedCalligraphy color="#fbbf24" variant="vivah" />
@@ -261,6 +264,7 @@ export default function TraditionalVivah({ wedding }: { wedding: WeddingData }) 
 
 {wedding.sections?.rsvp !== false && (
           <ScrollReveal>
+            <EnvelopeRsvp>
             <section
               aria-label="RSVP"
               className="wi-frame-fine relative rounded-3xl bg-[#360608] p-8 sm:p-12"
@@ -276,6 +280,7 @@ export default function TraditionalVivah({ wedding }: { wedding: WeddingData }) 
               </div>
               <RsvpForm wedding={wedding} dark variant="royal" />
             </section>
+            </EnvelopeRsvp>
           </ScrollReveal>
         )}
 

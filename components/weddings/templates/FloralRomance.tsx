@@ -17,7 +17,7 @@ import SignatureMotif from "../effects/SignatureMotif";
 import JourneyReveal from "../effects/JourneyReveal";
 import GuestSections from "../GuestSections";
 import { AnimatedCalligraphy, FiligreeCorners, OutlinedEditorialWord } from "../LuxuryOrnaments";
-import { HeroDepthLayers } from "../effects/DepthLayers";
+import LayeredParallax, { EnvelopeRsvp, GoldFrame } from "../effects/LayeredParallax";
 
 /**
  * TEMPLATE 2 — FLORAL ROMANCE (Couture Botanical Conservatory Edition).
@@ -33,7 +33,7 @@ export default function FloralRomance({ wedding }: { wedding: WeddingData }) {
 
       {/* Botanical Conservatory Hero */}
       <header className="relative overflow-hidden px-6 pt-20 pb-20 text-center md:pt-28 md:pb-28">
-        <HeroDepthLayers tone="floral" />
+        <LayeredParallax />
         <div
           className="pointer-events-none absolute inset-0"
           style={{
@@ -71,12 +71,12 @@ export default function FloralRomance({ wedding }: { wedding: WeddingData }) {
           <circle cx="18" cy="52" r="2" fill="currentColor" />
         </svg>
 
-        <div className="wi-hero-exit relative mx-auto max-w-4xl">
-          <p className="wi-fadeup wi-fadeup--1 text-[11px] uppercase tracking-[0.34em] text-[#a65c6b]">
+        <div className="wi-hero-exit relative z-10 mx-auto max-w-4xl">
+          <p className="wi-fadeup wi-fadeup--1 text-[11px] uppercase tracking-[0.34em] text-[#6e2f3c]">
             {wedding.blessing ?? "Together with our beloved families"}
           </p>
 
-          <p className="wi-fadeup wi-fadeup--1 font-script-luxury mt-3 text-4xl sm:text-5xl text-[#c87d8a]">
+          <p className="wi-fadeup wi-fadeup--1 font-script-luxury mt-3 text-4xl sm:text-5xl text-[#6e2f3c]">
             Love in Full Bloom
           </p>
 
@@ -115,11 +115,11 @@ export default function FloralRomance({ wedding }: { wedding: WeddingData }) {
 
           <AnimatedCalligraphy color="#c87d8a" variant="floral" className="mt-4" />
 
-          <p className="wi-fadeup wi-fadeup--3 mt-3 font-display-luxury italic text-2xl text-[#a65c6b]">
+          <p className="wi-fadeup wi-fadeup--3 mt-3 inline-flex rounded-full bg-[#fdf7f5]/90 px-4 py-1 font-display-luxury italic text-2xl text-[#4a252a]">
             {wedding.couple.weddingDateDisplay}
           </p>
           {wedding.hashtag && (
-            <p className="wi-fadeup wi-fadeup--4 mt-2 text-xs uppercase tracking-[0.28em] text-[#b36a7a]">
+            <p className="wi-fadeup wi-fadeup--4 mt-2 text-xs uppercase tracking-[0.28em] text-[#6e2f3c]">
               {wedding.hashtag}
             </p>
           )}
@@ -158,6 +158,7 @@ export default function FloralRomance({ wedding }: { wedding: WeddingData }) {
               surface="#fff9fa"
             />
           </div>
+          <GoldFrame>
           <section aria-label="Countdown" className="text-center">
             <OutlinedEditorialWord
               watermark="FOREVER"
@@ -169,6 +170,7 @@ export default function FloralRomance({ wedding }: { wedding: WeddingData }) {
               <Countdown target={wedding.couple.countdownDate} variant="floral" />
             </div>
           </section>
+          </GoldFrame>
         </ScrollReveal>
 
         <section aria-label="Events">
@@ -249,6 +251,7 @@ export default function FloralRomance({ wedding }: { wedding: WeddingData }) {
 
 {wedding.sections?.rsvp !== false && (
           <ScrollReveal>
+            <EnvelopeRsvp>
             <section
               aria-label="RSVP"
               className="relative rounded-[2.5rem] bg-white/95 p-8 sm:p-12 shadow-[0_24px_60px_-24px_rgba(168,90,110,0.18),inset_0_0_0_0.75px_rgba(217,138,156,0.4)]"
@@ -264,6 +267,7 @@ export default function FloralRomance({ wedding }: { wedding: WeddingData }) {
               </div>
               <RsvpForm wedding={wedding} variant="floral" />
             </section>
+            </EnvelopeRsvp>
           </ScrollReveal>
         )}
 

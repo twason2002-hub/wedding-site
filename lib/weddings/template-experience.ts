@@ -52,6 +52,35 @@ export interface SignatureFlags {
   headingDepth: boolean;
 }
 
+/** Where a generated layer sits in the hero. Transform-only; no layout animation. */
+export type ParallaxPosition =
+  | "background"
+  | "frame"
+  | "top"
+  | "bottom"
+  | "corner"
+  | "edges"
+  | "overlay"
+  | "tilt";
+
+export interface ParallaxLayer {
+  src: string;
+  /** Scroll travel in px. Larger values sit closer to the viewer. */
+  depth: number;
+  position: ParallaxPosition;
+  opacity?: number;
+  width: number;
+  height: number;
+  /** cover crops a strip; contain keeps a cut-out intact. */
+  fit?: "cover" | "contain";
+}
+
+export interface SceneAccents {
+  crest?: string;
+  frame?: string;
+  envelope?: string;
+}
+
 /** Motion/interaction selection — JSON only, no animation logic here. */
 export interface MotionConfig {
   opening: OpeningType;
@@ -67,6 +96,14 @@ export interface MotionConfig {
    */
   pullToReveal?: { enabled: boolean; kind: "ribbon" };
   signature: SignatureFlags;
+  /**
+   * Layered hero art. `depth` is scroll travel; `position` places the cut-out.
+   * Omitted layers stay off so a template can keep the older depth ornaments.
+   */
+  parallaxLayers?: ParallaxLayer[];
+  /** Scrim behind names and the date so type stays at least 4.5:1. */
+  parallaxScrim?: "dark" | "light" | "none";
+  accents?: SceneAccents;
 }
 
 export interface TemplateExperience {
@@ -136,6 +173,57 @@ const CLASSIC_ENVELOPE: EnvelopeTheme = {
   glow: false,
 };
 
+const ART = "/weddings/parallax";
+
+function art(
+  file: string,
+  depth: number,
+  position: ParallaxPosition,
+  opacity: number,
+  width: number,
+  height: number,
+  fit?: "cover" | "contain",
+): ParallaxLayer {
+  return { src: `${ART}/${file}.webp`, depth, position, opacity, width, height, fit };
+}
+
+const ROYAL_LAYERS: ParallaxLayer[] = [
+  art("royal-skyline-bg", 36, "background", 1, 720, 1280),
+  art("royal-arch-frame", 14, "frame", 1, 689, 1179),
+  art("royal-lanterns", 64, "top", 1, 627, 1024),
+];
+
+const VIVAH_LAYERS: ParallaxLayer[] = [
+  art("vivah-mandap-bg", 32, "background", 1, 720, 1280),
+  art("vivah-toran", 18, "top", 1, 1280, 362),
+  art("vivah-kalash", 52, "bottom", 1, 588, 768),
+];
+
+const FLORAL_LAYERS: ParallaxLayer[] = [
+  art("floral-garden-bg", 30, "background", 1, 720, 1280),
+  art("floral-cluster", 58, "corner", 1, 898, 947),
+  art("floral-petals", 84, "overlay", 0.92, 608, 1161),
+];
+
+const DESTINATION_LAYERS: ParallaxLayer[] = [
+  art("destination-sky-bg", 34, "background", 1, 720, 1280),
+  art("destination-palms", 22, "edges", 1, 720, 1258),
+  art("destination-sand", 46, "bottom", 1, 720, 493, "cover"),
+];
+
+const MINIMAL_LAYERS: ParallaxLayer[] = [art("minimal-suite", 12, "tilt", 1, 539, 700)];
+
+const CREST_FRAME_ENVELOPE: SceneAccents = {
+  crest: `${ART}/shared-ganesh-crest.webp`,
+  frame: `${ART}/shared-gold-frame.webp`,
+  envelope: `${ART}/shared-envelope.webp`,
+};
+
+const FRAME_ENVELOPE: SceneAccents = {
+  frame: `${ART}/shared-gold-frame.webp`,
+  envelope: `${ART}/shared-envelope.webp`,
+};
+
 export const TEMPLATE_EXPERIENCES: Record<string, TemplateExperience> = {
   "royal-heritage": {
     slug: "royal-heritage",
@@ -178,6 +266,9 @@ export const TEMPLATE_EXPERIENCES: Record<string, TemplateExperience> = {
         scrollTilt: true,
         headingDepth: true,
       },
+      parallaxLayers: ROYAL_LAYERS,
+      parallaxScrim: "dark",
+      accents: CREST_FRAME_ENVELOPE,
     },    palette: { bg: "#140806", ink: "#f6ead4", accent: "#d4af37", surface: "#26100c" },
     fonts: { display: "Cinzel, Cormorant Garamond, serif", body: "Plus Jakarta Sans, sans-serif" },
     animation: { reduced: "fade-only" },
@@ -222,6 +313,9 @@ export const TEMPLATE_EXPERIENCES: Record<string, TemplateExperience> = {
         scrollTilt: true,
         headingDepth: true,
       },
+      parallaxLayers: FLORAL_LAYERS,
+      parallaxScrim: "light",
+      accents: FRAME_ENVELOPE,
     },    palette: { bg: "#fdf7f5", ink: "#4a252a", accent: "#c87d8a", surface: "#ffffff" },
     fonts: { display: "Cormorant Garamond, Playfair Display, serif", body: "Plus Jakarta Sans, sans-serif" },
     animation: { reduced: "fade-only" },
@@ -265,6 +359,9 @@ export const TEMPLATE_EXPERIENCES: Record<string, TemplateExperience> = {
         scrollTilt: true,
         headingDepth: true,
       },
+      parallaxLayers: MINIMAL_LAYERS,
+      parallaxScrim: "none",
+      accents: FRAME_ENVELOPE,
     },    palette: { bg: "#091526", ink: "#f4efe6", accent: "#d4af37", surface: "#10233f" },
     fonts: { display: "Cormorant Garamond, serif", body: "Plus Jakarta Sans, sans-serif" },
     animation: { reduced: "fade-only" },
@@ -310,6 +407,9 @@ export const TEMPLATE_EXPERIENCES: Record<string, TemplateExperience> = {
         scrollTilt: true,
         headingDepth: true,
       },
+      parallaxLayers: VIVAH_LAYERS,
+      parallaxScrim: "dark",
+      accents: CREST_FRAME_ENVELOPE,
     },    palette: { bg: "#4a0b0d", ink: "#fdf1d6", accent: "#f0b429", surface: "#631215" },
     fonts: { display: "Cinzel, Playfair Display, serif", body: "Plus Jakarta Sans, sans-serif" },
     animation: { reduced: "fade-only" },
@@ -355,6 +455,9 @@ export const TEMPLATE_EXPERIENCES: Record<string, TemplateExperience> = {
         scrollTilt: true,
         headingDepth: true,
       },
+      parallaxLayers: DESTINATION_LAYERS,
+      parallaxScrim: "dark",
+      accents: FRAME_ENVELOPE,
     },    palette: { bg: "#f7f3eb", ink: "#0f353e", accent: "#b86b43", surface: "#ffffff" },
     fonts: { display: "Cormorant Garamond, serif", body: "Plus Jakarta Sans, sans-serif" },
     animation: { reduced: "fade-only" },

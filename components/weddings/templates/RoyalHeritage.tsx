@@ -19,7 +19,7 @@ import SignatureMotif from "../effects/SignatureMotif";
 import JourneyReveal from "../effects/JourneyReveal";
 import GuestSections from "../GuestSections";
 import { AnimatedCalligraphy, FiligreeCorners, OutlinedEditorialWord } from "../LuxuryOrnaments";
-import { HeroDepthLayers } from "../effects/DepthLayers";
+import LayeredParallax, { EnvelopeRsvp, GaneshCrest, GoldFrame } from "../effects/LayeredParallax";
 
 /**
  * TEMPLATE 1 — ROYAL HERITAGE (Imperial Rajputana Palace Edition).
@@ -34,8 +34,8 @@ export default function RoyalHeritage({ wedding }: { wedding: WeddingData }) {
       <TemplateOpening wedding={wedding} />
 
       {/* Ornate Imperial Frame Hero */}
-      <header className="relative overflow-hidden px-6 pt-20 pb-24 text-center md:pt-28 md:pb-32">
-        <HeroDepthLayers tone="royal" />
+      <header className="relative overflow-hidden px-6 pt-20 pb-28 text-center md:pt-28 md:pb-36">
+        <LayeredParallax />
         <div
           className="pointer-events-none absolute inset-0"
           style={{
@@ -70,7 +70,7 @@ export default function RoyalHeritage({ wedding }: { wedding: WeddingData }) {
           />
         </svg>
 
-        <div className="wi-hero-exit relative mx-auto max-w-4xl">
+        <div className="wi-hero-exit relative z-10 mx-auto max-w-4xl">
           <p className="wi-fadeup wi-fadeup--1 font-regal text-xs uppercase tracking-[0.34em] text-[#e8cf8f]">
             {wedding.blessing ?? "॥ श्री गणेशाय नमः ॥"}
           </p>
@@ -115,6 +115,7 @@ export default function RoyalHeritage({ wedding }: { wedding: WeddingData }) {
             A Union of Two Families
           </p>
 
+          <GaneshCrest />
           <h1 className="wi-name-on-dark mt-4 font-regal leading-[1.02]" style={{ fontSize: "clamp(2.05rem, 8vw, 5.25rem)" }}>
             <span className="wi-mask wi-name-mask">
               <GoldShimmer duration={7} from="#e6c56a" via="#fff6d4" to="#e6c56a" className="wi-line wi-line--1 wi-couple-heading block text-[#f6ead4]">
@@ -167,6 +168,7 @@ export default function RoyalHeritage({ wedding }: { wedding: WeddingData }) {
               surface="#1a0a0c"
             />
           </div>
+          <GoldFrame>
           <section aria-label="Countdown" className="relative rounded-3xl p-6 text-center sm:p-10">
             <AnimatedBorder color="#d4af37" />
             <OutlinedEditorialWord
@@ -179,6 +181,7 @@ export default function RoyalHeritage({ wedding }: { wedding: WeddingData }) {
               <Countdown target={wedding.couple.countdownDate} variant="royal" dark />
             </div>
           </section>
+          </GoldFrame>
         </ScrollReveal>
 
         <AnimatedCalligraphy color="#d4af37" variant="royal" />
@@ -285,6 +288,7 @@ export default function RoyalHeritage({ wedding }: { wedding: WeddingData }) {
 
 {wedding.sections?.rsvp !== false && (
           <ScrollReveal>
+            <EnvelopeRsvp>
             <section aria-label="RSVP" className="wi-bezel-dark">
               <div className="wi-bezel-dark-inner relative bg-[#190a07] p-8 sm:p-12">
                 <FiligreeCorners color="rgba(212,175,55,0.5)" />
@@ -300,6 +304,7 @@ export default function RoyalHeritage({ wedding }: { wedding: WeddingData }) {
                 <RsvpForm wedding={wedding} dark variant="royal" />
               </div>
             </section>
+            </EnvelopeRsvp>
           </ScrollReveal>
         )}
 

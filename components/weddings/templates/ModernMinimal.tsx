@@ -17,7 +17,7 @@ import HeroKenBurns from "../HeroKenBurns";
 import SignatureMotif from "../effects/SignatureMotif";
 import JourneyReveal from "../effects/JourneyReveal";
 import GuestSections from "../GuestSections";
-import { HeroDepthLayers } from "../effects/DepthLayers";
+import LayeredParallax, { EnvelopeRsvp, GoldFrame, ParallaxTiltCard } from "../effects/LayeredParallax";
 import SaveTheDateFlip from "../effects/SaveTheDateFlip";
 import { AnimatedCalligraphy, FiligreeCorners, OutlinedEditorialWord } from "../LuxuryOrnaments";
 
@@ -40,7 +40,7 @@ export default function ModernMinimal({ wedding }: { wedding: WeddingData }) {
 
       {/* Royal Neelam Blue & Gold Hero */}
       <header className="relative mx-auto max-w-6xl px-6 pt-16 pb-20 md:pt-24 md:pb-28 overflow-hidden">
-        <HeroDepthLayers tone="minimal" />
+        <LayeredParallax />
         <div
           className="pointer-events-none absolute inset-0"
           style={{
@@ -111,6 +111,7 @@ export default function ModernMinimal({ wedding }: { wedding: WeddingData }) {
             )}
           </div>
 
+          <ParallaxTiltCard className="mx-auto mb-8 w-[min(220px,52vw)] lg:mx-0" />
           <div className="wi-fadeup wi-fadeup--2 mx-auto w-full max-w-md rounded-t-full rounded-b-3xl bg-[#10233f] p-2.5 shadow-[0_30px_80px_rgba(0,0,0,0.6),inset_0_0_0_0.75px_rgba(212,175,55,0.45)]">
             <HeroKenBurns className="relative overflow-hidden rounded-t-full rounded-b-2xl shadow-[inset_0_0_0_0.5px_rgba(212,175,55,0.3)]">
               <Parallax depth={10}>
@@ -140,6 +141,7 @@ export default function ModernMinimal({ wedding }: { wedding: WeddingData }) {
               surface="#0a1524"
             />
           </div>
+          <GoldFrame>
           <section aria-label="Countdown" className="text-center">
             <OutlinedEditorialWord
               watermark="CELEBRATE"
@@ -151,6 +153,7 @@ export default function ModernMinimal({ wedding }: { wedding: WeddingData }) {
               <Countdown target={wedding.couple.countdownDate} variant="royal" dark />
             </div>
           </section>
+          </GoldFrame>
         </ScrollReveal>
 
         <AnimatedCalligraphy color="#d4af37" variant="royal" />
@@ -238,6 +241,7 @@ export default function ModernMinimal({ wedding }: { wedding: WeddingData }) {
 
 {wedding.sections?.rsvp !== false && (
           <ScrollReveal>
+            <EnvelopeRsvp>
             <section
               aria-label="RSVP"
               className="relative rounded-3xl bg-[#10233f] p-8 sm:p-12 shadow-[inset_0_0_0_0.75px_rgba(212,175,55,0.4)]"
@@ -254,6 +258,7 @@ export default function ModernMinimal({ wedding }: { wedding: WeddingData }) {
               </div>
               <RsvpForm wedding={wedding} dark variant="royal" />
             </section>
+            </EnvelopeRsvp>
           </ScrollReveal>
         )}
 

@@ -10,7 +10,7 @@ import SideBorders from "./SideBorders";
 import GuestGreeting from "./GuestGreeting";
 import QuickActions from "./QuickActions";
 import MusicToggle, { WeddingMusicProvider } from "./MusicToggle";
-import { WeddingMotionProvider } from "./motion";
+import { WeddingMotionProvider, type MotionScene } from "./motion";
 
 /**
  * Shared rendering engine: wedding data in, selected template out.
@@ -22,9 +22,15 @@ export default function WeddingRenderer({ wedding }: { wedding: WeddingData }) {
   const bordersOn = wedding.sections?.borders ?? exp.features.borders.enabled;
   const musicOn = Boolean(wedding.music?.enabled && wedding.sections?.music !== false);
   const darkMusic = wedding.templateSlug !== "floral-romance" && wedding.templateSlug !== "destination-wedding";
+  const scene: MotionScene = {
+    signature: exp.motion.signature,
+    parallaxLayers: exp.motion.parallaxLayers ?? [],
+    parallaxScrim: exp.motion.parallaxScrim ?? "none",
+    accents: exp.motion.accents ?? {},
+  };
 
   return (
-    <WeddingMotionProvider value={exp.motion.signature}>
+    <WeddingMotionProvider scene={scene}>
       <WeddingMusicProvider src={wedding.music?.src} enabled={musicOn}>
         <div className="wi-invite">
           <ScrollProgress />

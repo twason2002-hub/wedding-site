@@ -4,7 +4,7 @@ import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { prefersReducedMotion, registerWeddingPlugins } from "./gsap-setup";
-import { useSignature } from "../motion";
+import { useMotionScene, useSignature } from "../motion";
 
 /**
  * Destination signature — sea, sand and palm shift at different depths.
@@ -13,10 +13,11 @@ import { useSignature } from "../motion";
  */
 export default function CoastDepth() {
   const signature = useSignature();
+  const layered = (useMotionScene()?.parallaxLayers.length ?? 0) > 0;
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (!signature?.coastParallax || prefersReducedMotion()) return;
+    if (layered || !signature?.coastParallax || prefersReducedMotion()) return;
     const root = ref.current;
     const header = root?.parentElement;
     if (!root || !header) return;
@@ -43,9 +44,9 @@ export default function CoastDepth() {
       });
     });
     return () => mm.revert();
-  }, [signature?.coastParallax]);
+  }, [layered, signature?.coastParallax]);
 
-  if (!signature?.coastParallax) return null;
+  if (layered || !signature?.coastParallax) return null;
 
   return (
     <div ref={ref} className="pointer-events-none absolute inset-x-0 bottom-0 z-[1] h-24 overflow-hidden" aria-hidden="true">
@@ -67,12 +68,13 @@ export default function CoastDepth() {
  */
 export function HeroDepthLayers({ tone }: { tone: "royal" | "floral" | "minimal" | "vivah" }) {
   const signature = useSignature();
+  const layered = (useMotionScene()?.parallaxLayers.length ?? 0) > 0;
   const ref = useRef<HTMLDivElement>(null);
   const ink =
     tone === "floral" ? "rgba(200,125,138,0.28)" : tone === "vivah" ? "rgba(240,180,41,0.28)" : "rgba(212,175,55,0.28)";
 
   useEffect(() => {
-    if (!signature?.heroParallax || prefersReducedMotion()) return;
+    if (layered || !signature?.heroParallax || prefersReducedMotion()) return;
     const root = ref.current;
     const header = root?.parentElement;
     if (!root || !header) return;
@@ -100,9 +102,9 @@ export function HeroDepthLayers({ tone }: { tone: "royal" | "floral" | "minimal"
       });
     });
     return () => mm.revert();
-  }, [signature?.heroParallax]);
+  }, [layered, signature?.heroParallax]);
 
-  if (!signature?.heroParallax) return null;
+  if (layered || !signature?.heroParallax) return null;
 
   return (
     <div ref={ref} className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
