@@ -189,6 +189,23 @@ export function invitePageMetadata(wedding: WeddingData | null, path: string): M
   return pageMetadata(title, description, path);
 }
 
+/** Metadata for the owner's own invitation. Not used by template previews. */
+export function legacyCoupleMetadata(input: {
+  bride: string;
+  groom: string;
+  dateDisplay: string;
+  countdown?: string;
+  city: string;
+  path: string;
+}): Metadata {
+  const dateLabel = compactDate(input.dateDisplay, input.countdown);
+  return pageMetadata(
+    `${input.bride} & ${input.groom} are getting married | ${dateLabel}`,
+    `You are warmly invited to celebrate ${input.bride} & ${input.groom} on ${input.dateDisplay} in ${input.city}. Join the families for blessings, music, and a day you will always remember.`,
+    input.path,
+  );
+}
+
 export function marketingMetadata(title: string, description: string, path: string): Metadata {
   return pageMetadata(title, description, path);
 }

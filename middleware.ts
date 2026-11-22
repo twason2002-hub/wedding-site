@@ -3,6 +3,16 @@ import type { NextRequest } from "next/server";
 import { updateSession } from "@/lib/supabase/middleware";
 
 export async function middleware(request: NextRequest) {
+  // Legacy couple-site rewrite — untouched.
+  if (request.nextUrl.pathname.startsWith("/invitation")) {
+    const url = new URL(
+      request.nextUrl.pathname.replace("/invitation", "/dynamic-invitation"),
+      request.url,
+    );
+    url.search = request.nextUrl.search;
+    return NextResponse.rewrite(url);
+  }
+
   const { response, user } = await updateSession(request);
 
   // Admin gate: Supabase session required. admin_users membership is
@@ -29,5 +39,5 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/admin/:path*"],
+  matcher: ["/invitation/:path*", "/admin/:path*"],
 };
