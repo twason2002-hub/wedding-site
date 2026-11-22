@@ -34,7 +34,7 @@ export default function ModernMinimal({ wedding }: { wedding: WeddingData }) {
       <TemplateOpening wedding={wedding} />
 
       {/* Top Auspicious Strip */}
-      <div className="border-b border-[#d4af37]/20 bg-[#060e1a] px-6 py-3 text-center text-xs tracking-[0.32em] text-[#e8cf8f]">
+      <div className="border-b border-[rgba(230,197,106,0.42)] bg-[#060e1a] px-6 py-3 text-center text-xs tracking-[0.32em] text-[#e6c56a]">
         {wedding.blessing ?? "॥ श्री गणेशाय नमः · शुभ विवाह ॥"}
       </div>
 
@@ -89,7 +89,7 @@ export default function ModernMinimal({ wedding }: { wedding: WeddingData }) {
             </span>
             </h1>
 
-            <p className="wi-fadeup wi-fadeup--2 mt-6 max-w-lg mx-auto lg:mx-0 text-base sm:text-lg leading-relaxed text-[#f4efe6]/85">
+            <p className="wi-soft wi-fadeup wi-fadeup--2 mx-auto mt-6 max-w-lg text-base leading-relaxed sm:text-lg lg:mx-0">
               {wedding.couple.intro}
             </p>
 
@@ -97,7 +97,7 @@ export default function ModernMinimal({ wedding }: { wedding: WeddingData }) {
               date={wedding.couple.weddingDateDisplay}
               details={wedding.events.slice(0, 3).map((event) => `${event.name} · ${event.date}`)}
             >
-            <div className="wi-fadeup wi-fadeup--3 mt-8 inline-flex flex-wrap items-center gap-4 rounded-full bg-[#10233f] px-7 py-3.5 text-sm text-[#f4efe6] shadow-[inset_0_0_0_0.75px_rgba(212,175,55,0.45)]">
+            <div className="wi-chip wi-fadeup wi-fadeup--3 mt-8 inline-flex flex-wrap items-center gap-4 rounded-full bg-[#10233f] px-7 py-3.5 text-sm text-[#f4efe6]">
               <span className="text-[#d4af37]">✦</span>
               <span className="font-display-luxury text-xl italic">{wedding.couple.weddingDateDisplay}</span>
               <span className="text-[#d4af37]">✦</span>
@@ -105,15 +105,15 @@ export default function ModernMinimal({ wedding }: { wedding: WeddingData }) {
             </SaveTheDateFlip>
 
             {wedding.hashtag && (
-              <p className="mt-4 text-xs uppercase tracking-[0.28em] text-[#e8cf8f]/75">
+              <p className="wi-accent-ink mt-4 text-xs uppercase tracking-[0.28em]">
                 {wedding.hashtag}
               </p>
             )}
           </div>
 
           <ParallaxTiltCard className="mx-auto mb-8 w-[min(220px,52vw)] lg:mx-0" />
-          <div className="wi-fadeup wi-fadeup--2 mx-auto w-full max-w-md rounded-t-full rounded-b-3xl bg-[#10233f] p-2.5 shadow-[0_30px_80px_rgba(0,0,0,0.6),inset_0_0_0_0.75px_rgba(212,175,55,0.45)]">
-            <HeroKenBurns className="relative overflow-hidden rounded-t-full rounded-b-2xl shadow-[inset_0_0_0_0.5px_rgba(212,175,55,0.3)]">
+          <div className="wi-face wi-fadeup wi-fadeup--2 mx-auto w-full max-w-md rounded-t-full rounded-b-3xl bg-[#10233f] p-2.5">
+            <HeroKenBurns className="wi-chip relative overflow-hidden rounded-t-full rounded-b-2xl">
               <Parallax depth={10}>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
@@ -192,7 +192,7 @@ export default function ModernMinimal({ wedding }: { wedding: WeddingData }) {
           <ScrollReveal>
             <section
               aria-label="Venue"
-              className="relative rounded-3xl bg-[#10233f] p-8 sm:p-12 text-center shadow-[0_28px_60px_rgba(0,0,0,0.45),inset_0_0_0_0.75px_rgba(212,175,55,0.4)]"
+              className="wi-face relative rounded-3xl bg-[#10233f] p-8 text-center sm:p-12"
             >
               <FiligreeCorners color="rgba(212,175,55,0.5)" />
               <p className="font-regal text-xs uppercase tracking-[0.32em] text-[#d4af37]">
@@ -201,16 +201,16 @@ export default function ModernMinimal({ wedding }: { wedding: WeddingData }) {
               <h2 className="font-display-luxury mt-2 text-3xl sm:text-5xl italic text-white">
                 {wedding.venue.name}
               </h2>
-              <p className="mt-2 text-sm text-[#f4efe6]/80">{wedding.venue.address}</p>
+              <p className="wi-soft mt-2 text-sm">{wedding.venue.address}</p>
               {wedding.venue.travel && (
-                <p className="mt-2 text-sm text-[#f4efe6]/70">{wedding.venue.travel}</p>
+                <p className="wi-soft mt-2 text-sm">{wedding.venue.travel}</p>
               )}
               {wedding.venue.hotels && wedding.venue.hotels.length > 0 && (
                 <div className="mt-4 flex flex-wrap justify-center gap-2">
                   {wedding.venue.hotels.map((h) => (
                     <span
                       key={h}
-                      className="rounded-full px-4 py-1.5 text-xs text-[#e8cf8f] shadow-[inset_0_0_0_0.75px_rgba(212,175,55,0.45)]"
+                      className="wi-chip rounded-full px-4 py-1.5 text-xs text-[#e6c56a]"
                     >
                       ✦ {h}
                     </span>
@@ -224,7 +224,7 @@ export default function ModernMinimal({ wedding }: { wedding: WeddingData }) {
                 href={`https://maps.google.com/?q=${wedding.venue.mapQuery}`}
                 target="_blank"
                 rel="noreferrer"
-                className="wi-action-lift mt-7 inline-flex min-h-[44px] items-center gap-2 rounded-full bg-gradient-to-r from-[#d4af37] to-[#9b7318] px-7 py-3 text-xs font-semibold uppercase tracking-[0.22em] text-[#091526]"
+                className="wi-cta mt-7"
               >
                 <span>Open Google Maps</span>
                 <span aria-hidden="true">↗</span>
@@ -244,7 +244,7 @@ export default function ModernMinimal({ wedding }: { wedding: WeddingData }) {
             <EnvelopeRsvp>
             <section
               aria-label="RSVP"
-              className="relative rounded-3xl bg-[#10233f] p-8 sm:p-12 shadow-[inset_0_0_0_0.75px_rgba(212,175,55,0.4)]"
+              className="wi-face relative rounded-3xl bg-[#10233f] p-8 sm:p-12"
             >
               <FiligreeCorners color="rgba(212,175,55,0.5)" />
               <div className="mb-10">
@@ -267,7 +267,7 @@ export default function ModernMinimal({ wedding }: { wedding: WeddingData }) {
         </ScrollReveal>
       </main>
 
-      <footer className="border-t border-[#d4af37]/20 bg-[#060e1a] px-6 py-12 text-center text-xs uppercase tracking-[0.28em] text-[#e8cf8f]/70">
+      <footer className="bg-[#060e1a] px-6 py-12 text-center text-xs uppercase tracking-[0.28em] text-[#e6c56a]">
         <p className="wi-couple-heading">
           {names} &nbsp;·&nbsp; {wedding.couple.weddingDateDisplay} &nbsp;·&nbsp; Crafted on Inviteo
         </p>

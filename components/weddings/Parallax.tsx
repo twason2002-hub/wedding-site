@@ -32,14 +32,15 @@ export default function Parallax({
     mm.add("(prefers-reduced-motion: no-preference)", () => {
       gsap.fromTo(
         ref.current,
-        { yPercent: depth / 2, scale: 1 },
+        { yPercent: depth / 2, scale: 1, force3D: true },
         {
           yPercent: -depth / 2,
           scale: 1,
           ease: "none",
+          force3D: true,
           scrollTrigger: {
             trigger: ref.current?.parentElement,
-            scrub: true,
+            scrub: 0.4,
             start: "top bottom",
             end: "bottom top",
           },

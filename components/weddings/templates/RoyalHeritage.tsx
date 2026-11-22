@@ -75,7 +75,7 @@ export default function RoyalHeritage({ wedding }: { wedding: WeddingData }) {
             {wedding.blessing ?? "॥ श्री गणेशाय नमः ॥"}
           </p>
           {wedding.mantra && (
-            <p className="wi-fadeup wi-fadeup--1 mx-auto mt-3 max-w-xl font-display-luxury text-base italic text-[#d4af37]/80">
+            <p className="wi-accent-ink wi-fadeup wi-fadeup--1 mx-auto mt-3 max-w-xl font-display-luxury text-base italic">
               {wedding.mantra}
             </p>
           )}
@@ -122,7 +122,7 @@ export default function RoyalHeritage({ wedding }: { wedding: WeddingData }) {
                 {wedding.couple.bride}
               </GoldShimmer>
             </span>
-            <span className="my-1 block font-script-luxury text-3xl sm:text-4xl text-[#d4af37]/85">
+            <span className="wi-accent-ink my-1 block font-script-luxury text-3xl sm:text-4xl">
               &amp;
             </span>
             <span className="wi-mask wi-name-mask">
@@ -134,11 +134,11 @@ export default function RoyalHeritage({ wedding }: { wedding: WeddingData }) {
 
           <AnimatedCalligraphy color="#d4af37" variant="royal" className="mt-4" />
 
-          <p className="wi-fadeup wi-fadeup--3 mt-4 font-regal text-xs uppercase tracking-[0.32em] text-[#f3e5c3]/75">
+          <p className="wi-soft wi-fadeup wi-fadeup--3 mt-4 font-regal text-xs uppercase tracking-[0.32em]">
             Cordially Request the Honour of Your Presence
           </p>
 
-          <div className="wi-fadeup wi-fadeup--4 mt-6 inline-flex items-center gap-4 rounded-full bg-[#24100c]/90 px-7 py-3 shadow-[0_14px_34px_rgba(0,0,0,0.5),inset_0_0_0_0.75px_rgba(212,175,55,0.45)]">
+          <div className="wi-chip wi-fadeup wi-fadeup--4 mt-6 inline-flex items-center gap-4 rounded-full bg-[#24100c]/92 px-7 py-3">
             <span className="text-[#d4af37]">✦</span>
             <span className="font-display-luxury text-xl sm:text-2xl italic text-[#f9ebd2]">
               {wedding.couple.weddingDateDisplay}
@@ -147,7 +147,7 @@ export default function RoyalHeritage({ wedding }: { wedding: WeddingData }) {
           </div>
 
           {wedding.hashtag && (
-            <p className="mt-4 font-regal text-xs tracking-[0.28em] text-[#d4af37]/75">
+            <p className="wi-accent-ink mt-4 font-regal text-xs tracking-[0.28em]">
               {wedding.hashtag}
             </p>
           )}
@@ -227,15 +227,15 @@ export default function RoyalHeritage({ wedding }: { wedding: WeddingData }) {
                 <h2 className="font-display-luxury mt-3 text-4xl sm:text-5xl italic text-[#f9ebd2]">
                   {wedding.venue.name}
                 </h2>
-                <p className="mt-2 text-base text-[#f3e5c3]/80">{wedding.venue.address}</p>
+                <p className="wi-soft mt-2 text-base">{wedding.venue.address}</p>
 
-                <div className="mt-8 grid gap-6 text-left sm:grid-cols-3 border-y border-[#d4af37]/15 py-7">
+                <div className="wi-rule-y mt-8 grid gap-6 py-7 text-left sm:grid-cols-3">
                   {wedding.venue.hotels && wedding.venue.hotels.length > 0 && (
                     <div>
                       <p className="font-regal text-[11px] uppercase tracking-[0.32em] text-[#d4af37]">
                         Guest Residences
                       </p>
-                      <ul className="mt-2 space-y-1 text-sm text-[#f3e5c3]/80">
+                      <ul className="wi-soft mt-2 space-y-1 text-sm">
                         {wedding.venue.hotels.map((h) => (
                           <li key={h}>✦ {h}</li>
                         ))}
@@ -247,7 +247,7 @@ export default function RoyalHeritage({ wedding }: { wedding: WeddingData }) {
                       <p className="font-regal text-[11px] uppercase tracking-[0.32em] text-[#d4af37]">
                         Chauffeured Arrival
                       </p>
-                      <p className="mt-2 text-sm leading-relaxed text-[#f3e5c3]/80">
+                      <p className="wi-soft mt-2 text-sm leading-relaxed">
                         {wedding.venue.travel}
                       </p>
                     </div>
@@ -257,7 +257,7 @@ export default function RoyalHeritage({ wedding }: { wedding: WeddingData }) {
                       <p className="font-regal text-[11px] uppercase tracking-[0.32em] text-[#d4af37]">
                         Valet &amp; Carriages
                       </p>
-                      <p className="mt-2 text-sm leading-relaxed text-[#f3e5c3]/80">
+                      <p className="wi-soft mt-2 text-sm leading-relaxed">
                         {wedding.venue.parking}
                       </p>
                     </div>
@@ -268,7 +268,7 @@ export default function RoyalHeritage({ wedding }: { wedding: WeddingData }) {
                   href={`https://maps.google.com/?q=${wedding.venue.mapQuery}`}
                   target="_blank"
                   rel="noreferrer"
-                  className="wi-action-lift mt-8 inline-flex items-center gap-3 rounded-full bg-gradient-to-r from-[#d4af37] to-[#9b7318] px-8 py-3.5 text-xs font-semibold uppercase tracking-[0.25em] text-[#140806] shadow-lg"
+                  className="wi-cta mt-8"
                 >
                   <span>Navigate to Palace Gates</span>
                   <span aria-hidden="true">↗</span>
@@ -315,10 +315,10 @@ export default function RoyalHeritage({ wedding }: { wedding: WeddingData }) {
 
       <footer className="border-t border-[#d4af37]/15 bg-[#0d0403] px-6 py-14 text-center">
         <p className="font-regal wi-couple-heading wi-gold-shimmer text-2xl">{names}</p>
-        <p className="mt-2 text-xs uppercase tracking-[0.32em] text-[#f3e5c3]/70">
+        <p className="wi-soft mt-2 text-xs uppercase tracking-[0.32em]">
           {wedding.couple.weddingDateDisplay}
         </p>
-          <p className="mt-4 text-xs text-[#f3e5c3]/55">
+          <p className="wi-soft mt-4 text-xs">
           Palace Heritage Design · Made with love on Inviteo
         </p>
       </footer>

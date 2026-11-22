@@ -52,7 +52,7 @@ export default function DestinationWedding({ wedding }: { wedding: WeddingData }
               <img src={wedding.couple.photo} alt="" className="aspect-[3/4] w-full object-cover" />
             </Parallax>
           </HeroKenBurns>
-          <div className="wi-fadeup wi-fadeup--1 inline-flex items-center gap-3 rounded-full bg-[#0a252c]/80 px-4 py-1.5 text-[11px] uppercase tracking-[0.32em] text-[#f3d5c1] shadow-[inset_0_0_0_0.75px_rgba(255,255,255,0.28)]">
+          <div className="wi-chip wi-fadeup wi-fadeup--1 inline-flex items-center gap-3 rounded-full bg-[#0a252c]/88 px-4 py-1.5 text-[11px] uppercase tracking-[0.32em] text-[#f6efe4]">
             <span>Coastal Destination Celebration</span>
             <span className="hidden sm:inline">·</span>
             <span className="hidden sm:inline">15.2993° N, 74.1240° E</span>
@@ -65,7 +65,7 @@ export default function DestinationWedding({ wedding }: { wedding: WeddingData }
             <span className="wi-mask wi-name-mask">
               <span className="wi-line wi-line--1 wi-couple-heading">{wedding.couple.bride}</span>
             </span>
-            <span className="wi-fadeup wi-fadeup--2 my-1 block font-script-luxury text-3xl sm:text-4xl text-[#f3d5c1] not-italic">
+            <span className="wi-on-dark wi-fadeup wi-fadeup--2 my-1 block font-script-luxury text-3xl sm:text-4xl not-italic">
               &amp;
             </span>
             <span className="wi-mask wi-name-mask">
@@ -75,20 +75,17 @@ export default function DestinationWedding({ wedding }: { wedding: WeddingData }
 
           <AnimatedCalligraphy color="#e6b89c" variant="waves" className="mt-4" />
 
-          <div className="wi-fadeup wi-fadeup--3 mt-6 inline-flex flex-wrap items-center gap-4 rounded-full bg-[#0a252c]/80 px-4 py-2 text-sm sm:text-base text-[#f7f3eb]">
-            <span className="font-medium tracking-wide">{wedding.couple.weddingDateDisplay}</span>
+          <div className="wi-chip wi-fadeup wi-fadeup--3 mt-6 inline-flex max-w-full flex-col items-center gap-1 rounded-3xl bg-[#0a252c]/88 px-5 py-3 text-center text-[#f7f3eb]">
+            <span className="text-balance font-medium tracking-wide">{wedding.couple.weddingDateDisplay}</span>
             {wedding.hashtag && (
-              <>
-                <span className="opacity-40">·</span>
-                <span className="text-[#f3d5c1]">{wedding.hashtag}</span>
-              </>
+              <span className="wi-on-dark text-xs uppercase tracking-[0.22em]">{wedding.hashtag}</span>
             )}
           </div>
         </div>
 
         <WaveEffect
-          colors={["#c8dce8", "#8eb6c9", "#5a8fa6"]}
-          className="absolute bottom-0 left-0 z-[3] h-24 w-full"
+          colors={["rgba(247,243,235,0.4)", "rgba(247,243,235,0.78)", "#f7f3eb"]}
+          className="absolute bottom-0 left-0 z-[7] h-24 w-full"
         />
       </header>
 
@@ -158,7 +155,7 @@ export default function DestinationWedding({ wedding }: { wedding: WeddingData }
                     <h3 className="font-display-luxury mt-2 text-2xl italic text-[#0f353e]">
                       Where to Stay
                     </h3>
-                    <ul className="mt-3 space-y-2 text-sm text-[#0f353e]/80">
+                    <ul className="wi-soft mt-3 space-y-2 text-sm">
                       {(wedding.venue.hotels ?? []).map((h) => (
                         <li key={h}>✦ {h}</li>
                       ))}
@@ -175,7 +172,7 @@ export default function DestinationWedding({ wedding }: { wedding: WeddingData }
                     <h3 className="font-display-luxury mt-2 text-2xl italic text-[#0f353e]">
                       Flights &amp; Transfers
                     </h3>
-                    <p className="mt-3 text-sm leading-relaxed text-[#0f353e]/80">
+                    <p className="wi-soft mt-3 text-sm leading-relaxed">
                       {wedding.venue.travel}
                     </p>
                   </div>
@@ -191,7 +188,7 @@ export default function DestinationWedding({ wedding }: { wedding: WeddingData }
                       <h3 className="font-display-luxury mt-2 text-2xl italic text-[#0f353e]">
                         Shuttles &amp; Map
                       </h3>
-                      <p className="mt-3 text-sm leading-relaxed text-[#0f353e]/80">
+                      <p className="wi-soft mt-3 text-sm leading-relaxed">
                         {wedding.venue.parking}
                       </p>
                     </div>
@@ -199,7 +196,7 @@ export default function DestinationWedding({ wedding }: { wedding: WeddingData }
                       href={`https://maps.google.com/?q=${wedding.venue.mapQuery}`}
                       target="_blank"
                       rel="noreferrer"
-                      className="wi-action-lift mt-5 inline-flex min-h-[44px] items-center justify-center rounded-full bg-[#0f353e] px-5 py-2.5 text-xs font-medium uppercase tracking-[0.22em] text-white"
+                      className="wi-cta mt-5 w-full"
                     >
                       Open Resort Map ↗
                     </a>
@@ -260,7 +257,7 @@ export default function DestinationWedding({ wedding }: { wedding: WeddingData }
         </ScrollReveal>
       </main>
 
-      <footer className="bg-[#0a252c] px-6 py-14 text-center text-sm text-[#f7f3eb]/75">
+      <footer className="bg-[#0a252c] px-6 py-14 text-center text-sm text-[#f6efe4]">
         <p className="font-display-luxury wi-couple-heading text-3xl italic text-white">{names}</p>
         <p className="mt-2 text-xs uppercase tracking-[0.32em] text-[#f3d5c1]">
           {wedding.couple.weddingDateDisplay}

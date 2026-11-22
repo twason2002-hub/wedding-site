@@ -202,7 +202,7 @@ const VIVAH_LAYERS: ParallaxLayer[] = [
 const FLORAL_LAYERS: ParallaxLayer[] = [
   art("floral-garden-bg", 30, "background", 1, 720, 1280),
   art("floral-cluster", 58, "corner", 1, 898, 947),
-  art("floral-petals", 84, "overlay", 0.92, 608, 1161),
+  art("floral-petals", 84, "overlay", 0.58, 608, 1161),
 ];
 
 const DESTINATION_LAYERS: ParallaxLayer[] = [

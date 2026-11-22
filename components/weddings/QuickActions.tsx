@@ -3,7 +3,6 @@
 import { useEffect, useState, type ReactNode } from "react";
 import type { WeddingData } from "@/lib/weddings/types";
 import { absoluteInviteUrl, mapsUrl, shareTextFor, whatsappShare } from "@/lib/weddings/helpers";
-import { experienceFor } from "@/lib/weddings/template-experience";
 import { CalendarIcon, MapPinIcon, ShareIcon } from "./WeddingIcons";
 import { useWeddingMusic } from "./MusicToggle";
 import { Music } from "@/components/animate-ui/icons/music";
@@ -24,7 +23,6 @@ export default function QuickActions({ wedding }: { wedding: WeddingData }) {
   const [show, setShow] = useState(false);
   const [sealed, setSealed] = useState(false);
   const [narrow, setNarrow] = useState(false);
-  const accent = experienceFor(wedding.templateSlug).palette.accent;
   const hasRsvp = wedding.sections?.rsvp !== false;
   const mapQuery = wedding.venue?.mapQuery;
   const music = useWeddingMusic();
@@ -144,8 +142,8 @@ export default function QuickActions({ wedding }: { wedding: WeddingData }) {
           >
             {items.map((item) => {
               const className =
-                "inline-flex min-h-11 w-full flex-col items-center justify-center gap-1 px-1 py-2 text-[10px] font-semibold uppercase tracking-[0.12em]";
-              const style = item.accent ? { background: accent, color: "#140806" } : undefined;
+                "inline-flex min-h-12 w-full flex-col items-center justify-center gap-1 px-1 py-2 text-[10px] font-semibold uppercase tracking-[0.14em]" +
+                (item.accent ? " wi-dock-accent" : "");
               const inner = (
                 <>
                   <span className="flex h-5 items-center justify-center" aria-hidden="true">
@@ -156,7 +154,7 @@ export default function QuickActions({ wedding }: { wedding: WeddingData }) {
               );
               if ("href" in item && item.href) {
                 return (
-                  <a key={item.key} href={item.href} target="_blank" rel="noreferrer" tabIndex={show ? 0 : -1} className={className} style={style}>
+                  <a key={item.key} href={item.href} target="_blank" rel="noreferrer" tabIndex={show ? 0 : -1} className={className}>
                     {inner}
                   </a>
                 );
@@ -169,7 +167,6 @@ export default function QuickActions({ wedding }: { wedding: WeddingData }) {
                   tabIndex={show ? 0 : -1}
                   aria-pressed={"pressed" in item ? item.pressed : undefined}
                   className={className}
-                  style={style}
                 >
                   {inner}
                 </button>

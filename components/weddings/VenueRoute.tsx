@@ -9,7 +9,6 @@ import SvgDraw from "./effects/SvgDraw";
 export default function VenueRoute({
   mapQuery,
   accent,
-  dark = false,
 }: {
   mapQuery: string;
   accent: string;
@@ -32,8 +31,7 @@ export default function VenueRoute({
           href={mapsUrl}
           target="_blank"
           rel="noreferrer"
-          className="wi-action-lift inline-flex min-h-[44px] items-center rounded-full px-5 py-2"
-          style={{ boxShadow: `inset 0 0 0 0.75px ${accent}`, color: dark ? "#fff" : undefined }}
+          className="wi-cta-ghost"
         >
           Open route ↗
         </a>

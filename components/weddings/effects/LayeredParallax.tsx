@@ -9,13 +9,13 @@ import { useMotionScene } from "../motion";
 import { prefersReducedMotion, registerWeddingPlugins } from "./gsap-setup";
 
 const BOX: Record<Exclude<ParallaxPosition, "tilt">, string> = {
-  background: "inset-[-12%] z-0",
+  background: "inset-0 z-0",
   frame: "inset-x-[2%] top-[1%] bottom-[3%] z-[2]",
-  top: "inset-x-0 -top-2 z-[4] h-[34%] sm:h-[40%]",
-  bottom: "inset-x-[-4%] -bottom-2 z-[5] h-[22%] sm:h-[26%]",
-  corner: "bottom-[-4%] left-[-10%] z-[4] h-[46%] w-[78%] sm:w-[44%]",
-  edges: "inset-[-4%] z-[3]",
-  overlay: "inset-[-8%] z-[3]",
+  top: "inset-x-0 top-0 z-[4] h-[34%] sm:h-[40%]",
+  bottom: "inset-x-0 bottom-0 z-[5] h-[22%] sm:h-[26%]",
+  corner: "bottom-0 -left-[8%] z-[4] h-[42%] w-[78%] sm:w-[44%]",
+  edges: "inset-0 z-[3]",
+  overlay: "inset-0 z-[3]",
 };
 
 const FIT: Record<Exclude<ParallaxPosition, "tilt">, string> = {
@@ -29,8 +29,8 @@ const FIT: Record<Exclude<ParallaxPosition, "tilt">, string> = {
 };
 
 const SCRIM: Record<"dark" | "light", string> = {
-  dark: "linear-gradient(180deg, rgba(12,6,4,0.5) 0%, rgba(12,6,4,0.74) 42%, rgba(12,6,4,0.88) 100%)",
-  light: "linear-gradient(180deg, rgba(253,247,245,0.62) 0%, rgba(253,247,245,0.5) 42%, rgba(253,247,245,0.78) 100%)",
+  dark: "linear-gradient(180deg, rgba(8,6,4,0.22) 0%, rgba(8,6,4,0.58) 46%, rgba(8,6,4,0.84) 100%)",
+  light: "linear-gradient(180deg, rgba(253,247,245,0.42) 0%, rgba(253,247,245,0.74) 46%, rgba(253,247,245,0.9) 100%)",
 };
 
 /**
@@ -52,24 +52,23 @@ export default function LayeredParallax() {
     gsap.registerPlugin(ScrollTrigger);
     const mm = gsap.matchMedia();
     mm.add("(prefers-reduced-motion: no-preference)", () => {
-      root.querySelectorAll<HTMLElement>("[data-depth]").forEach((layer) => {
+      const layers = root.querySelectorAll<HTMLElement>("[data-depth]");
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: header,
+          start: "top bottom",
+          end: "bottom top",
+          scrub: 0.45,
+        },
+      });
+      layers.forEach((layer) => {
         const depth = Number(layer.dataset.depth || 12);
         const background = layer.dataset.position === "background";
-        gsap.fromTo(
+        tl.fromTo(
           layer,
-          { y: depth * 0.35, scale: background ? 1.08 : 1, force3D: true },
-          {
-            y: -depth,
-            scale: background ? 1.02 : 1,
-            ease: "none",
-            force3D: true,
-            scrollTrigger: {
-              trigger: header,
-              start: "top bottom",
-              end: "bottom top",
-              scrub: 0.35,
-            },
-          },
+          { y: depth * 0.25, scale: background ? 1.06 : 1, force3D: true },
+          { y: -depth * 0.75, scale: background ? 1.01 : 1, ease: "none", force3D: true },
+          0,
         );
       });
     });
@@ -80,7 +79,7 @@ export default function LayeredParallax() {
   const scrim = scene?.parallaxScrim === "dark" || scene?.parallaxScrim === "light" ? SCRIM[scene.parallaxScrim] : null;
 
   return (
-    <div ref={ref} className="pointer-events-none absolute inset-0 z-[1] overflow-hidden" aria-hidden="true">
+    <div ref={ref} className="pointer-events-none absolute inset-0 z-[1] overflow-hidden" style={{ contain: "paint" }} aria-hidden="true">
       {layers.map((layer) => (
         <LayerView key={layer.src} layer={layer} />
       ))}
@@ -181,7 +180,7 @@ export function ParallaxTiltCard({ className = "" }: { className?: string }) {
         ref={inner}
         onPointerMove={onMove}
         onPointerLeave={onLeave}
-        className="relative aspect-[539/700] w-full will-change-transform"
+        className="relative aspect-[539/700] w-full"
         style={{ transform: "translate3d(0,0,0)", opacity: layer.opacity ?? 1 }}
       >
         <Image
@@ -218,7 +217,7 @@ export function GoldFrame({ children, className = "" }: { children: ReactNode; c
   const src = useMotionScene()?.accents.frame;
   if (!src) return <>{children}</>;
   return (
-    <div className={`relative ${className}`}>
+    <div className={`relative isolate px-1.5 py-3 sm:px-2 sm:py-4 ${className}`}>
       {children}
       <Image
         src={src}
@@ -226,7 +225,7 @@ export function GoldFrame({ children, className = "" }: { children: ReactNode; c
         width={815}
         height={1102}
         sizes="(max-width: 768px) 100vw, 720px"
-        className="pointer-events-none absolute -inset-3 z-[2] h-[calc(100%+1.5rem)] w-[calc(100%+1.5rem)] max-w-none sm:-inset-5 sm:h-[calc(100%+2.5rem)] sm:w-[calc(100%+2.5rem)]"
+        className="pointer-events-none absolute inset-1 z-[2] h-[calc(100%-0.5rem)] w-[calc(100%-0.5rem)] max-w-none"
         style={{ objectFit: "fill" }}
       />
     </div>

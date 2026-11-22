@@ -34,7 +34,7 @@ export default function TraditionalVivah({ wedding }: { wedding: WeddingData }) 
       <TemplateOpening wedding={wedding} />
 
       {/* Sacred Marigold & Mango-Leaf SVG Toran Frieze */}
-      <div className="overflow-hidden border-b border-[#f59e0b]/25 bg-[#2d0507] py-2.5">
+      <div className="wi-rule-b overflow-hidden bg-[#2d0507] py-2.5">
         <div className="mx-auto flex max-w-6xl items-center justify-around text-xs tracking-[0.32em] text-[#fbbf24]">
           <span>✦ शुभ विवाह ✦</span>
           <span className="hidden sm:inline">✦ श्री गणेशाय नमः ✦</span>
@@ -70,7 +70,7 @@ export default function TraditionalVivah({ wedding }: { wedding: WeddingData }) 
           </p>
 
           {wedding.mantra && (
-            <div className="wi-fadeup wi-fadeup--2 relative mx-auto mt-5 max-w-2xl rounded-2xl bg-[#360608]/85 px-7 py-5 shadow-[inset_0_0_0_0.75px_rgba(251,191,36,0.38)]">
+            <div className="wi-chip wi-fadeup wi-fadeup--2 relative mx-auto mt-5 max-w-2xl rounded-2xl bg-[#360608]/92 px-7 py-5">
               <FiligreeCorners color="rgba(251,191,36,0.5)" />
               <p className="font-display-luxury text-lg sm:text-xl italic leading-relaxed text-[#fef3c7]">
                 {wedding.mantra}
@@ -98,7 +98,10 @@ export default function TraditionalVivah({ wedding }: { wedding: WeddingData }) 
               <circle cx="100" cy="100" r="96" stroke="currentColor" strokeWidth="0.6" strokeDasharray="3 3" />
               <circle cx="100" cy="100" r="90" stroke="currentColor" strokeWidth="0.8" />
             </svg>
-            <div className="relative h-full w-full overflow-hidden rounded-full p-2 bg-[#2d0507] shadow-[0_25px_70px_rgba(0,0,0,0.65),inset_0_0_0_1px_rgba(251,191,36,0.65)]">
+            <div
+              className="relative h-full w-full overflow-hidden rounded-full bg-[#2d0507] p-2"
+              style={{ boxShadow: "0 22px 50px -24px rgba(0,0,0,0.55), inset 0 0 0 0.75px rgba(240,193,77,0.45)" }}
+            >
               <HeroKenBurns className="relative h-full w-full overflow-hidden rounded-full">
                 <Parallax depth={10}>
                   {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -140,11 +143,11 @@ export default function TraditionalVivah({ wedding }: { wedding: WeddingData }) 
 
           <AnimatedCalligraphy color="#fbbf24" variant="vivah" className="mt-4" />
 
-          <p className="wi-fadeup wi-fadeup--4 mt-3 inline-flex rounded-full bg-[#2d0507]/88 px-5 py-2 font-display-luxury text-2xl italic text-[#fde68a]">
+          <p className="wi-chip wi-accent-ink wi-fadeup wi-fadeup--4 mt-3 inline-flex rounded-full bg-[#2d0507]/92 px-5 py-2 font-display-luxury text-2xl italic">
             {wedding.couple.weddingDateDisplay}
           </p>
           {wedding.hashtag && (
-            <p className="mt-2 text-xs uppercase tracking-[0.28em] text-[#fde68a]/70">
+            <p className="wi-soft mt-2 text-xs uppercase tracking-[0.28em]">
               {wedding.hashtag}
             </p>
           )}
@@ -227,16 +230,16 @@ export default function TraditionalVivah({ wedding }: { wedding: WeddingData }) 
               <h2 className="font-regal mt-2 text-3xl sm:text-4xl text-[#fef3c7]">
                 {wedding.venue.name}
               </h2>
-              <p className="mt-2 text-sm text-[#fde68a]/85">{wedding.venue.address}</p>
+              <p className="wi-soft mt-2 text-sm">{wedding.venue.address}</p>
               {wedding.venue.travel && (
-                <p className="mt-2 text-xs text-[#fde68a]/70">{wedding.venue.travel}</p>
+                <p className="wi-soft mt-2 text-xs">{wedding.venue.travel}</p>
               )}
               {wedding.venue.hotels && wedding.venue.hotels.length > 0 && (
                 <div className="mt-4 flex flex-wrap justify-center gap-2">
                   {wedding.venue.hotels.map((h) => (
                     <span
                       key={h}
-                      className="rounded-full px-4 py-1.5 text-xs text-[#fde68a] shadow-[inset_0_0_0_0.75px_rgba(251,191,36,0.5)]"
+                      className="wi-chip rounded-full px-4 py-1.5 text-xs text-[#f8e7c0]"
                     >
                       ✦ {h}
                     </span>
@@ -247,7 +250,7 @@ export default function TraditionalVivah({ wedding }: { wedding: WeddingData }) 
                 href={`https://maps.google.com/?q=${wedding.venue.mapQuery}`}
                 target="_blank"
                 rel="noreferrer"
-                className="wi-action-lift mt-6 inline-flex items-center gap-2 rounded-full bg-[#fbbf24] px-7 py-3 text-xs font-bold uppercase tracking-[0.22em] text-[#360608]"
+                className="wi-cta mt-6"
               >
                 <span>View Mandapam Directions</span>
                 <span aria-hidden="true">↗</span>
@@ -289,7 +292,7 @@ export default function TraditionalVivah({ wedding }: { wedding: WeddingData }) 
         </ScrollReveal>
       </main>
 
-      <footer className="border-t border-[#fbbf24]/20 bg-[#2d0507] px-6 py-12 text-center text-xs uppercase tracking-[0.28em] text-[#fde68a]/70">
+      <footer className="bg-[#2d0507] px-6 py-12 text-center text-xs uppercase tracking-[0.28em] text-[#f8e7c0]">
         <p className="wi-couple-heading">॥ {names} &nbsp;·&nbsp; {wedding.couple.weddingDateDisplay} ॥</p>
       </footer>
     </div>

@@ -49,15 +49,15 @@ export default function EventCard({
                 <p className="mt-2 font-regal text-xs uppercase tracking-[0.25em] text-[#d4af37]">
                   {event.date} &nbsp;·&nbsp; {event.time}
                 </p>
-                <div className="mt-4 space-y-1 text-sm text-[#f3e5c3]/85">
+                <div className="wi-soft mt-4 space-y-1 text-sm">
                   <p className="font-medium text-[#f9ebd2]">{event.venue}</p>
-                  <p className="text-xs text-[#f3e5c3]/60">{event.address}</p>
+                  <p className="text-xs">{event.address}</p>
                 </div>
                 {event.description && (
-                  <p className="mt-3 text-sm leading-relaxed text-[#f3e5c3]/75">{event.description}</p>
+                  <p className="wi-soft mt-3 text-sm leading-relaxed">{event.description}</p>
                 )}
                 {event.dressCode && (
-                  <div className="mt-4 inline-flex max-w-full items-start gap-2 rounded-2xl bg-[#d4af37]/[0.08] px-4 py-2 text-left text-xs text-[#e8cf8f] shadow-[inset_0_0_0_0.5px_rgba(212,175,55,0.35)]">
+                  <div className="wi-chip mt-4 inline-flex max-w-full items-start gap-2 rounded-2xl bg-[#d4af37]/[0.08] px-4 py-2 text-left text-xs text-[#e6c56a]">
                     <ShirtIcon size={13} className="mt-0.5 shrink-0" />
                     <span className="shrink-0">Attire:</span>
                     <span className="font-medium">{event.dressCode}</span>
@@ -70,13 +70,13 @@ export default function EventCard({
                   calendarHref={googleCalendarUrl(event, couple)}
                   mapHref={mapsUrl(event.mapQuery)}
                   mapLabel="Location"
-                  primaryClass="bg-gradient-to-r from-[#d4af37] to-[#9b7318] text-[#170906]"
-                  secondaryClass="text-[#f3e5c3] shadow-[inset_0_0_0_0.75px_rgba(212,175,55,0.35)]"
-                  summaryClass="text-[#e8cf8f]"
+                  primaryClass=""
+                  secondaryClass=""
+                  summaryClass="wi-accent-ink"
                 />
               </div>
               {event.image && (
-                <div className="wi-zoom overflow-hidden rounded-2xl shadow-[inset_0_0_0_0.75px_rgba(212,175,55,0.35)]">
+                <div className="wi-chip wi-zoom overflow-hidden rounded-2xl">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     src={event.image}
@@ -96,11 +96,11 @@ export default function EventCard({
   if (tone === "floral") {
     return (
       <InteractiveTiltCard intensity={3}>
-        <article className="group relative overflow-hidden rounded-[2.25rem] bg-white/95 p-7 sm:p-10 shadow-[0_24px_60px_-24px_rgba(168,90,110,0.16),inset_0_0_0_0.75px_rgba(217,138,156,0.4)]">
+        <article className="wi-face group relative overflow-hidden rounded-[2.25rem] bg-white/96 p-7 sm:p-10">
           <FiligreeCorners color="rgba(200,125,138,0.45)" />
           <div className="relative z-10 grid gap-7 md:grid-cols-[1fr_1.35fr] md:items-center">
             {event.image && (
-              <div className="wi-zoom overflow-hidden rounded-[1.5rem] shadow-[inset_0_0_0_0.75px_rgba(217,138,156,0.35)]">
+              <div className="wi-chip wi-zoom overflow-hidden rounded-[1.5rem]">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src={event.image}
@@ -121,10 +121,10 @@ export default function EventCard({
               <p className="mt-3 font-medium text-[#4a252a]">{event.venue}</p>
               <p className="text-xs text-[#7d5259]">{event.address}</p>
               {event.description && (
-                <p className="mt-3 text-sm leading-relaxed text-[#6b3a3a]/85">{event.description}</p>
+                <p className="wi-soft mt-3 text-sm leading-relaxed">{event.description}</p>
               )}
               {event.dressCode && (
-                <p className="mt-3 inline-flex max-w-full items-start gap-1.5 rounded-2xl bg-[#fdf1f4] px-4 py-2 text-left text-xs italic text-[#9e5262] shadow-[inset_0_0_0_0.75px_rgba(217,138,156,0.4)]">
+                <p className="wi-chip wi-soft mt-3 inline-flex max-w-full items-start gap-1.5 rounded-2xl bg-[#fdf1f4] px-4 py-2 text-left text-xs italic">
                   <ShirtIcon size={13} className="mt-0.5 shrink-0" />
                   <span>Palette &amp; Attire: {event.dressCode}</span>
                 </p>
@@ -136,9 +136,9 @@ export default function EventCard({
                 calendarHref={googleCalendarUrl(event, couple)}
                 mapHref={mapsUrl(event.mapQuery)}
                 mapLabel="Map"
-                primaryClass="bg-[#4a252a] text-white"
-                secondaryClass="text-[#4a252a] shadow-[inset_0_0_0_0.75px_rgba(200,125,138,0.45)]"
-                summaryClass="text-[#a65c6b]"
+                primaryClass=""
+                secondaryClass=""
+                summaryClass="wi-soft"
               />
             </div>
           </div>
@@ -183,9 +183,9 @@ export default function EventCard({
               calendarHref={googleCalendarUrl(event, couple)}
               mapHref={mapsUrl(event.mapQuery)}
               mapLabel="Map"
-              primaryClass="bg-[#171513] text-white rounded-none"
-              secondaryClass="text-[#171513] rounded-none shadow-[inset_0_0_0_0.75px_rgba(23,21,19,0.28)]"
-              summaryClass="text-[#7c7267]"
+              primaryClass=""
+              secondaryClass=""
+              summaryClass="wi-soft"
             />
           </div>
         </div>
@@ -202,17 +202,17 @@ export default function EventCard({
             <span className="font-regal text-[11px] uppercase tracking-[0.28em] text-[#fbbf24]">
               ॥ शुभ मुहूर्त {numStr} ॥
             </span>
-            <span className="text-xs text-[#fde68a]/80">{event.date}</span>
+            <span className="wi-soft text-xs">{event.date}</span>
           </div>
           <h3 className="font-regal mt-4 text-2xl sm:text-3xl text-[#fef3c7] text-balance">{event.name}</h3>
           <p className="mt-1 text-sm font-medium text-[#fbbf24]">{event.time}</p>
           <p className="mt-3 text-sm font-semibold text-[#fef3c7]">{event.venue}</p>
-          <p className="text-xs text-[#fef3c7]/70">{event.address}</p>
+          <p className="wi-soft text-xs">{event.address}</p>
           {event.description && (
-            <p className="mt-3 text-sm leading-relaxed text-[#fef3c7]/80">{event.description}</p>
+            <p className="wi-soft mt-3 text-sm leading-relaxed">{event.description}</p>
           )}
           {event.dressCode && (
-            <p className="mt-3 inline-flex max-w-full items-start gap-2 rounded-xl bg-[#f59e0b]/10 px-3.5 py-2 text-left text-xs text-[#fde68a] shadow-[inset_0_0_0_0.5px_rgba(245,158,11,0.35)]">
+            <p className="wi-chip mt-3 inline-flex max-w-full items-start gap-2 rounded-xl bg-[#f59e0b]/10 px-3.5 py-2 text-left text-xs text-[#f8e7c0]">
               <ShirtIcon size={13} className="mt-0.5 shrink-0" />
               <span>Attire: {event.dressCode}</span>
             </p>
@@ -224,9 +224,9 @@ export default function EventCard({
             calendarHref={googleCalendarUrl(event, couple)}
             mapHref={mapsUrl(event.mapQuery)}
             mapLabel="Mandapam Map"
-            primaryClass="bg-[#fbbf24] text-[#380709]"
-            secondaryClass="text-[#fef3c7] shadow-[inset_0_0_0_0.75px_rgba(251,191,36,0.45)]"
-            summaryClass="text-[#fde68a]"
+            primaryClass=""
+            secondaryClass=""
+            summaryClass="wi-accent-ink"
           />
         </article>
       </InteractiveTiltCard>
@@ -249,16 +249,16 @@ export default function EventCard({
               <h3 className="font-display-luxury mt-3 text-3xl sm:text-4xl font-normal italic text-[#0f353e] text-balance">
                 {event.name}
               </h3>
-              <p className="mt-1 text-xs font-semibold uppercase tracking-[0.22em] text-[#0f353e]/70">
+              <p className="wi-soft mt-1 text-xs font-semibold uppercase tracking-[0.22em]">
                 {event.time}
               </p>
               <p className="mt-3 font-medium text-[#0f353e]">{event.venue}</p>
               <p className="text-xs text-[#0f353e]">{event.address}</p>
               {event.description && (
-                <p className="mt-3 text-sm leading-relaxed text-[#0f353e]/80">{event.description}</p>
+                <p className="wi-soft mt-3 text-sm leading-relaxed">{event.description}</p>
               )}
               {event.dressCode && (
-                <p className="mt-3 inline-flex max-w-full items-start gap-1.5 text-left text-xs italic text-[#0f353e]/70">
+                <p className="wi-soft mt-3 inline-flex max-w-full items-start gap-1.5 text-left text-xs italic">
                   <ShirtIcon size={13} className="mt-0.5 shrink-0" />
                   <span>Resort Dress Code: {event.dressCode}</span>
                 </p>
@@ -270,9 +270,9 @@ export default function EventCard({
                 calendarHref={googleCalendarUrl(event, couple)}
                 mapHref={mapsUrl(event.mapQuery)}
                 mapLabel="Location"
-                primaryClass="bg-[#0f353e] text-white"
-                secondaryClass="text-[#0f353e] shadow-[inset_0_0_0_0.75px_rgba(15,53,62,0.28)]"
-                summaryClass="text-[#0f353e]/70"
+                primaryClass=""
+                secondaryClass=""
+                summaryClass="wi-soft"
               />
             </div>
             {event.image && (
@@ -300,8 +300,6 @@ function EventActions({
   calendarHref,
   mapHref,
   mapLabel,
-  primaryClass,
-  secondaryClass,
   summaryClass,
 }: {
   saved: boolean;
@@ -320,7 +318,7 @@ function EventActions({
         href={calendarHref}
         target="_blank"
         rel="noreferrer"
-        className={`wi-action-lift inline-flex min-h-11 items-center justify-center gap-2 rounded-full px-4 py-2 text-xs uppercase tracking-[0.16em] ${secondaryClass}`}
+        className="wi-cta-ghost"
       >
         <CalendarIcon size={14} />
         <span>Google Calendar</span>
@@ -329,7 +327,7 @@ function EventActions({
         href={mapHref}
         target="_blank"
         rel="noreferrer"
-        className={`wi-action-lift inline-flex min-h-11 items-center justify-center gap-2 rounded-full px-4 py-2 text-xs uppercase tracking-[0.16em] ${secondaryClass}`}
+        className="wi-cta-ghost"
       >
         <MapPinIcon size={14} />
         <span>{mapLabel}</span>
@@ -341,7 +339,7 @@ function EventActions({
     <div className="mt-5">
       <button
         onClick={onSave}
-        className={`wi-action-lift inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-full px-5 py-2 text-xs font-semibold uppercase tracking-[0.18em] sm:w-auto ${primaryClass}`}
+        className="wi-cta w-full sm:w-auto"
       >
         {saved ? <CheckIcon size={14} /> : <CalendarIcon size={14} />}
         <span>{saved ? "Saved" : saveLabel}</span>

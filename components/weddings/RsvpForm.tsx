@@ -45,19 +45,8 @@ export default function RsvpForm({
       )}`
     : null;
 
-  const input = `w-full rounded-xl px-4 py-3.5 text-base min-h-[50px] focus:outline-none ${
-    isDark
-      ? "bg-white/[0.04] text-[#f9ebd2] placeholder:text-[#f9ebd2]/50 shadow-[inset_0_0_0_0.75px_rgba(212,175,55,0.35)]"
-      : variant === "minimal"
-      ? "rounded-none bg-transparent text-[#171513] placeholder:text-[#7c7267]/60 shadow-[inset_0_0_0_0.75px_rgba(23,21,19,0.25)]"
-      : variant === "floral"
-      ? "rounded-2xl bg-white text-[#4a252a] placeholder:text-[#b36a7a]/55 shadow-[inset_0_0_0_0.75px_rgba(217,138,156,0.45)]"
-      : "bg-white text-stone-900 placeholder:text-stone-400 shadow-[inset_0_0_0_0.75px_rgba(28,25,23,0.2)]"
-  }`;
-
-  const labelCls = `mb-2 block text-[11px] uppercase tracking-[0.25em] font-medium ${
-    isDark ? "text-[#e8cf8f]" : variant === "floral" ? "text-[#9e5262]" : "text-stone-600"
-  }`;
+  const input = "wi-field";
+  const labelCls = "wi-accent-ink mb-2 block text-[11px] font-medium uppercase tracking-[0.25em]";
 
   async function submit(e: React.FormEvent) {
     e.preventDefault();
@@ -160,17 +149,7 @@ export default function RsvpForm({
             return (
               <label
                 key={v}
-                className={`wi-action-lift flex items-center justify-center gap-2.5 rounded-xl px-5 py-3.5 text-sm font-medium cursor-pointer min-h-[50px] ${
-                  active
-                    ? isDark
-                      ? "bg-[#d4af37]/20 text-[#f9ebd2] shadow-[inset_0_0_0_1px_rgba(212,175,55,0.75)]"
-                      : variant === "floral"
-                      ? "bg-[#fdf1f4] text-[#4a252a] shadow-[inset_0_0_0_1px_rgba(200,125,138,0.75)]"
-                      : "bg-stone-900 text-white"
-                    : isDark
-                    ? "bg-white/[0.03] text-white/70 shadow-[inset_0_0_0_0.75px_rgba(255,255,255,0.16)]"
-                    : "bg-white/70 text-stone-700 shadow-[inset_0_0_0_0.75px_rgba(28,25,23,0.18)]"
-                }`}
+                className="wi-choice text-sm"
               >
                 <input
                   type="radio"
@@ -196,17 +175,7 @@ export default function RsvpForm({
             return (
               <label
                 key={ev.id}
-                className={`wi-action-lift flex items-center gap-2 rounded-full px-4 py-2 text-xs font-medium cursor-pointer min-h-[44px] ${
-                  checked
-                    ? isDark
-                      ? "bg-[#d4af37]/20 text-[#f9ebd2] shadow-[inset_0_0_0_1px_rgba(212,175,55,0.7)]"
-                      : variant === "floral"
-                      ? "bg-[#fdf1f4] text-[#4a252a] shadow-[inset_0_0_0_1px_rgba(200,125,138,0.7)]"
-                      : "bg-stone-900 text-white"
-                    : isDark
-                    ? "bg-white/[0.03] text-white/65 shadow-[inset_0_0_0_0.75px_rgba(255,255,255,0.15)]"
-                    : "bg-white/80 text-stone-600 shadow-[inset_0_0_0_0.75px_rgba(28,25,23,0.18)]"
-                }`}
+                className="wi-choice text-xs"
               >
                 <input
                   type="checkbox"
@@ -284,26 +253,18 @@ export default function RsvpForm({
         type="submit"
         disabled={state === "sending" || isPreview}
         title={isPreview ? "RSVP is disabled in preview mode" : undefined}
-        className={`wi-action-lift w-full rounded-full py-4 text-xs font-semibold uppercase tracking-[0.28em] min-h-[54px] disabled:opacity-60 ${
-          isDark
-            ? "bg-gradient-to-r from-[#d4af37] to-[#9b7318] text-[#170906] shadow-[0_12px_30px_rgba(212,175,55,0.3)]"
-            : variant === "floral"
-            ? "bg-[#4a252a] text-white shadow-[0_12px_30px_rgba(74,37,42,0.25)]"
-            : variant === "minimal"
-            ? "rounded-none bg-[#171513] text-white"
-            : "bg-stone-900 text-white"
-        }`}
+        className="wi-cta w-full"
       >
         {state === "sending" ? "Confirming Attendance…" : "Confirm RSVP Attendance ✦"}
       </button>
       {isPreview && (
-        <p className={`text-center text-xs ${isDark ? "text-[#f9ebd2]/60" : "text-stone-500"}`}>
+        <p className="wi-soft text-center text-xs">
           Preview mode — RSVP is disabled here, live on your link.
         </p>
       )}
 
       {waHref && (
-        <p className={`text-center text-sm ${isDark ? "text-[#f9ebd2]/75" : "text-stone-600"}`}>
+        <p className="wi-soft text-center text-sm">
           Prefer WhatsApp?{" "}
           <a href={waHref} target="_blank" rel="noreferrer" className="wi-link font-medium">
             Send your RSVP on WhatsApp

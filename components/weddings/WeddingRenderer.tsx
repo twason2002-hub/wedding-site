@@ -32,7 +32,7 @@ export default function WeddingRenderer({ wedding }: { wedding: WeddingData }) {
   return (
     <WeddingMotionProvider scene={scene}>
       <WeddingMusicProvider src={wedding.music?.src} enabled={musicOn}>
-        <div className="wi-invite">
+        <div className="wi-invite" data-template={wedding.templateSlug}>
           <ScrollProgress />
           {bordersOn && <SideBorders motif={exp.features.borders.motif} />}
           <GuestGreeting accent={exp.palette.accent} bride={wedding.couple.bride} groom={wedding.couple.groom} />

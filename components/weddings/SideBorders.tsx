@@ -68,9 +68,9 @@ export default function SideBorders({ motif }: { motif: keyof typeof MOTIFS }) {
       }`}
     >
       <span className="motif [&_svg]:h-10 [&_svg]:w-6" style={{ color: m.trim }}>{m.glyph}</span>
-      <span className="w-[2px] flex-1 rounded-full" style={{ background: m.rail }} aria-hidden="true" />
+      <span className="w-px flex-1 rounded-full" style={{ background: m.rail }} aria-hidden="true" />
       <span className="motif [&_svg]:h-10 [&_svg]:w-6" style={{ color: m.trim }}>{m.glyph}</span>
-      <span className="hidden w-[2px] flex-1 rounded-full sm:block" style={{ background: m.rail }} aria-hidden="true" />
+      <span className="hidden w-px flex-1 rounded-full sm:block" style={{ background: m.rail }} aria-hidden="true" />
       <span className="motif [&_svg]:h-10 [&_svg]:w-6" style={{ color: m.trim }}>{m.glyph}</span>
     </div>
   );
