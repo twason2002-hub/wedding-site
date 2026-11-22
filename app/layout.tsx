@@ -43,11 +43,11 @@ import "./globals.css";
 export const metadata: Metadata = {
   metadataBase: metadataBase(),
   title: {
-    default: "Inviteo — Indian Wedding Invitation Websites",
+    default: "Indian Wedding Invitations | Inviteo",
     template: "%s",
   },
   description:
-    "Handcrafted Indian wedding invitation websites. Share one warm link with every family group.",
+    "Inviteo designs Indian wedding invitation websites made for WhatsApp. Pick a template, add your events, and send one link to every family group.",
   icons: {
     icon: "/favicon.ico",
     shortcut: "/favicon.ico",

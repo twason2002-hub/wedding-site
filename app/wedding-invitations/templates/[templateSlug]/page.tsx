@@ -3,23 +3,28 @@ import { notFound } from "next/navigation";
 import { getTemplate, listTemplates } from "@/lib/weddings/templates";
 import { demoWeddingFor } from "@/lib/weddings/sample-data";
 import WeddingRenderer from "@/components/weddings/WeddingRenderer";
-import { invitePageMetadata } from "@/lib/weddings/og";
+import { marketingMetadata, templatePreviewMetadata } from "@/lib/weddings/og";
 
 export async function generateMetadata({ params }: { params: Promise<{ templateSlug: string }> }) {
   const { templateSlug } = await params;
   const t = getTemplate(templateSlug);
-  if (!t) return { title: "Template not found" };
-  const wedding = demoWeddingFor(t.slug);
-  return invitePageMetadata(wedding, `/wedding-invitations/templates/${t.slug}`);
+  if (!t || !demoWeddingFor(t.slug)) {
+    return marketingMetadata(
+      "Template Not Found | Inviteo",
+      "This Inviteo template link is not available. Browse the five wedding invitation templates and open a live preview of palace, floral, or beach designs.",
+      "/wedding-invitations/templates",
+    );
+  }
+  return templatePreviewMetadata(t.slug, t.name, `/wedding-invitations/templates/${t.slug}`);
 }
 
 /** Live template preview rendered with realistic sample wedding data + quick switcher bar. */
 export default async function TemplatePreview({ params }: { params: Promise<{ templateSlug: string }> }) {
   const { templateSlug } = await params;
   const template = getTemplate(templateSlug);
-  if (!template) notFound();
+  const wedding = template ? demoWeddingFor(template.slug) : null;
+  if (!template || !wedding) notFound();
   const allTemplates = listTemplates();
-  const wedding = demoWeddingFor(template.slug);
 
   return (
     <div>

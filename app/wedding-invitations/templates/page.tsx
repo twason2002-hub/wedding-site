@@ -9,8 +9,8 @@ import { demoWeddingFor } from "@/lib/weddings/sample-data";
 import { marketingMetadata } from "@/lib/weddings/og";
 
 export const metadata = marketingMetadata(
-  "Inviteo — Indian Wedding Invitation Designs & Live Previews",
-  "Explore five handcrafted Indian wedding invitation designs. Open a live preview, then share one link with your families on WhatsApp.",
+  "Wedding Invitation Templates | Inviteo",
+  "Browse five Inviteo wedding invitation templates, from palace gold to a beach weekend. Open a live preview, then order one link for both families.",
   "/wedding-invitations/templates",
 );
 
@@ -48,6 +48,7 @@ export default async function TemplateGallery() {
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {templates.map((t, i) => {
             const sample = demoWeddingFor(t.slug);
+            if (!sample) return null;
             return (
               <ScrollReveal key={t.slug} delay={(i % 3) * 80}>
                 <article

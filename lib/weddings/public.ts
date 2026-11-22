@@ -5,11 +5,14 @@ import { getWedding } from "./sample-data";
 import type { WeddingData } from "./types";
 
 /**
- * Supabase is the source of truth. Demo weddings from sample-data remain as a
- * fallback so preview links keep working during a database outage.
+ * Static demos always win for the sample slugs. A customer row in Supabase
+ * must not replace a template preview, even when it uses the same slug.
+ * Other slugs are real invitations and load from Supabase only.
  */
 export async function loadPublicWedding(slug: string): Promise<WeddingData | null> {
-  return (await getPublicWedding(slug)) ?? getWedding(slug) ?? null;
+  const demo = getWedding(slug);
+  if (demo) return demo;
+  return getPublicWedding(slug);
 }
 
 export function weddingMetadata(w: WeddingData | null, path = "/"): Metadata {

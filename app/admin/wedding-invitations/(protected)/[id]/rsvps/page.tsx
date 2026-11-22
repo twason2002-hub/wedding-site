@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { requireAdmin } from "@/lib/supabase/admin";
 import { isUuid } from "@/lib/weddings/form-utils";
 import { approveGuestPhoto as _approveGuestPhoto, deleteGuestPhoto as _deleteGuestPhoto, deleteWish as _deleteWish } from "../../../actions";
+import { privatePageMetadata } from "@/lib/weddings/og";
 
 async function removeWish(id: string, websiteId: string) {
   "use server";
@@ -19,7 +20,14 @@ async function removePhoto(id: string, websiteId: string, storagePath: string) {
   await _deleteGuestPhoto(id, websiteId, storagePath);
 }
 
-export const metadata = { title: "RSVPs — Inviteo Admin" };
+export async function generateMetadata({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
+  return privatePageMetadata(
+    "Wedding RSVPs | Inviteo Admin",
+    "Review RSVPs, wishes, and guest photos for this Inviteo wedding in the private admin. Approve what belongs on the invitation and remove the rest.",
+    `/admin/wedding-invitations/${id}/rsvps`,
+  );
+}
 
 interface RsvpRow {
   id: string;

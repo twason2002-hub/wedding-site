@@ -66,16 +66,54 @@ export function renderOgImage(card: OgCardInput) {
             style={{
               display: "flex",
               marginTop: 22,
-              fontSize: card.motif === "brand" ? 68 : 76,
+              fontSize: card.title.length > 28 ? 54 : card.motif === "brand" ? 64 : 72,
               lineHeight: 1.02,
               maxWidth: 980,
             }}
           >
             {card.title}
           </div>
-          <div style={{ display: "flex", marginTop: 12, fontSize: 34, fontStyle: "italic", opacity: 0.9 }}>
+          <div style={{ display: "flex", marginTop: 12, fontSize: 32, fontStyle: "italic", opacity: 0.9 }}>
             {card.line}
           </div>
+          {card.designs?.length ? (
+            <div style={{ display: "flex", marginTop: 28 }}>
+              {card.designs.map((design, index) => (
+                <div
+                  key={design.name}
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    width: 150,
+                    marginLeft: index === 0 ? 0 : 18,
+                  }}
+                >
+                  <div
+                    style={{
+                      display: "flex",
+                      height: 64,
+                      borderRadius: 14,
+                      background: design.swatch,
+                      border: `1px solid ${card.accent}`,
+                    }}
+                  />
+                  <div
+                    style={{
+                      display: "flex",
+                      marginTop: 8,
+                      fontSize: 16,
+                      letterSpacing: 1,
+                      textTransform: "uppercase",
+                      fontFamily: "sans-serif",
+                      color: card.accent,
+                    }}
+                  >
+                    {design.name}
+                  </div>
+                </div>
+              ))}
+            </div>
+          ) : null}
           <div style={{ display: "flex", marginTop: 36, alignItems: "center" }}>
             <div
               style={{

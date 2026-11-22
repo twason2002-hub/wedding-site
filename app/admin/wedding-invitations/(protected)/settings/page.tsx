@@ -1,7 +1,12 @@
 import SiteContactForm from "@/components/admin/SiteContactForm";
 import { getSiteContact } from "@/lib/weddings/db";
+import { privatePageMetadata } from "@/lib/weddings/og";
 
-export const metadata = { title: "Contact settings — Inviteo Admin" };
+export const metadata = privatePageMetadata(
+  "Contact Settings | Inviteo Admin",
+  "Update the Inviteo WhatsApp number, email, and Instagram shown on public marketing pages. Guest invitations still use each couple's own contact numbers.",
+  "/admin/wedding-invitations/settings",
+);
 
 export default async function SiteContactSettingsPage() {
   const contact = await getSiteContact();

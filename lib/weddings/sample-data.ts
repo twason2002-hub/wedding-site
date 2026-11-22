@@ -502,14 +502,17 @@ export function listWeddings(): WeddingData[] {
   return SAMPLE_WEDDINGS;
 }
 
-/** Demo wedding used for template previews (templateSlug override at render). */
-export function demoWeddingFor(templateSlug: string): WeddingData {
+/**
+ * Static demo for one template. Returns null when the template has no sample
+ * so a preview never falls through to another couple or a customer row.
+ */
+export function demoWeddingFor(templateSlug: string): WeddingData | null {
   const found = SAMPLE_WEDDINGS.find((w) => w.templateSlug === templateSlug);
-  const wedding = found ?? SAMPLE_WEDDINGS[0];
+  if (!found) return null;
   return {
-    ...wedding,
+    ...found,
     templateSlug,
-    sections: { ...wedding.sections, reactions: false },
+    sections: { ...found.sections, reactions: false },
   };
 }
 

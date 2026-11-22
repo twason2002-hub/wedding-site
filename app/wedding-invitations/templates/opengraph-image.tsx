@@ -1,10 +1,10 @@
 import { renderOgImage, OG_SIZE } from "@/lib/weddings/og-image";
-import { marketingCard } from "@/lib/weddings/og";
+import { templatesGalleryCard } from "@/lib/weddings/og";
 
-export const alt = "Inviteo — Indian wedding invitation designs";
+export const alt = "Wedding invitation templates by Inviteo";
 export const size = OG_SIZE;
 export const contentType = "image/png";
 
 export default function TemplatesOgImage() {
-  return renderOgImage(marketingCard());
+  return renderOgImage(templatesGalleryCard());
 }

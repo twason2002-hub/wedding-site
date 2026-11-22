@@ -23,8 +23,8 @@ import { marketingMetadata } from "@/lib/weddings/og";
 
 export const metadata = {
   ...marketingMetadata(
-    "Inviteo — Beautiful Indian Wedding Invitation Websites",
-    "Create a warm digital Indian wedding invitation. Five royal and traditional designs with the date, city, Haldi, Mehendi, Sangeet, maps, RSVP and WhatsApp sharing — one link for every family group.",
+    "Indian Wedding Invitations | Inviteo",
+    "Create an Indian wedding invitation website with Inviteo. Share one link for Haldi, Mehendi, Sangeet, maps, and RSVP with every family group.",
     "/wedding-invitations",
   ),
   other: { "page-type": "service", "site-kind": "other" },
