@@ -171,9 +171,9 @@ export default function TraditionalVivah({ wedding }: { wedding: WeddingData }) 
           <GoldFrame>
           <section
             aria-label="Countdown"
-            className="wi-frame-fine relative rounded-3xl bg-[#360608]/90 p-8 sm:p-12 text-center shadow-2xl"
+            className="wi-frame-fine relative rounded-3xl bg-[#360608]/90 p-8 text-center sm:p-12"
           >
-            <FiligreeCorners color="rgba(251,191,36,0.55)" />
+            <FiligreeCorners color="rgba(240,193,77,0.28)" />
             <OutlinedEditorialWord
               watermark="KALYANAM"
               eyebrow="॥ शुभ मुहूर्त की प्रतीक्षा ॥"

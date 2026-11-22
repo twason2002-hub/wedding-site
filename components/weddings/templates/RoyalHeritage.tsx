@@ -6,7 +6,6 @@ import Gallery from "../Gallery";
 import RsvpForm from "../RsvpForm";
 import TemplateOpening from "../TemplateOpening";
 import FloatingOrnaments from "../effects/FloatingOrnaments";
-import AnimatedBorder from "../effects/AnimatedBorder";
 import { Paisley } from "../svg/royal";
 import FamilyBlock from "../FamilyBlock";
 import ShareBar from "../ShareBar";
@@ -170,7 +169,6 @@ export default function RoyalHeritage({ wedding }: { wedding: WeddingData }) {
           </div>
           <GoldFrame>
           <section aria-label="Countdown" className="relative rounded-3xl p-6 text-center sm:p-10">
-            <AnimatedBorder color="#d4af37" />
             <OutlinedEditorialWord
               watermark="MUHURTHAM"
               eyebrow="The Auspicious Hour Approaches"

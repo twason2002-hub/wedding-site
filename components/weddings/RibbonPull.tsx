@@ -22,7 +22,7 @@ export default function RibbonPull({
   subtitle?: string;
   onDone: () => void;
 }) {
-  const pull = usePullReveal(96, MAX_PULL, onDone);
+  const pull = usePullReveal(72, MAX_PULL, onDone);
   const ease = pull.dragging ? "none" : "transform 0.45s cubic-bezier(0.22, 1, 0.36, 1)";
   const drop = pull.opened ? MAX_PULL : pull.pull;
   const progress = Math.round((pull.pull / MAX_PULL) * 100);
@@ -63,7 +63,7 @@ export default function RibbonPull({
           <button
             type="button"
             data-pull=""
-            className="wi-ribbon-handle absolute bottom-0 left-1/2 z-10 h-16 w-16 -translate-x-1/2"
+            className="wi-pull-handle absolute bottom-0 left-1/2 z-10 h-[38%] w-24 min-h-24 -translate-x-1/2"
             aria-label="Pull the ribbon tassel down to open the invitation"
             aria-valuemin={0}
             aria-valuemax={100}
@@ -72,6 +72,7 @@ export default function RibbonPull({
             role="slider"
             {...pull.bind}
           >
+            <span className="wi-pull-cue" style={{ top: "18%" }} aria-hidden="true" />
             <span className="sr-only">Drag down, or press Enter to open</span>
           </button>
         </div>

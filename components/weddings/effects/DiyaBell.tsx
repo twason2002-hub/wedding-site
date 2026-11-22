@@ -45,8 +45,7 @@ export default function DiyaBell({
             <button
               type="button"
               data-pull=""
-              className="absolute bottom-[2%] left-1/2 z-10 h-[22%] min-h-11 w-[70%] min-w-11 -translate-x-1/2 bg-transparent"
-              style={{ touchAction: "none" }}
+              className="wi-pull-handle absolute bottom-0 left-1/2 z-10 h-[48%] w-[88%] min-h-16 -translate-x-1/2"
               aria-label="Pull the bell tassel to open the invitation"
               role="slider"
               aria-valuemin={0}
@@ -54,7 +53,9 @@ export default function DiyaBell({
               aria-valuenow={progress}
               aria-valuetext={pull.opened ? "Open" : `${progress} percent pulled`}
               {...pull.bind}
-            />
+            >
+              <span className="wi-pull-cue" style={{ top: "72%" }} aria-hidden="true" />
+            </button>
           </div>
         </div>
       </div>

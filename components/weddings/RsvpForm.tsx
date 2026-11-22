@@ -253,7 +253,7 @@ export default function RsvpForm({
         type="submit"
         disabled={state === "sending" || isPreview}
         title={isPreview ? "RSVP is disabled in preview mode" : undefined}
-        className="wi-cta w-full"
+        className="wi-cta wi-submit w-full"
       >
         {state === "sending" ? "Confirming Attendance…" : "Confirm RSVP Attendance ✦"}
       </button>

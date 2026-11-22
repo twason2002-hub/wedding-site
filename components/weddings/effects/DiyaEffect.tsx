@@ -66,7 +66,7 @@ export default function DiyaEffect({
             <stop offset="0%" stopColor={flame} stopOpacity="0.5" />
             <stop offset="100%" stopColor={flame} stopOpacity="0" />
           </radialGradient>
-          <linearGradient id={flameGradId} x1="60" y1="18" x2="60" y2="62" gradientUnits="userSpaceOn">
+          <linearGradient id={flameGradId} x1="60" y1="18" x2="60" y2="62" gradientUnits="userSpaceOnUse">
             <stop offset="0%" stopColor="#FEF08A" />
             <stop offset="60%" stopColor={flame} />
             <stop offset="100%" stopColor="#DC2626" />

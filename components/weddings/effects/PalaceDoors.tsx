@@ -8,9 +8,9 @@ const LEFT = "/weddings/openings/royal-door-left.webp";
 const RIGHT = "/weddings/openings/royal-door-right.webp";
 const IMG_W = 360;
 const IMG_H = 1280;
-/** Brass ring centres, measured on the generated door art. */
-const LEFT_RING = { x: 200, y: 669 };
-const RIGHT_RING = { x: 162, y: 667 };
+/** Hoop centres, measured on the generated door art (not the lotus below). */
+const LEFT_RING = { x: 259, y: 555 };
+const RIGHT_RING = { x: 120, y: 558 };
 
 /**
  * Royal signature — full-height palace doors swing open from the outer hinges.
@@ -27,8 +27,8 @@ export default function PalaceDoors({
   subtitle?: string;
   onDone: () => void;
 }) {
-  const pull = usePullReveal(72, 120, onDone);
-  const angle = pull.opened ? 104 : (pull.pull / 120) * 34;
+  const pull = usePullReveal(68, 120, onDone);
+  const angle = pull.opened ? 108 : (pull.pull / 120) * 62;
   const ease = pull.dragging ? "none" : "transform 0.8s cubic-bezier(0.22, 1, 0.36, 1)";
   const reveal = pull.opened;
 
@@ -155,18 +155,18 @@ function DoorLeaf({
           aria-valuemax={100}
           aria-valuenow={progress}
           aria-valuetext={pull.opened ? "Open" : `${progress} percent open`}
-          className="absolute z-10 h-14 w-14 rounded-full focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#f6ead4]"
+          className="wi-pull-handle absolute z-10 h-[6.5rem] w-[5.5rem]"
           style={{
             left: point?.x ?? "50%",
             top: point?.y ?? "52%",
-            touchAction: "none",
-            background: "transparent",
-            transform: "translate(-50%, -50%) translateZ(8px)",
+            transform: "translate(-50%, -50%) translateZ(12px)",
             opacity: pull.opened ? 0 : 1,
             pointerEvents: pull.opened ? "none" : "auto",
           }}
           {...pull.bind}
-        />
+        >
+          <span className="wi-pull-cue" style={{ top: "68%" }} aria-hidden="true" />
+        </button>
       </div>
     </div>
   );

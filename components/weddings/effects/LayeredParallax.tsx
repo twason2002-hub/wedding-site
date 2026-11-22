@@ -217,7 +217,7 @@ export function GoldFrame({ children, className = "" }: { children: ReactNode; c
   const src = useMotionScene()?.accents.frame;
   if (!src) return <>{children}</>;
   return (
-    <div className={`relative isolate px-1.5 py-3 sm:px-2 sm:py-4 ${className}`}>
+    <div className={`wi-hair-frame relative isolate px-1.5 py-3 sm:px-2 sm:py-4 ${className}`}>
       {children}
       <Image
         src={src}
@@ -225,8 +225,7 @@ export function GoldFrame({ children, className = "" }: { children: ReactNode; c
         width={815}
         height={1102}
         sizes="(max-width: 768px) 100vw, 720px"
-        className="pointer-events-none absolute inset-1 z-[2] h-[calc(100%-0.5rem)] w-[calc(100%-0.5rem)] max-w-none"
-        style={{ objectFit: "fill" }}
+        className="wi-hair-frame-art pointer-events-none absolute inset-1 z-[2] h-[calc(100%-0.5rem)] w-[calc(100%-0.5rem)] max-w-none"
       />
     </div>
   );

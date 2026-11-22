@@ -107,9 +107,11 @@ export default function OpeningOverlay({
 
   if (!open) return null;
 
-  const wrap = `fixed inset-0 z-[90] flex items-center justify-center cursor-pointer overflow-hidden wi-enter-stage touch-none${
-    leaving ? " wi-leaving" : ""
-  }`;
+  const depth =
+    variant === "ribbon" || variant === "doors" || variant === "bell" || variant === "petal" || variant === "flip";
+  const wrap = `fixed inset-0 z-[90] flex items-center justify-center cursor-pointer ${
+    depth ? "overflow-visible" : "overflow-hidden"
+  } wi-enter-stage touch-none${leaving ? " wi-leaving" : ""}`;
 
   const initials = names
     .split(/[&—]|weds/i)
