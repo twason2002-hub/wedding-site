@@ -81,7 +81,7 @@ export default function TraditionalVivah({ wedding }: { wedding: WeddingData }) 
           )}
 
           {/* Lotus Medallion Portrait Frame with Ultra-Fine Double Ring */}
-          <div className="wi-fadeup wi-fadeup--2 relative mx-auto mt-10 h-72 w-72 sm:h-88 sm:w-88">
+          <div className="wi-fadeup wi-fadeup--2 relative mx-auto mt-8 h-56 w-56 sm:mt-10 sm:h-72 sm:w-72">
             <svg
               className="pointer-events-none absolute -inset-5 z-0 h-[calc(100%+2.5rem)] w-[calc(100%+2.5rem)] text-[#fbbf24]/40"
               viewBox="0 0 100 100"
@@ -125,7 +125,7 @@ export default function TraditionalVivah({ wedding }: { wedding: WeddingData }) 
             style={{ fontSize: "clamp(2.4rem, 6vw, 4.8rem)" }}
           >
             <span className="wi-mask wi-name-mask">
-              <GoldShimmer duration={7} from="#d97706" via="#fef3c7" to="#d97706" className="wi-line wi-line--1 wi-couple-heading block text-[#fef3c7]">
+              <GoldShimmer duration={7} from="#f0c14d" via="#fff6d4" to="#f0c14d" className="wi-line wi-line--1 wi-couple-heading block text-[#fef3c7]">
                 {wedding.couple.bride}
               </GoldShimmer>
             </span>
@@ -133,7 +133,7 @@ export default function TraditionalVivah({ wedding }: { wedding: WeddingData }) 
               weds
             </span>
             <span className="wi-mask wi-name-mask">
-              <GoldShimmer duration={7} from="#d97706" via="#fef3c7" to="#d97706" className="wi-line wi-line--2 wi-couple-heading block text-[#fef3c7]">
+              <GoldShimmer duration={7} from="#f0c14d" via="#fff6d4" to="#f0c14d" className="wi-line wi-line--2 wi-couple-heading block text-[#fef3c7]">
                 {wedding.couple.groom}
               </GoldShimmer>
             </span>

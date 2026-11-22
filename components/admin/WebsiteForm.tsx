@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState, useTransition } from "react";
+import { useEffect, useMemo, useState, useTransition } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import type { TemplateDefinition } from "@/lib/weddings/types";
@@ -97,11 +97,11 @@ function Field({
   span2?: boolean;
 }) {
   return (
-    <div className={span2 ? "adm-span-2" : undefined}>
+    <label className={span2 ? "adm-span-2" : undefined}>
       <span className="adm-label">{label}</span>
       {children}
       {hint && <p className="adm-hint">{hint}</p>}
-    </div>
+    </label>
   );
 }
 
@@ -128,6 +128,8 @@ export default function WebsiteForm({
   const [error, setError] = useState("");
   const [saved, setSaved] = useState(false);
   const [confirmDelete, setConfirmDelete] = useState(false);
+  const [origin, setOrigin] = useState("");
+  useEffect(() => setOrigin(window.location.origin), []);
   const noExpiryLocked = mode === "edit" && (isDemoSlug(initial?.slug ?? "") || initial?.noExpiry === true);
 
   const set = <K extends keyof WebsiteInput>(key: K, value: WebsiteInput[K]) =>
@@ -310,7 +312,7 @@ export default function WebsiteForm({
         </div>
       </div>
 
-      <main className="adm-wrap pb-24 pt-8">
+      <main className="adm-wrap pb-36 pt-8">
         {error && <div className="adm-banner adm-banner--err mb-5" role="alert">{error}</div>}
         {saved && <div className="adm-banner adm-banner--ok mb-5" role="status">Changes saved.</div>}
 
@@ -371,16 +373,16 @@ export default function WebsiteForm({
           </div>
           <div className="adm-form-grid adm-form-grid--2">
             <Field label="Bride's name">
-              <input className="adm-field" value={form.bride} onChange={(e) => setNames(e.target.value, form.groom)} placeholder="Diya Rathore" />
+              <input className="adm-field" value={form.bride} onChange={(e) => setNames(e.target.value, form.groom)} placeholder="Bride's full name" />
             </Field>
             <Field label="Groom's name">
-              <input className="adm-field" value={form.groom} onChange={(e) => setNames(form.bride, e.target.value)} placeholder="Aarav Singhania" />
+              <input className="adm-field" value={form.groom} onChange={(e) => setNames(form.bride, e.target.value)} placeholder="Groom's full name" />
             </Field>
             <Field label="Bride's parents">
-              <input className="adm-field" value={form.brideParents} onChange={(e) => set("brideParents", e.target.value)} placeholder="Smt. Meera Rathore & Shri Vikram Rathore" />
+              <input className="adm-field" value={form.brideParents} onChange={(e) => set("brideParents", e.target.value)} placeholder="Bride's parents" />
             </Field>
             <Field label="Groom's parents">
-              <input className="adm-field" value={form.groomParents} onChange={(e) => set("groomParents", e.target.value)} placeholder="Smt. Kavita Singhania & Shri Rajesh Singhania" />
+              <input className="adm-field" value={form.groomParents} onChange={(e) => set("groomParents", e.target.value)} placeholder="Groom's parents" />
             </Field>
             <Field label="Grandparents / elders blessing" span2>
               <input className="adm-field" value={form.grandparents} onChange={(e) => set("grandparents", e.target.value)} placeholder="With the loving blessings of…" />
@@ -392,7 +394,7 @@ export default function WebsiteForm({
               <textarea className="adm-field" value={form.loveStory} onChange={(e) => set("loveStory", e.target.value)} placeholder="How the two met…" />
             </Field>
             <Field label="Wedding hashtag">
-              <input className="adm-field" value={form.hashtag} onChange={(e) => set("hashtag", e.target.value)} placeholder="#AaravKiDiya" />
+              <input className="adm-field" value={form.hashtag} onChange={(e) => set("hashtag", e.target.value)} placeholder="#TheWedding" />
             </Field>
             <Field label="Blessing line (Sanskrit / Gurbani)">
               <input className="adm-field" value={form.blessing} onChange={(e) => set("blessing", e.target.value)} placeholder="॥ श्री गणेशाय नमः ॥" />
@@ -707,14 +709,14 @@ export default function WebsiteForm({
             <h2 className="adm-h2">Family contacts</h2>
           </div>
           <div className="adm-form-grid adm-form-grid--2">
-            <Field label="Phone numbers (one per line)" span2 hint="Shown on the invitation, e.g. +91 98290 00001 (Shri Rajesh Singhania)">
+            <Field label="Phone numbers (one per line)" span2 hint="Shown on the invitation, for example +91 95829 15979 (Inviteo)">
               <textarea className="adm-field" value={form.contacts.numbers.join("\n")} onChange={(e) => set("contacts", { ...form.contacts, numbers: e.target.value.split("\n") })} />
             </Field>
-            <Field label="WhatsApp number" hint="Digits with country code, e.g. 919829000001">
-              <input className="adm-field" value={form.contacts.whatsapp} onChange={(e) => set("contacts", { ...form.contacts, whatsapp: e.target.value })} placeholder="919829000001" />
+            <Field label="WhatsApp number" hint="Digits with country code, for example 919582915979">
+              <input className="adm-field" inputMode="tel" value={form.contacts.whatsapp} onChange={(e) => set("contacts", { ...form.contacts, whatsapp: e.target.value })} placeholder="919582915979" />
             </Field>
             <Field label="RSVP WhatsApp number">
-              <input className="adm-field" value={form.contacts.rsvpNumber} onChange={(e) => set("contacts", { ...form.contacts, rsvpNumber: e.target.value })} placeholder="919829000001" />
+              <input className="adm-field" inputMode="tel" value={form.contacts.rsvpNumber} onChange={(e) => set("contacts", { ...form.contacts, rsvpNumber: e.target.value })} placeholder="919582915979" />
             </Field>
           </div>
         </section>
@@ -731,13 +733,13 @@ export default function WebsiteForm({
                 className="adm-field"
                 value={form.slug}
                 onChange={(e) => { setSlugTouched(true); set("slug", e.target.value.toLowerCase()); }}
-                placeholder="aarav-and-diya"
+                placeholder="couple-names"
               />
             </Field>
             <div>
               <span className="adm-label">Public URL</span>
               <p className="adm-field flex items-center font-mono text-sm" style={{ background: "rgba(11,25,44,0.03)", overflowWrap: "anywhere" }}>
-                yourdomain.com/{form.slug || slugifyCouple(form.groom, form.bride) || "…"}
+                {origin || ""}/{form.slug || slugifyCouple(form.groom, form.bride) || "…"}
               </p>
             </div>
           </div>

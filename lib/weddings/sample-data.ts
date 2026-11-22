@@ -1,4 +1,11 @@
 import type { WeddingData } from "./types";
+import { DEFAULT_WHATSAPP_NUMBER, formatWhatsappDisplay } from "./site-config";
+
+const demoContacts = {
+  numbers: [`${formatWhatsappDisplay(DEFAULT_WHATSAPP_NUMBER)} (Inviteo)`],
+  whatsapp: DEFAULT_WHATSAPP_NUMBER,
+  rsvpNumber: DEFAULT_WHATSAPP_NUMBER,
+};
 
 /** Shared demo events builder keeps sample data realistic per template. */
 function baseEvents(couple: string) {
@@ -111,11 +118,7 @@ export const SAMPLE_WEDDINGS: WeddingData[] = [
       { src: "/weddings/insta-3.jpg", alt: "Marigold mandap flowers", caption: "Mandap Flowers" },
       { src: "/weddings/insta-6.jpg", alt: "Palace venue at dusk", caption: "Palace at Dusk" },
     ],
-    contacts: {
-      numbers: ["+91 98290 00001 (Shri Rajesh Singhania)", "+91 98290 00002 (Shri Vikram Rathore)"],
-      whatsapp: "919829000001",
-      rsvpNumber: "919829000001",
-    },
+    contacts: demoContacts,
     sections: { gallery: true, story: true, rsvp: true, music: true, venue: true },
   },
   {
@@ -206,11 +209,7 @@ export const SAMPLE_WEDDINGS: WeddingData[] = [
       { src: "/weddings/example-2.jpg", alt: "Sangeet celebration", caption: "Sangeet Night" },
       { src: "/weddings/insta-2.jpg", alt: "Mehendi detail", caption: "Mehendi Afternoon" },
     ],
-    contacts: {
-      numbers: ["+91 98140 00003 (Shri Alok Sharma)", "+91 98140 00009 (Shri Sanjeev Malhotra)"],
-      whatsapp: "919814000003",
-      rsvpNumber: "919814000003",
-    },
+    contacts: demoContacts,
     sections: { gallery: true, story: true, rsvp: true, music: true, venue: true },
   },
   {
@@ -301,11 +300,7 @@ export const SAMPLE_WEDDINGS: WeddingData[] = [
       { src: "/weddings/example-3.jpg", alt: "Haldi ceremony with marigolds", caption: "Haldi Morning" },
       { src: "/weddings/insta-3.jpg", alt: "Mandap flowers", caption: "The Mandap" },
     ],
-    contacts: {
-      numbers: ["+91 98200 00004 (Shri Rohan Kapoor)", "+91 98200 00005 (Shri Karan Mehta)"],
-      whatsapp: "919820000004",
-      rsvpNumber: "919820000004",
-    },
+    contacts: demoContacts,
     sections: { gallery: true, story: true, rsvp: true, music: true, venue: true },
   },
   {
@@ -397,11 +392,7 @@ export const SAMPLE_WEDDINGS: WeddingData[] = [
       { src: "/weddings/example-1.jpg", alt: "Pheras around the sacred fire", caption: "Saptapadi" },
       { src: "/weddings/insta-1.jpg", alt: "Marigold urli decor", caption: "Kalash & Urli" },
     ],
-    contacts: {
-      numbers: ["+91 98410 00005 (Shri Venkat Iyer)", "+91 98410 00008 (Shri Krishnan Nair)"],
-      whatsapp: "919841000005",
-      rsvpNumber: "919841000005",
-    },
+    contacts: demoContacts,
     sections: { gallery: true, story: true, rsvp: true, music: true, venue: true },
   },
   {
@@ -490,11 +481,7 @@ export const SAMPLE_WEDDINGS: WeddingData[] = [
       { src: "/weddings/insta-5.jpg", alt: "Marigold decor", caption: "Haldi Celebrations" },
       { src: "/weddings/insta-6.jpg", alt: "Resort at dusk", caption: "Sangeet Memories" },
     ],
-    contacts: {
-      numbers: ["+91 98220 00006 (Khanna Family)", "+91 98220 00007 (Wedding Helpdesk & Pickup)"],
-      whatsapp: "919822000006",
-      rsvpNumber: "919822000006",
-    },
+    contacts: demoContacts,
     sections: { gallery: true, story: true, rsvp: true, music: true, venue: true },
   },
 ];

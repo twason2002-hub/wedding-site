@@ -4,7 +4,13 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 
-export default function AdminLoginForm({ initialError = "" }: { initialError?: string }) {
+export default function AdminLoginForm({
+  initialError = "",
+  configured = true,
+}: {
+  initialError?: string;
+  configured?: boolean;
+}) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(initialError);
@@ -36,6 +42,11 @@ export default function AdminLoginForm({ initialError = "" }: { initialError?: s
         </p>
         <h1 className="adm-h1 mt-4" style={{ fontSize: "1.9rem" }}>Sign in</h1>
         <p className="adm-lead mt-2">Manage wedding websites, templates and publishing.</p>
+        {!configured && (
+          <p className="adm-banner adm-banner--err mt-4" role="alert">
+            Supabase URL and anon key are not set, so sign-in cannot start. Add them to the environment and reload.
+          </p>
+        )}
 
         <label htmlFor="email" className="adm-label mt-6">Email</label>
         <input
@@ -61,7 +72,7 @@ export default function AdminLoginForm({ initialError = "" }: { initialError?: s
 
         {error && <p className="adm-field-error" role="alert">{error}</p>}
 
-        <button className="adm-btn mt-6 w-full" disabled={busy}>
+        <button className="adm-btn mt-6 w-full" disabled={busy || !configured}>
           {busy ? "Signing in…" : "Sign in"}
         </button>
       </form>

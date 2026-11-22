@@ -1,4 +1,10 @@
 import { createClient } from "@/lib/supabase/server";
+import {
+  DEFAULT_SITE_CONTACT,
+  isValidWhatsappNumber,
+  normalizeWhatsappNumber,
+  type SiteContact,
+} from "./site-config";
 import type { TemplateDefinition, WeddingData, WeddingEvent } from "./types";
 import type { WeddingContentMap } from "./admin-types";
 import { resolveImage } from "./form-utils";
@@ -197,10 +203,24 @@ export async function listDbTemplates(): Promise<TemplateDefinition[]> {
 
 export async function getSetting<T>(key: string, fallback: T): Promise<T> {
   try {
+    if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) return fallback;
     const supabase = await createClient();
     const { data } = await supabase.from("app_settings").select("value").eq("key", key).maybeSingle();
     return data ? (data.value as T) : fallback;
   } catch {
     return fallback;
   }
+}
+
+/** Marketing contact: Supabase `app_settings.site_contact`, else the code default. */
+export async function getSiteContact(): Promise<SiteContact> {
+  const stored = await getSetting<Partial<SiteContact>>("site_contact", DEFAULT_SITE_CONTACT);
+  const whatsappNumber = normalizeWhatsappNumber(stored?.whatsappNumber ?? "");
+  return {
+    whatsappNumber: isValidWhatsappNumber(whatsappNumber)
+      ? whatsappNumber
+      : DEFAULT_SITE_CONTACT.whatsappNumber,
+    email: typeof stored?.email === "string" ? stored.email.trim() : "",
+    instagramUrl: typeof stored?.instagramUrl === "string" ? stored.instagramUrl.trim() : "",
+  };
 }

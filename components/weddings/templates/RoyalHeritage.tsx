@@ -57,7 +57,7 @@ export default function RoyalHeritage({ wedding }: { wedding: WeddingData }) {
         </FloatingOrnaments>
 
         <svg
-          className="pointer-events-none absolute left-1/2 top-24 -translate-x-1/2 h-[640px] w-[640px] text-[#d4af37]/[0.07]"
+          className="pointer-events-none absolute left-1/2 top-24 -translate-x-1/2 h-[420px] w-[420px] text-[#d4af37]/[0.07] sm:h-[640px] sm:w-[640px]"
           viewBox="0 0 200 200"
           fill="none"
           aria-hidden="true"
@@ -83,7 +83,7 @@ export default function RoyalHeritage({ wedding }: { wedding: WeddingData }) {
           )}
 
           {/* Hairline Filigree Mughal Arch Portrait */}
-          <div className="wi-fadeup wi-fadeup--2 relative mx-auto mt-10 max-w-sm sm:max-w-md rounded-t-full rounded-b-3xl bg-gradient-to-b from-[#d4af37]/35 via-[#d4af37]/10 to-[#d4af37]/25 p-[4px] shadow-[0_35px_90px_-15px_rgba(0,0,0,0.85)]">
+          <div className="wi-fadeup wi-fadeup--2 relative mx-auto mt-6 max-w-[13.5rem] sm:mt-10 sm:max-w-md rounded-t-full rounded-b-3xl bg-gradient-to-b from-[#d4af37]/35 via-[#d4af37]/10 to-[#d4af37]/25 p-[4px] shadow-[0_35px_90px_-15px_rgba(0,0,0,0.85)]">
             <svg
               aria-hidden="true"
               className="pointer-events-none absolute -inset-5 z-0 text-[#d4af37]/30"
@@ -117,9 +117,9 @@ export default function RoyalHeritage({ wedding }: { wedding: WeddingData }) {
             A Union of Two Families
           </p>
 
-          <h1 className="mt-4 font-regal leading-[1.05]" style={{ fontSize: "clamp(2.5rem, 6.5vw, 5.25rem)" }}>
+          <h1 className="wi-name-on-dark mt-4 font-regal leading-[1.02]" style={{ fontSize: "clamp(2.05rem, 8vw, 5.25rem)" }}>
             <span className="wi-mask wi-name-mask">
-              <GoldShimmer duration={7} from="#c9a227" via="#fff0c8" to="#c9a227" className="wi-line wi-line--1 wi-couple-heading block text-[#f6ead4]">
+              <GoldShimmer duration={7} from="#e6c56a" via="#fff6d4" to="#e6c56a" className="wi-line wi-line--1 wi-couple-heading block text-[#f6ead4]">
                 {wedding.couple.bride}
               </GoldShimmer>
             </span>
@@ -127,7 +127,7 @@ export default function RoyalHeritage({ wedding }: { wedding: WeddingData }) {
               &amp;
             </span>
             <span className="wi-mask wi-name-mask">
-              <GoldShimmer duration={7} from="#c9a227" via="#fff0c8" to="#c9a227" className="wi-line wi-line--2 wi-couple-heading block text-[#f6ead4]">
+              <GoldShimmer duration={7} from="#e6c56a" via="#fff6d4" to="#e6c56a" className="wi-line wi-line--2 wi-couple-heading block text-[#f6ead4]">
                 {wedding.couple.groom}
               </GoldShimmer>
             </span>

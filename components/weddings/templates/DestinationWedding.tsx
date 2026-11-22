@@ -52,7 +52,7 @@ export default function DestinationWedding({ wedding }: { wedding: WeddingData }
           className="absolute inset-0"
           style={{
             background:
-              "linear-gradient(to top, rgba(9,32,38,0.88) 0%, rgba(9,32,38,0.35) 55%, rgba(9,32,38,0.2) 100%)",
+              "linear-gradient(to top, rgba(6,22,28,0.94) 0%, rgba(6,22,28,0.72) 38%, rgba(6,22,28,0.28) 100%)",
           }}
         />
         <SignatureMotif motif="palm" className="pointer-events-none absolute left-6 top-24 hidden h-20 w-16 text-white/30 md:block" />
@@ -72,7 +72,7 @@ export default function DestinationWedding({ wedding }: { wedding: WeddingData }
           </div>
 
           <h1
-            className="mt-5 font-display-luxury font-normal italic leading-[0.98] text-[#f7f3eb]"
+            className="wi-name-on-dark mt-5 font-display-luxury font-normal italic leading-[0.98] text-[#f7f3eb]"
             style={{ fontSize: "clamp(3.2rem, 8vw, 6.8rem)" }}
           >
             <span className="wi-mask wi-name-mask">

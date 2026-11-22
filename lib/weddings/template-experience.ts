@@ -10,7 +10,7 @@
  * until AI art replaces them (see docs/rajasthani-vows-study.md §4).
  */
 
-export type OpeningType = "envelope" | "bloom" | "unfold" | "scroll" | "postcard";
+export type OpeningType = "envelope" | "bloom" | "unfold" | "scroll" | "postcard" | "ribbon";
 
 export interface EnvelopeTheme {
   /** Envelope body gradient stops + pocket shade. */
@@ -45,6 +45,11 @@ export interface MotionConfig {
   interactionEffects: Array<"blessings" | "reactions" | "qr" | "countdown" | "scratch" | "glimmer">;
   intensity: "low" | "medium" | "high";
   speed: "calm" | "normal" | "lively";
+  /**
+   * When enabled, this replaces `opening` — it is not played on top of it.
+   * `ribbon` is a pull-down tassel with a button and keyboard fallback.
+   */
+  pullToReveal?: { enabled: boolean; kind: "ribbon" };
 }
 
 export interface TemplateExperience {
@@ -282,6 +287,7 @@ export const TEMPLATE_EXPERIENCES: Record<string, TemplateExperience> = {
       interactionEffects: ["blessings", "reactions", "countdown", "scratch"],
       intensity: "medium",
       speed: "normal",
+      pullToReveal: { enabled: true, kind: "ribbon" },
     },    palette: { bg: "#f7f3eb", ink: "#0f353e", accent: "#b86b43", surface: "#ffffff" },
     fonts: { display: "Cormorant Garamond, serif", body: "Plus Jakarta Sans, sans-serif" },
     animation: { reduced: "fade-only" },

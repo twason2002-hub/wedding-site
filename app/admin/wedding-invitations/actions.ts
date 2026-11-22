@@ -8,6 +8,13 @@ import { isUuid } from "@/lib/weddings/form-utils";
 import { isValidSlug, slugifyCouple, uniqueSlug } from "@/lib/weddings/slug";
 import { isDemoSlug } from "@/lib/weddings/demo";
 import type { SaveResult, WebsiteInput } from "@/lib/weddings/admin-types";
+import {
+  isEmailSet,
+  isValidWhatsappNumber,
+  normalizeInstagramUrl,
+  normalizeWhatsappNumber,
+  type SiteContact,
+} from "@/lib/weddings/site-config";
 
 export async function signOut() {
   const { supabase } = await requireAdmin();
@@ -20,6 +27,15 @@ export async function saveWebsite(input: WebsiteInput, mode: "create" | "edit"):
 
   if (!input.bride.trim() || !input.groom.trim()) {
     return { ok: false, error: "Bride and groom names are required." };
+  }
+  for (const [label, raw] of [
+    ["WhatsApp number", input.contacts.whatsapp],
+    ["RSVP WhatsApp number", input.contacts.rsvpNumber],
+  ] as const) {
+    const trimmed = raw.trim();
+    if (trimmed && !isValidWhatsappNumber(normalizeWhatsappNumber(trimmed))) {
+      return { ok: false, error: `${label} should be digits with a country code, for example 919582915979.` };
+    }
   }
 
   const { data: template } = await supabase
@@ -180,5 +196,37 @@ export async function deleteGuestPhoto(id: string, websiteId: string, storagePat
   if (error) return { ok: false, error: error.message };
   if (storagePath) await supabase.storage.from("guest-photos").remove([storagePath]);
   revalidatePath(`/admin/wedding-invitations/${websiteId}/rsvps`);
+  return { ok: true };
+}
+
+export async function saveSiteContact(
+  input: SiteContact,
+): Promise<{ ok: true } | { ok: false; error: string }> {
+  const { supabase } = await requireAdmin();
+  const whatsappNumber = normalizeWhatsappNumber(input.whatsappNumber);
+  if (!isValidWhatsappNumber(whatsappNumber)) {
+    return { ok: false, error: "Enter a WhatsApp number with country code, for example 919582915979." };
+  }
+  const email = input.email.trim();
+  if (email && !isEmailSet(email)) {
+    return { ok: false, error: "Email looks incomplete. Leave it blank to hide it on the site." };
+  }
+  const instagramRaw = input.instagramUrl.trim();
+  const instagramUrl = normalizeInstagramUrl(instagramRaw);
+  if (instagramRaw && instagramUrl === null) {
+    return { ok: false, error: "Instagram must be a https://instagram.com/… profile link, or left blank." };
+  }
+  const { error } = await supabase.from("app_settings").upsert(
+    {
+      key: "site_contact",
+      value: { whatsappNumber, email, instagramUrl: instagramUrl ?? "" },
+      updated_at: new Date().toISOString(),
+    },
+    { onConflict: "key" },
+  );
+  if (error) return { ok: false, error: error.message };
+  revalidatePath("/wedding-invitations");
+  revalidatePath("/wedding-invitations/templates");
+  revalidatePath("/admin/wedding-invitations/settings");
   return { ok: true };
 }
