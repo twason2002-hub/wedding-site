@@ -21,6 +21,9 @@
   --wi-ring: #1e40af;
   --wi-ease: cubic-bezier(0.22, 1, 0.36, 1);
   --wi-enter: cubic-bezier(0.16, 1, 0.3, 1);
+  /* One vertical rhythm for every invite template, the gallery, and previews. */
+  --wi-section-gap: clamp(3.25rem, 6vw, 5rem);
+  --wi-dock-clearance: calc(5rem + env(safe-area-inset-bottom));
 }
 
 /* ---------- Luxury Typography & Outlined Display Text ---------- */
@@ -1503,14 +1506,16 @@ section[aria-label="RSVP"] {
   .wi-pull-cue { animation: none; transition: none; }
 }
 @media (max-width: 1023px) {
-  .wi-invite {
-    padding-bottom: calc(6rem + env(safe-area-inset-bottom));
+  /* Clearance lives on the template shell so the dock does not cover the footer
+     and does not leave a band of the page background under a dark invite. */
+  .wi-invite > :last-child {
+    padding-bottom: var(--wi-dock-clearance);
   }
   html.wi-has-dock {
-    scroll-padding-bottom: calc(5rem + env(safe-area-inset-bottom));
+    scroll-padding-bottom: var(--wi-dock-clearance);
   }
   html.wi-has-dock .wi-submit {
-    scroll-margin-bottom: calc(5.25rem + env(safe-area-inset-bottom));
+    scroll-margin-bottom: calc(var(--wi-dock-clearance) + 0.25rem);
   }
 }
 .wi-ribbon-handle:active { cursor: grabbing; }
@@ -1654,22 +1659,62 @@ section[aria-label="RSVP"] {
 .wi-invite[data-template] main {
   display: flex;
   flex-direction: column;
-  gap: clamp(4.25rem, 7vw, 6.25rem);
+  gap: 0;
 }
 .wi-invite[data-template] main > * {
   margin-top: 0 !important;
+  margin-bottom: 0 !important;
+}
+.wi-invite[data-template] main > *:not(.wi-ornament) {
+  padding-block: calc(var(--wi-section-gap) / 2);
+}
+.wi-invite[data-template] main > :first-child {
+  padding-top: 0;
+}
+.wi-invite[data-template] main > * + * {
+  position: relative;
 }
 .wi-invite[data-template] main > * + *::before {
   content: "";
+  position: absolute;
+  left: 50%;
+  top: 0;
+  transform: translate(-50%, -50%);
   display: block;
   width: min(8.5rem, 46%);
   height: 0.75px;
-  margin: 0 auto 1.75rem;
+  margin: 0;
   background: linear-gradient(90deg, transparent, var(--t-line), transparent);
   pointer-events: none;
 }
+/* Flourishes sit in the section gap instead of stacking another full gap. */
+.wi-invite[data-template] main > .wi-ornament {
+  z-index: 1;
+  height: 2.5rem;
+  margin-block: -1.25rem !important;
+}
+.wi-invite[data-template] main > .wi-ornament::before,
+.wi-invite[data-template] main > .wi-ornament + *::before {
+  content: none;
+}
+.wi-invite[data-template] .wi-divider {
+  height: 0;
+  margin: 0 !important;
+  overflow: visible;
+  transform: translateY(calc(var(--wi-section-gap) * -0.5));
+}
+.wi-invite[data-template] .wi-stack {
+  margin-bottom: calc(var(--wi-section-gap) * 0.5);
+}
+.wi-envelope {
+  display: flow-root;
+}
+.wi-envelope-card {
+  margin-top: clamp(4.5rem, 16vw, 7rem);
+}
 .wi-invite[data-template] footer {
   border-top: 0.75px solid var(--t-line);
+  padding-top: calc(var(--wi-section-gap) / 2);
 }
 
 .wi-invite[data-template] .wi-bezel,

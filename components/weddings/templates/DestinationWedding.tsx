@@ -46,7 +46,7 @@ export default function DestinationWedding({ wedding }: { wedding: WeddingData }
           <Palm className="h-20 w-16" />
         </FloatingOrnaments>
 
-        <div className="wi-hero-exit relative z-10 mx-auto w-full max-w-6xl px-6 pb-36 pt-28 text-white">
+        <div className="wi-hero-exit relative z-10 mx-auto w-full max-w-6xl px-6 pb-[calc(6rem+var(--wi-section-gap))] pt-28 text-white">
           <HeroKenBurns className="wi-fadeup mb-6 w-28 overflow-hidden rounded-2xl shadow-[0_16px_40px_rgba(0,0,0,0.45)] sm:w-36">
             <Parallax depth={8}>
               {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -89,15 +89,15 @@ export default function DestinationWedding({ wedding }: { wedding: WeddingData }
           className="absolute bottom-0 left-0 z-[7] h-24 w-full"
         />
       </header>
-      <GoldDivider className="mb-2 mt-4" color="#b86b43" />
+      <GoldDivider color="#b86b43" />
 
-      <main className="mx-auto max-w-5xl px-6 pb-28 pt-8 space-y-24">
+      <main className="mx-auto max-w-5xl px-6">
         <ScrollReveal>
           <FamilyBlock wedding={wedding} tone="light" />
         </ScrollReveal>
 
         <ScrollReveal>
-          <div className="mb-10">
+          <div className="wi-stack">
             <JourneyReveal
               date={wedding.couple.weddingDateDisplay}
               kind="plane"
@@ -123,7 +123,7 @@ export default function DestinationWedding({ wedding }: { wedding: WeddingData }
         <AnimatedCalligraphy color="#b86b43" variant="waves" />
 
         <section aria-label="Itinerary">
-          <ScrollReveal className="mb-12">
+          <ScrollReveal className="wi-stack">
             <OutlinedEditorialWord
               watermark="VOYAGE"
               eyebrow="Three Days by the Sea"
@@ -138,7 +138,7 @@ export default function DestinationWedding({ wedding }: { wedding: WeddingData }
         {wedding.venue && (
           <ScrollReveal>
             <section aria-label="Travel and stay">
-              <div className="mb-10">
+              <div className="wi-stack">
                 <OutlinedEditorialWord
                   watermark="CONCIERGE"
                   eyebrow="Guest Logistics"
@@ -214,7 +214,7 @@ export default function DestinationWedding({ wedding }: { wedding: WeddingData }
         {wedding.sections?.gallery !== false && (
           <ScrollReveal>
             <section aria-label="Gallery">
-              <div className="mb-10">
+              <div className="wi-stack">
                 <OutlinedEditorialWord
                   watermark="POSTCARDS"
                   eyebrow="Sun, Salt & Silk"
@@ -239,7 +239,7 @@ export default function DestinationWedding({ wedding }: { wedding: WeddingData }
             <section aria-label="RSVP" className="wi-bezel">
               <div className="wi-bezel-inner relative p-8 sm:p-12">
                 <FiligreeCorners color="rgba(184,107,67,0.4)" />
-                <div className="mb-8">
+                <div className="wi-stack">
                   <OutlinedEditorialWord
                     watermark="BOARDING"
                     eyebrow="Attendance Confirmation"

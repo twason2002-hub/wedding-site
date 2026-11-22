@@ -35,7 +35,7 @@ export function AnimatedCalligraphy({
         ref={ref}
         viewBox="0 0 360 36"
         fill="none"
-        className={`mx-auto h-8 w-64 sm:w-80 ${className}`}
+        className={`wi-ornament mx-auto h-8 w-64 sm:w-80 ${className}`}
         aria-hidden="true"
       >
         <path
@@ -65,7 +65,7 @@ export function AnimatedCalligraphy({
         ref={ref}
         viewBox="0 0 360 44"
         fill="none"
-        className={`mx-auto h-10 w-64 sm:w-80 ${className}`}
+        className={`wi-ornament mx-auto h-10 w-64 sm:w-80 ${className}`}
         aria-hidden="true"
       >
         <path
@@ -95,7 +95,7 @@ export function AnimatedCalligraphy({
       ref={ref}
       viewBox="0 0 400 44"
       fill="none"
-      className={`mx-auto h-10 w-68 sm:w-88 ${className}`}
+      className={`wi-ornament mx-auto h-10 w-68 sm:w-88 ${className}`}
       aria-hidden="true"
     >
       <path

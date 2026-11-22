@@ -33,7 +33,7 @@ export default function FloralRomance({ wedding }: { wedding: WeddingData }) {
       <TemplateOpening wedding={wedding} />
 
       {/* Botanical Conservatory Hero */}
-      <header className="relative overflow-hidden px-6 pt-20 pb-20 text-center md:pt-28 md:pb-28">
+      <header className="relative overflow-hidden px-6 pt-20 pb-[var(--wi-section-gap)] text-center md:pt-28">
         <LayeredParallax />
         <div
           className="pointer-events-none absolute inset-0"
@@ -126,9 +126,9 @@ export default function FloralRomance({ wedding }: { wedding: WeddingData }) {
           )}
         </div>
       </header>
-      <GoldDivider className="mb-2 mt-4" color="#c87d8a" />
+      <GoldDivider color="#c87d8a" />
 
-      <main className="mx-auto max-w-4xl px-6 pb-28 space-y-24">
+      <main className="mx-auto max-w-4xl px-6">
         <ScrollReveal>
           <FamilyBlock wedding={wedding} tone="floral" />
         </ScrollReveal>
@@ -152,7 +152,7 @@ export default function FloralRomance({ wedding }: { wedding: WeddingData }) {
         )}
 
         <ScrollReveal>
-          <div className="mb-10">
+          <div className="wi-stack">
             <JourneyReveal
               date={wedding.couple.weddingDateDisplay}
               kind="butterfly"
@@ -176,7 +176,7 @@ export default function FloralRomance({ wedding }: { wedding: WeddingData }) {
         </ScrollReveal>
 
         <section aria-label="Events">
-          <ScrollReveal className="mb-12">
+          <ScrollReveal className="wi-stack">
             <OutlinedEditorialWord
               watermark="EVENTS"
               eyebrow="Wedding Functions"
@@ -190,7 +190,7 @@ export default function FloralRomance({ wedding }: { wedding: WeddingData }) {
         {wedding.sections?.gallery !== false && (
           <ScrollReveal>
             <section aria-label="Gallery">
-              <div className="mb-10">
+              <div className="wi-stack">
                 <OutlinedEditorialWord
                   watermark="MEMORIES"
                   eyebrow="Captured in Sunlight"
@@ -259,7 +259,7 @@ export default function FloralRomance({ wedding }: { wedding: WeddingData }) {
               className="wi-face relative rounded-[2.5rem] bg-white/96 p-8 sm:p-12"
             >
               <FiligreeCorners color="rgba(200,125,138,0.45)" />
-              <div className="mb-8">
+              <div className="wi-stack">
                 <OutlinedEditorialWord
                   watermark="RSVP"
                   eyebrow="With Warm Regards"

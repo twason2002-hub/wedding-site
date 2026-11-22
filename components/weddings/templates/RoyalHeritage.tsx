@@ -34,7 +34,7 @@ export default function RoyalHeritage({ wedding }: { wedding: WeddingData }) {
       <TemplateOpening wedding={wedding} />
 
       {/* Ornate Imperial Frame Hero */}
-      <header className="relative overflow-hidden px-6 pt-20 pb-28 text-center md:pt-28 md:pb-36">
+      <header className="relative overflow-hidden px-6 pt-20 pb-[var(--wi-section-gap)] text-center md:pt-28">
         <LayeredParallax />
         <div
           className="pointer-events-none absolute inset-0"
@@ -153,15 +153,15 @@ export default function RoyalHeritage({ wedding }: { wedding: WeddingData }) {
           )}
         </div>
       </header>
-      <GoldDivider className="mb-2 mt-4" />
+      <GoldDivider />
 
-      <main className="mx-auto max-w-5xl px-6 pb-28 space-y-28">
+      <main className="mx-auto max-w-5xl px-6">
         <ScrollReveal>
           <FamilyBlock wedding={wedding} tone="dark" />
         </ScrollReveal>
 
         <ScrollReveal>
-          <div className="mb-10">
+          <div className="wi-stack">
             <JourneyReveal
               date={wedding.couple.weddingDateDisplay}
               kind="elephant"
@@ -170,7 +170,7 @@ export default function RoyalHeritage({ wedding }: { wedding: WeddingData }) {
             />
           </div>
           <GoldFrame>
-          <section aria-label="Countdown" className="relative rounded-3xl p-6 text-center sm:p-10">
+          <section aria-label="Countdown" className="relative rounded-3xl px-4 py-5 text-center sm:px-8 sm:py-6">
             <OutlinedEditorialWord
               watermark="MUHURTHAM"
               eyebrow="The Auspicious Hour Approaches"
@@ -187,7 +187,7 @@ export default function RoyalHeritage({ wedding }: { wedding: WeddingData }) {
         <AnimatedCalligraphy color="#d4af37" variant="royal" />
 
         <section aria-label="Events">
-          <ScrollReveal className="mb-14">
+          <ScrollReveal className="wi-stack">
             <OutlinedEditorialWord
               watermark="ITINERARY"
               eyebrow="Wedding Itinerary"
@@ -203,7 +203,7 @@ export default function RoyalHeritage({ wedding }: { wedding: WeddingData }) {
         {wedding.sections?.gallery !== false && (
           <ScrollReveal>
             <section aria-label="Gallery">
-              <div className="mb-12">
+              <div className="wi-stack">
                 <OutlinedEditorialWord
                   watermark="PORTRAITS"
                   eyebrow="The Portrait Gallery"
@@ -292,7 +292,7 @@ export default function RoyalHeritage({ wedding }: { wedding: WeddingData }) {
             <section aria-label="RSVP" className="wi-bezel-dark">
               <div className="wi-bezel-dark-inner relative bg-[#190a07] p-8 sm:p-12">
                 <FiligreeCorners color="rgba(212,175,55,0.5)" />
-                <div className="mb-10">
+                <div className="wi-stack">
                   <OutlinedEditorialWord
                     watermark="REGISTRY"
                     eyebrow="Attendance"

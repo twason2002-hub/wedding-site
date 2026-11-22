@@ -39,7 +39,7 @@ export default function ModernMinimal({ wedding }: { wedding: WeddingData }) {
       </div>
 
       {/* Royal Neelam Blue & Gold Hero */}
-      <header className="relative mx-auto max-w-6xl px-6 pt-16 pb-20 md:pt-24 md:pb-28 overflow-hidden">
+      <header className="relative mx-auto max-w-6xl overflow-hidden px-6 pt-16 pb-[var(--wi-section-gap)] md:pt-24">
         <LayeredParallax />
         <div
           className="pointer-events-none absolute inset-0"
@@ -127,13 +127,13 @@ export default function ModernMinimal({ wedding }: { wedding: WeddingData }) {
         </div>
       </header>
 
-      <main className="mx-auto max-w-5xl px-6 pb-28 space-y-24">
+      <main className="mx-auto max-w-5xl px-6">
         <ScrollReveal>
           <FamilyBlock wedding={wedding} tone="dark" />
         </ScrollReveal>
 
         <ScrollReveal>
-          <div className="mb-10">
+          <div className="wi-stack">
             <JourneyReveal
               date={wedding.couple.weddingDateDisplay}
               kind="star"
@@ -159,7 +159,7 @@ export default function ModernMinimal({ wedding }: { wedding: WeddingData }) {
         <AnimatedCalligraphy color="#d4af37" variant="royal" />
 
         <section aria-label="Events">
-          <ScrollReveal className="mb-12">
+          <ScrollReveal className="wi-stack">
             <OutlinedEditorialWord
               watermark="FUNCTIONS"
               eyebrow="Shubh Karyakram"
@@ -175,7 +175,7 @@ export default function ModernMinimal({ wedding }: { wedding: WeddingData }) {
         {wedding.sections?.gallery !== false && (
           <ScrollReveal>
             <section aria-label="Gallery">
-              <div className="mb-10">
+              <div className="wi-stack">
                 <OutlinedEditorialWord
                   watermark="MEMORIES"
                   eyebrow="Happy Moments"
@@ -247,7 +247,7 @@ export default function ModernMinimal({ wedding }: { wedding: WeddingData }) {
               className="wi-face relative rounded-3xl bg-[#10233f] p-8 sm:p-12"
             >
               <FiligreeCorners color="rgba(212,175,55,0.5)" />
-              <div className="mb-10">
+              <div className="wi-stack">
                 <OutlinedEditorialWord
                   watermark="BLESSINGS"
                   eyebrow="RSVP"

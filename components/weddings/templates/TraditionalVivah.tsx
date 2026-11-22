@@ -45,7 +45,7 @@ export default function TraditionalVivah({ wedding }: { wedding: WeddingData }) 
       </div>
 
       {/* Temple Mandapam Hero */}
-      <header className="relative overflow-hidden px-6 pt-16 pb-36 text-center md:pt-24 md:pb-44">
+      <header className="relative overflow-hidden px-6 pt-16 pb-[var(--wi-section-gap)] text-center md:pt-24">
         <LayeredParallax />
         <div
           className="pointer-events-none absolute inset-0"
@@ -154,15 +154,15 @@ export default function TraditionalVivah({ wedding }: { wedding: WeddingData }) 
           )}
         </div>
       </header>
-      <GoldDivider className="mb-2 mt-4" />
+      <GoldDivider />
 
-      <main className="mx-auto max-w-5xl px-6 pb-28 space-y-24">
+      <main className="mx-auto max-w-5xl px-6">
         <ScrollReveal>
           <FamilyBlock wedding={wedding} tone="vivah" />
         </ScrollReveal>
 
         <ScrollReveal>
-          <div className="mb-10">
+          <div className="wi-stack">
             <JourneyReveal
               date={wedding.couple.weddingDateDisplay}
               kind="car"
@@ -173,7 +173,7 @@ export default function TraditionalVivah({ wedding }: { wedding: WeddingData }) 
           <GoldFrame>
           <section
             aria-label="Countdown"
-            className="wi-frame-fine relative rounded-3xl bg-[#360608]/90 p-8 text-center sm:p-12"
+            className="wi-frame-fine relative rounded-3xl bg-[#360608]/90 px-4 py-5 text-center sm:px-8 sm:py-6"
           >
             <FiligreeCorners color="rgba(240,193,77,0.28)" />
             <OutlinedEditorialWord
@@ -192,7 +192,7 @@ export default function TraditionalVivah({ wedding }: { wedding: WeddingData }) 
         <AnimatedCalligraphy color="#fbbf24" variant="vivah" />
 
         <section aria-label="Events">
-          <ScrollReveal className="mb-12">
+          <ScrollReveal className="wi-stack">
             <OutlinedEditorialWord
               watermark="UTSAV"
               eyebrow="॥ मांगलिक कार्यक्रम ॥"
@@ -206,7 +206,7 @@ export default function TraditionalVivah({ wedding }: { wedding: WeddingData }) 
         {wedding.sections?.gallery !== false && (
           <ScrollReveal>
             <section aria-label="Gallery">
-              <div className="mb-10">
+              <div className="wi-stack">
                 <OutlinedEditorialWord
                   watermark="DARSHAN"
                   eyebrow="॥ मधुर स्मृतियाँ ॥"
@@ -275,7 +275,7 @@ export default function TraditionalVivah({ wedding }: { wedding: WeddingData }) 
               className="wi-frame-fine relative rounded-3xl bg-[#360608] p-8 sm:p-12"
             >
               <FiligreeCorners color="rgba(251,191,36,0.55)" />
-              <div className="mb-8">
+              <div className="wi-stack">
                 <OutlinedEditorialWord
                   watermark="ASHIRWAD"
                   eyebrow="॥ सादर आमंत्रण ॥"

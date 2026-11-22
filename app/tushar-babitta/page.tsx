@@ -19,12 +19,9 @@ export default function WeddingInvitation() {
     // Enhanced Parallax effect
     const handleScroll = () => {
       const scrollY = window.scrollY;
-      const hero = document.querySelector('.hero') as HTMLElement;
-      
-      if (hero && scrollY < window.innerHeight) {
-        hero.style.transform = `translate3d(0, ${scrollY * 0.2}px, 0)`;
-      }
-      
+      // Do not translate .hero. That shift opened a gap above the portrait and
+      // overlapped the next section. The portrait keeps its float animation.
+
       // Show sticky header after scrolling past hero
       setShowStickyHeader(scrollY > 300);
       
@@ -221,7 +218,7 @@ export default function WeddingInvitation() {
         section {
           max-width: 900px;
           margin: auto;
-          padding: 50px 20px;
+          padding: clamp(2.25rem, 6vw, 3.25rem) 20px;
           position: relative;
         }
         section::before {
@@ -396,7 +393,7 @@ export default function WeddingInvitation() {
         .countdown {
           max-width: 900px;
           margin: 0 auto;
-          padding: 50px 20px;
+          padding: clamp(2.25rem, 6vw, 3.25rem) 20px;
           text-align: center;
           color: #2c1810;
           z-index: 5;
@@ -917,7 +914,7 @@ export default function WeddingInvitation() {
         <button onClick={() => window.open('https://wa.me/919582915979?text=Hi%20Tushar%2C%20thank%20you%20so%20much%20for%20the%20invitation%21%20I%27m%20excited%20to%20celebrate%20with%20you%20and%20will%20be%20joining%20the%20wedding.%20Wishing%20you%20both%20lots%20of%20happiness%21%20%F0%9F%92%90', '_blank')} style={{marginTop: '30px'}}>RSVP</button>
       </section>
 
-      <section style={{maxWidth: '1600px', padding: '70px 40px'}}>
+      <section style={{maxWidth: '1600px'}}>
         <div className="title">
           <h2>Venue Details & Contacts</h2>
         </div>

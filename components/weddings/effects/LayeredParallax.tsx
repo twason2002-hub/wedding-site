@@ -271,16 +271,16 @@ export function EnvelopeRsvp({ children }: { children: ReactNode }) {
   if (!src) return <>{children}</>;
 
   return (
-    <div ref={root} className="relative">
+    <div ref={root} className="wi-envelope relative">
       <Image
         src={src}
         alt=""
         width={726}
         height={806}
         sizes="(max-width: 768px) 100vw, 560px"
-        className="pointer-events-none relative z-0 mx-auto -mb-[22%] w-full max-w-xl"
+        className="pointer-events-none absolute inset-x-0 top-0 z-0 mx-auto w-full max-w-xl"
       />
-      <div ref={card} className="relative z-[1]">
+      <div ref={card} className="wi-envelope-card relative z-[1]">
         {children}
       </div>
     </div>

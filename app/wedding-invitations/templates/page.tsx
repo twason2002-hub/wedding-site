@@ -25,7 +25,7 @@ export default async function TemplateGallery() {
     >
       <SiteNav />
 
-      <header className="wi-wrap pt-16 pb-10 md:pt-24 md:pb-12">
+      <header className="wi-wrap pt-16 pb-[var(--wi-section-gap)] md:pt-24">
         <OutlinedEditorialWord
           watermark="DESIGNS"
           eyebrow="Inviteo Wedding Collection"
@@ -44,7 +44,7 @@ export default async function TemplateGallery() {
         />
       </header>
 
-      <main className="wi-wrap pb-28">
+      <main className="wi-wrap pb-[var(--wi-section-gap)]">
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {templates.map((t, i) => {
             const sample = demoWeddingFor(t.slug);
