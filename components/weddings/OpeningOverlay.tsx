@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import { FiligreeCorners } from "./LuxuryOrnaments";
 import { OpeningDiyas, OpeningStars } from "./OpeningDecor";
 import EnvelopeReveal from "./EnvelopeReveal";
@@ -51,6 +51,21 @@ export default function OpeningOverlay({
       return true;
     });
   }, []);
+
+  // A visible scrollbar shifts fixed `left: 50%` off the viewport centre.
+  useLayoutEffect(() => {
+    if (!open) return;
+    const html = document.documentElement;
+    const body = document.body;
+    const prevHtml = html.style.overflow;
+    const prevBody = body.style.overflow;
+    html.style.overflow = "hidden";
+    body.style.overflow = "hidden";
+    return () => {
+      html.style.overflow = prevHtml;
+      body.style.overflow = prevBody;
+    };
+  }, [open]);
 
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {

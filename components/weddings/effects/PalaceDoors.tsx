@@ -2,15 +2,21 @@
 
 import { useEffect, useRef, useState } from "react";
 import OpeningImage, { coverPoint } from "./OpeningImage";
+import GoldDust from "./GoldDust";
 import { usePullReveal } from "./usePullReveal";
+import { useDelight } from "../motion";
 
 const LEFT = "/weddings/openings/royal-door-left.webp";
 const RIGHT = "/weddings/openings/royal-door-right.webp";
 const IMG_W = 360;
 const IMG_H = 1280;
-/** Hoop centres, measured on the generated door art (not the lotus below). */
-const LEFT_RING = { x: 259, y: 555 };
-const RIGHT_RING = { x: 120, y: 558 };
+/**
+ * Hoop centres, fitted to the brass ring on the generated door art.
+ * The x values are mirrors (360 - 258.5 = 101.5) so the pair stays
+ * symmetrical about the viewport centre under object-fit: cover.
+ */
+const LEFT_RING = { x: 258.5, y: 540 };
+const RIGHT_RING = { x: 101.5, y: 543.5 };
 
 /**
  * Royal signature — full-height palace doors swing open from the outer hinges.
@@ -28,9 +34,11 @@ export default function PalaceDoors({
   onDone: () => void;
 }) {
   const pull = usePullReveal(68, 120, onDone);
+  const delight = useDelight();
   const angle = pull.opened ? 108 : (pull.pull / 120) * 62;
   const ease = pull.dragging ? "none" : "transform 0.8s cubic-bezier(0.22, 1, 0.36, 1)";
   const reveal = pull.opened;
+  const sweep = delight.nameSweep && reveal;
 
   return (
     <div className="wi-opening-hold absolute inset-0 text-[#f6ead4]">
@@ -40,11 +48,11 @@ export default function PalaceDoors({
         style={{ opacity: reveal ? 1 : 0 }}
         aria-hidden={reveal ? undefined : true}
       >
-        <div className="max-w-sm">
+        <div className="max-w-sm" data-center="names">
           <p className="text-[10px] font-semibold uppercase tracking-[0.32em] text-[#e8cf8f]">
             {blessing ?? "You are invited"}
           </p>
-          <h2 className="wi-couple-heading mt-3 font-display-luxury text-[1.85rem] italic leading-tight text-[#f6ead4]">
+          <h2 className={`wi-couple-heading mt-3 font-display-luxury text-[1.85rem] italic leading-tight text-[#f6ead4] ${sweep ? "wi-name-sweep" : ""}`}>
             {names}
           </h2>
           {subtitle && <p className="mt-2 text-sm text-[#f3e5c3]">{subtitle}</p>}
@@ -70,13 +78,18 @@ export default function PalaceDoors({
         />
       </div>
 
-      <p className="pointer-events-none absolute left-1/2 top-[max(0.75rem,env(safe-area-inset-top))] z-30 -translate-x-1/2 rounded-full bg-[#1a0c08] px-4 py-2 text-[11px] font-medium uppercase tracking-[0.22em] text-[#f6ead4]">
+      {reveal && delight.goldDust && <GoldDust />}
+      <p
+        data-center="label"
+        className="wi-anchor-x pointer-events-none top-[max(0.75rem,env(safe-area-inset-top))] z-30 rounded-full bg-[#1a0c08] px-4 py-2 text-[11px] font-medium uppercase tracking-[0.22em] text-[#f6ead4]"
+      >
         {pull.opened ? "Welcome" : "Pull a ring to open the doors"}
       </p>
       <button
         type="button"
+        data-center="action"
         onClick={pull.finish}
-        className="absolute bottom-[max(1rem,env(safe-area-inset-bottom))] left-1/2 z-30 min-h-11 -translate-x-1/2 rounded-full bg-[#1a0c08] px-5 text-xs uppercase tracking-[0.2em] text-[#f6ead4]"
+        className="wi-anchor-x bottom-[max(1rem,env(safe-area-inset-bottom))] z-30 min-h-11 rounded-full bg-[#1a0c08] px-5 text-xs uppercase tracking-[0.2em] text-[#f6ead4]"
       >
         Open the invitation
       </button>
@@ -155,6 +168,7 @@ function DoorLeaf({
           aria-valuemax={100}
           aria-valuenow={progress}
           aria-valuetext={pull.opened ? "Open" : `${progress} percent open`}
+          data-center="ring"
           className="wi-pull-handle absolute z-10 h-[6.5rem] w-[5.5rem]"
           style={{
             left: point?.x ?? "50%",
@@ -165,7 +179,7 @@ function DoorLeaf({
           }}
           {...pull.bind}
         >
-          <span className="wi-pull-cue" style={{ top: "68%" }} aria-hidden="true" />
+          <span className="wi-pull-cue" data-center="cue" style={{ top: "68%" }} aria-hidden="true" />
         </button>
       </div>
     </div>

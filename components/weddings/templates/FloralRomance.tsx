@@ -18,6 +18,7 @@ import JourneyReveal from "../effects/JourneyReveal";
 import GuestSections from "../GuestSections";
 import { AnimatedCalligraphy, FiligreeCorners, OutlinedEditorialWord } from "../LuxuryOrnaments";
 import LayeredParallax, { EnvelopeRsvp, GoldFrame } from "../effects/LayeredParallax";
+import GoldDivider from "../GoldDivider";
 
 /**
  * TEMPLATE 2 — FLORAL ROMANCE (Couture Botanical Conservatory Edition).
@@ -125,6 +126,7 @@ export default function FloralRomance({ wedding }: { wedding: WeddingData }) {
           )}
         </div>
       </header>
+      <GoldDivider className="mb-2 mt-4" color="#c87d8a" />
 
       <main className="mx-auto max-w-4xl px-6 pb-28 space-y-24">
         <ScrollReveal>

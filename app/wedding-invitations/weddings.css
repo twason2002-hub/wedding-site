@@ -1062,7 +1062,28 @@ section[aria-label="RSVP"] {
     transform: none !important;
     transition: none !important;
   }
-  .wi-bell-swing { animation: none !important; }
+  .wi-bell-swing,
+  .wi-idle-sway,
+  .wi-ribbon-flutter,
+  .wi-name-sweep::after,
+  .wi-dust,
+  .wi-digit-tick,
+  .wi-rsvp-rise,
+  .wi-burst-bit,
+  .wi-burst-petal,
+  .wi-divider-draw::before,
+  .wi-divider-draw::after,
+  .wi-divider-draw > span { animation: none !important; }
+  .wi-dust,
+  .wi-burst-bit,
+  .wi-burst-petal,
+  .wi-name-sweep::after { opacity: 0 !important; }
+  .wi-divider-draw::before,
+  .wi-divider-draw::after,
+  .wi-divider-draw > span {
+    transform: none !important;
+    opacity: 1 !important;
+  }
   .wi-scratch-date,
   .wi-scratch-date.is-revealed {
     opacity: 1 !important;
@@ -1321,12 +1342,23 @@ section[aria-label="RSVP"] {
   outline-offset: 3px;
   border-radius: 999px;
 }
+/* Horizontal centre that does not use `transform`. A pull, swing, or GSAP
+   tween can replace `transform` without wiping this -50% offset. */
+.wi-anchor-x {
+  position: absolute;
+  left: 50%;
+  translate: -50% 0;
+}
+.wi-hang {
+  top: 0;
+  width: max-content;
+}
 .wi-pull-cue {
   position: absolute;
   left: 50%;
   width: 18px;
   height: 18px;
-  margin-left: -9px;
+  translate: -50% 0;
   pointer-events: none;
   filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.7));
   animation: wi-pull-cue 1.45s ease-in-out infinite;
@@ -1345,6 +1377,126 @@ section[aria-label="RSVP"] {
 @keyframes wi-pull-cue {
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(6px); }
+}
+
+/* Idle hang. Keyframe 0 is rotate(0) so the rest pose stays on centre. */
+.wi-idle-sway {
+  transform-origin: top center;
+  animation: wi-idle-sway 3.8s ease-in-out infinite;
+}
+@keyframes wi-idle-sway {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(2.1deg); }
+  75% { transform: rotate(-2.1deg); }
+}
+.wi-ribbon-flutter {
+  transform-origin: top center;
+  animation: wi-ribbon-flutter 3.2s ease-in-out infinite;
+}
+@keyframes wi-ribbon-flutter {
+  0%, 100% { transform: rotate(0deg); }
+  40% { transform: rotate(2.4deg); }
+  70% { transform: rotate(-1.8deg); }
+}
+
+.wi-name-sweep { position: relative; }
+.wi-name-sweep::after {
+  content: "";
+  position: absolute;
+  top: -8%;
+  bottom: -8%;
+  left: 0;
+  width: 42%;
+  background: linear-gradient(90deg, transparent, rgba(240, 212, 138, 0.55), transparent);
+  opacity: 0;
+  pointer-events: none;
+  animation: wi-name-sweep 1.15s cubic-bezier(0.22, 1, 0.36, 1) 1 forwards;
+}
+@keyframes wi-name-sweep {
+  0% { opacity: 0; transform: translateX(-130%); }
+  18% { opacity: 1; }
+  100% { opacity: 0; transform: translateX(280%); }
+}
+
+.wi-dust {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 5px;
+  height: 5px;
+  margin: -2.5px 0 0 -2.5px;
+  border-radius: 999px;
+  background: #f6e7a8;
+  box-shadow: 0 0 6px 1px rgba(240, 212, 138, 0.7);
+  opacity: 0;
+  animation: wi-dust 1.45s ease-out forwards;
+}
+@keyframes wi-dust {
+  0% { opacity: 0; transform: translate3d(0, 10px, 0) scale(0.4); }
+  22% { opacity: 0.9; }
+  100% { opacity: 0; transform: translate3d(var(--dx), var(--dy), 0) scale(1); }
+}
+
+.wi-digit-tick {
+  display: inline-block;
+  animation: wi-digit-tick 480ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+@keyframes wi-digit-tick {
+  0% { opacity: 0.4; transform: translate3d(0, 5px, 0); }
+  100% { opacity: 1; transform: none; }
+}
+
+.wi-rsvp-rise {
+  animation: wi-rsvp-rise 720ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+@keyframes wi-rsvp-rise {
+  from { opacity: 0; transform: translate3d(0, 18px, 0); }
+  to { opacity: 1; transform: none; }
+}
+.wi-burst-bit,
+.wi-burst-petal {
+  position: absolute;
+  left: 50%;
+  top: 24%;
+  opacity: 0;
+  animation: wi-burst 980ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+.wi-burst-bit {
+  width: 6px;
+  height: 6px;
+  margin: -3px 0 0 -3px;
+  border-radius: 999px;
+  background: currentColor;
+}
+.wi-burst-petal {
+  width: 8px;
+  height: 12px;
+  margin: -6px 0 0 -4px;
+  border-radius: 70% 10% 70% 10%;
+  background: currentColor;
+}
+@keyframes wi-burst {
+  0% { opacity: 0; transform: translate3d(0, 6px, 0) scale(0.5) rotate(0deg); }
+  18% { opacity: 1; }
+  100% { opacity: 0; transform: translate3d(var(--dx), var(--dy), 0) scale(1) rotate(var(--rot)); }
+}
+
+.wi-divider-draw::before,
+.wi-divider-draw::after {
+  transform-origin: center;
+  animation: wi-rule-draw 900ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.wi-divider-draw > span {
+  display: inline-block;
+  animation: wi-mark-in 700ms cubic-bezier(0.22, 1, 0.36, 1) 180ms both;
+}
+@keyframes wi-rule-draw {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+@keyframes wi-mark-in {
+  from { opacity: 0; transform: scale(0.6); }
+  to { opacity: 1; transform: none; }
 }
 @media (prefers-reduced-motion: reduce) {
   .wi-pull-handle,

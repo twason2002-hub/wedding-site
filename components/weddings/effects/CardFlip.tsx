@@ -2,6 +2,7 @@
 
 import { useState, type ReactNode } from "react";
 import OpeningImage from "./OpeningImage";
+import { useDelight } from "../motion";
 
 const PAPER = "/weddings/openings/minimal-paper.webp";
 
@@ -21,6 +22,7 @@ export default function CardFlip({
   onDone: () => void;
 }) {
   const [opened, setOpened] = useState(false);
+  const sweep = useDelight().nameSweep;
 
   const open = () => {
     if (opened) {
@@ -34,15 +36,16 @@ export default function CardFlip({
 
   return (
     <div className="relative z-10 flex w-full flex-col items-center px-6 text-center">
-      <p className="mb-4 rounded-full bg-[#1c1917]/80 px-4 py-2 text-[11px] font-medium uppercase tracking-[0.22em] text-[#f4efe6]">
+      <p data-center="label" className="mb-4 rounded-full bg-[#1c1917]/80 px-4 py-2 text-[11px] font-medium uppercase tracking-[0.22em] text-[#f4efe6]">
         {opened ? "Welcome" : "Tap the card to turn it"}
       </p>
       <button
         type="button"
+        data-center="card"
         onClick={open}
         aria-label={`Turn the invitation card for ${names}`}
-        className="relative block h-[min(68dvh,640px)] max-w-[88vw]"
-        style={{ aspectRatio: "9 / 16", perspective: "1400px" }}
+        className="relative mx-auto block aspect-[9/16] w-[min(88vw,22.5rem)] max-w-full"
+        style={{ perspective: "1400px" }}
       >
         <span
           className="absolute inset-0"
@@ -56,7 +59,7 @@ export default function CardFlip({
             <span className="text-[10px] font-semibold uppercase tracking-[0.28em] text-[#4a3724]">
               {blessing ?? "You are invited"}
             </span>
-            <span className="wi-couple-heading mt-3 font-display-luxury text-[1.65rem] italic leading-tight text-[#24180f]">
+            <span data-center="names" className={`wi-couple-heading mt-3 font-display-luxury text-[1.65rem] italic leading-tight text-[#24180f] ${sweep ? "wi-name-sweep" : ""}`}>
               {names}
             </span>
             <span className="mt-3 text-[11px] uppercase tracking-[0.18em] text-[#4a3724]">Turn the card</span>
@@ -72,7 +75,7 @@ export default function CardFlip({
           </PaperFace>
         </span>
       </button>
-      <button type="button" onClick={open} className="mt-4 min-h-11 rounded-full bg-[#1c1917] px-5 text-xs uppercase tracking-[0.2em] text-[#f4efe6]">
+      <button type="button" data-center="action" onClick={open} className="mt-4 min-h-11 rounded-full bg-[#1c1917] px-5 text-xs uppercase tracking-[0.2em] text-[#f4efe6]">
         Open the invitation
       </button>
     </div>

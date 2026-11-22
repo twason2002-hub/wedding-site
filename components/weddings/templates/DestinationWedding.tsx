@@ -19,6 +19,7 @@ import SignatureMotif from "../effects/SignatureMotif";
 import GuestSections from "../GuestSections";
 import { AnimatedCalligraphy, FiligreeCorners, OutlinedEditorialWord } from "../LuxuryOrnaments";
 import LayeredParallax, { EnvelopeRsvp, GoldFrame } from "../effects/LayeredParallax";
+import GoldDivider from "../GoldDivider";
 
 /**
  * TEMPLATE 5 — DESTINATION WEDDING (Mediterranean-meets-Goa Coastal Resort Edition).
@@ -88,6 +89,7 @@ export default function DestinationWedding({ wedding }: { wedding: WeddingData }
           className="absolute bottom-0 left-0 z-[7] h-24 w-full"
         />
       </header>
+      <GoldDivider className="mb-2 mt-4" color="#b86b43" />
 
       <main className="mx-auto max-w-5xl px-6 pb-28 pt-8 space-y-24">
         <ScrollReveal>

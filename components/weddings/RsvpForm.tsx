@@ -1,8 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useState, type CSSProperties } from "react";
 import type { WeddingData } from "@/lib/weddings/types";
-import { Particles } from "@animate-ui/react/primitives/effects/particles";
+import { useDelight } from "./motion";
 
 export default function RsvpForm({
   wedding,
@@ -23,6 +23,7 @@ export default function RsvpForm({
   });
   const [state, setState] = useState<"idle" | "sending" | "done" | "error">("idle");
   const [error, setError] = useState("");
+  const lift = useDelight().rsvpLift;
 
   // Isolated phone previews (?preview=auto) must never write guest RSVPs.
   const isPreview =
@@ -77,16 +78,17 @@ export default function RsvpForm({
   }
 
   if (state === "done") {
+    const burst = variant === "floral" ? "petal" : variant === "coastal" ? "sand" : "gold";
     return (
-      <Particles animate>
       <div
-        className={`rounded-3xl p-10 text-center ${
+        className={`relative overflow-hidden rounded-3xl p-10 text-center ${lift ? "wi-rsvp-rise" : ""} ${
           isDark
             ? "bg-[#23100b] text-[#f9ebd2] shadow-[inset_0_0_0_0.75px_rgba(212,175,55,0.45)]"
             : "bg-emerald-50/70 text-stone-900 shadow-[inset_0_0_0_0.75px_rgba(16,185,129,0.35)]"
         }`}
         role="status"
       >
+        {lift && <RsvpBurst tone={burst} />}
         <svg
           className="wi-success-check mx-auto mb-4 h-14 w-14"
           viewBox="0 0 52 52"
@@ -116,7 +118,6 @@ export default function RsvpForm({
           Your RSVP has been recorded for {wedding.couple.bride} &amp; {wedding.couple.groom}&apos;s celebration.
         </p>
       </div>
-      </Particles>
     );
   }
 
@@ -272,5 +273,27 @@ export default function RsvpForm({
         </p>
       )}
     </form>
+  );
+}
+
+/** Small one-shot burst. Transform and opacity only. */
+function RsvpBurst({ tone }: { tone: "gold" | "petal" | "sand" }) {
+  const count = tone === "petal" ? 9 : 8;
+  const color = tone === "petal" ? "#d9899c" : tone === "sand" ? "#e6b89c" : "#f0d48a";
+  return (
+    <span className="pointer-events-none absolute inset-0" aria-hidden="true">
+      {Array.from({ length: count }, (_, i) => {
+        const angle = (i / count) * Math.PI * 2 - Math.PI / 2;
+        const dist = 42 + (i % 3) * 16;
+        const style = {
+          color,
+          animationDelay: `${i * 28}ms`,
+          "--dx": `${(Math.cos(angle) * dist).toFixed(1)}px`,
+          "--dy": `${(Math.sin(angle) * dist * 0.7).toFixed(1)}px`,
+          "--rot": `${(i % 2 ? 1 : -1) * (18 + i * 9)}deg`,
+        } as CSSProperties;
+        return <i key={i} className={tone === "petal" ? "wi-burst-petal" : "wi-burst-bit"} style={style} />;
+      })}
+    </span>
   );
 }

@@ -52,6 +52,40 @@ export interface SignatureFlags {
   headingDepth: boolean;
 }
 
+/**
+ * Short accents. Transform or opacity only, and each template turns on a few
+ * so they don't stack. Reduced motion leaves every one of these static.
+ */
+export interface DelightFlags {
+  /** Gold motes when the opening reveals the names. */
+  goldDust: boolean;
+  /** Idle sway of the hanging bell, inviting a pull. */
+  idleSway: boolean;
+  /** One light sweep across the names as they appear. */
+  nameSweep: boolean;
+  /** Soft flutter of the destination ribbon at rest. */
+  ribbonFlutter: boolean;
+  /** RSVP card rises with a small burst. */
+  rsvpLift: boolean;
+  /** Countdown digits ease when they change. */
+  countdownTick: boolean;
+  /** Gallery photos lean toward a finger or cursor. */
+  galleryTilt: boolean;
+  /** Section rule draws out from the centre. */
+  dividerDraw: boolean;
+}
+
+export const DELIGHT_OFF: DelightFlags = {
+  goldDust: false,
+  idleSway: false,
+  nameSweep: false,
+  ribbonFlutter: false,
+  rsvpLift: false,
+  countdownTick: false,
+  galleryTilt: false,
+  dividerDraw: false,
+};
+
 /** Where a generated layer sits in the hero. Transform-only; no layout animation. */
 export type ParallaxPosition =
   | "background"
@@ -104,6 +138,8 @@ export interface MotionConfig {
   /** Scrim behind names and the date so type stays at least 4.5:1. */
   parallaxScrim?: "dark" | "light" | "none";
   accents?: SceneAccents;
+  /** Omitted means every accent is off. */
+  delight?: DelightFlags;
 }
 
 export interface TemplateExperience {
@@ -224,6 +260,10 @@ const FRAME_ENVELOPE: SceneAccents = {
   envelope: `${ART}/shared-envelope.webp`,
 };
 
+function delight(flags: Partial<DelightFlags>): DelightFlags {
+  return { ...DELIGHT_OFF, ...flags };
+}
+
 export const TEMPLATE_EXPERIENCES: Record<string, TemplateExperience> = {
   "royal-heritage": {
     slug: "royal-heritage",
@@ -269,6 +309,14 @@ export const TEMPLATE_EXPERIENCES: Record<string, TemplateExperience> = {
       parallaxLayers: ROYAL_LAYERS,
       parallaxScrim: "dark",
       accents: CREST_FRAME_ENVELOPE,
+      delight: delight({
+        goldDust: true,
+        nameSweep: true,
+        rsvpLift: true,
+        countdownTick: true,
+        galleryTilt: true,
+        dividerDraw: true,
+      }),
     },    palette: { bg: "#140806", ink: "#f6ead4", accent: "#d4af37", surface: "#26100c" },
     fonts: { display: "Cinzel, Cormorant Garamond, serif", body: "Plus Jakarta Sans, sans-serif" },
     animation: { reduced: "fade-only" },
@@ -316,6 +364,13 @@ export const TEMPLATE_EXPERIENCES: Record<string, TemplateExperience> = {
       parallaxLayers: FLORAL_LAYERS,
       parallaxScrim: "light",
       accents: FRAME_ENVELOPE,
+      delight: delight({
+        nameSweep: true,
+        rsvpLift: true,
+        countdownTick: true,
+        galleryTilt: true,
+        dividerDraw: true,
+      }),
     },    palette: { bg: "#fdf7f5", ink: "#4a252a", accent: "#c87d8a", surface: "#ffffff" },
     fonts: { display: "Cormorant Garamond, Playfair Display, serif", body: "Plus Jakarta Sans, sans-serif" },
     animation: { reduced: "fade-only" },
@@ -362,6 +417,12 @@ export const TEMPLATE_EXPERIENCES: Record<string, TemplateExperience> = {
       parallaxLayers: MINIMAL_LAYERS,
       parallaxScrim: "none",
       accents: FRAME_ENVELOPE,
+      delight: delight({
+        nameSweep: true,
+        rsvpLift: true,
+        countdownTick: true,
+        galleryTilt: true,
+      }),
     },    palette: { bg: "#091526", ink: "#f4efe6", accent: "#d4af37", surface: "#10233f" },
     fonts: { display: "Cormorant Garamond, serif", body: "Plus Jakarta Sans, sans-serif" },
     animation: { reduced: "fade-only" },
@@ -410,6 +471,14 @@ export const TEMPLATE_EXPERIENCES: Record<string, TemplateExperience> = {
       parallaxLayers: VIVAH_LAYERS,
       parallaxScrim: "dark",
       accents: CREST_FRAME_ENVELOPE,
+      delight: delight({
+        goldDust: true,
+        idleSway: true,
+        nameSweep: true,
+        rsvpLift: true,
+        countdownTick: true,
+        dividerDraw: true,
+      }),
     },    palette: { bg: "#4a0b0d", ink: "#fdf1d6", accent: "#f0b429", surface: "#631215" },
     fonts: { display: "Cinzel, Playfair Display, serif", body: "Plus Jakarta Sans, sans-serif" },
     animation: { reduced: "fade-only" },
@@ -458,6 +527,14 @@ export const TEMPLATE_EXPERIENCES: Record<string, TemplateExperience> = {
       parallaxLayers: DESTINATION_LAYERS,
       parallaxScrim: "dark",
       accents: FRAME_ENVELOPE,
+      delight: delight({
+        nameSweep: true,
+        ribbonFlutter: true,
+        rsvpLift: true,
+        countdownTick: true,
+        galleryTilt: true,
+        dividerDraw: true,
+      }),
     },    palette: { bg: "#f7f3eb", ink: "#0f353e", accent: "#b86b43", surface: "#ffffff" },
     fonts: { display: "Cormorant Garamond, serif", body: "Plus Jakarta Sans, sans-serif" },
     animation: { reduced: "fade-only" },

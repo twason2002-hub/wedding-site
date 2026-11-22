@@ -2,6 +2,7 @@
 
 import { useState, type CSSProperties } from "react";
 import OpeningImage from "./OpeningImage";
+import { useDelight } from "../motion";
 
 const CARD = "/weddings/openings/floral-card.webp";
 
@@ -21,6 +22,7 @@ export default function PetalUnfold({
   onDone: () => void;
 }) {
   const [opened, setOpened] = useState(false);
+  const sweep = useDelight().nameSweep && opened;
 
   const open = () => {
     if (opened) {
@@ -41,15 +43,16 @@ export default function PetalUnfold({
 
   return (
     <div className="relative z-10 flex w-full flex-col items-center px-6 text-center">
-      <p className="mb-4 rounded-full bg-[#4a252a]/85 px-4 py-2 text-[11px] font-medium uppercase tracking-[0.22em] text-[#fff7f4]">
+      <p data-center="label" className="mb-4 rounded-full bg-[#4a252a]/85 px-4 py-2 text-[11px] font-medium uppercase tracking-[0.22em] text-[#fff7f4]">
         {opened ? "Welcome" : "Tap to unfold the petals"}
       </p>
       <button
         type="button"
+        data-center="card"
         onClick={open}
         aria-label={`Unfold the invitation for ${names}`}
-        className="relative block h-[min(72dvh,720px)] max-w-[88vw]"
-        style={{ aspectRatio: "9 / 16", perspective: "1200px" }}
+        className="relative mx-auto block aspect-[9/16] w-[min(88vw,25.3rem)] max-w-full"
+        style={{ perspective: "1200px" }}
       >
         <span className="absolute inset-0 overflow-hidden rounded-[1.25rem] shadow-[0_24px_60px_rgba(90,40,50,0.18)]">
           <OpeningImage
@@ -75,7 +78,7 @@ export default function PetalUnfold({
             <span className="text-[10px] font-semibold uppercase tracking-[0.28em] text-[#5c2a38]">
               {blessing ?? "You are invited"}
             </span>
-            <span className="wi-couple-heading mt-3 font-display-luxury text-[1.65rem] italic leading-tight text-[#3d221c]">
+            <span data-center="names" className={`wi-couple-heading mt-3 font-display-luxury text-[1.65rem] italic leading-tight text-[#3d221c] ${sweep ? "wi-name-sweep" : ""}`}>
               {names}
             </span>
             {subtitle && <span className="mt-2 text-sm text-[#5c2a38]">{subtitle}</span>}
@@ -86,7 +89,7 @@ export default function PetalUnfold({
         <Petal className="absolute inset-y-0 left-0 z-30 w-1/2 rounded-l-[1.25rem] bg-[#f8d5de]" style={flap("right center", "rotateY(170deg)")} />
         <Petal className="absolute inset-y-0 right-0 z-30 w-1/2 rounded-r-[1.25rem] bg-[#d9899c]" style={flap("left center", "rotateY(-170deg)")} />
       </button>
-      <button type="button" onClick={open} className="mt-4 min-h-11 rounded-full bg-[#4a252a] px-5 text-xs uppercase tracking-[0.2em] text-[#fff7f4]">
+      <button type="button" data-center="action" onClick={open} className="mt-4 min-h-11 rounded-full bg-[#4a252a] px-5 text-xs uppercase tracking-[0.2em] text-[#fff7f4]">
         Open the invitation
       </button>
     </div>

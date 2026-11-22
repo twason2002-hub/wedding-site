@@ -19,6 +19,7 @@ import SignatureMotif from "../effects/SignatureMotif";
 import JourneyReveal from "../effects/JourneyReveal";
 import GuestSections from "../GuestSections";
 import LayeredParallax, { EnvelopeRsvp, GaneshCrest, GoldFrame } from "../effects/LayeredParallax";
+import GoldDivider from "../GoldDivider";
 import { AnimatedCalligraphy, FiligreeCorners, OutlinedEditorialWord } from "../LuxuryOrnaments";
 
 /**
@@ -153,6 +154,7 @@ export default function TraditionalVivah({ wedding }: { wedding: WeddingData }) 
           )}
         </div>
       </header>
+      <GoldDivider className="mb-2 mt-4" />
 
       <main className="mx-auto max-w-5xl px-6 pb-28 space-y-24">
         <ScrollReveal>

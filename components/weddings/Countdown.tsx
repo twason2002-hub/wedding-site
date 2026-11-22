@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { prefersReducedMotion } from "./effects/gsap-setup";
+import { useDelight } from "./motion";
 
 type Units = { d: number; h: number; m: number; s: number; over: boolean; thanked: boolean };
 
@@ -18,6 +19,7 @@ export default function Countdown({
 }) {
   const [t, setT] = useState<Units>({ d: 0, h: 0, m: 0, s: 0, over: false, thanked: false });
   const [flipKey, setFlipKey] = useState<string | null>(null);
+  const tickOn = useDelight().countdownTick;
   const prev = useRef<Pick<Units, "d" | "h" | "m" | "s"> | null>(null);
 
   useEffect(() => {
@@ -78,7 +80,7 @@ export default function Countdown({
   ] as const;
 
   const digitClass = (id: string, extra: string) => {
-    const flip = flipKey?.startsWith(`${id}-`) ? " wi-countdown-flip" : "";
+    const flip = tickOn && flipKey?.startsWith(`${id}-`) ? " wi-digit-tick" : "";
     return `${extra}${flip}`;
   };
 

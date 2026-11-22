@@ -1,5 +1,5 @@
 import type { WeddingData } from "@/lib/weddings/types";
-import { experienceFor } from "@/lib/weddings/template-experience";
+import { DELIGHT_OFF, experienceFor } from "@/lib/weddings/template-experience";
 import RoyalHeritage from "./templates/RoyalHeritage";
 import FloralRomance from "./templates/FloralRomance";
 import ModernMinimal from "./templates/ModernMinimal";
@@ -27,6 +27,7 @@ export default function WeddingRenderer({ wedding }: { wedding: WeddingData }) {
     parallaxLayers: exp.motion.parallaxLayers ?? [],
     parallaxScrim: exp.motion.parallaxScrim ?? "none",
     accents: exp.motion.accents ?? {},
+    delight: exp.motion.delight ?? DELIGHT_OFF,
   };
 
   return (

@@ -19,6 +19,7 @@ import JourneyReveal from "../effects/JourneyReveal";
 import GuestSections from "../GuestSections";
 import { AnimatedCalligraphy, FiligreeCorners, OutlinedEditorialWord } from "../LuxuryOrnaments";
 import LayeredParallax, { EnvelopeRsvp, GaneshCrest, GoldFrame } from "../effects/LayeredParallax";
+import GoldDivider from "../GoldDivider";
 
 /**
  * TEMPLATE 1 — ROYAL HERITAGE (Imperial Rajputana Palace Edition).
@@ -152,6 +153,7 @@ export default function RoyalHeritage({ wedding }: { wedding: WeddingData }) {
           )}
         </div>
       </header>
+      <GoldDivider className="mb-2 mt-4" />
 
       <main className="mx-auto max-w-5xl px-6 pb-28 space-y-28">
         <ScrollReveal>
