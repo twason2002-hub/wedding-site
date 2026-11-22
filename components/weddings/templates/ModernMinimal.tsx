@@ -72,11 +72,11 @@ export default function ModernMinimal({ wedding }: { wedding: WeddingData }) {
             </SvgDraw>
 
             <h1
-              className="mt-5 font-display-luxury font-normal leading-[1.08] tracking-tight"
+              className="wi-name-on-dark mt-5 font-display-luxury font-normal leading-[1.08] tracking-tight"
               style={{ fontSize: "clamp(3rem, 7.5vw, 6.2rem)" }}
             >
               <span className="wi-mask wi-name-mask">
-              <GoldShimmer duration={7} from="#9b7318" via="#f7e7ad" to="#9b7318" className="wi-line wi-line--1 wi-couple-heading block text-[#f4efe6]">
+              <GoldShimmer duration={7} from="#e4c36a" via="#fff6d4" to="#e4c36a" className="wi-line wi-line--1 wi-couple-heading block text-[#f4efe6]">
                 {wedding.couple.bride}
               </GoldShimmer>
             </span>
@@ -84,7 +84,7 @@ export default function ModernMinimal({ wedding }: { wedding: WeddingData }) {
               weds
             </span>
             <span className="wi-mask wi-name-mask">
-              <GoldShimmer duration={7} from="#9b7318" via="#f7e7ad" to="#9b7318" className="wi-line wi-line--2 wi-couple-heading block text-[#f4efe6]">
+              <GoldShimmer duration={7} from="#e4c36a" via="#fff6d4" to="#e4c36a" className="wi-line wi-line--2 wi-couple-heading block text-[#f4efe6]">
                 {wedding.couple.groom}
               </GoldShimmer>
             </span>

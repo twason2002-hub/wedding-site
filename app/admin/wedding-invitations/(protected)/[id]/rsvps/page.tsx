@@ -139,7 +139,15 @@ export default async function RsvpsPage({ params }: { params: Promise<{ id: stri
             <p className="adm-hint">
               {site.rsvp_enabled
                 ? "Responses appear here as guests reply from the website."
-                : "Turn RSVP on in the website settings so guests can reply."}
+                : (
+                  <>
+                    RSVP is off.{" "}
+                    <Link href={`/admin/wedding-invitations/${id}/edit`} className="adm-link">
+                      Turn it on in the website editor
+                    </Link>
+                    .
+                  </>
+                )}
             </p>
           </div>
         ) : (

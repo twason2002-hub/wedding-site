@@ -3,7 +3,8 @@ import SiteNav from "@/components/weddings/SiteNav";
 import { ScrollReveal } from "@/components/weddings/HomeMoments";
 import { OutlinedEditorialWord } from "@/components/weddings/LuxuryOrnaments";
 import { listTemplates } from "@/lib/weddings/templates";
-import { TEMPLATE_PRICE_LABEL, TEMPLATE_PRICE_NOTE, whatsappLink } from "@/lib/weddings/site-config";
+import { TEMPLATE_PRICE_LABEL, TEMPLATE_PRICE_NOTE, templateInterestMessage, whatsappLink } from "@/lib/weddings/site-config";
+import { getSiteContact } from "@/lib/weddings/db";
 import { demoWeddingFor } from "@/lib/weddings/sample-data";
 
 export const metadata = {
@@ -11,8 +12,9 @@ export const metadata = {
   description: "Explore five beautiful Indian wedding website templates with live interactive previews.",
 };
 
-export default function TemplateGallery() {
+export default async function TemplateGallery() {
   const templates = listTemplates();
+  const contact = await getSiteContact();
 
   return (
     <div
@@ -114,8 +116,8 @@ export default function TemplateGallery() {
                         <span aria-hidden="true">→</span>
                       </Link>
                       <a
-                        href={whatsappLink(`Hi Inviteo! I want the ${t.name} template (${TEMPLATE_PRICE_LABEL}).`)}
-                        className="inline-flex min-h-[44px] items-center justify-center rounded-full bg-[#1faa53] px-6 py-2.5 text-xs font-semibold uppercase tracking-[0.16em] text-white"
+                        href={whatsappLink(templateInterestMessage(t.name), contact.whatsappNumber)}
+                        className="wi-wa inline-flex min-h-12 items-center justify-center rounded-full px-6 py-2.5 text-xs font-semibold uppercase tracking-[0.16em]"
                       >
                         WhatsApp · {TEMPLATE_PRICE_LABEL}
                       </a>

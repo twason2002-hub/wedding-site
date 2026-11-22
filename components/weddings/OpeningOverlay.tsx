@@ -8,6 +8,7 @@ import BloomReveal from "./BloomReveal";
 import UnfoldReveal from "./UnfoldReveal";
 import TempleScrollReveal from "./TempleScrollReveal";
 import PostcardReveal from "./PostcardReveal";
+import RibbonPull from "./RibbonPull";
 import type { EnvelopeTheme } from "@/lib/weddings/template-experience";
 import { experienceFor } from "@/lib/weddings/template-experience";
 
@@ -25,7 +26,7 @@ export default function OpeningOverlay({
   theme,
   timing,
 }: {
-  variant: "curtain" | "petals" | "fade" | "diya" | "waves" | "envelope" | "bloom" | "unfold" | "scroll" | "postcard";
+  variant: "curtain" | "petals" | "fade" | "diya" | "waves" | "envelope" | "bloom" | "unfold" | "scroll" | "postcard" | "ribbon";
   names: string;
   blessing?: string;
   subtitle?: string;
@@ -67,6 +68,7 @@ export default function OpeningOverlay({
     }
 
     let touchY = 0;
+    const pullOnly = variant === "ribbon";
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") dismiss();
     };
@@ -80,9 +82,11 @@ export default function OpeningOverlay({
       if (touchY - e.touches[0].clientY > 40) dismiss();
     };
     window.addEventListener("keydown", onKey);
-    window.addEventListener("wheel", onWheel, { passive: true });
-    window.addEventListener("touchstart", onTouchStart, { passive: true });
-    window.addEventListener("touchmove", onTouchMove, { passive: true });
+    if (!pullOnly) {
+      window.addEventListener("wheel", onWheel, { passive: true });
+      window.addEventListener("touchstart", onTouchStart, { passive: true });
+      window.addEventListener("touchmove", onTouchMove, { passive: true });
+    }
     return () => {
       delete root.dataset.invite;
       root.style.overflow = "";
@@ -92,7 +96,7 @@ export default function OpeningOverlay({
       window.removeEventListener("touchstart", onTouchStart);
       window.removeEventListener("touchmove", onTouchMove);
     };
-  }, [dismiss]);
+  }, [dismiss, variant]);
 
   if (!open) return null;
 
@@ -207,6 +211,18 @@ export default function OpeningOverlay({
           timing={timing ?? { open: 780, reveal: 1900 }}
           onDone={dismiss}
         />
+      </div>
+    );
+  }
+
+  if (variant === "ribbon") {
+    return (
+      <div className={`${wrap} bg-[#0d2f38]`} style={{ background: "#0d2f38", cursor: "default" }}>
+        <div
+          className="pointer-events-none absolute inset-0"
+          style={{ background: "radial-gradient(circle at 50% 20%, rgba(214,138,89,0.28), transparent 58%)" }}
+        />
+        <RibbonPull names={names} blessing={blessing} subtitle={subtitle} onDone={dismiss} />
       </div>
     );
   }

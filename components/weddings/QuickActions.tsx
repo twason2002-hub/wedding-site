@@ -51,7 +51,7 @@ export default function QuickActions({ wedding }: { wedding: WeddingData }) {
             key={item.label}
             type="button"
             onClick={() => jump(item.selector)}
-            className="rounded-full bg-black/55 px-3 py-2 text-left text-xs uppercase tracking-[0.16em] text-white shadow-lg backdrop-blur-md"
+            className="inline-flex min-h-11 items-center rounded-full bg-black/55 px-3 py-2 text-left text-xs uppercase tracking-[0.16em] text-white shadow-lg backdrop-blur-md"
           >
             {item.label}
           </button>
@@ -78,7 +78,7 @@ export default function QuickActions({ wedding }: { wedding: WeddingData }) {
           </div>
         )}
         <div
-          className="mr-16 flex w-full items-center gap-2 rounded-full bg-[#14100c]/92 p-2 text-white shadow-2xl backdrop-blur-md"
+          className="flex w-full items-center gap-2 rounded-full bg-[#14100c]/92 p-2 text-white shadow-2xl backdrop-blur-md"
           style={{ paddingBottom: "max(0.5rem, env(safe-area-inset-bottom))" }}
         >
           {hasRsvp && (

@@ -59,7 +59,7 @@ export default function ShareBar({ wedding, dark = false }: { wedding: WeddingDa
           )}
           target="_blank"
           rel="noreferrer"
-          className="wi-action-lift inline-flex min-h-[48px] items-center gap-2 rounded-full bg-[#1faa53] px-7 py-3 text-xs font-semibold uppercase tracking-[0.22em] text-white shadow-md"
+          className="wi-wa wi-action-lift inline-flex min-h-12 items-center gap-2 rounded-full px-7 py-3 text-xs font-semibold uppercase tracking-[0.22em] shadow-md"
         >
           <WhatsAppIcon size={17} />
           <span>Share on WhatsApp</span>

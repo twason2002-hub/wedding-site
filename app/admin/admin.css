@@ -214,6 +214,31 @@ select.adm-field { appearance: none; background-image: linear-gradient(45deg, tr
 
 :focus-visible { outline: 2px solid var(--adm-accent); outline-offset: 2px; }
 
+.adm-form-grid > label { display: block; min-width: 0; }
+.adm-shell { overflow-x: clip; }
+
+@media (max-width: 720px) {
+  .adm-wrap { padding-inline: 1rem; }
+  .adm-topbar-inner { flex-wrap: wrap; }
+  .adm-topnav { order: 3; width: 100%; overflow-x: auto; }
+  .adm-topnav a { display: inline-flex; align-items: center; min-height: 44px; white-space: nowrap; }
+  .adm-user { margin-left: auto; }
+  .adm-hero, .adm-login-card { padding: 1.25rem; }
+  .adm-form-section { padding: 1.1rem; }
+  .adm-btn--sm, .adm-thumb-btn { min-height: 44px; min-width: 44px; }
+  .adm-pager-btn { min-width: 44px; height: 44px; }
+  .adm-actionbar {
+    top: auto;
+    bottom: 0;
+    border-bottom: 0;
+    border-top: 1px solid var(--adm-line);
+    padding-bottom: max(0.8rem, env(safe-area-inset-bottom));
+  }
+  .adm-actionbar-inner h1 { overflow-wrap: anywhere; }
+  .adm-row-actions .adm-link,
+  .adm-row-actions .adm-link--btn { display: inline-flex; align-items: center; min-height: 44px; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .adm-card--lift, .adm-btn, .adm-tpl, .adm-table tbody tr, .adm-switch, .adm-switch::after, .adm-upload, .adm-topnav a, .adm-pager-btn, .adm-tpl-img { transition: none; }
   .adm-card--lift:hover, .adm-btn:hover, .adm-tpl:hover { transform: none; }

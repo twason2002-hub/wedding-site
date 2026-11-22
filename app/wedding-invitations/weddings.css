@@ -130,11 +130,11 @@
 .wi-gold-shimmer {
   background: linear-gradient(
     115deg,
-    #b68d2c 0%,
-    #f7e7ad 26%,
-    #d4af37 48%,
-    #fff6d1 66%,
-    #a87e1b 100%
+    #e6c56a 0%,
+    #e6c56a 32%,
+    #fff6d4 48%,
+    #f0d48a 64%,
+    #e6c56a 100%
   );
   -webkit-background-clip: text;
   background-clip: text;
@@ -143,16 +143,34 @@
 .wi-rose-shimmer {
   background: linear-gradient(
     115deg,
-    #84404e 0%,
-    #a95768 26%,
-    #9a4b5b 48%,
-    #b26978 66%,
-    #7c3947 100%
+    #6e2f3c 0%,
+    #7a3846 30%,
+    #8d4454 48%,
+    #7a3846 66%,
+    #6e2f3c 100%
   );
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
 }
+.wi-foil-text,
+.wi-gold-shimmer {
+  filter: drop-shadow(0 1px 1px rgba(20, 8, 6, 0.72)) drop-shadow(0 8px 16px rgba(20, 8, 6, 0.35));
+}
+.wi-rose-shimmer {
+  filter: drop-shadow(0 1px 0 rgba(74, 37, 42, 0.28));
+}
+.wi-name-on-dark {
+  text-shadow: 0 1px 2px rgba(8, 6, 4, 0.8), 0 10px 24px rgba(8, 6, 4, 0.45);
+}
+.wi-name-on-light {
+  text-shadow: 0 1px 0 rgba(255, 252, 247, 0.65);
+}
+.wi-wa {
+  background-color: #0b6b34;
+  color: #ffffff;
+}
+.wi-wa-ink { color: #0b6b34; }
 
 /* ---------- Ultra-Fine Filigree & Double-Hairline Frames (No Bulky Borders) ---------- */
 .wi-bezel {
@@ -243,9 +261,14 @@
   transform: scale(0.97);
 }
 .wi-btn--gold {
-  background: linear-gradient(135deg, #c99e32 0%, #9b7318 100%);
-  color: #fff;
+  background: linear-gradient(135deg, #f0d78c 0%, #c6a04e 100%);
+  color: #140806;
   box-shadow: 0 12px 28px -10px rgba(180, 136, 34, 0.45);
+}
+.wi-btn.wi-wa,
+a.wi-wa {
+  background-color: #0b6b34;
+  color: #ffffff;
 }
 .wi-btn--ghost {
   background: rgba(255, 255, 255, 0.06);
@@ -557,6 +580,12 @@
 .wi-reveal--top.is-visible { transform: rotate(-1deg); }
 .wi-reveal--left.is-visible { transform: rotate(-3deg); }
 .wi-reveal--right.is-visible { transform: rotate(3deg); }
+@media (max-width: 640px) {
+  .wi-reveal--left,
+  .wi-reveal--right { transform: translate3d(0, 28px, 0); }
+  .wi-reveal--left.is-visible,
+  .wi-reveal--right.is-visible { transform: none; }
+}
 
 /* ---------- FAQ ---------- */
 .wi-faq {
@@ -1212,3 +1241,18 @@ section[aria-label="RSVP"] {
   transition: translate 900ms cubic-bezier(0.23, 1, 0.32, 1), opacity 900ms cubic-bezier(0.23, 1, 0.32, 1);
 }
 .wi-pc-open .wi-pc-sun, .wi-pc-revealed .wi-pc-sun { translate: -50% 26px; opacity: 0.85; }
+
+.wi-ribbon-handle {
+  touch-action: none;
+  min-width: 48px;
+  min-height: 48px;
+  padding: 0 12px 8px;
+  background: transparent;
+  border: 0;
+  cursor: grab;
+}
+.wi-ribbon-handle:active { cursor: grabbing; }
+.wi-ribbon-handle:focus-visible { outline: 2px solid #f0d48a; outline-offset: 4px; border-radius: 999px; }
+@media (prefers-reduced-motion: reduce) {
+  .wi-ribbon-handle { transition: none; }
+}

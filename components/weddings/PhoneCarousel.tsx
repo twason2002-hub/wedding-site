@@ -4,7 +4,7 @@ import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react
 import Link from "next/link";
 import type { TemplateDefinition } from "@/lib/weddings/types";
 import { demoWeddingFor } from "@/lib/weddings/sample-data";
-import { whatsappLink } from "@/lib/weddings/site-config";
+import { templateInterestMessage, whatsappLink } from "@/lib/weddings/site-config";
 import MiniInvite from "./MiniInvite";
 
 const AUTOPLAY_MS = 10000;
@@ -23,7 +23,13 @@ const DEFAULT_INDEX = 2;
  * Auto-advance moves left-to-right through a padded loop; interaction pauses,
  * then resumes when idle. Active phone auto-tours vertically.
  */
-export default function PhoneCarousel({ templates }: { templates: TemplateDefinition[] }) {
+export default function PhoneCarousel({
+  templates,
+  whatsappNumber,
+}: {
+  templates: TemplateDefinition[];
+  whatsappNumber: string;
+}) {
   const n = templates.length;
   const padding = Math.min(LOOP_PADDING, n);
   const [position, setPosition] = useState(() => (n ? padding + (DEFAULT_INDEX % n) : 0));
@@ -281,8 +287,8 @@ export default function PhoneCarousel({ templates }: { templates: TemplateDefini
             View Demo <span aria-hidden="true">→</span>
           </Link>
           <a
-            href={whatsappLink(`Hi Inviteo! I like the ${active.name} design. My wedding date is…`)}
-            className="inline-flex min-h-[48px] w-full items-center justify-center rounded-full bg-[#1faa53] px-8 text-[12px] font-semibold uppercase tracking-[0.18em] text-white sm:w-auto"
+            href={whatsappLink(templateInterestMessage(active.name), whatsappNumber)}
+            className="wi-wa inline-flex min-h-12 w-full items-center justify-center rounded-full px-8 text-[12px] font-semibold uppercase tracking-[0.18em] sm:w-auto"
           >
             Chat on WhatsApp
           </a>

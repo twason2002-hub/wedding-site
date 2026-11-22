@@ -83,7 +83,7 @@ export default function FloralRomance({ wedding }: { wedding: WeddingData }) {
           </p>
 
           {/* Oval Cameo Botanical Portrait with Delicate Hairline Frame */}
-          <div className="wi-fadeup wi-fadeup--2 relative mx-auto mt-8 max-w-md rounded-[3.5rem] bg-white p-2.5 shadow-[0_32px_80px_-24px_rgba(180,95,115,0.24),inset_0_0_0_0.75px_rgba(217,138,156,0.45)]">
+          <div className="wi-fadeup wi-fadeup--2 relative mx-auto mt-8 max-w-[15rem] sm:max-w-md rounded-[3.5rem] bg-white p-2.5 shadow-[0_32px_80px_-24px_rgba(180,95,115,0.24),inset_0_0_0_0.75px_rgba(217,138,156,0.45)]">
             <FloralFrame color="#c87d8a" leaf="#7ba05b" />
             <HeroKenBurns className="relative overflow-hidden rounded-[3rem] shadow-[inset_0_0_0_0.5px_rgba(217,138,156,0.35)]">
               <Parallax depth={10}>

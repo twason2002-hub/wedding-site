@@ -79,7 +79,7 @@ export default function Wishes({
               required
               minLength={2}
               maxLength={60}
-              placeholder="Aarav & Diya"
+              placeholder="Your name"
               className="w-full rounded-xl bg-white/70 px-4 py-3 text-sm shadow-[inset_0_0_0_0.75px_rgba(0,0,0,0.12)] outline-none placeholder:text-stone-400 focus:ring-2"
               style={{ color: ink }}
             />

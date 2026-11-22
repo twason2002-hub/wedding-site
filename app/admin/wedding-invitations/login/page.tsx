@@ -10,5 +10,6 @@ export default async function AdminLogin({
   const { error } = await searchParams;
   const initialError =
     error === "not-admin" ? "This account does not have admin access." : "";
-  return <AdminLoginForm initialError={initialError} />;
+  const configured = Boolean(process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY);
+  return <AdminLoginForm initialError={initialError} configured={configured} />;
 }

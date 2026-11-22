@@ -253,7 +253,7 @@ export default function EventCard({
                 {event.time}
               </p>
               <p className="mt-3 font-medium text-[#0f353e]">{event.venue}</p>
-              <p className="text-xs text-[#0f353e]/65">{event.address}</p>
+              <p className="text-xs text-[#0f353e]">{event.address}</p>
               {event.description && (
                 <p className="mt-3 text-sm leading-relaxed text-[#0f353e]/80">{event.description}</p>
               )}

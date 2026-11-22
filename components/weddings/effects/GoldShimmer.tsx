@@ -8,9 +8,9 @@ import type { ReactNode } from "react";
  */
 export default function GoldShimmer({
   children,
-  from = "#8a6d2b",
-  via = "#f3df9d",
-  to = "#8a6d2b",
+  from = "#e6c56a",
+  via = "#fff6d4",
+  to = "#e6c56a",
   duration = 7,
   className = "",
 }: {
@@ -23,9 +23,9 @@ export default function GoldShimmer({
 }) {
   return (
     <span
-      className={`wi-gold-shimmer-text bg-clip-text text-transparent ${className}`}
+      className={`wi-gold-shimmer-text wi-foil-text bg-clip-text text-transparent ${className}`}
       style={{
-        backgroundImage: `linear-gradient(110deg, ${from} 20%, ${via} 40%, ${to} 60%)`,
+        backgroundImage: `linear-gradient(110deg, ${from} 0%, ${from} 36%, ${via} 48%, ${from} 62%, ${to} 100%)`,
         backgroundSize: "200% 100%",
         animationDuration: `${duration}s`,
       }}

@@ -9,7 +9,16 @@ import {
 import PhoneCarousel from "@/components/weddings/PhoneCarousel";
 import { Shine } from "@animate-ui/react/primitives/effects/shine";
 import { listTemplates } from "@/lib/weddings/templates";
-import { SITE_CONFIG, TEMPLATE_PRICE_LABEL, isContactConfigured, whatsappLink } from "@/lib/weddings/site-config";
+import {
+  GENERIC_WHATSAPP_MESSAGE,
+  SITE_CONFIG,
+  TEMPLATE_PRICE_LABEL,
+  isEmailSet,
+  isInstagramSet,
+  whatsappLink,
+} from "@/lib/weddings/site-config";
+import { getSiteContact } from "@/lib/weddings/db";
+import WhatsAppDock from "@/components/weddings/WhatsAppDock";
 
 export const metadata = {
   title: "Inviteo — Beautiful Indian Wedding Invitation Websites",
@@ -57,8 +66,12 @@ const FAQS: [string, string][] = [
   ],
 ];
 
-export default function WeddingInvitationsHome() {
+export default async function WeddingInvitationsHome() {
   const templates = listTemplates();
+  const contact = await getSiteContact();
+  const chat = whatsappLink(GENERIC_WHATSAPP_MESSAGE, contact.whatsappNumber);
+  const showEmail = isEmailSet(contact.email);
+  const showInstagram = isInstagramSet(contact.instagramUrl);
 
   return (
     <div
@@ -67,13 +80,7 @@ export default function WeddingInvitationsHome() {
       className="font-body-luxury min-h-screen antialiased selection:bg-[#1e3a8a] selection:text-white"
     >
       <SiteNav />
-      <a
-        href={whatsappLink("Hi Inviteo! I want a wedding invitation website.")}
-        className="fixed bottom-4 right-4 z-[70] inline-flex min-h-12 items-center gap-2 rounded-full bg-[#1faa53] px-4 text-sm font-semibold text-white shadow-lg"
-      >
-        <WhatsAppGlyph />
-        <span>WhatsApp</span>
-      </a>
+      <WhatsAppDock href={chat} />
 
       <header className="relative overflow-hidden bg-[#fbf9f5] text-[#1c1917]">
         <div
@@ -102,7 +109,7 @@ export default function WeddingInvitationsHome() {
                 <span className="wi-mask">
                   <span className="wi-line wi-line--2">
                     websites, shared on{" "}
-                    <em className="italic font-normal" style={{ color: "#1faa53" }}>
+                    <em className="wi-wa-ink italic font-normal">
                       WhatsApp.
                     </em>
                   </span>
@@ -124,9 +131,8 @@ export default function WeddingInvitationsHome() {
                 </Shine>
                 <Shine enableOnHover asChild>
                   <a
-                    href={whatsappLink("Hi Inviteo! I want a wedding invitation website.")}
-                    className="wi-btn"
-                    style={{ background: "#1faa53", color: "#fff" }}
+                    href={chat}
+                    className="wi-btn wi-wa"
                   >
                     <WhatsAppGlyph />
                     <span>Chat on WhatsApp</span>
@@ -211,7 +217,7 @@ export default function WeddingInvitationsHome() {
           </div>
         </ScrollReveal>
         <ScrollReveal delay={80}>
-          <PhoneCarousel templates={templates} />
+          <PhoneCarousel templates={templates} whatsappNumber={contact.whatsappNumber} />
         </ScrollReveal>
       </section>
 
@@ -261,9 +267,8 @@ export default function WeddingInvitationsHome() {
             </p>
             <div className="mt-6 flex flex-wrap justify-center gap-3.5">
               <a
-                href={whatsappLink("Hi Inviteo! I want a wedding invitation website. My wedding date is…")}
-                className="wi-btn"
-                style={{ background: "#1faa53", color: "#fff" }}
+                href={chat}
+                className="wi-btn wi-wa"
               >
                 <WhatsAppGlyph />
                 <span>Chat on WhatsApp</span>
@@ -272,11 +277,6 @@ export default function WeddingInvitationsHome() {
                 See designs first
               </Link>
             </div>
-            {!isContactConfigured() && (
-              <p className="mt-6 text-sm text-white/70">
-                WhatsApp opens this section until the business number is connected.
-              </p>
-            )}
           </ScrollReveal>
         </div>
       </section>
@@ -301,7 +301,7 @@ export default function WeddingInvitationsHome() {
         </ScrollReveal>
       </section>
 
-      <footer style={{ background: "#06101e" }} className="text-white/75 border-t border-[#d4af37]/20">
+      <footer style={{ background: "#06101e" }} className="border-t border-[#d4af37]/20 pb-28 text-white/75 md:pb-0">
         <div className="wi-wrap flex flex-col gap-8 py-12 md:flex-row md:items-end md:justify-between">
           <div>
             <p className="font-display-luxury text-3xl text-white">
@@ -309,8 +309,22 @@ export default function WeddingInvitationsHome() {
               <span className="italic text-[#d4af37]">{SITE_CONFIG.brandName.slice(6)}</span>
             </p>
             <p className="mt-2 max-w-sm text-sm text-white/70">{SITE_CONFIG.tagline}</p>
+            {(showEmail || showInstagram) && (
+              <p className="mt-3 flex flex-wrap gap-x-4 gap-y-2 text-sm">
+                {showEmail && (
+                  <a className="underline decoration-[#d4af37]/60 underline-offset-4" href={`mailto:${contact.email}`}>
+                    {contact.email}
+                  </a>
+                )}
+                {showInstagram && (
+                  <a className="underline decoration-[#d4af37]/60 underline-offset-4" href={contact.instagramUrl}>
+                    Instagram
+                  </a>
+                )}
+              </p>
+            )}
           </div>
-          <a href={whatsappLink("Hi Inviteo! I'd like to know more.")} className="wi-btn wi-btn--gold">
+          <a href={chat} className="wi-btn wi-btn--gold">
             WhatsApp Us
           </a>
         </div>

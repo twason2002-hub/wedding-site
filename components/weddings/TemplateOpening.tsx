@@ -11,9 +11,10 @@ import OpeningOverlay from "./OpeningOverlay";
 export default function TemplateOpening({ wedding }: { wedding: WeddingData }) {
   const exp = experienceFor(wedding.templateSlug);
   const names = `${wedding.couple.bride} & ${wedding.couple.groom}`;
+  const pull = exp.motion.pullToReveal?.enabled ? exp.motion.pullToReveal.kind : null;
   return (
     <OpeningOverlay
-      variant={exp.opening}
+      variant={pull ?? exp.opening}
       names={names}
       blessing={wedding.blessing}
       subtitle={wedding.couple.weddingDateDisplay}
