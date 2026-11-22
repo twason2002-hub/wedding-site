@@ -35,20 +35,20 @@ export default function BloomEffect({
     const ctx = gsap.context(() => {
       gsap.from(el.querySelectorAll(".wi-bloom-draw"), {
         drawSVG: "0%",
-        duration: 1.2,
-        stagger: 0.2,
+        duration: 0.5,
+        stagger: 0.05,
         ease: EASE_DRAW,
-        scrollTrigger: { trigger: el, start: "top 88%", once: true },
+        scrollTrigger: { trigger: el, start: "top 90%", once: true },
       });
       gsap.from(el.querySelectorAll(".wi-bloom-pop"), {
         scale: 0,
         opacity: 0,
         transformOrigin: "center",
-        duration: 0.7,
-        stagger: 0.09,
-        delay: 0.5,
+        duration: 0.45,
+        stagger: 0.04,
+        delay: 0.08,
         ease: "back.out(1.8)",
-        scrollTrigger: { trigger: el, start: "top 88%", once: true },
+        scrollTrigger: { trigger: el, start: "top 90%", once: true },
       });
     }, el);
     return () => ctx.revert();

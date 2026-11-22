@@ -9,6 +9,7 @@ import ScrollProgress from "./ScrollProgress";
 import SideBorders from "./SideBorders";
 import GuestGreeting from "./GuestGreeting";
 import QuickActions from "./QuickActions";
+import { WeddingMotionProvider } from "./motion";
 
 /**
  * Shared rendering engine: wedding data in, selected template out.
@@ -20,13 +21,13 @@ export default function WeddingRenderer({ wedding }: { wedding: WeddingData }) {
   const bordersOn = wedding.sections?.borders ?? exp.features.borders.enabled;
 
   return (
-    <>
+    <WeddingMotionProvider value={exp.motion.signature}>
       <ScrollProgress />
       {bordersOn && <SideBorders motif={exp.features.borders.motif} />}
-      <GuestGreeting accent={exp.palette.accent} />
+      <GuestGreeting accent={exp.palette.accent} bride={wedding.couple.bride} groom={wedding.couple.groom} />
       <QuickActions wedding={wedding} />
       {renderTemplate(wedding)}
-    </>
+    </WeddingMotionProvider>
   );
 }
 

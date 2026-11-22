@@ -19,6 +19,7 @@ import JourneyReveal from "../effects/JourneyReveal";
 import SignatureMotif from "../effects/SignatureMotif";
 import GuestSections from "../GuestSections";
 import { AnimatedCalligraphy, FiligreeCorners, OutlinedEditorialWord } from "../LuxuryOrnaments";
+import CoastDepth from "../effects/DepthLayers";
 
 /**
  * TEMPLATE 5 — DESTINATION WEDDING (Mediterranean-meets-Goa Coastal Resort Edition).
@@ -38,6 +39,7 @@ export default function DestinationWedding({ wedding }: { wedding: WeddingData }
 
       {/* Full-Bleed Coastal Horizon Hero */}
       <header className="relative flex min-h-[92dvh] items-end overflow-hidden bg-[#0a252c]">
+        <CoastDepth />
         <HeroKenBurns className="absolute inset-0">
           <Parallax depth={12} className="h-full w-full">
             {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -64,7 +66,7 @@ export default function DestinationWedding({ wedding }: { wedding: WeddingData }
           <Palm className="h-20 w-16" />
         </FloatingOrnaments>
 
-        <div className="wi-hero-exit relative z-10 mx-auto w-full max-w-6xl px-6 pb-28 pt-32 text-white">
+        <div className="wi-hero-exit relative z-10 mx-auto w-full max-w-6xl px-6 pb-32 pt-32 text-white">
           <div className="wi-fadeup wi-fadeup--1 inline-flex items-center gap-3 rounded-full bg-white/10 px-4 py-1.5 text-[11px] uppercase tracking-[0.32em] text-[#f3d5c1] shadow-[inset_0_0_0_0.75px_rgba(255,255,255,0.28)] backdrop-blur-md">
             <span>Coastal Destination Celebration</span>
             <span className="hidden sm:inline">·</span>

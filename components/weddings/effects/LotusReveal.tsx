@@ -36,19 +36,19 @@ export default function LotusReveal({
         scale: 0,
         opacity: 0,
         transformOrigin: "50% 100%",
-        duration: 0.9,
-        stagger: 0.12,
+        duration: 0.45,
+        stagger: 0.04,
         ease: "back.out(1.6)",
-        scrollTrigger: { trigger: el, start: "top 88%", once: true },
+        scrollTrigger: { trigger: el, start: "top 90%", once: true },
       });
       gsap.from(core, {
         scale: 0,
         opacity: 0,
         transformOrigin: "center",
-        duration: 0.8,
-        delay: 0.7,
+        duration: 0.4,
+        delay: 0.08,
         ease: EASE_OUT,
-        scrollTrigger: { trigger: el, start: "top 88%", once: true },
+        scrollTrigger: { trigger: el, start: "top 90%", once: true },
       });
     }, el);
     return () => ctx.revert();

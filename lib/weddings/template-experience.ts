@@ -36,6 +36,22 @@ export interface EnvelopeTheme {
   glow: boolean;
 }
 
+/**
+ * Signature interactions. Each key is a JSON toggle.
+ * Opening signatures (doors, bell, petals) replace `opening` when true.
+ * The others layer onto the page and can be combined.
+ */
+export interface SignatureFlags {
+  palaceDoors: boolean;
+  diyaBell: boolean;
+  petalUnfold: boolean;
+  cardFlip: boolean;
+  coastParallax: boolean;
+  heroParallax: boolean;
+  scrollTilt: boolean;
+  headingDepth: boolean;
+}
+
 /** Motion/interaction selection — JSON only, no animation logic here. */
 export interface MotionConfig {
   opening: OpeningType;
@@ -50,6 +66,7 @@ export interface MotionConfig {
    * `ribbon` is a pull-down tassel with a button and keyboard fallback.
    */
   pullToReveal?: { enabled: boolean; kind: "ribbon" };
+  signature: SignatureFlags;
 }
 
 export interface TemplateExperience {
@@ -151,6 +168,16 @@ export const TEMPLATE_EXPERIENCES: Record<string, TemplateExperience> = {
       interactionEffects: ["blessings", "reactions", "qr", "countdown", "scratch", "glimmer"],
       intensity: "medium",
       speed: "normal",
+      signature: {
+        palaceDoors: true,
+        diyaBell: false,
+        petalUnfold: false,
+        cardFlip: false,
+        coastParallax: false,
+        heroParallax: true,
+        scrollTilt: true,
+        headingDepth: true,
+      },
     },    palette: { bg: "#140806", ink: "#f6ead4", accent: "#d4af37", surface: "#26100c" },
     fonts: { display: "Cinzel, Cormorant Garamond, serif", body: "Plus Jakarta Sans, sans-serif" },
     animation: { reduced: "fade-only" },
@@ -185,6 +212,16 @@ export const TEMPLATE_EXPERIENCES: Record<string, TemplateExperience> = {
       interactionEffects: ["blessings", "reactions", "countdown", "scratch"],
       intensity: "medium",
       speed: "normal",
+      signature: {
+        palaceDoors: false,
+        diyaBell: false,
+        petalUnfold: true,
+        cardFlip: false,
+        coastParallax: false,
+        heroParallax: true,
+        scrollTilt: true,
+        headingDepth: true,
+      },
     },    palette: { bg: "#fdf7f5", ink: "#4a252a", accent: "#c87d8a", surface: "#ffffff" },
     fonts: { display: "Cormorant Garamond, Playfair Display, serif", body: "Plus Jakarta Sans, sans-serif" },
     animation: { reduced: "fade-only" },
@@ -218,6 +255,16 @@ export const TEMPLATE_EXPERIENCES: Record<string, TemplateExperience> = {
       interactionEffects: ["reactions", "countdown", "qr", "scratch"],
       intensity: "low",
       speed: "normal",
+      signature: {
+        palaceDoors: false,
+        diyaBell: false,
+        petalUnfold: false,
+        cardFlip: true,
+        coastParallax: false,
+        heroParallax: true,
+        scrollTilt: true,
+        headingDepth: true,
+      },
     },    palette: { bg: "#091526", ink: "#f4efe6", accent: "#d4af37", surface: "#10233f" },
     fonts: { display: "Cormorant Garamond, serif", body: "Plus Jakarta Sans, sans-serif" },
     animation: { reduced: "fade-only" },
@@ -253,6 +300,16 @@ export const TEMPLATE_EXPERIENCES: Record<string, TemplateExperience> = {
       interactionEffects: ["blessings", "reactions", "qr", "countdown", "scratch", "glimmer"],
       intensity: "medium",
       speed: "normal",
+      signature: {
+        palaceDoors: false,
+        diyaBell: true,
+        petalUnfold: false,
+        cardFlip: false,
+        coastParallax: false,
+        heroParallax: true,
+        scrollTilt: true,
+        headingDepth: true,
+      },
     },    palette: { bg: "#4a0b0d", ink: "#fdf1d6", accent: "#f0b429", surface: "#631215" },
     fonts: { display: "Cinzel, Playfair Display, serif", body: "Plus Jakarta Sans, sans-serif" },
     animation: { reduced: "fade-only" },
@@ -288,6 +345,16 @@ export const TEMPLATE_EXPERIENCES: Record<string, TemplateExperience> = {
       intensity: "medium",
       speed: "normal",
       pullToReveal: { enabled: true, kind: "ribbon" },
+      signature: {
+        palaceDoors: false,
+        diyaBell: false,
+        petalUnfold: false,
+        cardFlip: false,
+        coastParallax: true,
+        heroParallax: false,
+        scrollTilt: true,
+        headingDepth: true,
+      },
     },    palette: { bg: "#f7f3eb", ink: "#0f353e", accent: "#b86b43", surface: "#ffffff" },
     fonts: { display: "Cormorant Garamond, serif", body: "Plus Jakarta Sans, sans-serif" },
     animation: { reduced: "fade-only" },

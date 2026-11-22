@@ -1,12 +1,11 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { watchEarlyReveal } from "./effects/early-reveal";
 
 /**
- * Dealt moment 1 — word-highlight (statement).
- * Scroll-scrubbed: words light up from muted to ink as the statement
- * travels through the viewport, inside this section only.
- * Reduced motion / no-JS: the whole statement stands in ink.
+ * Word highlight — the whole line comes forward once, early.
+ * It is not tied to scroll progress, so a fast flick cannot leave words faded.
  */
 export function WordHighlight({ text, className = "" }: { text: string; className?: string }) {
   const ref = useRef<HTMLParagraphElement>(null);
@@ -15,30 +14,9 @@ export function WordHighlight({ text, className = "" }: { text: string; classNam
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      el.querySelectorAll(".wi-w").forEach((w) => w.classList.add("on"));
-      return;
-    }
     const spans = Array.from(el.querySelectorAll<HTMLElement>(".wi-w"));
-    let raf = 0;
-    const update = () => {
-      raf = 0;
-      const rect = el.getBoundingClientRect();
-      const vh = window.innerHeight;
-      const p = Math.min(1, Math.max(0, (vh * 0.85 - rect.top) / (rect.height + vh * 0.15)));
-      spans.forEach((s, i) => s.classList.toggle("on", p > ((i + 1) / spans.length) * 0.95));
-    };
-    const onScroll = () => {
-      if (!raf) raf = requestAnimationFrame(update);
-    };
-    update();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll);
-    return () => {
-      window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", onScroll);
-      if (raf) cancelAnimationFrame(raf);
-    };
+    const show = () => spans.forEach((span) => span.classList.add("on"));
+    return watchEarlyReveal(el, show);
   }, []);
 
   return (
@@ -71,21 +49,7 @@ export function DevelopingPhoto({
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      el.classList.add("is-in");
-      return;
-    }
-    const io = new IntersectionObserver(
-      (entries) => {
-        if (entries.some((e) => e.isIntersecting)) {
-          el.classList.add("is-in");
-          io.disconnect();
-        }
-      },
-      { threshold: 0.35 }
-    );
-    io.observe(el);
-    return () => io.disconnect();
+    return watchEarlyReveal(el, () => el.classList.add("is-in"));
   }, []);
 
   return (
@@ -118,21 +82,7 @@ export function ScrollReveal({
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      el.classList.add("is-visible");
-      return;
-    }
-    const io = new IntersectionObserver(
-      (entries) => {
-        if (entries.some((e) => e.isIntersecting)) {
-          el.classList.add("is-visible");
-          io.disconnect();
-        }
-      },
-      { threshold: 0.14, rootMargin: "0px 0px -40px 0px" }
-    );
-    io.observe(el);
-    return () => io.disconnect();
+    return watchEarlyReveal(el, () => el.classList.add("is-visible"));
   }, []);
 
   return (

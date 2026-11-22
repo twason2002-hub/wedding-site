@@ -31,18 +31,18 @@ export default function PalaceArchReveal({
     const ctx = gsap.context(() => {
       gsap.from(el.querySelectorAll(".wi-par-path"), {
         drawSVG: "0%",
-        duration: 1.6,
-        stagger: 0.15,
+        duration: 0.5,
+        stagger: 0.04,
         ease: EASE_DRAW,
-        scrollTrigger: { trigger: el, start: "top 85%", once: true },
+        scrollTrigger: { trigger: el, start: "top 90%", once: true },
       });
       gsap.from(el.querySelector(".wi-par-inner"), {
         opacity: 0,
         y: 34,
-        duration: 1,
-        delay: 0.7,
+        duration: 0.45,
+        delay: 0.05,
         ease: EASE_OUT,
-        scrollTrigger: { trigger: el, start: "top 85%", once: true },
+        scrollTrigger: { trigger: el, start: "top 90%", once: true },
       });
     }, el);
     return () => ctx.revert();

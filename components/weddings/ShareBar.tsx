@@ -1,35 +1,51 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type { WeddingData } from "@/lib/weddings/types";
-import { shareTextFor, whatsappShare } from "@/lib/weddings/helpers";
+import { absoluteInviteUrl, shareTextFor, whatsappShare } from "@/lib/weddings/helpers";
 import { FiligreeCorners } from "./LuxuryOrnaments";
 import { CheckIcon, ShareIcon, WhatsAppIcon } from "./WeddingIcons";
 
 export default function ShareBar({ wedding, dark = false }: { wedding: WeddingData; dark?: boolean }) {
   const [copied, setCopied] = useState(false);
+  const [waHref, setWaHref] = useState("https://wa.me/");
 
-  async function nativeShare() {
-    const url = window.location.href;
+  useEffect(() => {
+    const url = absoluteInviteUrl();
+    setWaHref(whatsappShare(shareTextFor(wedding, url)));
+  }, [wedding]);
+
+  function inviteUrl() {
+    return absoluteInviteUrl();
+  }
+
+  async function shareInvite() {
+    const url = inviteUrl();
+    const text = shareTextFor(wedding, url);
     const shareData = {
       title: `${wedding.couple.bride} & ${wedding.couple.groom}`,
-      text: shareTextFor(wedding, url),
+      text,
       url,
     };
-    if (navigator.share) {
+    if (typeof navigator.share === "function") {
       try {
         await navigator.share(shareData);
         return;
-      } catch {
-        /* user cancelled — fall through to copy */
+      } catch (error) {
+        if (error instanceof DOMException && error.name === "AbortError") return;
       }
     }
+    window.open(whatsappShare(text), "_blank", "noopener,noreferrer");
+  }
+
+  async function copyInvite() {
+    const url = inviteUrl();
     try {
-      await navigator.clipboard.writeText(`${shareTextFor(wedding, url)}`);
+      await navigator.clipboard.writeText(shareTextFor(wedding, url));
       setCopied(true);
       setTimeout(() => setCopied(false), 2600);
     } catch {
-      /* fallback */
+      window.open(whatsappShare(shareTextFor(wedding, url)), "_blank", "noopener,noreferrer");
     }
   }
 
@@ -54,18 +70,20 @@ export default function ShareBar({ wedding, dark = false }: { wedding: WeddingDa
       )}
       <div className="mt-6 flex flex-wrap justify-center gap-3">
         <a
-          href={whatsappShare(
-            `You are cordially invited to celebrate the wedding of ${wedding.couple.bride} & ${wedding.couple.groom} (${wedding.couple.weddingDateDisplay}). Open our digital invitation:`
-          )}
+          href={waHref}
           target="_blank"
           rel="noreferrer"
+          onClick={(event) => {
+            event.preventDefault();
+            void shareInvite();
+          }}
           className="wi-wa wi-action-lift inline-flex min-h-12 items-center gap-2 rounded-full px-7 py-3 text-xs font-semibold uppercase tracking-[0.22em] shadow-md"
         >
           <WhatsAppIcon size={17} />
           <span>Share on WhatsApp</span>
         </a>
         <button
-          onClick={nativeShare}
+          onClick={() => void copyInvite()}
           className={`wi-action-lift inline-flex min-h-[48px] items-center gap-2 rounded-full px-7 py-3 text-xs font-medium uppercase tracking-[0.22em] ${
             dark
               ? "text-[#f9ebd2] shadow-[inset_0_0_0_0.75px_rgba(212,175,55,0.45)]"

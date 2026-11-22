@@ -19,17 +19,14 @@ import {
 } from "@/lib/weddings/site-config";
 import { getSiteContact } from "@/lib/weddings/db";
 import WhatsAppDock from "@/components/weddings/WhatsAppDock";
+import { marketingMetadata } from "@/lib/weddings/og";
 
 export const metadata = {
-  title: "Inviteo — Beautiful Indian Wedding Invitation Websites",
-  description:
-    "Create your digital Indian wedding invitation website with Inviteo. Five royal & traditional designs with Haldi, Mehendi, Sangeet, Wedding details, Google Maps, photo gallery, RSVP, and WhatsApp sharing.",
-  openGraph: {
-    title: "Inviteo — Your Indian Wedding Deserves a Beautiful Digital Invitation",
-    description:
-      "Five handcrafted Indian wedding website designs with live previews, RSVP and WhatsApp sharing.",
-    images: ["/weddings/hero-evening.jpg"],
-  },
+  ...marketingMetadata(
+    "Inviteo — Beautiful Indian Wedding Invitation Websites",
+    "Create a warm digital Indian wedding invitation. Five royal and traditional designs with the date, city, Haldi, Mehendi, Sangeet, maps, RSVP and WhatsApp sharing — one link for every family group.",
+    "/wedding-invitations",
+  ),
   other: { "page-type": "service", "site-kind": "other" },
 };
 

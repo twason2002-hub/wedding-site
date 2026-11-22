@@ -18,6 +18,8 @@ import HeroKenBurns from "../HeroKenBurns";
 import SignatureMotif from "../effects/SignatureMotif";
 import JourneyReveal from "../effects/JourneyReveal";
 import GuestSections from "../GuestSections";
+import { HeroDepthLayers } from "../effects/DepthLayers";
+import SaveTheDateFlip from "../effects/SaveTheDateFlip";
 import { AnimatedCalligraphy, FiligreeCorners, OutlinedEditorialWord } from "../LuxuryOrnaments";
 
 /**
@@ -42,6 +44,7 @@ export default function ModernMinimal({ wedding }: { wedding: WeddingData }) {
 
       {/* Royal Neelam Blue & Gold Hero */}
       <header className="relative mx-auto max-w-6xl px-6 pt-16 pb-20 md:pt-24 md:pb-28 overflow-hidden">
+        <HeroDepthLayers tone="minimal" />
         <div
           className="pointer-events-none absolute inset-0"
           style={{
@@ -94,11 +97,16 @@ export default function ModernMinimal({ wedding }: { wedding: WeddingData }) {
               {wedding.couple.intro}
             </p>
 
+            <SaveTheDateFlip
+              date={wedding.couple.weddingDateDisplay}
+              details={wedding.events.slice(0, 3).map((event) => `${event.name} · ${event.date}`)}
+            >
             <div className="wi-fadeup wi-fadeup--3 mt-8 inline-flex flex-wrap items-center gap-4 rounded-full bg-[#10233f] px-7 py-3.5 text-sm text-[#f4efe6] shadow-[inset_0_0_0_0.75px_rgba(212,175,55,0.45)]">
               <span className="text-[#d4af37]">✦</span>
               <span className="font-display-luxury text-xl italic">{wedding.couple.weddingDateDisplay}</span>
               <span className="text-[#d4af37]">✦</span>
             </div>
+            </SaveTheDateFlip>
 
             {wedding.hashtag && (
               <p className="mt-4 text-xs uppercase tracking-[0.28em] text-[#e8cf8f]/75">

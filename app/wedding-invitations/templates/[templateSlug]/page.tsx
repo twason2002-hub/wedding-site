@@ -3,15 +3,14 @@ import { notFound } from "next/navigation";
 import { getTemplate, listTemplates } from "@/lib/weddings/templates";
 import { demoWeddingFor } from "@/lib/weddings/sample-data";
 import WeddingRenderer from "@/components/weddings/WeddingRenderer";
+import { invitePageMetadata } from "@/lib/weddings/og";
 
 export async function generateMetadata({ params }: { params: Promise<{ templateSlug: string }> }) {
   const { templateSlug } = await params;
   const t = getTemplate(templateSlug);
   if (!t) return { title: "Template not found" };
-  return {
-    title: `${t.name} — Luxury Wedding Invitation Live Preview`,
-    description: t.description,
-  };
+  const wedding = demoWeddingFor(t.slug);
+  return invitePageMetadata(wedding, `/wedding-invitations/templates/${t.slug}`);
 }
 
 /** Live template preview rendered with realistic sample wedding data + quick switcher bar. */

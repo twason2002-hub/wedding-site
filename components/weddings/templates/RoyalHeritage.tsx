@@ -20,6 +20,7 @@ import SignatureMotif from "../effects/SignatureMotif";
 import JourneyReveal from "../effects/JourneyReveal";
 import GuestSections from "../GuestSections";
 import { AnimatedCalligraphy, FiligreeCorners, OutlinedEditorialWord } from "../LuxuryOrnaments";
+import { HeroDepthLayers } from "../effects/DepthLayers";
 
 /**
  * TEMPLATE 1 — ROYAL HERITAGE (Imperial Rajputana Palace Edition).
@@ -38,6 +39,7 @@ export default function RoyalHeritage({ wedding }: { wedding: WeddingData }) {
 
       {/* Ornate Imperial Frame Hero */}
       <header className="relative overflow-hidden px-6 pt-20 pb-24 text-center md:pt-28 md:pb-32">
+        <HeroDepthLayers tone="royal" />
         <div
           className="pointer-events-none absolute inset-0"
           style={{

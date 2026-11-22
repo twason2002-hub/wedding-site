@@ -10,7 +10,7 @@ import { registerWeddingPlugins, prefersReducedMotion, EASE_DRAW } from "./gsap-
  */
 export default function AnimatedBorder({
   color = "#d4af37",
-  duration = 1.4,
+  duration = 0.5,
   className = "",
 }: {
   color?: string;
@@ -33,19 +33,19 @@ export default function AnimatedBorder({
       gsap.from(frame, {
         drawSVG: "0%",
         duration,
-        stagger: 0.15,
+        stagger: 0.04,
         ease: EASE_DRAW,
-        scrollTrigger: { trigger: el, start: "top 88%", once: true },
+        scrollTrigger: { trigger: el, start: "top 90%", once: true },
       });
       gsap.from(corners, {
         opacity: 0,
         scale: 0.6,
         transformOrigin: "center",
-        duration: 0.6,
-        stagger: 0.1,
-        delay: duration * 0.7,
+        duration: 0.4,
+        stagger: 0.04,
+        delay: 0.1,
         ease: "back.out(2)",
-        scrollTrigger: { trigger: el, start: "top 88%", once: true },
+        scrollTrigger: { trigger: el, start: "top 90%", once: true },
       });
     }, el);
     return () => ctx.revert();

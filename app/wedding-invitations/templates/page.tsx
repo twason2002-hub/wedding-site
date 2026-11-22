@@ -6,11 +6,13 @@ import { listTemplates } from "@/lib/weddings/templates";
 import { TEMPLATE_PRICE_LABEL, TEMPLATE_PRICE_NOTE, templateInterestMessage, whatsappLink } from "@/lib/weddings/site-config";
 import { getSiteContact } from "@/lib/weddings/db";
 import { demoWeddingFor } from "@/lib/weddings/sample-data";
+import { marketingMetadata } from "@/lib/weddings/og";
 
-export const metadata = {
-  title: "Inviteo — Indian Wedding Invitation Designs & Live Previews",
-  description: "Explore five beautiful Indian wedding website templates with live interactive previews.",
-};
+export const metadata = marketingMetadata(
+  "Inviteo — Indian Wedding Invitation Designs & Live Previews",
+  "Explore five handcrafted Indian wedding invitation designs. Open a live preview, then share one link with your families on WhatsApp.",
+  "/wedding-invitations/templates",
+);
 
 export default async function TemplateGallery() {
   const templates = listTemplates();

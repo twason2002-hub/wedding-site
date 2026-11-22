@@ -9,6 +9,9 @@ import UnfoldReveal from "./UnfoldReveal";
 import TempleScrollReveal from "./TempleScrollReveal";
 import PostcardReveal from "./PostcardReveal";
 import RibbonPull from "./RibbonPull";
+import PalaceDoors from "./effects/PalaceDoors";
+import DiyaBell from "./effects/DiyaBell";
+import PetalUnfold from "./effects/PetalUnfold";
 import type { EnvelopeTheme } from "@/lib/weddings/template-experience";
 import { experienceFor } from "@/lib/weddings/template-experience";
 
@@ -26,7 +29,7 @@ export default function OpeningOverlay({
   theme,
   timing,
 }: {
-  variant: "curtain" | "petals" | "fade" | "diya" | "waves" | "envelope" | "bloom" | "unfold" | "scroll" | "postcard" | "ribbon";
+  variant: "curtain" | "petals" | "fade" | "diya" | "waves" | "envelope" | "bloom" | "unfold" | "scroll" | "postcard" | "ribbon" | "doors" | "bell" | "petal";
   names: string;
   blessing?: string;
   subtitle?: string;
@@ -68,7 +71,7 @@ export default function OpeningOverlay({
     }
 
     let touchY = 0;
-    const pullOnly = variant === "ribbon";
+    const tactile = variant === "ribbon" || variant === "doors" || variant === "bell" || variant === "petal";
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") dismiss();
     };
@@ -82,7 +85,7 @@ export default function OpeningOverlay({
       if (touchY - e.touches[0].clientY > 40) dismiss();
     };
     window.addEventListener("keydown", onKey);
-    if (!pullOnly) {
+    if (!tactile) {
       window.addEventListener("wheel", onWheel, { passive: true });
       window.addEventListener("touchstart", onTouchStart, { passive: true });
       window.addEventListener("touchmove", onTouchMove, { passive: true });
@@ -190,6 +193,30 @@ export default function OpeningOverlay({
       {enterHint}
     </>
   );
+
+  if (variant === "doors") {
+    return (
+      <div className={`${wrap} bg-[#110604]`} style={{ background: "#110604", cursor: "default" }}>
+        <PalaceDoors names={names} blessing={blessing} subtitle={subtitle} onDone={dismiss} />
+      </div>
+    );
+  }
+
+  if (variant === "bell") {
+    return (
+      <div className={`${wrap} bg-[#380709]`} style={{ background: "#380709", cursor: "default" }}>
+        <DiyaBell names={names} blessing={blessing} subtitle={subtitle} onDone={dismiss} />
+      </div>
+    );
+  }
+
+  if (variant === "petal") {
+    return (
+      <div className={`${wrap} bg-[#fdf5f2]`} style={{ background: "#fdf5f2", cursor: "default" }}>
+        <PetalUnfold names={names} blessing={blessing} subtitle={subtitle} onDone={dismiss} />
+      </div>
+    );
+  }
 
   if (variant === "envelope") {
     const exp = experienceFor("royal-heritage");

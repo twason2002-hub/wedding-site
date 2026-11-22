@@ -12,9 +12,17 @@ export default function TemplateOpening({ wedding }: { wedding: WeddingData }) {
   const exp = experienceFor(wedding.templateSlug);
   const names = `${wedding.couple.bride} & ${wedding.couple.groom}`;
   const pull = exp.motion.pullToReveal?.enabled ? exp.motion.pullToReveal.kind : null;
+  const signature = exp.motion.signature;
+  const variant = signature.palaceDoors
+    ? "doors"
+    : signature.diyaBell
+      ? "bell"
+      : signature.petalUnfold
+        ? "petal"
+        : pull ?? exp.opening;
   return (
     <OpeningOverlay
-      variant={pull ?? exp.opening}
+      variant={variant}
       names={names}
       blessing={wedding.blessing}
       subtitle={wedding.couple.weddingDateDisplay}

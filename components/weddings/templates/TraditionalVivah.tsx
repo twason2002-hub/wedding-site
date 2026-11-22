@@ -19,6 +19,7 @@ import HeroKenBurns from "../HeroKenBurns";
 import SignatureMotif from "../effects/SignatureMotif";
 import JourneyReveal from "../effects/JourneyReveal";
 import GuestSections from "../GuestSections";
+import { HeroDepthLayers } from "../effects/DepthLayers";
 import { AnimatedCalligraphy, FiligreeCorners, OutlinedEditorialWord } from "../LuxuryOrnaments";
 
 /**
@@ -48,6 +49,7 @@ export default function TraditionalVivah({ wedding }: { wedding: WeddingData }) 
 
       {/* Temple Mandapam Hero */}
       <header className="relative overflow-hidden px-6 pt-16 pb-20 text-center md:pt-24 md:pb-28">
+        <HeroDepthLayers tone="vivah" />
         <div
           className="pointer-events-none absolute inset-0"
           style={{

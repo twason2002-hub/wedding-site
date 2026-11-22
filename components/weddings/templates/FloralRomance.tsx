@@ -18,6 +18,7 @@ import SignatureMotif from "../effects/SignatureMotif";
 import JourneyReveal from "../effects/JourneyReveal";
 import GuestSections from "../GuestSections";
 import { AnimatedCalligraphy, FiligreeCorners, OutlinedEditorialWord } from "../LuxuryOrnaments";
+import { HeroDepthLayers } from "../effects/DepthLayers";
 
 /**
  * TEMPLATE 2 — FLORAL ROMANCE (Couture Botanical Conservatory Edition).
@@ -36,6 +37,7 @@ export default function FloralRomance({ wedding }: { wedding: WeddingData }) {
 
       {/* Botanical Conservatory Hero */}
       <header className="relative overflow-hidden px-6 pt-20 pb-20 text-center md:pt-28 md:pb-28">
+        <HeroDepthLayers tone="floral" />
         <div
           className="pointer-events-none absolute inset-0"
           style={{

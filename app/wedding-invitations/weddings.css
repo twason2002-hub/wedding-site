@@ -407,23 +407,23 @@ a.wi-wa {
 .wi-line {
   display: block;
   transform: translateY(108%);
-  animation: wi-rise 680ms var(--wi-enter) forwards;
+  animation: wi-rise 480ms var(--wi-enter) forwards;
 }
 .wi-line--1 { animation-delay: 40ms; }
-.wi-line--2 { animation-delay: 140ms; }
-.wi-line--3 { animation-delay: 240ms; }
+.wi-line--2 { animation-delay: 90ms; }
+.wi-line--3 { animation-delay: 140ms; }
 @keyframes wi-rise {
   to { transform: none; }
 }
 
 .wi-fadeup {
   opacity: 0;
-  animation: wi-fadeup 600ms var(--wi-enter) forwards;
+  animation: wi-fadeup 480ms var(--wi-enter) forwards;
 }
-.wi-fadeup--1 { animation-delay: 220ms; }
-.wi-fadeup--2 { animation-delay: 320ms; }
-.wi-fadeup--3 { animation-delay: 420ms; }
-.wi-fadeup--4 { animation-delay: 520ms; }
+.wi-fadeup--1 { animation-delay: 40ms; }
+.wi-fadeup--2 { animation-delay: 90ms; }
+.wi-fadeup--3 { animation-delay: 140ms; }
+.wi-fadeup--4 { animation-delay: 180ms; }
 @keyframes wi-fadeup {
   from { opacity: 0; transform: translateY(16px); }
   to { opacity: 1; transform: none; }
@@ -511,7 +511,7 @@ a.wi-wa {
   transition: transform 550ms var(--wi-ease);
 }
 .wi-gallery [data-gallery-item] {
-  animation: wi-fadeup 640ms var(--wi-enter) both;
+  animation: wi-fadeup 480ms var(--wi-enter) both;
 }
 .wi-gallery [data-gallery-item]:nth-child(2) { animation-delay: 70ms; }
 .wi-gallery [data-gallery-item]:nth-child(3) { animation-delay: 140ms; }
@@ -559,8 +559,8 @@ a.wi-wa {
 /* ---------- Scroll Reveal Interpolation ---------- */
 .wi-reveal {
   opacity: 0;
-  transform: translate3d(0, 28px, 0);
-  transition: opacity 650ms var(--wi-enter), transform 650ms var(--wi-enter);
+  transform: translate3d(0, 18px, 0);
+  transition: opacity 480ms var(--wi-enter), transform 480ms var(--wi-enter);
   transition-delay: var(--reveal-delay, 0ms);
 }
 /* Dealt-from-top entrance (chapter cards land like played cards). */
@@ -762,12 +762,32 @@ html[data-invite="sealed"] :is(.wi-line, .wi-fadeup, .wi-arch-draw, .wi-hero-img
   }
 }
 
+.wi-heading-depth {
+  opacity: 0;
+  transform: perspective(900px) rotateX(12deg) translate3d(0, 16px, 0);
+  transform-origin: center top;
+  transition: opacity 0.5s var(--wi-enter), transform 0.5s var(--wi-enter);
+}
+.wi-heading-depth.is-visible {
+  opacity: 1;
+  transform: none;
+}
+.wi-bell-swing {
+  animation: wi-bell-swing 0.55s ease-in-out;
+}
+@keyframes wi-bell-swing {
+  0% { transform: translateX(-50%) rotate(0deg); }
+  35% { transform: translateX(-50%) rotate(16deg); }
+  70% { transform: translateX(-50%) rotate(-10deg); }
+  100% { transform: translateX(-50%) rotate(0deg); }
+}
+
 /* One-by-one event reveal when the list container enters view. */
 .wi-stagger > * {
   opacity: 0;
-  transform: translate3d(0, 28px, 0);
-  transition: opacity 700ms var(--wi-ease), transform 820ms var(--wi-enter);
-  transition-delay: calc(var(--i, 0) * var(--step, 110ms));
+  transform: translate3d(0, 16px, 0);
+  transition: opacity 480ms var(--wi-ease), transform 480ms var(--wi-enter);
+  transition-delay: calc(var(--i, 0) * var(--step, 60ms));
 }
 .wi-stagger.is-visible > * {
   opacity: 1;
@@ -1012,6 +1032,13 @@ section[aria-label="RSVP"] {
     transform: none !important;
     transition: none !important;
   }
+  .wi-heading-depth,
+  .wi-heading-depth.is-visible {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+  .wi-bell-swing { animation: none !important; }
   .wi-scratch-date,
   .wi-scratch-date.is-revealed {
     opacity: 1 !important;
