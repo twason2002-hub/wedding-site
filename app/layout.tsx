@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { metadataBase } from "@/lib/weddings/og";
 // Self-hosted fonts (@fontsource) — no next/font, so Turbopack AND webpack
 // builds work. Variables are defined in globals.css (:root).
 import "@fontsource/playfair-display/400.css";
@@ -40,23 +41,24 @@ import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Tushar & Babitta | Wedding Invitation",
-  description: "You're cordially invited to join us on a day of love and celebration as we tie the knot on 15th Feb! 🥳💕 It would mean the world to us if you could be there to share in the joy, laughter, and happily-ever-after vibes 😊. Looking forward to seeing you there! 🎉",
+  metadataBase: metadataBase(),
+  title: {
+    default: "Indian Wedding Invitations | Inviteo",
+    template: "%s",
+  },
+  description:
+    "Inviteo designs Indian wedding invitation websites made for WhatsApp. Pick a template, add your events, and send one link to every family group.",
   icons: {
-    icon: '/favicon.ico',
-    shortcut: '/favicon.ico',
-    apple: '/images/back-5.jpg',
+    icon: "/favicon.ico",
+    shortcut: "/favicon.ico",
+    apple: "/images/back-5.jpg",
   },
   openGraph: {
-    title: "Tushar & Babitta | Wedding Invitation",
-    description: "You're cordially invited to join us on a day of love and celebration as we tie the knot on 15th Feb! 🥳💕 It would mean the world to us if you could be there to share in the joy, laughter, and happily-ever-after vibes 😊. Looking forward to seeing you there! 🎉",
-    images: ['/weddings/hero-evening.jpg'],
+    type: "website",
+    siteName: "Inviteo",
   },
   twitter: {
-    card: 'summary_large_image',
-    title: "Tushar & Babitta | Wedding Invitation",
-    description: "You're cordially invited to join us on a day of love and celebration as we tie the knot on 15th Feb! 🥳💕 It would mean the world to us if you could be there to share in the joy, laughter, and happily-ever-after vibes 😊. Looking forward to seeing you there! 🎉",
-    images: ['/weddings/hero-evening.jpg'],
+    card: "summary_large_image",
   },
 };
 

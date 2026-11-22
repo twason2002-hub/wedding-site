@@ -36,8 +36,8 @@ export default function MandalaEffect({
       if (petals.length) {
         gsap.from(petals, {
           drawSVG: "0%",
-          duration: 1.6,
-          stagger: 0.08,
+          duration: 0.55,
+          stagger: 0.03,
           ease: "power1.out",
           scrollTrigger: { trigger: el, start: "top 90%", once: true },
         });

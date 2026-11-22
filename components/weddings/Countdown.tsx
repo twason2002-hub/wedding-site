@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { prefersReducedMotion } from "./effects/gsap-setup";
+import { useDelight } from "./motion";
 
 type Units = { d: number; h: number; m: number; s: number; over: boolean; thanked: boolean };
 
@@ -18,6 +19,7 @@ export default function Countdown({
 }) {
   const [t, setT] = useState<Units>({ d: 0, h: 0, m: 0, s: 0, over: false, thanked: false });
   const [flipKey, setFlipKey] = useState<string | null>(null);
+  const tickOn = useDelight().countdownTick;
   const prev = useRef<Pick<Units, "d" | "h" | "m" | "s"> | null>(null);
 
   useEffect(() => {
@@ -78,7 +80,7 @@ export default function Countdown({
   ] as const;
 
   const digitClass = (id: string, extra: string) => {
-    const flip = flipKey?.startsWith(`${id}-`) ? " wi-countdown-flip" : "";
+    const flip = tickOn && flipKey?.startsWith(`${id}-`) ? " wi-digit-tick" : "";
     return `${extra}${flip}`;
   };
 
@@ -116,14 +118,14 @@ export default function Countdown({
   if (variant === "floral") {
     return (
       <>
-        <p className="mb-6 text-center text-[11px] font-medium uppercase tracking-[0.32em] text-[#b36a7a]">
+        <p className="wi-soft mb-6 text-center text-[11px] font-medium uppercase tracking-[0.32em]">
           {eyebrow}
         </p>
         <div className="mx-auto grid max-w-2xl grid-cols-2 sm:grid-cols-4 gap-4" role="timer" aria-label="Wedding countdown">
           {units.map(([id, v, l]) => (
             <div
               key={l}
-              className="rounded-[2rem] bg-white/90 px-4 py-6 text-center shadow-[0_16px_40px_-18px_rgba(180,100,120,0.18),inset_0_0_0_0.75px_rgba(217,138,156,0.35)]"
+              className="rounded-[2rem] bg-white/95 px-4 py-6 text-center"
             >
               <span
                 key={`${l}-${v}`}
@@ -135,7 +137,7 @@ export default function Countdown({
               >
                 {v}
               </span>
-              <span className="mt-1.5 block text-[11px] uppercase tracking-[0.28em] text-[#b36a7a]">{l}</span>
+              <span className="wi-soft mt-1.5 block text-[11px] uppercase tracking-[0.28em]">{l}</span>
             </div>
           ))}
         </div>
@@ -146,14 +148,14 @@ export default function Countdown({
   if (variant === "royal" || variant === "vivah" || dark) {
     return (
       <>
-        <p className="mb-6 text-center text-[11px] font-medium uppercase tracking-[0.32em] text-[#f3e5c3]/65">
+        <p className="wi-soft mb-6 text-center text-[11px] font-medium uppercase tracking-[0.32em]">
           {eyebrow}
         </p>
         <div className="mx-auto grid max-w-2xl grid-cols-2 sm:grid-cols-4 gap-4" role="timer" aria-label="Wedding countdown">
           {units.map(([id, v, l]) => (
             <div
               key={l}
-              className="rounded-2xl bg-gradient-to-b from-white/[0.06] to-white/[0.015] px-4 py-6 text-center shadow-[inset_0_0_0_0.75px_rgba(212,175,55,0.32)]"
+              className="rounded-2xl px-4 py-6 text-center"
             >
               <span
                 key={`${l}-${v}`}
@@ -165,7 +167,7 @@ export default function Countdown({
               >
                 {v}
               </span>
-              <span className="mt-2 block text-[11px] uppercase tracking-[0.32em] text-[#f3e5c3]/65">{l}</span>
+              <span className="wi-soft mt-2 block text-[11px] uppercase tracking-[0.32em]">{l}</span>
             </div>
           ))}
         </div>
@@ -175,14 +177,14 @@ export default function Countdown({
 
   return (
     <>
-      <p className="mb-6 text-center text-[11px] font-medium uppercase tracking-[0.32em] text-[#0f353e]/70">
+      <p className="wi-soft mb-6 text-center text-[11px] font-medium uppercase tracking-[0.32em]">
         {eyebrow}
       </p>
       <div className="mx-auto grid max-w-2xl grid-cols-2 sm:grid-cols-4 gap-4" role="timer" aria-label="Wedding countdown">
         {units.map(([id, v, l]) => (
           <div
             key={l}
-            className="rounded-2xl bg-white px-4 py-6 text-center shadow-[0_14px_34px_-18px_rgba(15,53,62,0.16),inset_0_0_0_0.75px_rgba(15,53,62,0.14)]"
+            className="rounded-2xl bg-white px-4 py-6 text-center"
           >
             <span
               key={`${l}-${v}`}
@@ -194,7 +196,7 @@ export default function Countdown({
             >
               {v}
             </span>
-            <span className="mt-1.5 block text-[11px] uppercase tracking-[0.28em] text-[#0f353e]/70">{l}</span>
+            <span className="wi-soft mt-1.5 block text-[11px] uppercase tracking-[0.28em]">{l}</span>
           </div>
         ))}
       </div>

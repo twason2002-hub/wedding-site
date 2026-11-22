@@ -10,8 +10,8 @@ import { registerWeddingPlugins, prefersReducedMotion, EASE_DRAW } from "./gsap-
  */
 export default function SvgDraw({
   children,
-  duration = 1.6,
-  stagger = 0.12,
+  duration = 0.55,
+  stagger = 0.04,
   trigger = "scroll",
   delay = 0,
   className = "",
@@ -45,7 +45,7 @@ export default function SvgDraw({
       };
       if (trigger === "scroll") {
         Object.assign(tween, {
-          scrollTrigger: { trigger: el, start: "top 85%", once: true },
+          scrollTrigger: { trigger: el, start: "top 90%", once: true },
         });
       }
       gsap.from(shapes, { drawSVG: "0%", ...tween } as gsap.TweenVars);

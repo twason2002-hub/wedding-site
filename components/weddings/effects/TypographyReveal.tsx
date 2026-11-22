@@ -18,8 +18,8 @@ export default function TypographyReveal({
   text,
   as: Tag = "span",
   type = "words",
-  stagger = 0.04,
-  duration = 0.9,
+  stagger = 0.02,
+  duration = 0.5,
   className = "",
 }: {
   text: string;
@@ -48,7 +48,7 @@ export default function TypographyReveal({
           duration,
           stagger,
           ease: EASE_OUT,
-          scrollTrigger: { trigger: el, start: "top 88%", once: true },
+          scrollTrigger: { trigger: el, start: "top 90%", once: true },
         });
       } catch {
         gsap.from(el, {
@@ -56,7 +56,7 @@ export default function TypographyReveal({
           y: 18,
           duration: 0.7,
           ease: EASE_OUT,
-          scrollTrigger: { trigger: el, start: "top 88%", once: true },
+          scrollTrigger: { trigger: el, start: "top 90%", once: true },
         });
       }
     }, el);

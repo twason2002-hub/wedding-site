@@ -15,7 +15,15 @@ function guestFromUrl(): string | null {
  * GuestGreeting — personalised welcome from ?guest= / ?g= links.
  * Client-only, React-escaped, length-capped. Nothing touches storage or network.
  */
-export default function GuestGreeting({ accent }: { accent: string }) {
+export default function GuestGreeting({
+  accent,
+  bride,
+  groom,
+}: {
+  accent: string;
+  bride?: string;
+  groom?: string;
+}) {
   const name = useSyncExternalStore(
     () => () => {},
     guestFromUrl,
@@ -31,7 +39,15 @@ export default function GuestGreeting({ accent }: { accent: string }) {
       className="relative z-10 mx-auto mt-4 flex w-fit max-w-[92vw] items-center gap-3 rounded-full bg-white/85 px-5 py-2 text-center text-sm shadow-lg backdrop-blur-md"
     >
       <span>
-        Welcome, <strong>{name}</strong>
+        {bride && groom ? (
+          <>
+            Dear <strong>{name}</strong>, {bride} &amp; {groom} saved you a place.
+          </>
+        ) : (
+          <>
+            Welcome, <strong>{name}</strong>
+          </>
+        )}
       </span>
       <button
         onClick={() => setGone(true)}

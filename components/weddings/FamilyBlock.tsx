@@ -27,12 +27,12 @@ export default function FamilyBlock({
             With the Blessings of Our Families
           </p>
           {couple.grandparents && (
-            <p className="mt-3 font-display-luxury text-lg italic text-[#e8cf8f]/85">
+            <p className="wi-accent-ink mt-3 font-display-luxury text-lg italic">
               {couple.grandparents}
             </p>
           )}
           {hasFamily && (
-            <div className="mt-8 grid gap-6 md:grid-cols-2 border-y border-[#d4af37]/15 py-7">
+            <div className="wi-rule-y mt-8 grid gap-6 py-7 md:grid-cols-2">
               {couple.brideParents && (
                 <div>
                   <p className="font-regal text-[11px] uppercase tracking-[0.32em] text-[#d4af37]">
@@ -61,11 +61,11 @@ export default function FamilyBlock({
             </p>
           )}
           {couple.loveStory && (
-            <div className="mx-auto mt-6 max-w-2xl border-t border-[#d4af37]/12 pt-6">
+            <div className="wi-rule-t mx-auto mt-6 max-w-2xl pt-6">
               <p className="font-regal text-[11px] uppercase tracking-[0.32em] text-[#d4af37]">
                 Our Story
               </p>
-              <p className="mt-2 text-sm leading-relaxed text-[#f3e5c3]/75">{couple.loveStory}</p>
+              <p className="wi-soft mt-2 text-sm leading-relaxed">{couple.loveStory}</p>
             </div>
           )}
         </div>
@@ -116,18 +116,18 @@ export default function FamilyBlock({
     return (
       <section
         aria-label="Family"
-        className="relative rounded-[2.5rem] bg-white/95 p-8 sm:p-12 text-center shadow-[0_24px_60px_-24px_rgba(168,90,110,0.16),inset_0_0_0_0.75px_rgba(217,138,156,0.4)]"
+        className="wi-face relative rounded-[2.5rem] bg-white/96 p-8 text-center sm:p-12"
       >
         <FiligreeCorners color="rgba(200,125,138,0.45)" />
-        <p className="font-script-luxury text-3xl text-[#c87d8a]">With the blessings of</p>
+        <p className="wi-accent-ink font-script-luxury text-3xl">With the blessings of</p>
         {couple.grandparents && (
-          <p className="mt-1 text-xs uppercase tracking-[0.25em] text-[#a65c6b]">{couple.grandparents}</p>
+          <p className="wi-soft mt-1 text-xs uppercase tracking-[0.25em]">{couple.grandparents}</p>
         )}
         {hasFamily && (
-          <div className="mt-6 grid gap-6 md:grid-cols-2 border-y border-[#f3dce2] py-6">
+          <div className="wi-rule-y mt-6 grid gap-6 py-6 md:grid-cols-2">
             {couple.brideParents && (
               <div>
-                <p className="text-[11px] uppercase tracking-[0.28em] text-[#b36a7a]">Bride&apos;s Parents</p>
+                <p className="wi-soft text-[11px] uppercase tracking-[0.28em]">Bride&apos;s Parents</p>
                 <p className="mt-1.5 font-display-luxury text-2xl italic text-[#4a252a]">
                   {couple.brideParents}
                 </p>
@@ -135,7 +135,7 @@ export default function FamilyBlock({
             )}
             {couple.groomParents && (
               <div>
-                <p className="text-[11px] uppercase tracking-[0.28em] text-[#b36a7a]">Groom&apos;s Parents</p>
+                <p className="wi-soft text-[11px] uppercase tracking-[0.28em]">Groom&apos;s Parents</p>
                 <p className="mt-1.5 font-display-luxury text-2xl italic text-[#4a252a]">
                   {couple.groomParents}
                 </p>
@@ -160,16 +160,16 @@ export default function FamilyBlock({
           Hosted with Love by Our Families
         </p>
         {hasFamily && (
-          <div className="mt-6 grid gap-6 md:grid-cols-2 border-y border-black/10 py-6">
+          <div className="wi-rule-y mt-6 grid gap-6 py-6 md:grid-cols-2">
             {couple.brideParents && (
               <div>
-                <p className="text-[11px] uppercase tracking-[0.28em] text-stone-500">Bride&apos;s Parents</p>
+                <p className="wi-soft text-[11px] uppercase tracking-[0.28em]">Bride&apos;s Parents</p>
                 <p className="mt-1.5 font-display-luxury text-2xl text-[#0f353e]">{couple.brideParents}</p>
               </div>
             )}
             {couple.groomParents && (
               <div>
-                <p className="text-[11px] uppercase tracking-[0.28em] text-stone-500">Groom&apos;s Parents</p>
+                <p className="wi-soft text-[11px] uppercase tracking-[0.28em]">Groom&apos;s Parents</p>
                 <p className="mt-1.5 font-display-luxury text-2xl text-[#0f353e]">{couple.groomParents}</p>
               </div>
             )}

@@ -3,6 +3,7 @@
 import { useLayoutEffect, useRef } from "react";
 import gsap from "gsap";
 import { registerWeddingPlugins, prefersReducedMotion, EASE_OUT } from "./gsap-setup";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 export type JourneyKind = "plane" | "car" | "elephant" | "butterfly" | "star";
 
@@ -39,32 +40,48 @@ export default function JourneyReveal({
     const vehicle = el.querySelector(".wi-journey-vehicle");
     const dateEl = el.querySelector(".wi-journey-date");
     const trail = el.querySelector(".wi-journey-trail");
-    if (prefersReducedMotion()) {
-      gsap.set(vehicle, { xPercent: 110, opacity: 0 });
+    const showDate = () => {
       gsap.set(dateEl, { opacity: 1, y: 0 });
       gsap.set(trail, { scaleX: 1 });
+      gsap.set(vehicle, { xPercent: 118, opacity: 0 });
+    };
+    if (prefersReducedMotion()) {
+      showDate();
       return;
     }
-    gsap.set(dateEl, { opacity: 0, y: 10 });
+    gsap.set(dateEl, { opacity: 0, y: 8 });
     gsap.set(trail, { scaleX: 0, transformOrigin: "left center" });
     gsap.set(vehicle, { xPercent: -120, opacity: 1 });
-    let tl: gsap.core.Timeline | undefined;
-    const ctx = gsap.context(() => {
-      tl = gsap.timeline({
-        scrollTrigger: { trigger: el, start: "top 82%", once: true },
-      });
-      tl.to(vehicle, { xPercent: 118, duration: 2.4, ease: "power1.inOut" }, 0);
-      tl.to(trail, { scaleX: 1, duration: 1.6, ease: EASE_OUT }, 0.2);
-      tl.to(dateEl, { opacity: 1, y: 0, duration: 0.7, ease: EASE_OUT }, 1.35);
-    }, el);
-    const io = new IntersectionObserver(([e]) => {
-      if (!tl || tl.progress() >= 1) return;
-      tl.paused(!e.isIntersecting);
+
+    const tl = gsap.timeline({ paused: true });
+    tl.to(vehicle, { xPercent: 118, duration: 0.55, ease: "power2.out" }, 0);
+    tl.to(trail, { scaleX: 1, duration: 0.45, ease: EASE_OUT }, 0);
+    tl.to(dateEl, { opacity: 1, y: 0, duration: 0.45, ease: EASE_OUT }, 0.08);
+
+    const trigger = ScrollTrigger.create({
+      trigger: el,
+      start: "top 90%",
+      once: true,
+      onEnter: () => tl.play(),
     });
-    io.observe(el);
+
+    const settle = () => {
+      const top = el.getBoundingClientRect().top;
+      if (top < window.innerHeight * 0.15) tl.progress(1);
+      else if (top < window.innerHeight * 0.9) tl.play();
+    };
+    settle();
+    const onScroll = () => {
+      if (tl.progress() < 1 && el.getBoundingClientRect().top < window.innerHeight * 0.15) {
+        tl.progress(1);
+      }
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+
     return () => {
-      io.disconnect();
-      ctx.revert();
+      window.removeEventListener("scroll", onScroll);
+      trigger.kill();
+      tl.kill();
     };
   }, []);
 

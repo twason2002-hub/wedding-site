@@ -4,7 +4,7 @@ import { loadPublicWedding, weddingMetadata } from "@/lib/weddings/public";
 
 export async function generateMetadata({ params }: { params: Promise<{ weddingSlug: string }> }) {
   const { weddingSlug } = await params;
-  return weddingMetadata(await loadPublicWedding(weddingSlug));
+  return weddingMetadata(await loadPublicWedding(weddingSlug), `/wedding-invitations/${weddingSlug}`);
 }
 
 /** Published wedding website, loaded from Supabase by slug. */

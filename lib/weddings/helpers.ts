@@ -49,5 +49,14 @@ export function whatsappShare(text: string, phone?: string): string {
 }
 
 export function shareTextFor(w: WeddingData, siteUrl: string): string {
-  return `${w.couple.bride} & ${w.couple.groom} are getting married on ${w.couple.weddingDateDisplay}! ${w.hashtag ?? ""} ${siteUrl}`;
+  return `You are warmly invited to the wedding of ${w.couple.bride} & ${w.couple.groom} on ${w.couple.weddingDateDisplay}. Open the invitation: ${siteUrl}`;
+}
+
+/** Current invite URL, without a personal ?guest= greeting. */
+export function absoluteInviteUrl(): string {
+  const url = new URL(window.location.href);
+  url.searchParams.delete("guest");
+  url.searchParams.delete("g");
+  url.hash = "";
+  return url.toString();
 }

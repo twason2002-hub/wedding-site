@@ -4,7 +4,7 @@ import { loadPublicWedding, weddingMetadata } from "@/lib/weddings/public";
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  return weddingMetadata(await loadPublicWedding(slug));
+  return weddingMetadata(await loadPublicWedding(slug), `/${slug}`);
 }
 
 /** Root-level public wedding URL: /<slug> */

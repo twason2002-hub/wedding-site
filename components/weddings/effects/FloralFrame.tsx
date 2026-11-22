@@ -33,8 +33,8 @@ export default function FloralFrame({
     const ctx = gsap.context(() => {
       gsap.from(stems, {
         drawSVG: "0%",
-        duration: 1.4,
-        stagger: 0.15,
+        duration: 0.5,
+        stagger: 0.04,
         ease: EASE_DRAW,
         scrollTrigger: { trigger: el, start: "top 90%", once: true },
       });

@@ -9,7 +9,6 @@ import SvgDraw from "./effects/SvgDraw";
 export default function VenueRoute({
   mapQuery,
   accent,
-  dark = false,
 }: {
   mapQuery: string;
   accent: string;
@@ -18,7 +17,7 @@ export default function VenueRoute({
   const mapsUrl = `https://maps.google.com/?q=${mapQuery}`;
   return (
     <div className="mx-auto mt-6 max-w-md text-center">
-      <SvgDraw duration={1.6} stagger={0.1}>
+      <SvgDraw duration={0.55} stagger={0.04}>
         <svg viewBox="0 0 300 60" fill="none" className="mx-auto h-14 w-full max-w-[280px]" aria-hidden="true">
           <path d="M14 44 C70 40, 90 18, 150 22 S250 30, 286 16" stroke={accent} strokeWidth="1.6" strokeDasharray="1 6" strokeLinecap="round" />
           <circle cx="14" cy="44" r="5" stroke={accent} strokeWidth="1.6" fill="none" />
@@ -32,8 +31,7 @@ export default function VenueRoute({
           href={mapsUrl}
           target="_blank"
           rel="noreferrer"
-          className="wi-action-lift inline-flex min-h-[44px] items-center rounded-full px-5 py-2"
-          style={{ boxShadow: `inset 0 0 0 0.75px ${accent}`, color: dark ? "#fff" : undefined }}
+          className="wi-cta-ghost"
         >
           Open route ↗
         </a>

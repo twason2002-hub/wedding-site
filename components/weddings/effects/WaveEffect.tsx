@@ -26,11 +26,12 @@ export default function WaveEffect({
       layers.forEach((layer, i) => {
         tweens.push(
           gsap.to(layer, {
-            x: i % 2 ? 60 : -60,
-            duration: 7 + i * 3,
+            x: i % 2 ? 18 : -18,
+            duration: 8 + i * 2,
             repeat: -1,
             yoyo: true,
             ease: "sine.inOut",
+            force3D: true,
           })
         );
       });
@@ -47,7 +48,7 @@ export default function WaveEffect({
 
   const [a, b, c] = [colors[0] ?? "#144652", colors[1] ?? "#0f353e", colors[2] ?? "#082026"];
   const wave = (fill: string, d: string, opacity: number) => (
-    <svg className="wi-wave-layer absolute inset-x-[-15%] bottom-0 h-full w-[130%]" viewBox="0 0 460 140" preserveAspectRatio="none" aria-hidden="true">
+    <svg className="wi-wave-layer absolute inset-x-[-30%] bottom-0 h-full w-[160%]" viewBox="0 0 460 140" preserveAspectRatio="none" aria-hidden="true">
       <path d={d} fill={fill} opacity={opacity} />
     </svg>
   );

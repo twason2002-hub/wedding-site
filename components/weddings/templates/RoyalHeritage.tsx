@@ -6,9 +6,7 @@ import Gallery from "../Gallery";
 import RsvpForm from "../RsvpForm";
 import TemplateOpening from "../TemplateOpening";
 import FloatingOrnaments from "../effects/FloatingOrnaments";
-import AnimatedBorder from "../effects/AnimatedBorder";
 import { Paisley } from "../svg/royal";
-import MusicToggle from "../MusicToggle";
 import FamilyBlock from "../FamilyBlock";
 import ShareBar from "../ShareBar";
 import Parallax from "../Parallax";
@@ -20,6 +18,8 @@ import SignatureMotif from "../effects/SignatureMotif";
 import JourneyReveal from "../effects/JourneyReveal";
 import GuestSections from "../GuestSections";
 import { AnimatedCalligraphy, FiligreeCorners, OutlinedEditorialWord } from "../LuxuryOrnaments";
+import LayeredParallax, { EnvelopeRsvp, GaneshCrest, GoldFrame } from "../effects/LayeredParallax";
+import GoldDivider from "../GoldDivider";
 
 /**
  * TEMPLATE 1 — ROYAL HERITAGE (Imperial Rajputana Palace Edition).
@@ -32,12 +32,10 @@ export default function RoyalHeritage({ wedding }: { wedding: WeddingData }) {
   return (
     <div className="font-body-luxury min-h-screen bg-[#140806] text-[#f6ead4] selection:bg-[#d4af37] selection:text-[#140806]">
       <TemplateOpening wedding={wedding} />
-      {wedding.music?.enabled && wedding.sections?.music !== false && (
-        <MusicToggle src={wedding.music.src} dark />
-      )}
 
       {/* Ornate Imperial Frame Hero */}
-      <header className="relative overflow-hidden px-6 pt-20 pb-24 text-center md:pt-28 md:pb-32">
+      <header className="relative overflow-hidden px-6 pt-20 pb-[var(--wi-section-gap)] text-center md:pt-28">
+        <LayeredParallax />
         <div
           className="pointer-events-none absolute inset-0"
           style={{
@@ -72,12 +70,12 @@ export default function RoyalHeritage({ wedding }: { wedding: WeddingData }) {
           />
         </svg>
 
-        <div className="wi-hero-exit relative mx-auto max-w-4xl">
+        <div className="wi-hero-exit relative z-10 mx-auto max-w-4xl">
           <p className="wi-fadeup wi-fadeup--1 font-regal text-xs uppercase tracking-[0.34em] text-[#e8cf8f]">
             {wedding.blessing ?? "॥ श्री गणेशाय नमः ॥"}
           </p>
           {wedding.mantra && (
-            <p className="wi-fadeup wi-fadeup--1 mx-auto mt-3 max-w-xl font-display-luxury text-base italic text-[#d4af37]/80">
+            <p className="wi-accent-ink wi-fadeup wi-fadeup--1 mx-auto mt-3 max-w-xl font-display-luxury text-base italic">
               {wedding.mantra}
             </p>
           )}
@@ -117,13 +115,14 @@ export default function RoyalHeritage({ wedding }: { wedding: WeddingData }) {
             A Union of Two Families
           </p>
 
+          <GaneshCrest />
           <h1 className="wi-name-on-dark mt-4 font-regal leading-[1.02]" style={{ fontSize: "clamp(2.05rem, 8vw, 5.25rem)" }}>
             <span className="wi-mask wi-name-mask">
               <GoldShimmer duration={7} from="#e6c56a" via="#fff6d4" to="#e6c56a" className="wi-line wi-line--1 wi-couple-heading block text-[#f6ead4]">
                 {wedding.couple.bride}
               </GoldShimmer>
             </span>
-            <span className="my-1 block font-script-luxury text-3xl sm:text-4xl text-[#d4af37]/85">
+            <span className="wi-accent-ink my-1 block font-script-luxury text-3xl sm:text-4xl">
               &amp;
             </span>
             <span className="wi-mask wi-name-mask">
@@ -135,11 +134,11 @@ export default function RoyalHeritage({ wedding }: { wedding: WeddingData }) {
 
           <AnimatedCalligraphy color="#d4af37" variant="royal" className="mt-4" />
 
-          <p className="wi-fadeup wi-fadeup--3 mt-4 font-regal text-xs uppercase tracking-[0.32em] text-[#f3e5c3]/75">
+          <p className="wi-soft wi-fadeup wi-fadeup--3 mt-4 font-regal text-xs uppercase tracking-[0.32em]">
             Cordially Request the Honour of Your Presence
           </p>
 
-          <div className="wi-fadeup wi-fadeup--4 mt-6 inline-flex items-center gap-4 rounded-full bg-[#24100c]/90 px-7 py-3 shadow-[0_14px_34px_rgba(0,0,0,0.5),inset_0_0_0_0.75px_rgba(212,175,55,0.45)]">
+          <div className="wi-chip wi-fadeup wi-fadeup--4 mt-6 inline-flex items-center gap-4 rounded-full bg-[#24100c]/92 px-7 py-3">
             <span className="text-[#d4af37]">✦</span>
             <span className="font-display-luxury text-xl sm:text-2xl italic text-[#f9ebd2]">
               {wedding.couple.weddingDateDisplay}
@@ -148,20 +147,21 @@ export default function RoyalHeritage({ wedding }: { wedding: WeddingData }) {
           </div>
 
           {wedding.hashtag && (
-            <p className="mt-4 font-regal text-xs tracking-[0.28em] text-[#d4af37]/75">
+            <p className="wi-accent-ink mt-4 font-regal text-xs tracking-[0.28em]">
               {wedding.hashtag}
             </p>
           )}
         </div>
       </header>
+      <GoldDivider />
 
-      <main className="mx-auto max-w-5xl px-6 pb-28 space-y-28">
+      <main className="mx-auto max-w-5xl px-6">
         <ScrollReveal>
           <FamilyBlock wedding={wedding} tone="dark" />
         </ScrollReveal>
 
         <ScrollReveal>
-          <div className="mb-10">
+          <div className="wi-stack">
             <JourneyReveal
               date={wedding.couple.weddingDateDisplay}
               kind="elephant"
@@ -169,8 +169,8 @@ export default function RoyalHeritage({ wedding }: { wedding: WeddingData }) {
               surface="#1a0a0c"
             />
           </div>
-          <section aria-label="Countdown" className="relative rounded-3xl p-6 text-center sm:p-10">
-            <AnimatedBorder color="#d4af37" />
+          <GoldFrame>
+          <section aria-label="Countdown" className="relative rounded-3xl px-4 py-5 text-center sm:px-8 sm:py-6">
             <OutlinedEditorialWord
               watermark="MUHURTHAM"
               eyebrow="The Auspicious Hour Approaches"
@@ -181,12 +181,13 @@ export default function RoyalHeritage({ wedding }: { wedding: WeddingData }) {
               <Countdown target={wedding.couple.countdownDate} variant="royal" dark />
             </div>
           </section>
+          </GoldFrame>
         </ScrollReveal>
 
         <AnimatedCalligraphy color="#d4af37" variant="royal" />
 
         <section aria-label="Events">
-          <ScrollReveal className="mb-14">
+          <ScrollReveal className="wi-stack">
             <OutlinedEditorialWord
               watermark="ITINERARY"
               eyebrow="Wedding Itinerary"
@@ -202,7 +203,7 @@ export default function RoyalHeritage({ wedding }: { wedding: WeddingData }) {
         {wedding.sections?.gallery !== false && (
           <ScrollReveal>
             <section aria-label="Gallery">
-              <div className="mb-12">
+              <div className="wi-stack">
                 <OutlinedEditorialWord
                   watermark="PORTRAITS"
                   eyebrow="The Portrait Gallery"
@@ -226,15 +227,15 @@ export default function RoyalHeritage({ wedding }: { wedding: WeddingData }) {
                 <h2 className="font-display-luxury mt-3 text-4xl sm:text-5xl italic text-[#f9ebd2]">
                   {wedding.venue.name}
                 </h2>
-                <p className="mt-2 text-base text-[#f3e5c3]/80">{wedding.venue.address}</p>
+                <p className="wi-soft mt-2 text-base">{wedding.venue.address}</p>
 
-                <div className="mt-8 grid gap-6 text-left sm:grid-cols-3 border-y border-[#d4af37]/15 py-7">
+                <div className="wi-rule-y mt-8 grid gap-6 py-7 text-left sm:grid-cols-3">
                   {wedding.venue.hotels && wedding.venue.hotels.length > 0 && (
                     <div>
                       <p className="font-regal text-[11px] uppercase tracking-[0.32em] text-[#d4af37]">
                         Guest Residences
                       </p>
-                      <ul className="mt-2 space-y-1 text-sm text-[#f3e5c3]/80">
+                      <ul className="wi-soft mt-2 space-y-1 text-sm">
                         {wedding.venue.hotels.map((h) => (
                           <li key={h}>✦ {h}</li>
                         ))}
@@ -246,7 +247,7 @@ export default function RoyalHeritage({ wedding }: { wedding: WeddingData }) {
                       <p className="font-regal text-[11px] uppercase tracking-[0.32em] text-[#d4af37]">
                         Chauffeured Arrival
                       </p>
-                      <p className="mt-2 text-sm leading-relaxed text-[#f3e5c3]/80">
+                      <p className="wi-soft mt-2 text-sm leading-relaxed">
                         {wedding.venue.travel}
                       </p>
                     </div>
@@ -256,7 +257,7 @@ export default function RoyalHeritage({ wedding }: { wedding: WeddingData }) {
                       <p className="font-regal text-[11px] uppercase tracking-[0.32em] text-[#d4af37]">
                         Valet &amp; Carriages
                       </p>
-                      <p className="mt-2 text-sm leading-relaxed text-[#f3e5c3]/80">
+                      <p className="wi-soft mt-2 text-sm leading-relaxed">
                         {wedding.venue.parking}
                       </p>
                     </div>
@@ -267,7 +268,7 @@ export default function RoyalHeritage({ wedding }: { wedding: WeddingData }) {
                   href={`https://maps.google.com/?q=${wedding.venue.mapQuery}`}
                   target="_blank"
                   rel="noreferrer"
-                  className="wi-action-lift mt-8 inline-flex items-center gap-3 rounded-full bg-gradient-to-r from-[#d4af37] to-[#9b7318] px-8 py-3.5 text-xs font-semibold uppercase tracking-[0.25em] text-[#140806] shadow-lg"
+                  className="wi-cta mt-8"
                 >
                   <span>Navigate to Palace Gates</span>
                   <span aria-hidden="true">↗</span>
@@ -287,10 +288,11 @@ export default function RoyalHeritage({ wedding }: { wedding: WeddingData }) {
 
 {wedding.sections?.rsvp !== false && (
           <ScrollReveal>
+            <EnvelopeRsvp>
             <section aria-label="RSVP" className="wi-bezel-dark">
               <div className="wi-bezel-dark-inner relative bg-[#190a07] p-8 sm:p-12">
                 <FiligreeCorners color="rgba(212,175,55,0.5)" />
-                <div className="mb-10">
+                <div className="wi-stack">
                   <OutlinedEditorialWord
                     watermark="REGISTRY"
                     eyebrow="Attendance"
@@ -302,6 +304,7 @@ export default function RoyalHeritage({ wedding }: { wedding: WeddingData }) {
                 <RsvpForm wedding={wedding} dark variant="royal" />
               </div>
             </section>
+            </EnvelopeRsvp>
           </ScrollReveal>
         )}
 
@@ -312,10 +315,10 @@ export default function RoyalHeritage({ wedding }: { wedding: WeddingData }) {
 
       <footer className="border-t border-[#d4af37]/15 bg-[#0d0403] px-6 py-14 text-center">
         <p className="font-regal wi-couple-heading wi-gold-shimmer text-2xl">{names}</p>
-        <p className="mt-2 text-xs uppercase tracking-[0.32em] text-[#f3e5c3]/70">
+        <p className="wi-soft mt-2 text-xs uppercase tracking-[0.32em]">
           {wedding.couple.weddingDateDisplay}
         </p>
-          <p className="mt-4 text-xs text-[#f3e5c3]/55">
+          <p className="wi-soft mt-4 text-xs">
           Palace Heritage Design · Made with love on Inviteo
         </p>
       </footer>

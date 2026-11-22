@@ -21,6 +21,9 @@
   --wi-ring: #1e40af;
   --wi-ease: cubic-bezier(0.22, 1, 0.36, 1);
   --wi-enter: cubic-bezier(0.16, 1, 0.3, 1);
+  /* One vertical rhythm for every invite template, the gallery, and previews. */
+  --wi-section-gap: clamp(3.25rem, 6vw, 5rem);
+  --wi-dock-clearance: calc(5rem + env(safe-area-inset-bottom));
 }
 
 /* ---------- Luxury Typography & Outlined Display Text ---------- */
@@ -162,6 +165,15 @@
 }
 .wi-name-on-dark {
   text-shadow: 0 1px 2px rgba(8, 6, 4, 0.8), 0 10px 24px rgba(8, 6, 4, 0.45);
+}
+.wi-parallax-layer {
+  transform: translate3d(0, 0, 0);
+}
+@media (prefers-reduced-motion: reduce) {
+  .wi-parallax-layer,
+  .wi-parallax-tilt {
+    transform: none !important;
+  }
 }
 .wi-name-on-light {
   text-shadow: 0 1px 0 rgba(255, 252, 247, 0.65);
@@ -407,23 +419,23 @@ a.wi-wa {
 .wi-line {
   display: block;
   transform: translateY(108%);
-  animation: wi-rise 680ms var(--wi-enter) forwards;
+  animation: wi-rise 480ms var(--wi-enter) forwards;
 }
 .wi-line--1 { animation-delay: 40ms; }
-.wi-line--2 { animation-delay: 140ms; }
-.wi-line--3 { animation-delay: 240ms; }
+.wi-line--2 { animation-delay: 90ms; }
+.wi-line--3 { animation-delay: 140ms; }
 @keyframes wi-rise {
   to { transform: none; }
 }
 
 .wi-fadeup {
   opacity: 0;
-  animation: wi-fadeup 600ms var(--wi-enter) forwards;
+  animation: wi-fadeup 480ms var(--wi-enter) forwards;
 }
-.wi-fadeup--1 { animation-delay: 220ms; }
-.wi-fadeup--2 { animation-delay: 320ms; }
-.wi-fadeup--3 { animation-delay: 420ms; }
-.wi-fadeup--4 { animation-delay: 520ms; }
+.wi-fadeup--1 { animation-delay: 40ms; }
+.wi-fadeup--2 { animation-delay: 90ms; }
+.wi-fadeup--3 { animation-delay: 140ms; }
+.wi-fadeup--4 { animation-delay: 180ms; }
 @keyframes wi-fadeup {
   from { opacity: 0; transform: translateY(16px); }
   to { opacity: 1; transform: none; }
@@ -511,7 +523,7 @@ a.wi-wa {
   transition: transform 550ms var(--wi-ease);
 }
 .wi-gallery [data-gallery-item] {
-  animation: wi-fadeup 640ms var(--wi-enter) both;
+  animation: wi-fadeup 480ms var(--wi-enter) both;
 }
 .wi-gallery [data-gallery-item]:nth-child(2) { animation-delay: 70ms; }
 .wi-gallery [data-gallery-item]:nth-child(3) { animation-delay: 140ms; }
@@ -559,8 +571,8 @@ a.wi-wa {
 /* ---------- Scroll Reveal Interpolation ---------- */
 .wi-reveal {
   opacity: 0;
-  transform: translate3d(0, 28px, 0);
-  transition: opacity 650ms var(--wi-enter), transform 650ms var(--wi-enter);
+  transform: translate3d(0, 18px, 0);
+  transition: opacity 480ms var(--wi-enter), transform 480ms var(--wi-enter);
   transition-delay: var(--reveal-delay, 0ms);
 }
 /* Dealt-from-top entrance (chapter cards land like played cards). */
@@ -659,6 +671,10 @@ a.wi-wa {
 }
 
 /* ---------- Opening Overlay ---------- */
+.wi-enter-stage,
+.wi-enter-stage * {
+  touch-action: none;
+}
 .wi-enter-stage {
   transition: opacity 650ms var(--wi-ease), transform 650ms var(--wi-enter);
 }
@@ -667,9 +683,18 @@ a.wi-wa {
   pointer-events: none;
   transition: background-color 420ms var(--wi-ease);
 }
-.wi-enter-stage.wi-leaving > :not(.wi-gate-panel) {
+.wi-enter-stage.wi-leaving > :not(.wi-gate-panel):not(.wi-opening-hold) {
   opacity: 0;
   transition: opacity 380ms var(--wi-ease);
+}
+.wi-enter-stage.wi-leaving .wi-opening-hold {
+  opacity: 0;
+  transition: opacity 480ms var(--wi-ease) 60ms;
+}
+html[data-invite="sealed"],
+html[data-invite="sealed"] body {
+  overflow: hidden !important;
+  overscroll-behavior: none;
 }
 
 /* Velvet gate curtains — palette comes from --gate-* vars set per template. */
@@ -762,12 +787,34 @@ html[data-invite="sealed"] :is(.wi-line, .wi-fadeup, .wi-arch-draw, .wi-hero-img
   }
 }
 
+.wi-heading-depth {
+  opacity: 0;
+  transform: perspective(900px) rotateX(12deg) translate3d(0, 16px, 0);
+  transform-origin: center top;
+  transition: opacity 0.5s var(--wi-enter), transform 0.5s var(--wi-enter);
+}
+.wi-heading-depth.is-visible {
+  opacity: 1;
+  transform: none;
+}
+.wi-bell-swing {
+  animation: wi-bell-swing 0.7s ease-in-out;
+  transform-origin: top center;
+}
+@keyframes wi-bell-swing {
+  0% { transform: rotate(0deg); }
+  22% { transform: rotate(9deg); }
+  48% { transform: rotate(-7deg); }
+  72% { transform: rotate(3deg); }
+  100% { transform: rotate(0deg); }
+}
+
 /* One-by-one event reveal when the list container enters view. */
 .wi-stagger > * {
   opacity: 0;
-  transform: translate3d(0, 28px, 0);
-  transition: opacity 700ms var(--wi-ease), transform 820ms var(--wi-enter);
-  transition-delay: calc(var(--i, 0) * var(--step, 110ms));
+  transform: translate3d(0, 16px, 0);
+  transition: opacity 480ms var(--wi-ease), transform 480ms var(--wi-enter);
+  transition-delay: calc(var(--i, 0) * var(--step, 60ms));
 }
 .wi-stagger.is-visible > * {
   opacity: 1;
@@ -872,7 +919,6 @@ section[aria-label="RSVP"] {
   transform-origin: left center;
   background: linear-gradient(90deg, #9b7318, #f7e7ad 50%, #d4af37);
   box-shadow: 0 0 12px rgba(212, 175, 55, 0.45);
-  will-change: transform;
 }
 
 /* ---------- Self-Drawing Arch + SVG Draw-In ---------- */
@@ -966,8 +1012,8 @@ section[aria-label="RSVP"] {
   transition: transform 650ms var(--wi-ease);
   pointer-events: none;
 }
-.wi-action-lift:active { transform: scale(0.97); transition-duration: 90ms; }
-.wi-action-lift:focus-visible { outline: 2px solid #d4af37; outline-offset: 3px; border-radius: 999px; }
+.wi-action-lift:active { transform: translate3d(0, 1px, 0); transition-duration: 160ms; }
+.wi-action-lift:focus-visible { outline: 2px solid var(--t-ring, #d4af37); outline-offset: 3px; border-radius: 999px; }
 .wi-action-lift:disabled { cursor: progress; }
 
 /* ---------- Action icons ---------- */
@@ -978,6 +1024,7 @@ section[aria-label="RSVP"] {
 
 /* ---------- Reduced Motion ---------- */
 @media (prefers-reduced-motion: reduce) {
+  .wi-enter-stage { display: none !important; }
   .wi-track { transition: none; }
   .wi-line, .wi-fadeup, .wi-hero-img, .wi-menu, .wi-float-slow, .wi-spin-slow, .wi-pulse-glow, .wi-petal, .wi-phone-info, .wi-gold-shimmer-text {
     animation: none !important;
@@ -1012,6 +1059,34 @@ section[aria-label="RSVP"] {
     transform: none !important;
     transition: none !important;
   }
+  .wi-heading-depth,
+  .wi-heading-depth.is-visible {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+  .wi-bell-swing,
+  .wi-idle-sway,
+  .wi-ribbon-flutter,
+  .wi-name-sweep::after,
+  .wi-dust,
+  .wi-digit-tick,
+  .wi-rsvp-rise,
+  .wi-burst-bit,
+  .wi-burst-petal,
+  .wi-divider-draw::before,
+  .wi-divider-draw::after,
+  .wi-divider-draw > span { animation: none !important; }
+  .wi-dust,
+  .wi-burst-bit,
+  .wi-burst-petal,
+  .wi-name-sweep::after { opacity: 0 !important; }
+  .wi-divider-draw::before,
+  .wi-divider-draw::after,
+  .wi-divider-draw > span {
+    transform: none !important;
+    opacity: 1 !important;
+  }
   .wi-scratch-date,
   .wi-scratch-date.is-revealed {
     opacity: 1 !important;
@@ -1030,7 +1105,7 @@ section[aria-label="RSVP"] {
 }
 
 /* Envelope reveal (Animate UI path C, subtle — token curves as CSS) */
-.wi-env-scene { perspective: 1400px; }
+.wi-env-scene { perspective: 1400px; transform-style: preserve-3d; }
 .wi-env-back {
   background: linear-gradient(160deg, #2c1009 0%, #451708 55%, #1c0a05 100%);
   box-shadow: inset 0 0 0 0.75px rgba(212, 175, 55, 0.4), 0 35px 90px rgba(0, 0, 0, 0.8);
@@ -1039,7 +1114,7 @@ section[aria-label="RSVP"] {
   z-index: 10;
   background: linear-gradient(175deg, #fffdf6 0%, #f6ead4 70%, #eedaBB 100%);
   box-shadow: inset 0 0 0 0.75px rgba(185, 138, 47, 0.65), 0 18px 50px rgba(0, 0, 0, 0.45);
-  transform: translateY(10%) scale(0.94);
+  transform: translateY(24%) scale(0.94);
   transition: transform 800ms cubic-bezier(0.23, 1, 0.32, 1) 200ms;
   will-change: transform;
 }
@@ -1057,12 +1132,13 @@ section[aria-label="RSVP"] {
 }
 .wi-env-flap {
   z-index: 30;
-  height: 34%;
+  height: 38%;
   clip-path: polygon(0 0, 100% 0, 50% 100%);
   background: linear-gradient(180deg, #e9d3a3 0%, #d9b878 55%, #c49a52 100%);
   box-shadow: inset 0 -1px 0 rgba(122, 18, 40, 0.25);
   transform-origin: 50% 0%;
   transform: rotateX(0deg);
+  backface-visibility: hidden;
   transition: transform 700ms cubic-bezier(0.77, 0, 0.175, 1), z-index 0s linear 350ms;
   will-change: transform;
 }
@@ -1197,10 +1273,11 @@ section[aria-label="RSVP"] {
 }
 .wi-bl-open .wi-bl-card, .wi-bl-revealed .wi-bl-card { opacity: 1; transform: none; }
 
-.wi-uf-scene { perspective: 1400px; }
+.wi-uf-scene { perspective: 1400px; transform-style: preserve-3d; }
 .wi-uf-cover {
   z-index: 20;
   transform-origin: 50% 0%;
+  backface-visibility: hidden;
   transition: transform 700ms cubic-bezier(0.77, 0, 0.175, 1);
   will-change: transform;
 }
@@ -1244,15 +1321,580 @@ section[aria-label="RSVP"] {
 
 .wi-ribbon-handle {
   touch-action: none;
-  min-width: 48px;
-  min-height: 48px;
-  padding: 0 12px 8px;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0;
   background: transparent;
   border: 0;
   cursor: grab;
+}
+/* In-flow WhatsApp actions stay put. .wi-cta is position:relative, so a
+   bottom offset on .wi-wa lifts the share button over the heading. */
+.wi-pull-handle {
+  touch-action: none;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #fff6dd;
+  cursor: grab;
+  -webkit-tap-highlight-color: transparent;
+}
+.wi-pull-handle:active { cursor: grabbing; }
+.wi-pull-handle:focus-visible {
+  outline: 2px solid #f0d48a;
+  outline-offset: 3px;
+  border-radius: 999px;
+}
+/* Horizontal centre that does not use `transform`. A pull, swing, or GSAP
+   tween can replace `transform` without wiping this -50% offset. */
+.wi-anchor-x {
+  position: absolute;
+  left: 50%;
+  translate: -50% 0;
+}
+.wi-hang {
+  top: 0;
+  width: max-content;
+}
+.wi-pull-cue {
+  position: absolute;
+  left: 50%;
+  width: 18px;
+  height: 18px;
+  translate: -50% 0;
+  pointer-events: none;
+  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.7));
+  animation: wi-pull-cue 1.45s ease-in-out infinite;
+}
+.wi-pull-cue::before {
+  content: "";
+  position: absolute;
+  left: 4px;
+  top: 2px;
+  width: 8px;
+  height: 8px;
+  border-right: 1.5px solid currentColor;
+  border-bottom: 1.5px solid currentColor;
+  transform: rotate(45deg);
+}
+@keyframes wi-pull-cue {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(6px); }
+}
+
+/* Idle hang. Keyframe 0 is rotate(0) so the rest pose stays on centre. */
+.wi-idle-sway {
+  transform-origin: top center;
+  animation: wi-idle-sway 3.8s ease-in-out infinite;
+}
+@keyframes wi-idle-sway {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(2.1deg); }
+  75% { transform: rotate(-2.1deg); }
+}
+.wi-ribbon-flutter {
+  transform-origin: top center;
+  animation: wi-ribbon-flutter 3.2s ease-in-out infinite;
+}
+@keyframes wi-ribbon-flutter {
+  0%, 100% { transform: rotate(0deg); }
+  40% { transform: rotate(2.4deg); }
+  70% { transform: rotate(-1.8deg); }
+}
+
+.wi-name-sweep { position: relative; }
+.wi-name-sweep::after {
+  content: "";
+  position: absolute;
+  top: -8%;
+  bottom: -8%;
+  left: 0;
+  width: 42%;
+  background: linear-gradient(90deg, transparent, rgba(240, 212, 138, 0.55), transparent);
+  opacity: 0;
+  pointer-events: none;
+  animation: wi-name-sweep 1.15s cubic-bezier(0.22, 1, 0.36, 1) 1 forwards;
+}
+@keyframes wi-name-sweep {
+  0% { opacity: 0; transform: translateX(-130%); }
+  18% { opacity: 1; }
+  100% { opacity: 0; transform: translateX(280%); }
+}
+
+.wi-dust {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 5px;
+  height: 5px;
+  margin: -2.5px 0 0 -2.5px;
+  border-radius: 999px;
+  background: #f6e7a8;
+  box-shadow: 0 0 6px 1px rgba(240, 212, 138, 0.7);
+  opacity: 0;
+  animation: wi-dust 1.45s ease-out forwards;
+}
+@keyframes wi-dust {
+  0% { opacity: 0; transform: translate3d(0, 10px, 0) scale(0.4); }
+  22% { opacity: 0.9; }
+  100% { opacity: 0; transform: translate3d(var(--dx), var(--dy), 0) scale(1); }
+}
+
+.wi-digit-tick {
+  display: inline-block;
+  animation: wi-digit-tick 480ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+@keyframes wi-digit-tick {
+  0% { opacity: 0.4; transform: translate3d(0, 5px, 0); }
+  100% { opacity: 1; transform: none; }
+}
+
+.wi-rsvp-rise {
+  animation: wi-rsvp-rise 720ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+@keyframes wi-rsvp-rise {
+  from { opacity: 0; transform: translate3d(0, 18px, 0); }
+  to { opacity: 1; transform: none; }
+}
+.wi-burst-bit,
+.wi-burst-petal {
+  position: absolute;
+  left: 50%;
+  top: 24%;
+  opacity: 0;
+  animation: wi-burst 980ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+.wi-burst-bit {
+  width: 6px;
+  height: 6px;
+  margin: -3px 0 0 -3px;
+  border-radius: 999px;
+  background: currentColor;
+}
+.wi-burst-petal {
+  width: 8px;
+  height: 12px;
+  margin: -6px 0 0 -4px;
+  border-radius: 70% 10% 70% 10%;
+  background: currentColor;
+}
+@keyframes wi-burst {
+  0% { opacity: 0; transform: translate3d(0, 6px, 0) scale(0.5) rotate(0deg); }
+  18% { opacity: 1; }
+  100% { opacity: 0; transform: translate3d(var(--dx), var(--dy), 0) scale(1) rotate(var(--rot)); }
+}
+
+.wi-divider-draw::before,
+.wi-divider-draw::after {
+  transform-origin: center;
+  animation: wi-rule-draw 900ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.wi-divider-draw > span {
+  display: inline-block;
+  animation: wi-mark-in 700ms cubic-bezier(0.22, 1, 0.36, 1) 180ms both;
+}
+@keyframes wi-rule-draw {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+@keyframes wi-mark-in {
+  from { opacity: 0; transform: scale(0.6); }
+  to { opacity: 1; transform: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .wi-pull-handle,
+  .wi-pull-cue { animation: none; transition: none; }
+}
+@media (max-width: 1023px) {
+  /* Clearance lives on the template shell so the dock does not cover the footer
+     and does not leave a band of the page background under a dark invite. */
+  .wi-invite > :last-child {
+    padding-bottom: var(--wi-dock-clearance);
+  }
+  html.wi-has-dock {
+    scroll-padding-bottom: var(--wi-dock-clearance);
+  }
+  html.wi-has-dock .wi-submit {
+    scroll-margin-bottom: calc(var(--wi-dock-clearance) + 0.25rem);
+  }
 }
 .wi-ribbon-handle:active { cursor: grabbing; }
 .wi-ribbon-handle:focus-visible { outline: 2px solid #f0d48a; outline-offset: 4px; border-radius: 999px; }
 @media (prefers-reduced-motion: reduce) {
   .wi-ribbon-handle { transition: none; }
+}
+
+/* ============================================================
+   Per-template finish: one hairline, one button, one rhythm.
+   Tokens live on .wi-invite[data-template] and inherit.
+   ============================================================ */
+.wi-invite[data-template="royal-heritage"] {
+  --t-bg: #140806;
+  --t-bg-deep: #0d0403;
+  --t-ink: #f6ead4;
+  --t-soft: #ead9bc;
+  --t-on-dark: #ead9bc;
+  --t-accent: #e6c56a;
+  --t-line: rgba(230, 197, 106, 0.42);
+  --t-card: #1c0c09;
+  --t-chip: rgba(32, 14, 10, 0.92);
+  --t-field: rgba(255, 248, 236, 0.05);
+  --t-shadow: 0 18px 40px -26px rgba(0, 0, 0, 0.55);
+  --t-btn: #e6c56a;
+  --t-btn-ink: #1a0c08;
+  --t-ghost: #f6ead4;
+  --t-ring: #f3e0a4;
+  --t-dock: #120705;
+  --t-dock-ink: #f6ead4;
+  --t-radius: 999px;
+  --t-fade: 3.75rem;
+}
+.wi-invite[data-template="floral-romance"] {
+  --t-bg: #fdf7f5;
+  --t-bg-deep: #faf0ed;
+  --t-ink: #4a252a;
+  --t-soft: #5c2e36;
+  --t-on-dark: #fff7f4;
+  --t-accent: #7a3a48;
+  --t-line: rgba(122, 58, 72, 0.4);
+  --t-card: rgba(255, 252, 251, 0.96);
+  --t-chip: #fff8f6;
+  --t-field: #ffffff;
+  --t-shadow: 0 18px 40px -28px rgba(120, 60, 75, 0.28);
+  --t-btn: #5c2e36;
+  --t-btn-ink: #fffaf8;
+  --t-ghost: #4a252a;
+  --t-ring: #7a3a48;
+  --t-dock: #2a1619;
+  --t-dock-ink: #fff7f4;
+  --t-radius: 999px;
+  --t-fade: 4rem;
+}
+.wi-invite[data-template="modern-minimal"] {
+  --t-bg: #091526;
+  --t-bg-deep: #060e1a;
+  --t-ink: #f4efe6;
+  --t-soft: #f0e6d4;
+  --t-on-dark: #f0e6d4;
+  --t-accent: #e6c56a;
+  --t-line: rgba(230, 197, 106, 0.42);
+  --t-card: #10233f;
+  --t-chip: #10233f;
+  --t-field: rgba(244, 239, 230, 0.05);
+  --t-shadow: 0 18px 40px -26px rgba(0, 0, 0, 0.5);
+  --t-btn: #e6c56a;
+  --t-btn-ink: #091526;
+  --t-ghost: #f4efe6;
+  --t-ring: #f3e0a4;
+  --t-dock: #060e1a;
+  --t-dock-ink: #f4efe6;
+  --t-radius: 999px;
+  --t-fade: 3.5rem;
+}
+.wi-invite[data-template="traditional-vivah"] {
+  --t-bg: #4a0b0d;
+  --t-bg-deep: #2d0507;
+  --t-ink: #fef3c7;
+  --t-soft: #f8e7c0;
+  --t-on-dark: #f8e7c0;
+  --t-accent: #f0c14d;
+  --t-line: rgba(240, 193, 77, 0.45);
+  --t-card: #3a090c;
+  --t-chip: rgba(45, 5, 7, 0.92);
+  --t-field: rgba(255, 243, 214, 0.06);
+  --t-shadow: 0 18px 40px -26px rgba(0, 0, 0, 0.5);
+  --t-btn: #f0c14d;
+  --t-btn-ink: #3a090c;
+  --t-ghost: #fef3c7;
+  --t-ring: #f8e7c0;
+  --t-dock: #2d0507;
+  --t-dock-ink: #fef3c7;
+  --t-radius: 999px;
+  --t-fade: 3.75rem;
+}
+.wi-invite[data-template="destination-wedding"] {
+  --t-bg: #f7f3eb;
+  --t-bg-deep: #0a252c;
+  --t-ink: #0f353e;
+  --t-soft: #1a4550;
+  --t-on-dark: #f6efe4;
+  --t-accent: #8a4e32;
+  --t-line: rgba(184, 107, 67, 0.45);
+  --t-card: #fffdf8;
+  --t-chip: #fffdf8;
+  --t-field: #ffffff;
+  --t-shadow: 0 18px 40px -28px rgba(15, 53, 62, 0.22);
+  --t-btn: #0f353e;
+  --t-btn-ink: #f7f3eb;
+  --t-ghost: #0f353e;
+  --t-ring: #0f353e;
+  --t-dock: #0a252c;
+  --t-dock-ink: #f7f3eb;
+  --t-radius: 999px;
+  --t-fade: 4.5rem;
+}
+
+.wi-rule-y { border-block: 0.75px solid var(--t-line); }
+.wi-rule-t { border-top: 0.75px solid var(--t-line); }
+.wi-rule-b { border-bottom: 0.75px solid var(--t-line); }
+.wi-soft { color: var(--t-soft); }
+.wi-on-dark { color: var(--t-on-dark); }
+.wi-accent-ink { color: var(--t-accent); }
+
+.wi-invite[data-template] header {
+  overflow: clip;
+  isolation: isolate;
+}
+.wi-invite[data-template] header::after {
+  content: "";
+  position: absolute;
+  z-index: 8;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: var(--t-fade);
+  pointer-events: none;
+  background: linear-gradient(to bottom, transparent, var(--t-bg));
+}
+.wi-invite[data-template] main {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+.wi-invite[data-template] main > * {
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+}
+.wi-invite[data-template] main > *:not(.wi-ornament) {
+  padding-block: calc(var(--wi-section-gap) / 2);
+}
+.wi-invite[data-template] main > :first-child {
+  padding-top: 0;
+}
+.wi-invite[data-template] main > * + * {
+  position: relative;
+}
+.wi-invite[data-template] main > * + *::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 0;
+  transform: translate(-50%, -50%);
+  display: block;
+  width: min(8.5rem, 46%);
+  height: 0.75px;
+  margin: 0;
+  background: linear-gradient(90deg, transparent, var(--t-line), transparent);
+  pointer-events: none;
+}
+/* Flourishes sit in the section gap instead of stacking another full gap. */
+.wi-invite[data-template] main > .wi-ornament {
+  z-index: 1;
+  height: 2.5rem;
+  margin-block: -1.25rem !important;
+}
+.wi-invite[data-template] main > .wi-ornament::before,
+.wi-invite[data-template] main > .wi-ornament + *::before {
+  content: none;
+}
+.wi-invite[data-template] .wi-divider {
+  height: 0;
+  margin: 0 !important;
+  overflow: visible;
+  transform: translateY(calc(var(--wi-section-gap) * -0.5));
+}
+.wi-invite[data-template] .wi-stack {
+  margin-bottom: calc(var(--wi-section-gap) * 0.5);
+}
+.wi-envelope {
+  display: flow-root;
+}
+.wi-envelope-card {
+  margin-top: clamp(4.5rem, 16vw, 7rem);
+}
+.wi-invite[data-template] footer {
+  border-top: 0.75px solid var(--t-line);
+  padding-top: calc(var(--wi-section-gap) / 2);
+}
+
+.wi-invite[data-template] .wi-bezel,
+.wi-invite[data-template] .wi-bezel-dark {
+  padding: 1px;
+  border-radius: 1.5rem;
+  background: linear-gradient(160deg, var(--t-line), transparent 48%, var(--t-line));
+  box-shadow: var(--t-shadow);
+}
+.wi-invite[data-template] .wi-bezel-inner,
+.wi-invite[data-template] .wi-bezel-dark-inner,
+.wi-invite[data-template] .wi-frame-fine,
+.wi-invite[data-template] .wi-face {
+  box-shadow: var(--t-shadow), inset 0 0 0 0.75px var(--t-line);
+}
+.wi-invite[data-template] .wi-bezel-inner,
+.wi-invite[data-template] .wi-bezel-dark-inner {
+  border-radius: calc(1.5rem - 1px);
+  background-color: var(--t-card);
+}
+.wi-invite[data-template] .wi-chip {
+  box-shadow: inset 0 0 0 0.75px var(--t-line);
+  border-radius: var(--t-radius);
+}
+.wi-invite[data-template] [data-gallery-item] {
+  box-shadow: var(--t-shadow), inset 0 0 0 0.75px var(--t-line);
+  background: var(--t-card);
+  transition: transform 200ms var(--wi-ease), opacity 200ms var(--wi-ease);
+}
+.wi-invite[data-template] [role="timer"] > div {
+  box-shadow: inset 0 0 0 0.5px color-mix(in srgb, var(--t-accent) 22%, transparent);
+  background: var(--t-card);
+  border-radius: 1rem;
+}
+.wi-hair-frame-art {
+  opacity: 0.14;
+  filter: saturate(0.45) brightness(0.92);
+  object-fit: fill;
+}
+.wi-invite[data-template] .wi-hair-frame::after {
+  content: "";
+  position: absolute;
+  inset: 0.7rem;
+  z-index: 3;
+  border-radius: 1.05rem;
+  box-shadow: inset 0 0 0 0.5px color-mix(in srgb, var(--t-accent) 32%, transparent);
+  pointer-events: none;
+}
+.wi-reveal .wi-gallery [data-gallery-item] {
+  animation: none;
+}
+
+.wi-cta,
+.wi-cta-ghost {
+  position: relative;
+  isolation: isolate;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  min-height: 44px;
+  padding: 0.7rem 1.35rem;
+  border: 0;
+  border-radius: var(--t-radius, 999px);
+  font-family: inherit;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  line-height: 1;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: transform 180ms var(--wi-ease), opacity 180ms var(--wi-ease);
+}
+.wi-cta {
+  background: var(--t-btn, #1a0c08);
+  color: var(--t-btn-ink, #fffaf3);
+}
+a.wi-wa.wi-cta,
+.wi-wa.wi-cta {
+  background: #0b6b34;
+  color: #ffffff;
+}
+.wi-cta-ghost {
+  background: transparent;
+  color: var(--t-ghost, inherit);
+  box-shadow: inset 0 0 0 0.75px var(--t-line, rgba(255, 255, 255, 0.4));
+}
+.wi-cta svg,
+.wi-cta-ghost svg {
+  width: 14px;
+  height: 14px;
+  flex: none;
+  display: block;
+}
+.wi-cta > span[aria-hidden],
+.wi-cta-ghost > span[aria-hidden] {
+  display: inline-flex;
+  align-items: center;
+  line-height: 1;
+}
+@media (hover: hover) {
+  .wi-cta:hover,
+  .wi-cta-ghost:hover {
+    transform: translate3d(0, -2px, 0);
+  }
+}
+.wi-cta:active,
+.wi-cta-ghost:active {
+  transform: translate3d(0, 1px, 0);
+}
+.wi-cta:disabled {
+  opacity: 0.6;
+  cursor: progress;
+}
+.wi-invite[data-template] :focus-visible {
+  outline: 2px solid var(--t-ring);
+  outline-offset: 3px;
+}
+
+.wi-field {
+  width: 100%;
+  min-height: 50px;
+  padding: 0.85rem 1rem;
+  border: 0;
+  border-radius: 0.85rem;
+  background: var(--t-field, #fff);
+  color: var(--t-ink, inherit);
+  box-shadow: inset 0 0 0 0.75px var(--t-line, rgba(0, 0, 0, 0.2));
+  font: inherit;
+  font-size: 1rem;
+}
+.wi-field::placeholder { color: var(--t-soft, #5c5346); opacity: 1; }
+.wi-choice {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  min-height: 44px;
+  padding: 0.55rem 1rem;
+  border-radius: var(--t-radius, 999px);
+  background: var(--t-chip, transparent);
+  color: var(--t-ghost, inherit);
+  box-shadow: inset 0 0 0 0.75px var(--t-line, rgba(255, 255, 255, 0.28));
+  cursor: pointer;
+  font-weight: 500;
+  transition: transform 180ms var(--wi-ease), opacity 180ms var(--wi-ease);
+}
+.wi-choice:has(:checked) {
+  background: var(--t-btn, #1a0c08);
+  color: var(--t-btn-ink, #fff);
+  box-shadow: none;
+}
+.wi-choice:active { transform: translate3d(0, 1px, 0); }
+
+.wi-action-bar {
+  transition: transform 200ms var(--wi-ease), opacity 200ms var(--wi-ease);
+}
+.wi-invite[data-template] .wi-action-bar > div {
+  background: var(--t-dock);
+  color: var(--t-dock-ink);
+  box-shadow: inset 0 0.75px 0 var(--t-line);
+}
+.wi-dock-accent {
+  background: var(--t-btn);
+  color: var(--t-btn-ink);
+}
+.wi-invite[data-template] .wi-action-bar a,
+.wi-invite[data-template] .wi-action-bar button {
+  min-height: 48px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wi-cta,
+  .wi-cta-ghost,
+  .wi-choice,
+  .wi-action-bar,
+  .wi-invite[data-template] [data-gallery-item] {
+    transition: none;
+  }
+  .wi-hero-exit { animation: none !important; opacity: 1 !important; transform: none !important; }
 }

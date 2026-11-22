@@ -12,7 +12,7 @@ export default function PhotoReveal({
   src,
   alt,
   shape = "rect",
-  duration = 1.1,
+  duration = 0.5,
   className = "",
   imgClassName = "",
 }: {
@@ -39,7 +39,7 @@ export default function PhotoReveal({
           clipPath: "inset(0% 0% 0% 0% round 24px)",
           duration,
           ease: EASE_OUT,
-          scrollTrigger: { trigger: el, start: "top 88%", once: true },
+          scrollTrigger: { trigger: el, start: "top 90%", once: true },
         }
       );
       if (img) {
@@ -50,7 +50,7 @@ export default function PhotoReveal({
             scale: 1,
             duration: duration * 1.2,
             ease: EASE_OUT,
-            scrollTrigger: { trigger: el, start: "top 88%", once: true },
+            scrollTrigger: { trigger: el, start: "top 90%", once: true },
           }
         );
       }

@@ -7,7 +7,6 @@ import RsvpForm from "../RsvpForm";
 import TemplateOpening from "../TemplateOpening";
 import FloralFrame from "../effects/FloralFrame";
 import BloomEffect from "../effects/BloomEffect";
-import MusicToggle from "../MusicToggle";
 import FamilyBlock from "../FamilyBlock";
 import ShareBar from "../ShareBar";
 import Parallax from "../Parallax";
@@ -18,6 +17,8 @@ import SignatureMotif from "../effects/SignatureMotif";
 import JourneyReveal from "../effects/JourneyReveal";
 import GuestSections from "../GuestSections";
 import { AnimatedCalligraphy, FiligreeCorners, OutlinedEditorialWord } from "../LuxuryOrnaments";
+import LayeredParallax, { EnvelopeRsvp, GoldFrame } from "../effects/LayeredParallax";
+import GoldDivider from "../GoldDivider";
 
 /**
  * TEMPLATE 2 — FLORAL ROMANCE (Couture Botanical Conservatory Edition).
@@ -30,12 +31,10 @@ export default function FloralRomance({ wedding }: { wedding: WeddingData }) {
   return (
     <div className="font-body-luxury min-h-screen bg-[#fdf7f5] text-[#4a252a] selection:bg-[#e8a0b4] selection:text-[#4a252a]">
       <TemplateOpening wedding={wedding} />
-      {wedding.music?.enabled && wedding.sections?.music !== false && (
-        <MusicToggle src={wedding.music.src} />
-      )}
 
       {/* Botanical Conservatory Hero */}
-      <header className="relative overflow-hidden px-6 pt-20 pb-20 text-center md:pt-28 md:pb-28">
+      <header className="relative overflow-hidden px-6 pt-20 pb-[var(--wi-section-gap)] text-center md:pt-28">
+        <LayeredParallax />
         <div
           className="pointer-events-none absolute inset-0"
           style={{
@@ -73,19 +72,19 @@ export default function FloralRomance({ wedding }: { wedding: WeddingData }) {
           <circle cx="18" cy="52" r="2" fill="currentColor" />
         </svg>
 
-        <div className="wi-hero-exit relative mx-auto max-w-4xl">
-          <p className="wi-fadeup wi-fadeup--1 text-[11px] uppercase tracking-[0.34em] text-[#a65c6b]">
+        <div className="wi-hero-exit relative z-10 mx-auto max-w-4xl">
+          <p className="wi-fadeup wi-fadeup--1 text-[11px] uppercase tracking-[0.34em] text-[#6e2f3c]">
             {wedding.blessing ?? "Together with our beloved families"}
           </p>
 
-          <p className="wi-fadeup wi-fadeup--1 font-script-luxury mt-3 text-4xl sm:text-5xl text-[#c87d8a]">
+          <p className="wi-fadeup wi-fadeup--1 font-script-luxury mt-3 text-4xl sm:text-5xl text-[#6e2f3c]">
             Love in Full Bloom
           </p>
 
           {/* Oval Cameo Botanical Portrait with Delicate Hairline Frame */}
-          <div className="wi-fadeup wi-fadeup--2 relative mx-auto mt-8 max-w-[15rem] sm:max-w-md rounded-[3.5rem] bg-white p-2.5 shadow-[0_32px_80px_-24px_rgba(180,95,115,0.24),inset_0_0_0_0.75px_rgba(217,138,156,0.45)]">
+          <div className="wi-face wi-fadeup wi-fadeup--2 relative mx-auto mt-8 max-w-[15rem] rounded-[3.5rem] bg-white p-2.5 sm:max-w-md">
             <FloralFrame color="#c87d8a" leaf="#7ba05b" />
-            <HeroKenBurns className="relative overflow-hidden rounded-[3rem] shadow-[inset_0_0_0_0.5px_rgba(217,138,156,0.35)]">
+            <HeroKenBurns className="wi-chip relative overflow-hidden rounded-[3rem]">
               <Parallax depth={10}>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
@@ -106,7 +105,7 @@ export default function FloralRomance({ wedding }: { wedding: WeddingData }) {
             <span className="wi-mask wi-name-mask">
               <span className="wi-line wi-line--1 wi-rose-shimmer wi-couple-heading">{wedding.couple.bride}</span>
             </span>
-            <span className="my-1 block font-script-luxury text-4xl text-[#c87d8a] not-italic">
+            <span className="wi-accent-ink my-1 block font-script-luxury text-4xl not-italic">
               &amp;
             </span>
             <span className="wi-mask wi-name-mask">
@@ -117,18 +116,19 @@ export default function FloralRomance({ wedding }: { wedding: WeddingData }) {
 
           <AnimatedCalligraphy color="#c87d8a" variant="floral" className="mt-4" />
 
-          <p className="wi-fadeup wi-fadeup--3 mt-3 font-display-luxury italic text-2xl text-[#a65c6b]">
+          <p className="wi-chip wi-fadeup wi-fadeup--3 mt-3 inline-flex rounded-full bg-[#fdf7f5]/95 px-4 py-1 font-display-luxury italic text-2xl text-[#4a252a]">
             {wedding.couple.weddingDateDisplay}
           </p>
           {wedding.hashtag && (
-            <p className="wi-fadeup wi-fadeup--4 mt-2 text-xs uppercase tracking-[0.28em] text-[#b36a7a]">
+            <p className="wi-fadeup wi-fadeup--4 mt-2 text-xs uppercase tracking-[0.28em] text-[#6e2f3c]">
               {wedding.hashtag}
             </p>
           )}
         </div>
       </header>
+      <GoldDivider color="#c87d8a" />
 
-      <main className="mx-auto max-w-4xl px-6 pb-28 space-y-24">
+      <main className="mx-auto max-w-4xl px-6">
         <ScrollReveal>
           <FamilyBlock wedding={wedding} tone="floral" />
         </ScrollReveal>
@@ -137,14 +137,14 @@ export default function FloralRomance({ wedding }: { wedding: WeddingData }) {
           <ScrollReveal>
             <section
               aria-label="Love story"
-              className="relative overflow-hidden rounded-[2.5rem] bg-gradient-to-br from-white via-[#fff9fa] to-[#fceef1] p-8 sm:p-12 text-center shadow-[0_24px_60px_-24px_rgba(168,90,110,0.16),inset_0_0_0_0.75px_rgba(217,138,156,0.4)]"
+              className="wi-face relative overflow-hidden rounded-[2.5rem] bg-gradient-to-br from-white via-[#fff9fa] to-[#fceef1] p-8 text-center sm:p-12"
             >
               <FiligreeCorners color="rgba(200,125,138,0.45)" />
-              <p className="font-script-luxury text-4xl text-[#c87d8a]">How It All Began</p>
+              <p className="wi-accent-ink font-script-luxury text-4xl">How It All Began</p>
               <h2 className="font-display-luxury mt-1 text-3xl sm:text-4xl italic text-[#4a252a]">
                 Our Love Story
               </h2>
-              <p className="mx-auto mt-4 max-w-2xl text-base leading-relaxed text-[#6b3a3a]/90">
+              <p className="wi-soft mx-auto mt-4 max-w-2xl text-base leading-relaxed">
                 {wedding.couple.loveStory}
               </p>
             </section>
@@ -152,7 +152,7 @@ export default function FloralRomance({ wedding }: { wedding: WeddingData }) {
         )}
 
         <ScrollReveal>
-          <div className="mb-10">
+          <div className="wi-stack">
             <JourneyReveal
               date={wedding.couple.weddingDateDisplay}
               kind="butterfly"
@@ -160,6 +160,7 @@ export default function FloralRomance({ wedding }: { wedding: WeddingData }) {
               surface="#fff9fa"
             />
           </div>
+          <GoldFrame>
           <section aria-label="Countdown" className="text-center">
             <OutlinedEditorialWord
               watermark="FOREVER"
@@ -171,10 +172,11 @@ export default function FloralRomance({ wedding }: { wedding: WeddingData }) {
               <Countdown target={wedding.couple.countdownDate} variant="floral" />
             </div>
           </section>
+          </GoldFrame>
         </ScrollReveal>
 
         <section aria-label="Events">
-          <ScrollReveal className="mb-12">
+          <ScrollReveal className="wi-stack">
             <OutlinedEditorialWord
               watermark="EVENTS"
               eyebrow="Wedding Functions"
@@ -188,7 +190,7 @@ export default function FloralRomance({ wedding }: { wedding: WeddingData }) {
         {wedding.sections?.gallery !== false && (
           <ScrollReveal>
             <section aria-label="Gallery">
-              <div className="mb-10">
+              <div className="wi-stack">
                 <OutlinedEditorialWord
                   watermark="MEMORIES"
                   eyebrow="Captured in Sunlight"
@@ -205,16 +207,16 @@ export default function FloralRomance({ wedding }: { wedding: WeddingData }) {
           <ScrollReveal>
             <section
               aria-label="Venue"
-              className="relative rounded-[2.5rem] bg-white p-8 sm:p-12 text-center shadow-[0_24px_60px_-24px_rgba(168,90,110,0.16),inset_0_0_0_0.75px_rgba(217,138,156,0.4)]"
+              className="wi-face relative rounded-[2.5rem] bg-white p-8 text-center sm:p-12"
             >
               <FiligreeCorners color="rgba(200,125,138,0.45)" />
-              <p className="font-script-luxury text-3xl text-[#c87d8a]">The Sanctuary</p>
+              <p className="wi-accent-ink font-script-luxury text-3xl">The Sanctuary</p>
               <h2 className="font-display-luxury mt-1 text-3xl sm:text-4xl italic text-[#4a252a]">
                 {wedding.venue.name}
               </h2>
-              <p className="mt-2 text-sm text-[#7d5259]">{wedding.venue.address}</p>
+              <p className="wi-soft mt-2 text-sm">{wedding.venue.address}</p>
               {wedding.venue.travel && (
-                <p className="mx-auto mt-3 max-w-xl text-sm text-[#7d5259]/85">
+                <p className="wi-soft mx-auto mt-3 max-w-xl text-sm">
                   {wedding.venue.travel}
                 </p>
               )}
@@ -223,7 +225,7 @@ export default function FloralRomance({ wedding }: { wedding: WeddingData }) {
                   {wedding.venue.hotels.map((h) => (
                     <span
                       key={h}
-                      className="rounded-full bg-[#fdf7f5] px-4 py-1.5 text-xs text-[#6b3a3a] shadow-[inset_0_0_0_0.75px_rgba(217,138,156,0.4)]"
+                      className="wi-chip rounded-full bg-[#fdf7f5] px-4 py-1.5 text-xs text-[#5c2e36]"
                     >
                       ❀ {h}
                     </span>
@@ -234,7 +236,7 @@ export default function FloralRomance({ wedding }: { wedding: WeddingData }) {
                 href={`https://maps.google.com/?q=${wedding.venue.mapQuery}`}
                 target="_blank"
                 rel="noreferrer"
-                className="wi-action-lift mt-7 inline-flex items-center gap-2 rounded-full bg-[#4a252a] px-7 py-3 text-xs font-medium uppercase tracking-[0.22em] text-white"
+                className="wi-cta mt-7"
               >
                 <span>Open Conservatory Map</span>
                 <span aria-hidden="true">↗</span>
@@ -251,12 +253,13 @@ export default function FloralRomance({ wedding }: { wedding: WeddingData }) {
 
 {wedding.sections?.rsvp !== false && (
           <ScrollReveal>
+            <EnvelopeRsvp>
             <section
               aria-label="RSVP"
-              className="relative rounded-[2.5rem] bg-white/95 p-8 sm:p-12 shadow-[0_24px_60px_-24px_rgba(168,90,110,0.18),inset_0_0_0_0.75px_rgba(217,138,156,0.4)]"
+              className="wi-face relative rounded-[2.5rem] bg-white/96 p-8 sm:p-12"
             >
               <FiligreeCorners color="rgba(200,125,138,0.45)" />
-              <div className="mb-8">
+              <div className="wi-stack">
                 <OutlinedEditorialWord
                   watermark="RSVP"
                   eyebrow="With Warm Regards"
@@ -266,6 +269,7 @@ export default function FloralRomance({ wedding }: { wedding: WeddingData }) {
               </div>
               <RsvpForm wedding={wedding} variant="floral" />
             </section>
+            </EnvelopeRsvp>
           </ScrollReveal>
         )}
 
@@ -275,7 +279,7 @@ export default function FloralRomance({ wedding }: { wedding: WeddingData }) {
       </main>
 
       <footer className="border-t border-[#ebd0d7] bg-[#faf0ed] px-6 py-14 text-center">
-        <p className="font-script-luxury wi-couple-heading text-4xl text-[#c87d8a]">{names}</p>
+        <p className="wi-accent-ink font-script-luxury wi-couple-heading text-4xl">{names}</p>
         <p className="mt-1 text-xs uppercase tracking-[0.28em] text-[#8f4c5a]">
           {wedding.couple.weddingDateDisplay}
         </p>

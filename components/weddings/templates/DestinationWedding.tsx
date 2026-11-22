@@ -8,7 +8,6 @@ import TemplateOpening from "../TemplateOpening";
 import WaveEffect from "../effects/WaveEffect";
 import FloatingOrnaments from "../effects/FloatingOrnaments";
 import { Palm } from "../svg/destination";
-import MusicToggle from "../MusicToggle";
 import FamilyBlock from "../FamilyBlock";
 import ShareBar from "../ShareBar";
 import Parallax from "../Parallax";
@@ -19,6 +18,8 @@ import JourneyReveal from "../effects/JourneyReveal";
 import SignatureMotif from "../effects/SignatureMotif";
 import GuestSections from "../GuestSections";
 import { AnimatedCalligraphy, FiligreeCorners, OutlinedEditorialWord } from "../LuxuryOrnaments";
+import LayeredParallax, { EnvelopeRsvp, GoldFrame } from "../effects/LayeredParallax";
+import GoldDivider from "../GoldDivider";
 
 /**
  * TEMPLATE 5 — DESTINATION WEDDING (Mediterranean-meets-Goa Coastal Resort Edition).
@@ -32,29 +33,10 @@ export default function DestinationWedding({ wedding }: { wedding: WeddingData }
   return (
     <div className="font-body-luxury min-h-screen bg-[#f7f3eb] text-[#0f353e] selection:bg-[#0f353e] selection:text-[#f7f3eb]">
       <TemplateOpening wedding={wedding} />
-      {wedding.music?.enabled && wedding.sections?.music !== false && (
-        <MusicToggle src={wedding.music.src} />
-      )}
 
       {/* Full-Bleed Coastal Horizon Hero */}
       <header className="relative flex min-h-[92dvh] items-end overflow-hidden bg-[#0a252c]">
-        <HeroKenBurns className="absolute inset-0">
-          <Parallax depth={12} className="h-full w-full">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={wedding.couple.photo}
-              alt={names}
-              className="h-full w-full object-cover"
-            />
-          </Parallax>
-        </HeroKenBurns>
-        <div
-          className="absolute inset-0"
-          style={{
-            background:
-              "linear-gradient(to top, rgba(6,22,28,0.94) 0%, rgba(6,22,28,0.72) 38%, rgba(6,22,28,0.28) 100%)",
-          }}
-        />
+        <LayeredParallax />
         <SignatureMotif motif="palm" className="pointer-events-none absolute left-6 top-24 hidden h-20 w-16 text-white/30 md:block" />
         {/* Swaying palm silhouettes */}
         <FloatingOrnaments duration={6} drift={14} className="pointer-events-none absolute right-8 top-24 hidden text-white/25 sm:block">
@@ -64,8 +46,14 @@ export default function DestinationWedding({ wedding }: { wedding: WeddingData }
           <Palm className="h-20 w-16" />
         </FloatingOrnaments>
 
-        <div className="wi-hero-exit relative z-10 mx-auto w-full max-w-6xl px-6 pb-28 pt-32 text-white">
-          <div className="wi-fadeup wi-fadeup--1 inline-flex items-center gap-3 rounded-full bg-white/10 px-4 py-1.5 text-[11px] uppercase tracking-[0.32em] text-[#f3d5c1] shadow-[inset_0_0_0_0.75px_rgba(255,255,255,0.28)] backdrop-blur-md">
+        <div className="wi-hero-exit relative z-10 mx-auto w-full max-w-6xl px-6 pb-[calc(6rem+var(--wi-section-gap))] pt-28 text-white">
+          <HeroKenBurns className="wi-fadeup mb-6 w-28 overflow-hidden rounded-2xl shadow-[0_16px_40px_rgba(0,0,0,0.45)] sm:w-36">
+            <Parallax depth={8}>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={wedding.couple.photo} alt="" className="aspect-[3/4] w-full object-cover" />
+            </Parallax>
+          </HeroKenBurns>
+          <div className="wi-chip wi-fadeup wi-fadeup--1 inline-flex items-center gap-3 rounded-full bg-[#0a252c]/88 px-4 py-1.5 text-[11px] uppercase tracking-[0.32em] text-[#f6efe4]">
             <span>Coastal Destination Celebration</span>
             <span className="hidden sm:inline">·</span>
             <span className="hidden sm:inline">15.2993° N, 74.1240° E</span>
@@ -78,7 +66,7 @@ export default function DestinationWedding({ wedding }: { wedding: WeddingData }
             <span className="wi-mask wi-name-mask">
               <span className="wi-line wi-line--1 wi-couple-heading">{wedding.couple.bride}</span>
             </span>
-            <span className="wi-fadeup wi-fadeup--2 my-1 block font-script-luxury text-3xl sm:text-4xl text-[#f3d5c1] not-italic">
+            <span className="wi-on-dark wi-fadeup wi-fadeup--2 my-1 block font-script-luxury text-3xl sm:text-4xl not-italic">
               &amp;
             </span>
             <span className="wi-mask wi-name-mask">
@@ -88,30 +76,28 @@ export default function DestinationWedding({ wedding }: { wedding: WeddingData }
 
           <AnimatedCalligraphy color="#e6b89c" variant="waves" className="mt-4" />
 
-          <div className="wi-fadeup wi-fadeup--3 mt-6 flex flex-wrap items-center gap-4 text-sm sm:text-base text-white/85">
-            <span className="font-medium tracking-wide">{wedding.couple.weddingDateDisplay}</span>
+          <div className="wi-chip wi-fadeup wi-fadeup--3 mt-6 inline-flex max-w-full flex-col items-center gap-1 rounded-3xl bg-[#0a252c]/88 px-5 py-3 text-center text-[#f7f3eb]">
+            <span className="text-balance font-medium tracking-wide">{wedding.couple.weddingDateDisplay}</span>
             {wedding.hashtag && (
-              <>
-                <span className="opacity-40">·</span>
-                <span className="text-[#f3d5c1]">{wedding.hashtag}</span>
-              </>
+              <span className="wi-on-dark text-xs uppercase tracking-[0.22em]">{wedding.hashtag}</span>
             )}
           </div>
         </div>
 
         <WaveEffect
-          colors={["#c8dce8", "#8eb6c9", "#5a8fa6"]}
-          className="absolute bottom-0 left-0 h-24 w-full"
+          colors={["rgba(247,243,235,0.4)", "rgba(247,243,235,0.78)", "#f7f3eb"]}
+          className="absolute bottom-0 left-0 z-[7] h-24 w-full"
         />
       </header>
+      <GoldDivider color="#b86b43" />
 
-      <main className="mx-auto max-w-5xl px-6 pb-28 pt-8 space-y-24">
+      <main className="mx-auto max-w-5xl px-6">
         <ScrollReveal>
           <FamilyBlock wedding={wedding} tone="light" />
         </ScrollReveal>
 
         <ScrollReveal>
-          <div className="mb-10">
+          <div className="wi-stack">
             <JourneyReveal
               date={wedding.couple.weddingDateDisplay}
               kind="plane"
@@ -119,6 +105,7 @@ export default function DestinationWedding({ wedding }: { wedding: WeddingData }
               surface="#ffffff"
             />
           </div>
+          <GoldFrame>
           <section aria-label="Countdown" className="text-center">
             <OutlinedEditorialWord
               watermark="HORIZON"
@@ -130,12 +117,13 @@ export default function DestinationWedding({ wedding }: { wedding: WeddingData }
               <Countdown target={wedding.couple.countdownDate} variant="coastal" />
             </div>
           </section>
+          </GoldFrame>
         </ScrollReveal>
 
         <AnimatedCalligraphy color="#b86b43" variant="waves" />
 
         <section aria-label="Itinerary">
-          <ScrollReveal className="mb-12">
+          <ScrollReveal className="wi-stack">
             <OutlinedEditorialWord
               watermark="VOYAGE"
               eyebrow="Three Days by the Sea"
@@ -150,7 +138,7 @@ export default function DestinationWedding({ wedding }: { wedding: WeddingData }
         {wedding.venue && (
           <ScrollReveal>
             <section aria-label="Travel and stay">
-              <div className="mb-10">
+              <div className="wi-stack">
                 <OutlinedEditorialWord
                   watermark="CONCIERGE"
                   eyebrow="Guest Logistics"
@@ -169,7 +157,7 @@ export default function DestinationWedding({ wedding }: { wedding: WeddingData }
                     <h3 className="font-display-luxury mt-2 text-2xl italic text-[#0f353e]">
                       Where to Stay
                     </h3>
-                    <ul className="mt-3 space-y-2 text-sm text-[#0f353e]/80">
+                    <ul className="wi-soft mt-3 space-y-2 text-sm">
                       {(wedding.venue.hotels ?? []).map((h) => (
                         <li key={h}>✦ {h}</li>
                       ))}
@@ -186,7 +174,7 @@ export default function DestinationWedding({ wedding }: { wedding: WeddingData }
                     <h3 className="font-display-luxury mt-2 text-2xl italic text-[#0f353e]">
                       Flights &amp; Transfers
                     </h3>
-                    <p className="mt-3 text-sm leading-relaxed text-[#0f353e]/80">
+                    <p className="wi-soft mt-3 text-sm leading-relaxed">
                       {wedding.venue.travel}
                     </p>
                   </div>
@@ -202,7 +190,7 @@ export default function DestinationWedding({ wedding }: { wedding: WeddingData }
                       <h3 className="font-display-luxury mt-2 text-2xl italic text-[#0f353e]">
                         Shuttles &amp; Map
                       </h3>
-                      <p className="mt-3 text-sm leading-relaxed text-[#0f353e]/80">
+                      <p className="wi-soft mt-3 text-sm leading-relaxed">
                         {wedding.venue.parking}
                       </p>
                     </div>
@@ -210,7 +198,7 @@ export default function DestinationWedding({ wedding }: { wedding: WeddingData }
                       href={`https://maps.google.com/?q=${wedding.venue.mapQuery}`}
                       target="_blank"
                       rel="noreferrer"
-                      className="wi-action-lift mt-5 inline-flex min-h-[44px] items-center justify-center rounded-full bg-[#0f353e] px-5 py-2.5 text-xs font-medium uppercase tracking-[0.22em] text-white"
+                      className="wi-cta mt-5 w-full"
                     >
                       Open Resort Map ↗
                     </a>
@@ -226,7 +214,7 @@ export default function DestinationWedding({ wedding }: { wedding: WeddingData }
         {wedding.sections?.gallery !== false && (
           <ScrollReveal>
             <section aria-label="Gallery">
-              <div className="mb-10">
+              <div className="wi-stack">
                 <OutlinedEditorialWord
                   watermark="POSTCARDS"
                   eyebrow="Sun, Salt & Silk"
@@ -247,10 +235,11 @@ export default function DestinationWedding({ wedding }: { wedding: WeddingData }
 
 {wedding.sections?.rsvp !== false && (
           <ScrollReveal>
+            <EnvelopeRsvp>
             <section aria-label="RSVP" className="wi-bezel">
               <div className="wi-bezel-inner relative p-8 sm:p-12">
                 <FiligreeCorners color="rgba(184,107,67,0.4)" />
-                <div className="mb-8">
+                <div className="wi-stack">
                   <OutlinedEditorialWord
                     watermark="BOARDING"
                     eyebrow="Attendance Confirmation"
@@ -261,6 +250,7 @@ export default function DestinationWedding({ wedding }: { wedding: WeddingData }
                 <RsvpForm wedding={wedding} variant="coastal" />
               </div>
             </section>
+            </EnvelopeRsvp>
           </ScrollReveal>
         )}
 
@@ -269,7 +259,7 @@ export default function DestinationWedding({ wedding }: { wedding: WeddingData }
         </ScrollReveal>
       </main>
 
-      <footer className="bg-[#0a252c] px-6 py-14 text-center text-sm text-[#f7f3eb]/75">
+      <footer className="bg-[#0a252c] px-6 py-14 text-center text-sm text-[#f6efe4]">
         <p className="font-display-luxury wi-couple-heading text-3xl italic text-white">{names}</p>
         <p className="mt-2 text-xs uppercase tracking-[0.32em] text-[#f3d5c1]">
           {wedding.couple.weddingDateDisplay}

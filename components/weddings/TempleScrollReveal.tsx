@@ -23,14 +23,16 @@ export default function TempleScrollReveal({
 }) {
   const [phase, setPhase] = useState<"sealed" | "opening" | "revealed">("sealed");
   const timers = useRef<number[]>([]);
+  const started = useRef(false);
 
   useEffect(() => () => timers.current.forEach((t) => window.clearTimeout(t)), []);
 
   const start = () => {
-    if (phase !== "sealed") {
+    if (started.current) {
       onDone();
       return;
     }
+    started.current = true;
     setPhase("opening");
     timers.current.push(window.setTimeout(() => setPhase("revealed"), timing.open));
     timers.current.push(window.setTimeout(onDone, timing.reveal));
@@ -75,7 +77,7 @@ export default function TempleScrollReveal({
             />
             <path d="M12 34C12 44 21 50 32 50C43 50 52 44 52 34H12Z" fill="#D4AF37" stroke="#FDE68A" strokeWidth="1" />
             <defs>
-              <linearGradient id="scFlame" x1="32" y1="6" x2="32" y2="31" gradientUnits="userSpaceOn">
+              <linearGradient id="scFlame" x1="32" y1="6" x2="32" y2="31" gradientUnits="userSpaceOnUse">
                 <stop stopColor="#FEF08A" />
                 <stop offset="0.6" stopColor="#F59E0B" />
                 <stop offset="1" stopColor="#DC2626" />

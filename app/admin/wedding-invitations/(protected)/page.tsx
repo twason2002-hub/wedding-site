@@ -1,8 +1,13 @@
 import Link from "next/link";
 import { listAdminWebsites, listDbTemplates } from "@/lib/weddings/db";
 import DashboardClient from "@/components/admin/DashboardClient";
+import { privatePageMetadata } from "@/lib/weddings/og";
 
-export const metadata = { title: "Websites — Inviteo Admin" };
+export const metadata = privatePageMetadata(
+  "Wedding Websites | Inviteo Admin",
+  "Private Inviteo admin list of wedding invitation websites. Open a draft, publish a guest link, or start a new design from one of the five templates.",
+  "/admin/wedding-invitations",
+);
 
 export default async function AdminDashboard({
   searchParams,

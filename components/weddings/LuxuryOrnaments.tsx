@@ -1,6 +1,11 @@
 "use client";
 
 import { useEffect, useRef, type ReactNode } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { prefersReducedMotion, registerWeddingPlugins } from "./effects/gsap-setup";
+import { watchEarlyReveal } from "./effects/early-reveal";
+import { useSignature } from "./motion";
 
 /**
  * 1. AnimatedCalligraphy — Self-drawing SVG botanical/royal flourish.
@@ -21,21 +26,7 @@ export function AnimatedCalligraphy({
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      el.classList.add("is-drawn");
-      return;
-    }
-    const io = new IntersectionObserver(
-      (entries) => {
-        if (entries.some((e) => e.isIntersecting)) {
-          el.classList.add("is-drawn");
-          io.disconnect();
-        }
-      },
-      { threshold: 0.25 }
-    );
-    io.observe(el);
-    return () => io.disconnect();
+    return watchEarlyReveal(el, () => el.classList.add("is-drawn"));
   }, []);
 
   if (variant === "waves") {
@@ -44,7 +35,7 @@ export function AnimatedCalligraphy({
         ref={ref}
         viewBox="0 0 360 36"
         fill="none"
-        className={`mx-auto h-8 w-64 sm:w-80 ${className}`}
+        className={`wi-ornament mx-auto h-8 w-64 sm:w-80 ${className}`}
         aria-hidden="true"
       >
         <path
@@ -74,7 +65,7 @@ export function AnimatedCalligraphy({
         ref={ref}
         viewBox="0 0 360 44"
         fill="none"
-        className={`mx-auto h-10 w-64 sm:w-80 ${className}`}
+        className={`wi-ornament mx-auto h-10 w-64 sm:w-80 ${className}`}
         aria-hidden="true"
       >
         <path
@@ -104,7 +95,7 @@ export function AnimatedCalligraphy({
       ref={ref}
       viewBox="0 0 400 44"
       fill="none"
-      className={`mx-auto h-10 w-68 sm:w-88 ${className}`}
+      className={`wi-ornament mx-auto h-10 w-68 sm:w-88 ${className}`}
       aria-hidden="true"
     >
       <path
@@ -176,6 +167,8 @@ export function OutlinedEditorialWord({
   tone?: "light" | "dark" | "rose" | "ink";
   align?: "center" | "left";
 }) {
+  const depthOn = Boolean(useSignature()?.headingDepth);
+  const headRef = useRef<HTMLDivElement>(null);
   const strokeCls =
     tone === "dark"
       ? "wi-text-outline-gold"
@@ -185,8 +178,17 @@ export function OutlinedEditorialWord({
       ? "wi-text-outline-ink"
       : "wi-text-outline-ink";
 
+  useEffect(() => {
+    const el = headRef.current;
+    if (!el || !depthOn) return;
+    return watchEarlyReveal(el, () => el.classList.add("is-visible"));
+  }, [depthOn]);
+
   return (
-    <div className={`relative ${align === "center" ? "text-center" : "text-left"}`}>
+    <div
+      ref={headRef}
+      className={`relative ${depthOn ? "wi-heading-depth" : ""} ${align === "center" ? "text-center" : "text-left"}`}
+    >
       <span
         aria-hidden="true"
         // Flex centering crops long words evenly on both sides instead of widening the page on phones.
@@ -228,9 +230,38 @@ export function InteractiveTiltCard({
   intensity?: number;
 }) {
   const ref = useRef<HTMLDivElement>(null);
+  const scrollTilt = Boolean(useSignature()?.scrollTilt);
+
+  useEffect(() => {
+    if (!scrollTilt || prefersReducedMotion()) return;
+    const el = ref.current;
+    if (!el) return;
+    registerWeddingPlugins();
+    gsap.registerPlugin(ScrollTrigger);
+    const mm = gsap.matchMedia();
+    mm.add("(min-width: 768px) and (prefers-reduced-motion: no-preference)", () => {
+      gsap.set(el, { transformPerspective: 900, force3D: true });
+      gsap.fromTo(
+        el,
+        { rotateX: 6 },
+        {
+          rotateX: -5,
+          ease: "none",
+          force3D: true,
+          scrollTrigger: {
+            trigger: el,
+            start: "top 95%",
+            end: "bottom 15%",
+            scrub: 0.35,
+          },
+        },
+      );
+    });
+    return () => mm.revert();
+  }, [scrollTilt]);
 
   function tiltDisabled() {
-    if (typeof window === "undefined") return true;
+    if (scrollTilt || typeof window === "undefined") return true;
     return (
       window.matchMedia("(prefers-reduced-motion: reduce)").matches ||
       window.matchMedia("(pointer: coarse)").matches
@@ -261,7 +292,7 @@ export function InteractiveTiltCard({
       ref={ref}
       onPointerMove={handleMove}
       onPointerLeave={handleLeave}
-      className={`transition-transform duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] ${className}`}
+      className={`${scrollTilt ? "" : "transition-transform duration-300 ease-[cubic-bezier(0.22,1,0.36,1)]"} ${className}`}
     >
       {children}
     </div>

@@ -1,6 +1,11 @@
 import AdminLoginForm from "@/components/weddings/AdminLoginForm";
+import { privatePageMetadata } from "@/lib/weddings/og";
 
-export const metadata = { title: "Admin sign in — Inviteo" };
+export const metadata = privatePageMetadata(
+  "Admin Sign In | Inviteo",
+  "Sign in to the private Inviteo admin to manage wedding websites, guest RSVPs, wishes, photos, and the public WhatsApp contact on marketing pages.",
+  "/admin/wedding-invitations/login",
+);
 
 export default async function AdminLogin({
   searchParams,

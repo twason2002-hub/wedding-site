@@ -353,14 +353,16 @@ export default function WebsiteForm({
                 Open full preview ↗
               </a>{" "}
               ·{" "}
-              <a
-                className="adm-link"
-                href={`/wedding-invitations/${demoWeddingFor(selectedTemplate.slug).slug}`}
-                target="_blank"
-                rel="noreferrer"
-              >
-                Open sample invitation ↗
-              </a>
+              {demoWeddingFor(selectedTemplate.slug) ? (
+                <a
+                  className="adm-link"
+                  href={`/wedding-invitations/${demoWeddingFor(selectedTemplate.slug)?.slug}`}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  Open sample invitation ↗
+                </a>
+              ) : null}
             </p>
           )}
         </section>

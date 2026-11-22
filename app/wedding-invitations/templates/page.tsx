@@ -6,11 +6,13 @@ import { listTemplates } from "@/lib/weddings/templates";
 import { TEMPLATE_PRICE_LABEL, TEMPLATE_PRICE_NOTE, templateInterestMessage, whatsappLink } from "@/lib/weddings/site-config";
 import { getSiteContact } from "@/lib/weddings/db";
 import { demoWeddingFor } from "@/lib/weddings/sample-data";
+import { marketingMetadata } from "@/lib/weddings/og";
 
-export const metadata = {
-  title: "Inviteo — Indian Wedding Invitation Designs & Live Previews",
-  description: "Explore five beautiful Indian wedding website templates with live interactive previews.",
-};
+export const metadata = marketingMetadata(
+  "Wedding Invitation Templates | Inviteo",
+  "Browse five Inviteo wedding invitation templates, from palace gold to a beach weekend. Open a live preview, then order one link for both families.",
+  "/wedding-invitations/templates",
+);
 
 export default async function TemplateGallery() {
   const templates = listTemplates();
@@ -23,7 +25,7 @@ export default async function TemplateGallery() {
     >
       <SiteNav />
 
-      <header className="wi-wrap pt-16 pb-10 md:pt-24 md:pb-12">
+      <header className="wi-wrap pt-16 pb-[var(--wi-section-gap)] md:pt-24">
         <OutlinedEditorialWord
           watermark="DESIGNS"
           eyebrow="Inviteo Wedding Collection"
@@ -42,10 +44,11 @@ export default async function TemplateGallery() {
         />
       </header>
 
-      <main className="wi-wrap pb-28">
+      <main className="wi-wrap pb-[var(--wi-section-gap)]">
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {templates.map((t, i) => {
             const sample = demoWeddingFor(t.slug);
+            if (!sample) return null;
             return (
               <ScrollReveal key={t.slug} delay={(i % 3) * 80}>
                 <article

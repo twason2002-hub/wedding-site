@@ -1,14 +1,20 @@
 "use client";
 
-import { useRef, useState, type PointerEvent } from "react";
+import OpeningImage from "./effects/OpeningImage";
+import GoldDust from "./effects/GoldDust";
+import { usePullReveal } from "./effects/usePullReveal";
+import { useDelight } from "./motion";
 
+const RIBBON = "/weddings/openings/destination-ribbon.webp";
 const MAX_PULL = 148;
-const OPEN_AT = 108;
 
 /**
- * Pull-to-reveal — drag the silk ribbon (or use the button / keyboard).
- * Replaces another opening; it is not stacked on top of one.
- * Motion is a transform only, and prefers-reduced-motion skips the slide.
+ * Destination signature — an ivory ribbon hangs from the top. The tassel is
+ * the drag handle. Replaces the postcard opening. Pull past the threshold
+ * to reveal the invite.
+ *
+ * Centering uses `.wi-anchor-x` (`translate`, not `transform`) so the pull
+ * cannot wipe the -50% offset.
  */
 export default function RibbonPull({
   names,
@@ -21,101 +27,94 @@ export default function RibbonPull({
   subtitle?: string;
   onDone: () => void;
 }) {
-  const [pull, setPull] = useState(0);
-  const [opened, setOpened] = useState(false);
-  const pullRef = useRef(0);
-  const drag = useRef<{ y: number; base: number } | null>(null);
-
-  const setPullPx = (next: number) => {
-    const clamped = Math.max(0, Math.min(MAX_PULL, next));
-    pullRef.current = clamped;
-    setPull(clamped);
-  };
-
-  const open = () => {
-    if (opened) return;
-    setOpened(true);
-    setPullPx(MAX_PULL);
-    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    window.setTimeout(onDone, reduce ? 0 : 680);
-  };
-
-  const onPointerDown = (event: PointerEvent<HTMLButtonElement>) => {
-    if (opened) return;
-    event.currentTarget.setPointerCapture(event.pointerId);
-    drag.current = { y: event.clientY, base: pullRef.current };
-  };
-
-  const onPointerMove = (event: PointerEvent<HTMLButtonElement>) => {
-    if (!drag.current || opened) return;
-    setPullPx(drag.current.base + (event.clientY - drag.current.y));
-  };
-
-  const onPointerUp = () => {
-    if (!drag.current || opened) return;
-    drag.current = null;
-    if (pullRef.current >= OPEN_AT) open();
-    else setPullPx(0);
-  };
-
-  const progress = Math.round((pull / MAX_PULL) * 100);
+  const pull = usePullReveal(72, MAX_PULL, onDone);
+  const delight = useDelight();
+  const ease = pull.dragging ? "none" : "transform 0.45s cubic-bezier(0.22, 1, 0.36, 1)";
+  const drop = pull.opened ? MAX_PULL : pull.pull;
+  const progress = Math.round((pull.pull / MAX_PULL) * 100);
+  const flutter = delight.ribbonFlutter && !pull.dragging && !pull.opened && pull.pull === 0;
+  const sweep = delight.nameSweep && pull.opened;
 
   return (
-    <div className={`wi-ribbon relative z-10 mx-6 flex w-full max-w-[340px] flex-col items-center ${opened ? "is-open" : ""}`}>
-      <p className="mb-4 text-center text-[11px] font-medium uppercase tracking-[0.28em] text-[#f3d5c1]">
-        {opened ? "Welcome" : "Pull the ribbon to open"}
-      </p>
-
-      <div className="relative w-full rounded-[1.4rem] bg-[#f7f3eb] px-6 pb-8 pt-10 text-center text-[#0f353e] shadow-[0_24px_60px_rgba(0,0,0,0.35)]">
-        <div className="pointer-events-none absolute inset-x-10 top-0 h-3 -translate-y-1/2 rounded-full bg-[#9a3d32]" aria-hidden="true" />
-        <p className="text-[10px] font-semibold uppercase tracking-[0.32em] text-[#8a4b32]">
+    <div className="absolute inset-0">
+      <div
+        data-center="names"
+        className="absolute top-1/2 z-10 w-[min(86vw,22rem)] rounded-[1.4rem] bg-[#f7f3eb] px-6 py-8 text-center text-[#0f353e] shadow-[0_24px_60px_rgba(0,0,0,0.35)] transition-opacity duration-500"
+        style={{
+          left: "50%",
+          translate: "-50% -50%",
+          opacity: pull.opened ? 1 : 0,
+          pointerEvents: pull.opened ? "auto" : "none",
+        }}
+        aria-hidden={pull.opened ? undefined : true}
+      >
+        <p className="text-[10px] font-semibold uppercase tracking-[0.32em] text-[#6b3d2e]">
           {blessing ?? "You are invited"}
         </p>
-        <h2 className="wi-couple-heading wi-name-on-light mt-3 font-display-luxury text-[1.85rem] italic leading-tight text-[#0f353e]">
+        <h2 className={`wi-couple-heading mt-3 font-display-luxury text-[1.85rem] italic leading-tight text-[#0f353e] ${sweep ? "wi-name-sweep" : ""}`}>
           {names}
         </h2>
-        {subtitle && <p className="mt-2 text-sm text-[#3d4f55]">{subtitle}</p>}
-        <p className="mt-4 text-xs leading-relaxed text-[#3d4f55]">The celebration is sealed until the ribbon gives.</p>
-
-        <button
-          type="button"
-          className="wi-ribbon-handle absolute left-1/2 top-full z-10"
-          style={{ transform: `translateX(-50%) translateY(${pull}px)` }}
-          aria-label="Pull the ribbon down to open the invitation"
-          aria-valuemin={0}
-          aria-valuemax={100}
-          aria-valuenow={progress}
-          aria-valuetext={opened ? "Open" : `${progress} percent pulled`}
-          role="slider"
-          onPointerDown={onPointerDown}
-          onPointerMove={onPointerMove}
-          onPointerUp={onPointerUp}
-          onPointerCancel={onPointerUp}
-          onKeyDown={(event) => {
-            if (event.key === "ArrowDown") {
-              event.preventDefault();
-              const next = pullRef.current + 36;
-              setPullPx(next);
-              if (next >= OPEN_AT) open();
-            } else if (event.key === "ArrowUp") {
-              event.preventDefault();
-              setPullPx(pullRef.current - 36);
-            } else if (event.key === "Enter" || event.key === " ") {
-              event.preventDefault();
-              open();
-            }
-          }}
-        >
-          <span className="mx-auto block h-16 w-5 rounded-b-md bg-gradient-to-b from-[#b94a3c] to-[#7d2a24] shadow-md" />
-          <span className="mx-auto -mt-1 block h-7 w-7 rounded-full bg-[#f0d48a] shadow-[inset_0_0_0_2px_#8a6230]" />
-          <span className="sr-only">Drag down, or press Enter to open</span>
-        </button>
+        {subtitle && <p className="mt-2 text-sm text-[#24383d]">{subtitle}</p>}
       </div>
-      <div className="h-28" aria-hidden="true" />
 
-      <button type="button" className="wi-btn min-h-12 bg-[#f7f3eb] text-[#0f353e]" onClick={open}>
+      <div className="wi-anchor-x wi-hang z-20" data-center="hanger" style={{ opacity: pull.opened ? 0.15 : 1 }}>
+        <div style={{ transform: `translate3d(0, ${drop}px, 0)`, transition: ease }}>
+          <div className={flutter ? "wi-ribbon-flutter" : undefined} style={{ transformOrigin: "top center" }}>
+            <div className="relative w-max" data-center="art">
+              <OpeningImage
+                src={RIBBON}
+                width={130}
+                height={1175}
+                priority
+                className="block h-[min(64dvh,760px)] w-auto max-w-[30vw]"
+                fallback={<RibbonFallback />}
+              />
+              <button
+                type="button"
+                data-pull=""
+                className="wi-pull-handle wi-anchor-x bottom-0 z-10 h-[38%] w-24 min-h-24"
+                aria-label="Pull the ribbon tassel down to open the invitation"
+                aria-valuemin={0}
+                aria-valuemax={100}
+                aria-valuenow={progress}
+                aria-valuetext={pull.opened ? "Open" : `${progress} percent pulled`}
+                role="slider"
+                {...pull.bind}
+              >
+                <span className="wi-pull-cue" data-center="cue" style={{ top: "18%" }} aria-hidden="true" />
+                <span className="sr-only">Drag down, or press Enter to open</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {pull.opened && delight.goldDust && <GoldDust />}
+
+      <p
+        data-center="label"
+        className="wi-anchor-x pointer-events-none bottom-[max(4.75rem,calc(env(safe-area-inset-bottom)+3.5rem))] z-30 rounded-full bg-[#082026] px-4 py-2 text-[11px] font-medium uppercase tracking-[0.22em] text-[#f7f3eb]"
+      >
+        {pull.opened ? "Welcome" : "Pull the tassel"}
+      </p>
+      <button
+        type="button"
+        data-center="action"
+        onClick={pull.finish}
+        className="wi-anchor-x bottom-[max(1rem,env(safe-area-inset-bottom))] z-30 min-h-11 rounded-full bg-[#f7f3eb] px-5 text-xs font-semibold uppercase tracking-[0.2em] text-[#0f353e]"
+      >
         Open invitation
       </button>
     </div>
+  );
+}
+
+function RibbonFallback() {
+  return (
+    <svg viewBox="0 0 80 640" className="block h-[min(64dvh,760px)] w-auto" aria-hidden="true">
+      <path d="M30 0h20v460c0 10-6 16-10 16s-10-6-10-16V0z" fill="#f3efe4" />
+      <circle cx="40" cy="490" r="16" fill="#e7d7a2" stroke="#b08948" />
+      <path d="M22 504h36l-6 120H28z" fill="#d4b56a" />
+    </svg>
   );
 }

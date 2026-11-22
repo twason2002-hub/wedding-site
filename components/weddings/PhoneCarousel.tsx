@@ -15,7 +15,7 @@ const DEFAULT_INDEX = 2;
 
 /**
  * PhoneCarousel — 5 templates in phone mockups with featherweight live-DOM
- * previews (MiniInvite: real names/events/venue/photos, template palette +
+ * previews (MiniInvite: static demo names, events, venue, photos, palette +
  * fonts, phone-scale type). No iframes, no intervals per slide.
  *
  * Gestures: scroll area uses touch-action:pan-y → vertical pans scroll the
@@ -213,6 +213,7 @@ export default function PhoneCarousel({
             const isActive = physicalIndex === position;
             const dist = Math.abs(physicalIndex - position);
             const wedding = demoWeddingFor(t.slug);
+            if (!wedding) return null;
             return (
               <div
                 key={`${t.slug}-${physicalIndex}`}
@@ -281,7 +282,7 @@ export default function PhoneCarousel({
         <p className="mx-auto mt-2 max-w-md text-sm leading-relaxed text-[#6b6259]">{active.description}</p>
         <div className="mt-5 flex flex-col items-center justify-center gap-3 sm:flex-row">
           <Link
-            href={`/wedding-invitations/${sample.slug}`}
+            href={sample ? `/wedding-invitations/${sample.slug}` : "/wedding-invitations/templates"}
             className="inline-flex min-h-[48px] w-full items-center justify-center gap-2 rounded-full bg-[#1c1917] px-8 text-[12px] font-semibold uppercase tracking-[0.18em] text-white transition hover:bg-black sm:w-auto"
           >
             View Demo <span aria-hidden="true">→</span>

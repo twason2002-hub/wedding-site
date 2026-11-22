@@ -1,9 +1,10 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type PointerEvent as ReactPointerEvent } from "react";
 import type { GalleryImage } from "@/lib/weddings/types";
 import { ChevronLeftIcon, ChevronRightIcon, CloseIcon } from "./WeddingIcons";
 import { prefersReducedMotion } from "./effects/gsap-setup";
+import { useDelight } from "./motion";
 
 export default function Gallery({
   images,
@@ -19,6 +20,21 @@ export default function Gallery({
   const touchX = useRef<number | null>(null);
   const galleryRef = useRef<HTMLDivElement>(null);
   const layout = layoutProp ?? (variant === "floral" ? "polaroid" : variant === "coastal" ? "masonry" : "grid");
+  const tiltOn = useDelight().galleryTilt;
+
+  const lean = (event: ReactPointerEvent<HTMLButtonElement>) => {
+    if (!tiltOn || prefersReducedMotion()) return;
+    const el = event.currentTarget;
+    const rect = el.getBoundingClientRect();
+    if (rect.width < 1 || rect.height < 1) return;
+    const px = (event.clientX - rect.left) / rect.width - 0.5;
+    const py = (event.clientY - rect.top) / rect.height - 0.5;
+    const max = event.pointerType === "touch" ? 3.2 : 4;
+    el.style.transform = `perspective(800px) rotateX(${(-py * max).toFixed(2)}deg) rotateY(${(px * max).toFixed(2)}deg)`;
+  };
+  const unlean = (event: ReactPointerEvent<HTMLButtonElement>) => {
+    event.currentTarget.style.transform = "";
+  };
 
   useEffect(() => {
     if (open === null) return;
@@ -77,6 +93,10 @@ export default function Gallery({
               key={i}
               data-gallery-item="true"
               onClick={() => setOpen(i)}
+              onPointerMove={lean}
+              onPointerLeave={unlean}
+              onPointerUp={unlean}
+              onPointerCancel={unlean}
               className={`group relative overflow-hidden text-left focus:outline-none focus:ring-2 focus:ring-offset-2 transition-transform duration-300 hover:rotate-0 ${
                 layout === "masonry" ? "mb-5 inline-block w-full break-inside-avoid" : ""
               } ${

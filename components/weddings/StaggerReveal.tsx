@@ -10,6 +10,7 @@ import {
   type ReactElement,
   type ReactNode,
 } from "react";
+import { watchEarlyReveal } from "./effects/early-reveal";
 
 /**
  * Reveals direct children one after another when the group enters view.
@@ -18,7 +19,7 @@ import {
 export default function StaggerReveal({
   children,
   className = "",
-  step = 110,
+  step = 60,
 }: {
   children: ReactNode;
   className?: string;
@@ -29,21 +30,7 @@ export default function StaggerReveal({
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      el.classList.add("is-visible");
-      return;
-    }
-    const io = new IntersectionObserver(
-      (entries) => {
-        if (entries.some((e) => e.isIntersecting)) {
-          el.classList.add("is-visible");
-          io.disconnect();
-        }
-      },
-      { threshold: 0.08, rootMargin: "0px 0px -40px 0px" }
-    );
-    io.observe(el);
-    return () => io.disconnect();
+    return watchEarlyReveal(el, () => el.classList.add("is-visible"));
   }, []);
 
   return (

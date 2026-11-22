@@ -36,6 +36,85 @@ export interface EnvelopeTheme {
   glow: boolean;
 }
 
+/**
+ * Signature interactions. Each key is a JSON toggle.
+ * Opening signatures (doors, bell, petals) replace `opening` when true.
+ * The others layer onto the page and can be combined.
+ */
+export interface SignatureFlags {
+  palaceDoors: boolean;
+  diyaBell: boolean;
+  petalUnfold: boolean;
+  cardFlip: boolean;
+  coastParallax: boolean;
+  heroParallax: boolean;
+  scrollTilt: boolean;
+  headingDepth: boolean;
+}
+
+/**
+ * Short accents. Transform or opacity only, and each template turns on a few
+ * so they don't stack. Reduced motion leaves every one of these static.
+ */
+export interface DelightFlags {
+  /** Gold motes when the opening reveals the names. */
+  goldDust: boolean;
+  /** Idle sway of the hanging bell, inviting a pull. */
+  idleSway: boolean;
+  /** One light sweep across the names as they appear. */
+  nameSweep: boolean;
+  /** Soft flutter of the destination ribbon at rest. */
+  ribbonFlutter: boolean;
+  /** RSVP card rises with a small burst. */
+  rsvpLift: boolean;
+  /** Countdown digits ease when they change. */
+  countdownTick: boolean;
+  /** Gallery photos lean toward a finger or cursor. */
+  galleryTilt: boolean;
+  /** Section rule draws out from the centre. */
+  dividerDraw: boolean;
+}
+
+export const DELIGHT_OFF: DelightFlags = {
+  goldDust: false,
+  idleSway: false,
+  nameSweep: false,
+  ribbonFlutter: false,
+  rsvpLift: false,
+  countdownTick: false,
+  galleryTilt: false,
+  dividerDraw: false,
+};
+
+/** Where a generated layer sits in the hero. Transform-only; no layout animation. */
+export type ParallaxPosition =
+  | "background"
+  | "frame"
+  | "top"
+  | "bottom"
+  | "corner"
+  | "edges"
+  | "overlay"
+  | "tilt";
+
+export interface ParallaxLayer {
+  src: string;
+  /** Scroll travel in px. Larger values sit closer to the viewer. */
+  depth: number;
+  position: ParallaxPosition;
+  opacity?: number;
+  width: number;
+  height: number;
+  /** cover crops a strip; contain keeps a cut-out intact. */
+  fit?: "cover" | "contain";
+}
+
+export interface SceneAccents {
+  crest?: string;
+  frame?: string;
+  envelope?: string;
+}
+
 /** Motion/interaction selection — JSON only, no animation logic here. */
 export interface MotionConfig {
   opening: OpeningType;
@@ -50,6 +129,17 @@ export interface MotionConfig {
    * `ribbon` is a pull-down tassel with a button and keyboard fallback.
    */
   pullToReveal?: { enabled: boolean; kind: "ribbon" };
+  signature: SignatureFlags;
+  /**
+   * Layered hero art. `depth` is scroll travel; `position` places the cut-out.
+   * Omitted layers stay off so a template can keep the older depth ornaments.
+   */
+  parallaxLayers?: ParallaxLayer[];
+  /** Scrim behind names and the date so type stays at least 4.5:1. */
+  parallaxScrim?: "dark" | "light" | "none";
+  accents?: SceneAccents;
+  /** Omitted means every accent is off. */
+  delight?: DelightFlags;
 }
 
 export interface TemplateExperience {
@@ -119,6 +209,61 @@ const CLASSIC_ENVELOPE: EnvelopeTheme = {
   glow: false,
 };
 
+const ART = "/weddings/parallax";
+
+function art(
+  file: string,
+  depth: number,
+  position: ParallaxPosition,
+  opacity: number,
+  width: number,
+  height: number,
+  fit?: "cover" | "contain",
+): ParallaxLayer {
+  return { src: `${ART}/${file}.webp`, depth, position, opacity, width, height, fit };
+}
+
+const ROYAL_LAYERS: ParallaxLayer[] = [
+  art("royal-skyline-bg", 36, "background", 1, 720, 1280),
+  art("royal-arch-frame", 14, "frame", 1, 689, 1179),
+  art("royal-lanterns", 64, "top", 1, 627, 1024),
+];
+
+const VIVAH_LAYERS: ParallaxLayer[] = [
+  art("vivah-mandap-bg", 32, "background", 1, 720, 1280),
+  art("vivah-toran", 18, "top", 1, 1280, 362),
+  art("vivah-kalash", 52, "bottom", 1, 588, 768),
+];
+
+const FLORAL_LAYERS: ParallaxLayer[] = [
+  art("floral-garden-bg", 30, "background", 1, 720, 1280),
+  art("floral-cluster", 58, "corner", 1, 898, 947),
+  art("floral-petals", 84, "overlay", 0.58, 608, 1161),
+];
+
+const DESTINATION_LAYERS: ParallaxLayer[] = [
+  art("destination-sky-bg", 34, "background", 1, 720, 1280),
+  art("destination-palms", 22, "edges", 1, 720, 1258),
+  art("destination-sand", 46, "bottom", 1, 720, 493, "cover"),
+];
+
+const MINIMAL_LAYERS: ParallaxLayer[] = [art("minimal-suite", 12, "tilt", 1, 539, 700)];
+
+const CREST_FRAME_ENVELOPE: SceneAccents = {
+  crest: `${ART}/shared-ganesh-crest.webp`,
+  frame: `${ART}/shared-gold-frame.webp`,
+  envelope: `${ART}/shared-envelope.webp`,
+};
+
+const FRAME_ENVELOPE: SceneAccents = {
+  frame: `${ART}/shared-gold-frame.webp`,
+  envelope: `${ART}/shared-envelope.webp`,
+};
+
+function delight(flags: Partial<DelightFlags>): DelightFlags {
+  return { ...DELIGHT_OFF, ...flags };
+}
+
 export const TEMPLATE_EXPERIENCES: Record<string, TemplateExperience> = {
   "royal-heritage": {
     slug: "royal-heritage",
@@ -151,6 +296,27 @@ export const TEMPLATE_EXPERIENCES: Record<string, TemplateExperience> = {
       interactionEffects: ["blessings", "reactions", "qr", "countdown", "scratch", "glimmer"],
       intensity: "medium",
       speed: "normal",
+      signature: {
+        palaceDoors: true,
+        diyaBell: false,
+        petalUnfold: false,
+        cardFlip: false,
+        coastParallax: false,
+        heroParallax: true,
+        scrollTilt: true,
+        headingDepth: true,
+      },
+      parallaxLayers: ROYAL_LAYERS,
+      parallaxScrim: "dark",
+      accents: CREST_FRAME_ENVELOPE,
+      delight: delight({
+        goldDust: true,
+        nameSweep: true,
+        rsvpLift: true,
+        countdownTick: true,
+        galleryTilt: true,
+        dividerDraw: true,
+      }),
     },    palette: { bg: "#140806", ink: "#f6ead4", accent: "#d4af37", surface: "#26100c" },
     fonts: { display: "Cinzel, Cormorant Garamond, serif", body: "Plus Jakarta Sans, sans-serif" },
     animation: { reduced: "fade-only" },
@@ -185,6 +351,26 @@ export const TEMPLATE_EXPERIENCES: Record<string, TemplateExperience> = {
       interactionEffects: ["blessings", "reactions", "countdown", "scratch"],
       intensity: "medium",
       speed: "normal",
+      signature: {
+        palaceDoors: false,
+        diyaBell: false,
+        petalUnfold: true,
+        cardFlip: false,
+        coastParallax: false,
+        heroParallax: true,
+        scrollTilt: true,
+        headingDepth: true,
+      },
+      parallaxLayers: FLORAL_LAYERS,
+      parallaxScrim: "light",
+      accents: FRAME_ENVELOPE,
+      delight: delight({
+        nameSweep: true,
+        rsvpLift: true,
+        countdownTick: true,
+        galleryTilt: true,
+        dividerDraw: true,
+      }),
     },    palette: { bg: "#fdf7f5", ink: "#4a252a", accent: "#c87d8a", surface: "#ffffff" },
     fonts: { display: "Cormorant Garamond, Playfair Display, serif", body: "Plus Jakarta Sans, sans-serif" },
     animation: { reduced: "fade-only" },
@@ -218,6 +404,25 @@ export const TEMPLATE_EXPERIENCES: Record<string, TemplateExperience> = {
       interactionEffects: ["reactions", "countdown", "qr", "scratch"],
       intensity: "low",
       speed: "normal",
+      signature: {
+        palaceDoors: false,
+        diyaBell: false,
+        petalUnfold: false,
+        cardFlip: true,
+        coastParallax: false,
+        heroParallax: true,
+        scrollTilt: true,
+        headingDepth: true,
+      },
+      parallaxLayers: MINIMAL_LAYERS,
+      parallaxScrim: "none",
+      accents: FRAME_ENVELOPE,
+      delight: delight({
+        nameSweep: true,
+        rsvpLift: true,
+        countdownTick: true,
+        galleryTilt: true,
+      }),
     },    palette: { bg: "#091526", ink: "#f4efe6", accent: "#d4af37", surface: "#10233f" },
     fonts: { display: "Cormorant Garamond, serif", body: "Plus Jakarta Sans, sans-serif" },
     animation: { reduced: "fade-only" },
@@ -253,6 +458,27 @@ export const TEMPLATE_EXPERIENCES: Record<string, TemplateExperience> = {
       interactionEffects: ["blessings", "reactions", "qr", "countdown", "scratch", "glimmer"],
       intensity: "medium",
       speed: "normal",
+      signature: {
+        palaceDoors: false,
+        diyaBell: true,
+        petalUnfold: false,
+        cardFlip: false,
+        coastParallax: false,
+        heroParallax: true,
+        scrollTilt: true,
+        headingDepth: true,
+      },
+      parallaxLayers: VIVAH_LAYERS,
+      parallaxScrim: "dark",
+      accents: CREST_FRAME_ENVELOPE,
+      delight: delight({
+        goldDust: true,
+        idleSway: true,
+        nameSweep: true,
+        rsvpLift: true,
+        countdownTick: true,
+        dividerDraw: true,
+      }),
     },    palette: { bg: "#4a0b0d", ink: "#fdf1d6", accent: "#f0b429", surface: "#631215" },
     fonts: { display: "Cinzel, Playfair Display, serif", body: "Plus Jakarta Sans, sans-serif" },
     animation: { reduced: "fade-only" },
@@ -288,6 +514,27 @@ export const TEMPLATE_EXPERIENCES: Record<string, TemplateExperience> = {
       intensity: "medium",
       speed: "normal",
       pullToReveal: { enabled: true, kind: "ribbon" },
+      signature: {
+        palaceDoors: false,
+        diyaBell: false,
+        petalUnfold: false,
+        cardFlip: false,
+        coastParallax: true,
+        heroParallax: false,
+        scrollTilt: true,
+        headingDepth: true,
+      },
+      parallaxLayers: DESTINATION_LAYERS,
+      parallaxScrim: "dark",
+      accents: FRAME_ENVELOPE,
+      delight: delight({
+        nameSweep: true,
+        ribbonFlutter: true,
+        rsvpLift: true,
+        countdownTick: true,
+        galleryTilt: true,
+        dividerDraw: true,
+      }),
     },    palette: { bg: "#f7f3eb", ink: "#0f353e", accent: "#b86b43", surface: "#ffffff" },
     fonts: { display: "Cormorant Garamond, serif", body: "Plus Jakarta Sans, sans-serif" },
     animation: { reduced: "fade-only" },

@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import { FiligreeCorners } from "./LuxuryOrnaments";
 import { OpeningDiyas, OpeningStars } from "./OpeningDecor";
 import EnvelopeReveal from "./EnvelopeReveal";
@@ -9,6 +9,10 @@ import UnfoldReveal from "./UnfoldReveal";
 import TempleScrollReveal from "./TempleScrollReveal";
 import PostcardReveal from "./PostcardReveal";
 import RibbonPull from "./RibbonPull";
+import PalaceDoors from "./effects/PalaceDoors";
+import DiyaBell from "./effects/DiyaBell";
+import PetalUnfold from "./effects/PetalUnfold";
+import CardFlip from "./effects/CardFlip";
 import type { EnvelopeTheme } from "@/lib/weddings/template-experience";
 import { experienceFor } from "@/lib/weddings/template-experience";
 
@@ -26,7 +30,7 @@ export default function OpeningOverlay({
   theme,
   timing,
 }: {
-  variant: "curtain" | "petals" | "fade" | "diya" | "waves" | "envelope" | "bloom" | "unfold" | "scroll" | "postcard" | "ribbon";
+  variant: "curtain" | "petals" | "fade" | "diya" | "waves" | "envelope" | "bloom" | "unfold" | "scroll" | "postcard" | "ribbon" | "doors" | "bell" | "petal" | "flip";
   names: string;
   blessing?: string;
   subtitle?: string;
@@ -35,17 +39,33 @@ export default function OpeningOverlay({
 }) {
   const [open, setOpen] = useState(true);
   const [leaving, setLeaving] = useState(false);
+  const dismissTimer = useRef<number | undefined>(undefined);
 
   const dismiss = useCallback(() => {
     setLeaving((prev) => {
       if (prev) return prev;
       // Releases the paused hero entrance so it plays as the gates part.
       delete document.documentElement.dataset.invite;
-      document.documentElement.style.overflow = "";
-      setTimeout(() => setOpen(false), 980);
+      if (dismissTimer.current) window.clearTimeout(dismissTimer.current);
+      dismissTimer.current = window.setTimeout(() => setOpen(false), 820);
       return true;
     });
   }, []);
+
+  // A visible scrollbar shifts fixed `left: 50%` off the viewport centre.
+  useLayoutEffect(() => {
+    if (!open) return;
+    const html = document.documentElement;
+    const body = document.body;
+    const prevHtml = html.style.overflow;
+    const prevBody = body.style.overflow;
+    html.style.overflow = "hidden";
+    body.style.overflow = "hidden";
+    return () => {
+      html.style.overflow = prevHtml;
+      body.style.overflow = prevBody;
+    };
+  }, [open]);
 
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
@@ -55,7 +75,6 @@ export default function OpeningOverlay({
     }
     const root = document.documentElement;
     root.dataset.invite = "sealed";
-    root.style.overflow = "hidden";
 
     // Isolated iframe previews (?preview=auto) auto-open after the entrance.
     let auto: number | undefined;
@@ -68,7 +87,7 @@ export default function OpeningOverlay({
     }
 
     let touchY = 0;
-    const pullOnly = variant === "ribbon";
+    const tactile = variant === "ribbon" || variant === "doors" || variant === "bell" || variant === "petal";
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") dismiss();
     };
@@ -82,14 +101,13 @@ export default function OpeningOverlay({
       if (touchY - e.touches[0].clientY > 40) dismiss();
     };
     window.addEventListener("keydown", onKey);
-    if (!pullOnly) {
+    if (!tactile) {
       window.addEventListener("wheel", onWheel, { passive: true });
       window.addEventListener("touchstart", onTouchStart, { passive: true });
       window.addEventListener("touchmove", onTouchMove, { passive: true });
     }
     return () => {
       delete root.dataset.invite;
-      root.style.overflow = "";
       if (auto) window.clearTimeout(auto);
       window.removeEventListener("keydown", onKey);
       window.removeEventListener("wheel", onWheel);
@@ -98,11 +116,17 @@ export default function OpeningOverlay({
     };
   }, [dismiss, variant]);
 
+  useEffect(() => () => {
+    if (dismissTimer.current) window.clearTimeout(dismissTimer.current);
+  }, []);
+
   if (!open) return null;
 
-  const wrap = `fixed inset-0 z-[90] flex items-center justify-center cursor-pointer overflow-hidden wi-enter-stage${
-    leaving ? " wi-leaving" : ""
-  }`;
+  const depth =
+    variant === "ribbon" || variant === "doors" || variant === "bell" || variant === "petal" || variant === "flip";
+  const wrap = `fixed inset-0 z-[90] flex items-center justify-center cursor-pointer ${
+    depth ? "overflow-visible" : "overflow-hidden"
+  } wi-enter-stage touch-none${leaving ? " wi-leaving" : ""}`;
 
   const initials = names
     .split(/[&—]|weds/i)
@@ -190,6 +214,38 @@ export default function OpeningOverlay({
       {enterHint}
     </>
   );
+
+  if (variant === "doors") {
+    return (
+      <div className={`${wrap} bg-[#110604]`} style={{ background: "#110604", cursor: "default" }}>
+        <PalaceDoors names={names} blessing={blessing} subtitle={subtitle} onDone={dismiss} />
+      </div>
+    );
+  }
+
+  if (variant === "bell") {
+    return (
+      <div className={`${wrap} bg-[#380709]`} style={{ background: "#380709", cursor: "default" }}>
+        <DiyaBell names={names} blessing={blessing} subtitle={subtitle} onDone={dismiss} />
+      </div>
+    );
+  }
+
+  if (variant === "petal") {
+    return (
+      <div className={`${wrap} bg-[#fdf5f2]`} style={{ background: "#fdf5f2", cursor: "default" }}>
+        <PetalUnfold names={names} blessing={blessing} subtitle={subtitle} onDone={dismiss} />
+      </div>
+    );
+  }
+
+  if (variant === "flip") {
+    return (
+      <div className={`${wrap} bg-[#d9d3cb]`} style={{ background: "#d9d3cb", cursor: "default" }}>
+        <CardFlip names={names} blessing={blessing} subtitle={subtitle} onDone={dismiss} />
+      </div>
+    );
+  }
 
   if (variant === "envelope") {
     const exp = experienceFor("royal-heritage");
