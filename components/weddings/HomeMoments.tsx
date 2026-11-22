@@ -110,8 +110,8 @@ export function ScrollReveal({
   children: React.ReactNode;
   className?: string;
   delay?: number;
-  /** Entrance direction — "top" drops the content in like a dealt card. */
-  from?: "top" | "bottom";
+  /** Entrance direction. Chapter cards use top, then left, then right. */
+  from?: "top" | "bottom" | "left" | "right";
 }) {
   const ref = useRef<HTMLDivElement>(null);
 
@@ -138,7 +138,7 @@ export function ScrollReveal({
   return (
     <div
       ref={ref}
-      className={`wi-reveal ${from === "top" ? "wi-reveal--top" : ""} ${className}`}
+      className={`wi-reveal ${from === "bottom" ? "" : `wi-reveal--${from}`} ${className}`}
       style={delay ? ({ "--reveal-delay": `${delay}ms` } as React.CSSProperties) : undefined}
     >
       {children}

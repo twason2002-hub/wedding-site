@@ -63,18 +63,18 @@ export default function BloomEffect({
         <path className="wi-bloom-pop" d="M54 150 C46 136, 48 126, 58 124 C64 134, 62 144, 54 150 Z" fill={leaf} opacity="0.9" />
         <path className="wi-bloom-pop" d="M146 150 C154 136, 152 126, 142 124 C136 134, 138 144, 146 150 Z" fill={leaf} opacity="0.9" />
         {petals.map((k) => (
-          <ellipse
-            key={k}
-            className="wi-bloom-pop"
-            cx="100"
-            cy="48"
-            rx="16"
-            ry="30"
-            transform={`rotate(${k * 72} 100 78)`}
-            fill={`${petal}55`}
-            stroke={petal}
-            strokeWidth="1.4"
-          />
+          <g key={k} transform={`rotate(${k * 72} 100 78)`}>
+            <ellipse
+              className="wi-bloom-pop"
+              cx="100"
+              cy="48"
+              rx="16"
+              ry="30"
+              fill={`${petal}55`}
+              stroke={petal}
+              strokeWidth="1.4"
+            />
+          </g>
         ))}
         <circle className="wi-bloom-pop" cx="100" cy="78" r="9" fill={petal} />
       </svg>

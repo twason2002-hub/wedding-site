@@ -3,13 +3,13 @@
 import { useEffect, useRef, type ReactNode } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { prefersReducedMotion } from "./effects/gsap-setup";
 
 gsap.registerPlugin(ScrollTrigger);
 
 /**
- * Cookbook parallax (web-animation-skills §5): inner layer drifts
- * against scroll while its overflow-hidden parent frames it.
- * transform-only, scrubbed, tiered for reduced motion.
+ * Hero-only scroll parallax: inner layer drifts against scroll inside a clipped parent.
+ * No movement and scale 1 under prefers-reduced-motion.
  */
 export default function Parallax({
   children,
@@ -24,13 +24,18 @@ export default function Parallax({
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    if (prefersReducedMotion()) {
+      gsap.set(ref.current, { yPercent: 0, scale: 1 });
+      return;
+    }
     const mm = gsap.matchMedia();
     mm.add("(prefers-reduced-motion: no-preference)", () => {
       gsap.fromTo(
         ref.current,
-        { yPercent: depth / 2 },
+        { yPercent: depth / 2, scale: 1 },
         {
           yPercent: -depth / 2,
+          scale: 1,
           ease: "none",
           scrollTrigger: {
             trigger: ref.current?.parentElement,
@@ -45,13 +50,13 @@ export default function Parallax({
       return () => window.removeEventListener("load", onLoad);
     });
     mm.add("(prefers-reduced-motion: reduce)", () => {
-      gsap.set(ref.current, { yPercent: 0 });
+      gsap.set(ref.current, { yPercent: 0, scale: 1 });
     });
     return () => mm.revert();
   }, [depth]);
 
   return (
-    <div ref={ref} className={className} style={{ scale: "1.18", willChange: "transform" }}>
+    <div ref={ref} className={className}>
       {children}
     </div>
   );

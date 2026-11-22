@@ -6,11 +6,9 @@ import { SITE_CONFIG } from "@/lib/weddings/site-config";
 
 const LINKS = [
   { href: "/wedding-invitations", label: "Home" },
-  { href: "/wedding-invitations#designs", label: "Our Designs" },
-  { href: "/wedding-invitations#offer", label: "Features" },
-  { href: "/wedding-invitations#how", label: "How It Works" },
-  { href: "/wedding-invitations#about", label: "About Us" },
-  { href: "/wedding-invitations#contact", label: "Contact" },
+  { href: "/wedding-invitations#designs", label: "Designs" },
+  { href: "/wedding-invitations#how", label: "How it works" },
+  { href: "/wedding-invitations#contact", label: "WhatsApp" },
 ];
 
 /** Inviteo Navigation: Royal Sapphire Blue & Gold with clean Indian wedding feel. */
@@ -29,9 +27,6 @@ export default function SiteNav() {
         >
           <span>{SITE_CONFIG.brandName.slice(0, 6)}</span>
           <span className="-ml-2 italic text-[#d4af37]">{SITE_CONFIG.brandName.slice(6)}</span>
-          <span className="hidden sm:inline-block ml-2 rounded-full bg-[#d4af37]/15 px-3 py-0.5 font-body-luxury text-[11px] uppercase tracking-[0.28em] text-[#e8cf8f] shadow-[inset_0_0_0_0.75px_rgba(212,175,55,0.45)]">
-            Indian Wedding Invites
-          </span>
         </Link>
 
         <div className="hidden items-center gap-7 lg:flex">
@@ -45,7 +40,7 @@ export default function SiteNav() {
             className="wi-btn wi-btn--gold"
             style={{ minHeight: 44, padding: "0.6rem 1.3rem", fontSize: "0.84rem" }}
           >
-            <span>See All 5 Designs</span>
+            <span>See designs</span>
             <span className="wi-arrow" aria-hidden="true">
               →
             </span>
@@ -81,7 +76,7 @@ export default function SiteNav() {
             onClick={() => setOpen(false)}
             className="wi-btn wi-btn--gold mt-5 w-full justify-center"
           >
-            <span>See All 5 Designs</span>
+            <span>See designs</span>
             <span className="wi-arrow" aria-hidden="true">
               →
             </span>

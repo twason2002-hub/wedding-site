@@ -60,7 +60,9 @@ export default function FloralFrame({
         [78, 80, 30],
         [96, 92, -10],
       ].map(([x, y, r], i) => (
-        <ellipse key={i} className="wi-ff-leaf" cx={x} cy={y} rx="7" ry="4.5" transform={`rotate(${r} ${x} ${y})`} fill={leaf} opacity="0.9" />
+        <g key={i} transform={`rotate(${r} ${x} ${y})`}>
+          <ellipse className="wi-ff-leaf" cx={x} cy={y} rx="7" ry="4.5" fill={leaf} opacity="0.9" />
+        </g>
       ))}
       <circle className="wi-ff-leaf" cx="48" cy="20" r="5" fill={color} />
     </svg>
