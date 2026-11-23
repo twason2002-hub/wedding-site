@@ -34,7 +34,7 @@ export async function saveWebsite(input: WebsiteInput, mode: "create" | "edit"):
   ] as const) {
     const trimmed = raw.trim();
     if (trimmed && !isValidWhatsappNumber(normalizeWhatsappNumber(trimmed))) {
-      return { ok: false, error: `${label} should be digits with a country code, for example 919582915979.` };
+      return { ok: false, error: `${label} should be digits with a country code, for example 919056314930.` };
     }
   }
 
@@ -205,7 +205,7 @@ export async function saveSiteContact(
   const { supabase } = await requireAdmin();
   const whatsappNumber = normalizeWhatsappNumber(input.whatsappNumber);
   if (!isValidWhatsappNumber(whatsappNumber)) {
-    return { ok: false, error: "Enter a WhatsApp number with country code, for example 919582915979." };
+    return { ok: false, error: "Enter a WhatsApp number with country code, for example 919056314930." };
   }
   const email = input.email.trim();
   if (email && !isEmailSet(email)) {

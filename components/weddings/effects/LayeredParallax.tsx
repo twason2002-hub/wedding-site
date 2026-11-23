@@ -24,13 +24,15 @@ const FIT: Record<Exclude<ParallaxPosition, "tilt">, string> = {
   top: "object-contain object-top",
   bottom: "object-contain object-bottom",
   corner: "object-contain object-left-bottom",
-  edges: "object-cover object-center",
+  edges: "object-cover object-top",
   overlay: "object-contain",
 };
 
-const SCRIM: Record<"dark" | "light", string> = {
+const SCRIM: Record<"dark" | "light" | "palace" | "coast", string> = {
   dark: "linear-gradient(180deg, rgba(8,6,4,0.22) 0%, rgba(8,6,4,0.58) 46%, rgba(8,6,4,0.84) 100%)",
   light: "linear-gradient(180deg, rgba(253,247,245,0.42) 0%, rgba(253,247,245,0.74) 46%, rgba(253,247,245,0.9) 100%)",
+  palace: "linear-gradient(180deg, rgba(20,8,6,0.18) 0%, rgba(20,8,6,0.08) 26%, rgba(20,8,6,0.22) 58%, rgba(20,8,6,0.48) 100%)",
+  coast: "linear-gradient(180deg, rgba(10,37,44,0.14) 0%, rgba(10,37,44,0.05) 22%, rgba(10,37,44,0.28) 64%, rgba(10,37,44,0.5) 100%)",
 };
 
 /**
@@ -76,7 +78,7 @@ export default function LayeredParallax() {
   }, [layers.length]);
 
   if (!layers.length) return null;
-  const scrim = scene?.parallaxScrim === "dark" || scene?.parallaxScrim === "light" ? SCRIM[scene.parallaxScrim] : null;
+  const scrim = scene?.parallaxScrim && scene.parallaxScrim !== "none" ? SCRIM[scene.parallaxScrim] : null;
 
   return (
     <div ref={ref} className="pointer-events-none absolute inset-0 z-[1] overflow-hidden" style={{ contain: "paint" }} aria-hidden="true">
@@ -94,15 +96,23 @@ function LayerView({ layer }: { layer: ParallaxLayer }) {
   const fit =
     layer.fit === "cover"
       ? "object-cover object-bottom"
-      : layer.fit === "contain"
-        ? "object-contain object-bottom"
-        : FIT[position];
+      : layer.fit === "shore"
+        ? "object-cover object-top"
+        : layer.fit === "contain"
+          ? "object-contain object-bottom"
+          : FIT[position];
+  const mask =
+    layer.fade === "top"
+      ? "linear-gradient(to bottom, transparent 0%, #000 46%)"
+      : layer.fade === "bottom"
+        ? "linear-gradient(to bottom, #000 0%, #000 18%, transparent 46%)"
+        : undefined;
   return (
     <div
       data-depth={layer.depth}
       data-position={position}
       className={`wi-parallax-layer absolute ${BOX[position]}`}
-      style={{ opacity: layer.opacity ?? 1 }}
+      style={{ opacity: layer.opacity ?? 1, maskImage: mask, WebkitMaskImage: mask }}
     >
       <Image
         src={layer.src}
@@ -189,7 +199,7 @@ export function ParallaxTiltCard({ className = "" }: { className?: string }) {
           fill
           sizes="(max-width: 768px) 46vw, 280px"
           draggable={false}
-          className="object-contain"
+          className="object-contain drop-shadow-[0_18px_28px_rgba(4,10,24,0.55)]"
         />
       </div>
     </div>

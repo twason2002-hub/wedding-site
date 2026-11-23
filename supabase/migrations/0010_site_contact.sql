@@ -4,7 +4,7 @@
 insert into public.app_settings (key, value)
 values (
   'site_contact',
-  '{"whatsappNumber":"919582915979","email":"","instagramUrl":""}'::jsonb
+  '{"whatsappNumber":"919056314930","email":"","instagramUrl":""}'::jsonb
 )
 on conflict (key) do nothing;
 

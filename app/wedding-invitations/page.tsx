@@ -11,8 +11,8 @@ import { Shine } from "@animate-ui/react/primitives/effects/shine";
 import { listTemplates } from "@/lib/weddings/templates";
 import {
   GENERIC_WHATSAPP_MESSAGE,
+  PRICING_NOTE,
   SITE_CONFIG,
-  TEMPLATE_PRICE_LABEL,
   isEmailSet,
   isInstagramSet,
   whatsappLink,
@@ -60,6 +60,10 @@ const FAQS: [string, string][] = [
   [
     "How do we order?",
     "Tap Chat on WhatsApp, share your wedding date and favourite design.",
+  ],
+  [
+    "What does it cost?",
+    PRICING_NOTE,
   ],
 ];
 
@@ -137,8 +141,8 @@ export default async function WeddingInvitationsHome() {
                 </Shine>
               </div>
 
-              <p className="wi-fadeup wi-fadeup--4 mt-8 text-sm text-[#6b6259]">
-                {TEMPLATE_PRICE_LABEL} once · any of the five designs
+              <p className="wi-fadeup wi-fadeup--4 mt-8 max-w-xl text-sm leading-relaxed text-[#6b6259]">
+                {PRICING_NOTE}
               </p>
             </div>
 
@@ -259,8 +263,8 @@ export default async function WeddingInvitationsHome() {
               subtitle="Send your wedding date and favourite design. We reply personally."
               tone="dark"
             />
-            <p className="mt-6 text-base text-white/80">
-              {TEMPLATE_PRICE_LABEL} once, for any design.
+            <p className="mx-auto mt-6 max-w-xl text-base leading-relaxed text-white/80">
+              {PRICING_NOTE}
             </p>
             <div className="mt-6 flex flex-wrap justify-center gap-3.5">
               <a

@@ -3,7 +3,7 @@ import SiteNav from "@/components/weddings/SiteNav";
 import { ScrollReveal } from "@/components/weddings/HomeMoments";
 import { OutlinedEditorialWord } from "@/components/weddings/LuxuryOrnaments";
 import { listTemplates } from "@/lib/weddings/templates";
-import { TEMPLATE_PRICE_LABEL, TEMPLATE_PRICE_NOTE, templateInterestMessage, whatsappLink } from "@/lib/weddings/site-config";
+import { PRICING_NOTE, templateInterestMessage, whatsappLink } from "@/lib/weddings/site-config";
 import { getSiteContact } from "@/lib/weddings/db";
 import { demoWeddingFor } from "@/lib/weddings/sample-data";
 import { marketingMetadata } from "@/lib/weddings/og";
@@ -38,7 +38,7 @@ export default async function TemplateGallery() {
               Design
             </>
           }
-          subtitle={`${TEMPLATE_PRICE_NOTE}. Open a live preview or message us on WhatsApp to start.`}
+          subtitle={`${PRICING_NOTE} Open a live preview, or message us on WhatsApp to start.`}
           tone="ink"
           align="left"
         />
@@ -96,7 +96,7 @@ export default async function TemplateGallery() {
                     <h2 className="font-display-luxury mt-2 text-[1.7rem] font-normal italic leading-tight text-[#0b192c]">
                       {t.name}
                     </h2>
-                    <p className="mt-1 font-display-luxury text-3xl text-[#0b192c]">{TEMPLATE_PRICE_LABEL} <span className="font-body-luxury text-sm not-italic text-[#5b708c]">one-time</span></p>
+                    <p className="mt-2 text-sm leading-relaxed text-[#3b4f6b]">{PRICING_NOTE}</p>
                     <p className="mt-2 line-clamp-2 text-[13px] leading-relaxed text-[#3b4f6b]">
                       {t.description}
                     </p>
@@ -122,7 +122,7 @@ export default async function TemplateGallery() {
                         href={whatsappLink(templateInterestMessage(t.name), contact.whatsappNumber)}
                         className="wi-wa inline-flex min-h-12 items-center justify-center rounded-full px-6 py-2.5 text-xs font-semibold uppercase tracking-[0.16em]"
                       >
-                        WhatsApp · {TEMPLATE_PRICE_LABEL}
+                        WhatsApp for pricing
                       </a>
                     </div>
                   </div>

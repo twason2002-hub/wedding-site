@@ -6,8 +6,6 @@ import Gallery from "../Gallery";
 import RsvpForm from "../RsvpForm";
 import TemplateOpening from "../TemplateOpening";
 import WaveEffect from "../effects/WaveEffect";
-import FloatingOrnaments from "../effects/FloatingOrnaments";
-import { Palm } from "../svg/destination";
 import FamilyBlock from "../FamilyBlock";
 import ShareBar from "../ShareBar";
 import Parallax from "../Parallax";
@@ -15,7 +13,6 @@ import { ScrollReveal } from "../HomeMoments";
 import Timeline from "../Timeline";
 import HeroKenBurns from "../HeroKenBurns";
 import JourneyReveal from "../effects/JourneyReveal";
-import SignatureMotif from "../effects/SignatureMotif";
 import GuestSections from "../GuestSections";
 import { AnimatedCalligraphy, FiligreeCorners, OutlinedEditorialWord } from "../LuxuryOrnaments";
 import LayeredParallax, { EnvelopeRsvp, GoldFrame } from "../effects/LayeredParallax";
@@ -37,20 +34,20 @@ export default function DestinationWedding({ wedding }: { wedding: WeddingData }
       {/* Full-Bleed Coastal Horizon Hero */}
       <header className="relative flex min-h-[92dvh] items-end overflow-hidden bg-[#0a252c]">
         <LayeredParallax />
-        <SignatureMotif motif="palm" className="pointer-events-none absolute left-6 top-24 hidden h-20 w-16 text-white/30 md:block" />
-        {/* Swaying palm silhouettes */}
-        <FloatingOrnaments duration={6} drift={14} className="pointer-events-none absolute right-8 top-24 hidden text-white/25 sm:block">
-          <Palm className="h-28 w-24" />
-        </FloatingOrnaments>
-        <FloatingOrnaments duration={7.5} drift={10} className="pointer-events-none absolute left-8 top-48 hidden text-white/20 lg:block">
-          <Palm className="h-20 w-16" />
-        </FloatingOrnaments>
+        <div
+          className="pointer-events-none absolute inset-0"
+          style={{
+            zIndex: 2,
+            backgroundImage:
+              "radial-gradient(ellipse 110% 52% at 34% 58%, rgba(10,37,44,0.82), rgba(10,37,44,0.46) 50%, transparent 76%)",
+          }}
+        />
 
         <div className="wi-hero-exit relative z-10 mx-auto w-full max-w-6xl px-6 pb-[calc(6rem+var(--wi-section-gap))] pt-28 text-white">
-          <HeroKenBurns className="wi-fadeup mb-6 w-28 overflow-hidden rounded-2xl shadow-[0_16px_40px_rgba(0,0,0,0.45)] sm:w-36">
+          <HeroKenBurns className="wi-fadeup mb-6 w-full max-w-sm overflow-hidden rounded-2xl shadow-[0_18px_40px_rgba(8,30,36,0.35)] ring-1 ring-white/30">
             <Parallax depth={8}>
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={wedding.couple.photo} alt="" className="aspect-[3/4] w-full object-cover" />
+              <img src={wedding.couple.photo} alt="" className="aspect-[12/5] w-full object-cover" />
             </Parallax>
           </HeroKenBurns>
           <div className="wi-chip wi-fadeup wi-fadeup--1 inline-flex items-center gap-3 rounded-full bg-[#0a252c]/88 px-4 py-1.5 text-[11px] uppercase tracking-[0.32em] text-[#f6efe4]">

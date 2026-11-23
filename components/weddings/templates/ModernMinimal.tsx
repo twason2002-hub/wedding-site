@@ -111,18 +111,20 @@ export default function ModernMinimal({ wedding }: { wedding: WeddingData }) {
             )}
           </div>
 
-          <ParallaxTiltCard className="mx-auto mb-8 w-[min(220px,52vw)] lg:mx-0" />
-          <div className="wi-face wi-fadeup wi-fadeup--2 mx-auto w-full max-w-md rounded-t-full rounded-b-3xl bg-[#10233f] p-2.5">
-            <HeroKenBurns className="wi-chip relative overflow-hidden rounded-t-full rounded-b-2xl">
-              <Parallax depth={10}>
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={wedding.couple.photo}
-                  alt={names}
-                  className="aspect-[4/5] w-full object-cover"
-                />
-              </Parallax>
-            </HeroKenBurns>
+          <div className="relative mx-auto w-full max-w-md lg:mx-0">
+            <div className="wi-face wi-fadeup wi-fadeup--2 rounded-t-full rounded-b-3xl bg-[#10233f] p-2.5">
+              <HeroKenBurns className="wi-chip relative overflow-hidden rounded-t-full rounded-b-2xl">
+                <Parallax depth={10}>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={wedding.couple.photo}
+                    alt={names}
+                    className="aspect-[4/5] w-full object-cover object-[center_18%]"
+                  />
+                </Parallax>
+              </HeroKenBurns>
+            </div>
+            <ParallaxTiltCard className="absolute -bottom-5 -left-1 z-20 w-[7.25rem] sm:-left-6 sm:w-36" />
           </div>
         </div>
       </header>

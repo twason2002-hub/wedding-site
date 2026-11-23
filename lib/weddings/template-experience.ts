@@ -105,8 +105,10 @@ export interface ParallaxLayer {
   opacity?: number;
   width: number;
   height: number;
-  /** cover crops a strip; contain keeps a cut-out intact. */
-  fit?: "cover" | "contain";
+  /** cover anchors a full-bleed plate to the bottom; shore keeps a waterline; contain keeps a cut-out intact. */
+  fit?: "cover" | "contain" | "shore";
+  /** Soften a layer into the plate behind it. */
+  fade?: "top" | "bottom";
 }
 
 export interface SceneAccents {
@@ -136,7 +138,7 @@ export interface MotionConfig {
    */
   parallaxLayers?: ParallaxLayer[];
   /** Scrim behind names and the date so type stays at least 4.5:1. */
-  parallaxScrim?: "dark" | "light" | "none";
+  parallaxScrim?: "dark" | "light" | "palace" | "coast" | "none";
   accents?: SceneAccents;
   /** Omitted means every accent is off. */
   delight?: DelightFlags;
@@ -218,15 +220,15 @@ function art(
   opacity: number,
   width: number,
   height: number,
-  fit?: "cover" | "contain",
+  fit?: "cover" | "contain" | "shore",
 ): ParallaxLayer {
   return { src: `${ART}/${file}.webp`, depth, position, opacity, width, height, fit };
 }
 
 const ROYAL_LAYERS: ParallaxLayer[] = [
-  art("royal-skyline-bg", 36, "background", 1, 720, 1280),
-  art("royal-arch-frame", 14, "frame", 1, 689, 1179),
-  art("royal-lanterns", 64, "top", 1, 627, 1024),
+  art("royal-skyline-bg", 36, "background", 1, 720, 1280, "cover"),
+  art("royal-arch-frame", 14, "frame", 0.92, 689, 1179),
+  art("royal-lanterns", 64, "top", 0.82, 627, 1024),
 ];
 
 const VIVAH_LAYERS: ParallaxLayer[] = [
@@ -243,8 +245,8 @@ const FLORAL_LAYERS: ParallaxLayer[] = [
 
 const DESTINATION_LAYERS: ParallaxLayer[] = [
   art("destination-sky-bg", 34, "background", 1, 720, 1280),
-  art("destination-palms", 22, "edges", 1, 720, 1258),
-  art("destination-sand", 46, "bottom", 1, 720, 493, "cover"),
+  { ...art("destination-palms", 22, "edges", 0.92, 720, 1258), fade: "bottom" },
+  { ...art("destination-sand", 36, "bottom", 1, 720, 493, "shore"), fade: "top" },
 ];
 
 const MINIMAL_LAYERS: ParallaxLayer[] = [art("minimal-suite", 12, "tilt", 1, 539, 700)];
@@ -307,7 +309,7 @@ export const TEMPLATE_EXPERIENCES: Record<string, TemplateExperience> = {
         headingDepth: true,
       },
       parallaxLayers: ROYAL_LAYERS,
-      parallaxScrim: "dark",
+      parallaxScrim: "palace",
       accents: CREST_FRAME_ENVELOPE,
       delight: delight({
         goldDust: true,
@@ -525,7 +527,7 @@ export const TEMPLATE_EXPERIENCES: Record<string, TemplateExperience> = {
         headingDepth: true,
       },
       parallaxLayers: DESTINATION_LAYERS,
-      parallaxScrim: "dark",
+      parallaxScrim: "coast",
       accents: FRAME_ENVELOPE,
       delight: delight({
         nameSweep: true,

@@ -27,7 +27,7 @@ export default function SiteContactForm({ initial }: { initial: SiteContact }) {
     setError("");
     setSaved(false);
     if (!isValidWhatsappNumber(digits)) {
-      setError("Enter a WhatsApp number with country code. 919582915979 or +91 95829 15979 both work.");
+      setError("Enter a WhatsApp number with country code. 919056314930 or +91 90563 14930 both work.");
       return;
     }
     if (email.trim() && !isEmailSet(email)) {
@@ -85,7 +85,7 @@ export default function SiteContactForm({ initial }: { initial: SiteContact }) {
             autoComplete="tel"
             value={whatsapp}
             onChange={(e) => setWhatsapp(e.target.value)}
-            placeholder="919582915979"
+            placeholder="919056314930"
             required
           />
           <p className="adm-hint">
