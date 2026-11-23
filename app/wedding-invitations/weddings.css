@@ -1612,6 +1612,9 @@ section[aria-label="RSVP"] {
   --t-radius: 999px;
   --t-fade: 3.75rem;
 }
+.wi-invite[data-template="destination-wedding"] header::after {
+  content: none;
+}
 .wi-invite[data-template="destination-wedding"] {
   --t-bg: #f7f3eb;
   --t-bg-deep: #0a252c;

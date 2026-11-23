@@ -39,8 +39,9 @@ export default function RoyalHeritage({ wedding }: { wedding: WeddingData }) {
         <div
           className="pointer-events-none absolute inset-0"
           style={{
+            zIndex: 2,
             backgroundImage:
-              "radial-gradient(circle at 50% 18%, rgba(212,175,55,0.22) 0%, rgba(120,28,28,0.16) 38%, transparent 72%)",
+              "radial-gradient(ellipse 92% 58% at 50% 64%, rgba(20,8,6,0.84), rgba(20,8,6,0.4) 46%, transparent 72%)",
           }}
         />
         {/* Royal paisley ornaments drifting in the hero corners */}

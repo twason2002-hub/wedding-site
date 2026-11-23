@@ -14,7 +14,7 @@ const SignatureContext = createContext<SignatureFlags | null>(null);
 export interface MotionScene {
   signature: SignatureFlags;
   parallaxLayers: ParallaxLayer[];
-  parallaxScrim: "dark" | "light" | "none";
+  parallaxScrim: "dark" | "light" | "palace" | "coast" | "none";
   accents: SceneAccents;
   delight: DelightFlags;
 }

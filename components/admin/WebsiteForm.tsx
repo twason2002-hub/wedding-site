@@ -711,14 +711,14 @@ export default function WebsiteForm({
             <h2 className="adm-h2">Family contacts</h2>
           </div>
           <div className="adm-form-grid adm-form-grid--2">
-            <Field label="Phone numbers (one per line)" span2 hint="Shown on the invitation, for example +91 95829 15979 (Inviteo)">
+            <Field label="Phone numbers (one per line)" span2 hint="Shown on the invitation, for example +91 90563 14930 (Inviteo)">
               <textarea className="adm-field" value={form.contacts.numbers.join("\n")} onChange={(e) => set("contacts", { ...form.contacts, numbers: e.target.value.split("\n") })} />
             </Field>
-            <Field label="WhatsApp number" hint="Digits with country code, for example 919582915979">
-              <input className="adm-field" inputMode="tel" value={form.contacts.whatsapp} onChange={(e) => set("contacts", { ...form.contacts, whatsapp: e.target.value })} placeholder="919582915979" />
+            <Field label="WhatsApp number" hint="Digits with country code, for example 919056314930">
+              <input className="adm-field" inputMode="tel" value={form.contacts.whatsapp} onChange={(e) => set("contacts", { ...form.contacts, whatsapp: e.target.value })} placeholder="919056314930" />
             </Field>
             <Field label="RSVP WhatsApp number">
-              <input className="adm-field" inputMode="tel" value={form.contacts.rsvpNumber} onChange={(e) => set("contacts", { ...form.contacts, rsvpNumber: e.target.value })} placeholder="919582915979" />
+              <input className="adm-field" inputMode="tel" value={form.contacts.rsvpNumber} onChange={(e) => set("contacts", { ...form.contacts, rsvpNumber: e.target.value })} placeholder="919056314930" />
             </Field>
           </div>
         </section>

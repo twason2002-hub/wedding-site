@@ -4,7 +4,7 @@
  * WhatsApp is stored as digits only so links can use https://wa.me/<digits>.
  */
 
-export const DEFAULT_WHATSAPP_NUMBER = "919582915979";
+export const DEFAULT_WHATSAPP_NUMBER = "919056314930";
 
 export const GENERIC_WHATSAPP_MESSAGE = "Hi, I'd like to create a wedding invitation website.";
 
@@ -27,18 +27,16 @@ export const DEFAULT_SITE_CONTACT: SiteContact = {
 export const SITE_CONFIG = {
   brandName: "Inviteo",
   tagline: "Indian Wedding Invitation Websites",
-  templatePriceInr: 499,
 } as const;
 
-export const TEMPLATE_PRICE_LABEL = `₹${SITE_CONFIG.templatePriceInr.toLocaleString("en-IN")}`;
-
-export const TEMPLATE_PRICE_NOTE = `${TEMPLATE_PRICE_LABEL} one-time · same price for every design`;
+export const PRICING_NOTE =
+  "Contact us on WhatsApp for pricing — easy on your pocket, guaranteed cheapest in the market.";
 
 export function digitsOnly(value: string): string {
   return value.replace(/\D/g, "");
 }
 
-/** Accepts "+91 95829 15979", "919582915979", or a 10-digit Indian mobile. */
+/** Accepts "+91 90563 14930", "919056314930", or a 10-digit Indian mobile. */
 export function normalizeWhatsappNumber(value: string): string {
   let digits = digitsOnly(value);
   if (digits.length === 10) digits = `91${digits}`;
